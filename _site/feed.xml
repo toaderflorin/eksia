@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-16T10:52:01+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>Bla bla bla
+</subtitle><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/06/14/js-statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-06-14T06:39:37+03:00</published><updated>2017-06-14T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/14/js-statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/14/js-statically-typed.html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database — Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
+
+&lt;p&gt;For those who have not used node.js, it uses Google’s V8 JavaScript engine which powers Chrome, and it’s fast. And the reason why it’s fast is because it actually compiles you JS code instead of interpreting it. The whole process works as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;V8 evaluates the JavaScript in your file and does just-in-time compilation to machine code using a compiler that’s designed to compile as fast as possible, and then stores the compiled code for that portion of the program.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;V8 also maintains a hot-map of the code that runs. If it sees functions being run several times, it will use a second compiler which optimizes your code, but it’s slower.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The engine also relies heavily on making assumptions about your code, and optimizing preemptively.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do — it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// good
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Obj1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;55&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Obj2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// bad
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;additionalProperty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;something&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you add a new property to obj1, V8 is no longer able map the properties of the object to the same hidden class, so it will create a new one. V8 also tries to preemptively optimize your code and it does so by looking for repetitions.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff) — I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// we indicate these are private fields by using an underscore
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Doe&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Of course, there’s nothing preventing you from modifying the “private” fields in JavaScript (except maybe a code review from your technical lead), and also there is nothing preventing you from adding new properties to the object (except using Object.freeze() but this has a performance penalty). Not only will this give you better encapsulation, but it will speed up your code because V8 is able to optimize it better. Of course, if you really want to have private members and proper static (compile time) type checking, you can use Facebook’s Flow, or Microsoft’s TypeScript.&lt;/p&gt;
+
+&lt;p&gt;Also, a lot of developers tend to use plain JS objects as dictionaries because objects are key-value pairs. However, knowing how the V8 compiler optimizer works, that’s not a very good idea. Computed property names are also problematic for the optimizer, and they make code also hard to understand, so they should be avoided. The Map object is great, if you need to use key-value pairs.&lt;/p&gt;
+
+&lt;p&gt;Another word of caution: be extra careful with arrays. Check out the following code:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Something&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Something&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// so far, so good
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;53&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;We&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tricky&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whohoo&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fridge&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Even&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trickier&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// yes, you can do these things
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;but&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V8&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;won&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;too&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;happy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;about&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As long as an array doesn’t have holes in it, it’s going to be treated as a contiguous memory area, which makes the code using it fast. However, if you get fancy like in the example above, you are going to have a sparse array, and V8 will convert it to a hash-table, which will make writing and reading slower.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html">Disclaimer: I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/jekyll/update/2017/06/13/isolation-levels.html" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-06-13T06:39:37+03:00</published><updated>2017-06-13T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/06/13/isolation-levels</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/06/13/isolation-levels.html">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
+would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Read uncommitted&lt;/li&gt;
+  &lt;li&gt;Read committed&lt;/li&gt;
+  &lt;li&gt;Repeatable reads&lt;/li&gt;
+  &lt;li&gt;Serializable&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
+
+&lt;h2 id=&quot;dirty-reads&quot;&gt;Dirty Reads&lt;/h2&gt;
+
+&lt;p&gt;A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read uncommitted&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-repeatable-reads&quot;&gt;Non Repeatable Reads&lt;/h2&gt;
+
+&lt;p&gt;A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read committed&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;p&gt;The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.&lt;/p&gt;
+
+&lt;h2 id=&quot;phantom-reads&quot;&gt;Phantom Reads&lt;/h2&gt;
+
+&lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
+
+&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
+
+&lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;
+
+&lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">Achieving High Scalability With CQRS</title><link href="http://localhost:4000/jekyll/update/2017/06/13/cqrs.html" rel="alternate" type="text/html" title="Achieving High Scalability With CQRS" /><published>2017-06-13T06:39:37+03:00</published><updated>2017-06-13T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/06/13/cqrs</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/06/13/cqrs.html">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.&lt;/p&gt;
+
+&lt;p&gt;Architecturally, it looks something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What would be the advantage of separating the read and write path0s? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page?&lt;/p&gt;
+
+&lt;p&gt;So obviously, for an application like that we need an architecture that scales out easily — namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
+Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.&lt;/p&gt;
+
+&lt;h2 id=&quot;achieving-scalability&quot;&gt;Achieving scalability&lt;/h2&gt;
+
+&lt;p&gt;A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
+The problem with the following picture is keeping track of data.&lt;/p&gt;
+
+&lt;p&gt;We can do two things:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Connect all application servers to a single database server&lt;/li&gt;
+  &lt;li&gt;We can have each application have it’s own server&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But the problem in case number 1. is that the database server quickly becomes a bottleneck, and in case number 2. we might have a be redirected to server B when he/she writes something, and then when reading that data, a user would be redirected to server A. To solve this, there are two strategies that can be used, and they can be used together. Affinity and replication.
+Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place.
+Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users — let’s say rendering the wall in Facebook. The users might have their data on multiple servers.&lt;/p&gt;
+
+&lt;h2 id=&quot;cqrs-to-the-rescue&quot;&gt;CQRS to the rescue&lt;/h2&gt;
+
+&lt;p&gt;An application the size of Facebook probably has hundreds of thousands of servers and sophisticated proprietary caching and data storage. But it is a good example of the problems that can arise when scaling out web applications. We also don’t want to replicate all the data on all database server because it really becomes huge. So we usually use a combination of the techniques — for a very big application we would replicate data across data centers for speed and consistency, and we also use some for of affinity.&lt;/p&gt;
+
+&lt;p&gt;Let’s get back to the Facebook wall example. Imagine that we need to aggregate data from 30 different Facebook friends. Because we used write affinity, their posts might be on different servers, so aggregating the whole wall would be quite time consuming. Jill from the US might post something, my colleagues from the Netherlands might post something else, so it’s very unlikely the data will end up on the same database server.&lt;/p&gt;
+
+&lt;p&gt;Decoupling reading and writing allows us to have both read and write affinity. The read database in the architectural diagram acts as a view cache.
+With CQRS, posting something on your wall will write it into the primary (write) database(s), and this will send notification events to everybody that’s interested in that. So let’s say my user is configured to always have read affinity with server X. That server will be notified by the servers which host the write part of the application queue, and it will update it’s local cache. Also, not only does the read part have different user affinity than the write part, the models are usually denormalized for speed of access.&lt;/p&gt;</content><author><name></name></author><summary type="html">CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.</summary></entry><entry><title type="html">Architectural Ramblings: Cohesion And Coupling</title><link href="http://localhost:4000/jekyll/update/2017/06/13/cohesion-and-coupling.html" rel="alternate" type="text/html" title="Architectural Ramblings: Cohesion And Coupling" /><published>2017-06-13T06:39:37+03:00</published><updated>2017-06-13T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/06/13/cohesion-and-coupling</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/06/13/cohesion-and-coupling.html">&lt;p&gt;When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming).&lt;/p&gt;
+
+&lt;p&gt;That means a few conditions need to be met.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/closet.jpeg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-cohesion&quot;&gt;What Is Cohesion?&lt;/h2&gt;
+
+&lt;p&gt;In software engineering, cohesion refers to how much items in a class are logically related to one another. An example of this would be having all your summer shirts neatly folded into one drawer, the casual t-shirts in another etc. How does it help? It’s obvious: when you are looking for something, you know exactly where to find it, so you don’t waste time with trial and error. Just try to find a specific shirt in this thing:&lt;/p&gt;
+
+&lt;p&gt;An architecture in which components have a high level of cohesion makes development fast, because developers don’t spend a lot of time searching through thousand of lines code, talking to one another, sending emails around and waiting etc. It’s just smooth. Now, obviously nobody wants their closet to look like the previous picture, and nobody does it intentionally. Also, I am 100% sure that the owner of this baby is well aware that this is not the tidiest closet on planet Earth. My experience is that when this happens in software development, the developers fully realize it (because devs are a pretty smart bunch of people), but there isn’t a lot they can do about it — it’s usually a by product of various outside pressures. What is coupling?&lt;/p&gt;
+
+&lt;p&gt;Ever tried solving one of these?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/rubik.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive, img-left&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What most people do is try to solve one or two faces, and then the rest. Problem is: after solving the first face, trying to do the next will mess up what you’ve already done. Actually, that’s not how you solve a Rubik cube, but that’s another story. The problem with the Rubik cube is that the faces are interdependent, and this kind of dependencies between faces (or components) is something that you want to avoid at all costs in software engineering.&lt;/p&gt;
+
+&lt;p&gt;Imagine a team of 6 people (developers), who are trying to solve this puzzle. Each person does a move at a time, while the rest think. The first individual is trying to do the red face, the second is trying to do the blue face etc. Because the project is a bit behind schedule, six guys were brought in to make things go faster, instead of one.&lt;/p&gt;
+
+&lt;p&gt;Probably, those guys are more likely to get on each other’s nerves than do anything particularly useful, because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;They have different goals (each guy is trying to do his own user story, or face), and is evaluated as such by upper management.&lt;/li&gt;
+  &lt;li&gt;They are not isolated from one another and are stepping on each other’s toes.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;a-typical-example-of-coupling&quot;&gt;A Typical Example Of Coupling&lt;/h2&gt;
+
+&lt;p&gt;Consider the following: Component A depends on component B (component A has a direct reference to component B of some sort). Component B has a dependence on component C. And component C has a dependence on component A. What happens if you do some changes on A? Well, now the public signature of A is different and C will probably not work any more with A. So we need to change C. But B depends on C, so we also need to change B. So we just changed B, but remember that A was dependent on B. Is A now still compatible with the changes we made to B? We might need to change A again. But wait! If we change A again, will it still work with C? We have a chain of dependencies, and also a circular reference. If we don’t manage to fit the pieces together, we might have to throw the whole system away and start from scratch.&lt;/p&gt;
+
+&lt;p&gt;This might sound like a contrived example, but it’s not. I encountered it quite a bit in client side applications (WinForms, WPF and client side web applications), and in systems based on events that maintain and manipulate state. One button click would trigger some computation and then partial update of just some sections of the UI, including setting values on various controls. Change event handlers on these controls (text-box or other input elements) would trigger additional computations and partial updates in other parts of the UI and would also set public state flags used by other events that update other parts of the UI etc. Sometimes the partial updates would overlap and cause circular dependencies, or a very complicated flow that is hard to follow / change. SPAs not using an MVC, MVVM or Flux pattern are even more problematic because many times they involve unobtrusive attachment of event handlers, and auto-magic JS is notoriously hard to debug when it’s not working properly.&lt;/p&gt;
+
+&lt;h2 id=&quot;in-the-real-world&quot;&gt;In The Real World&lt;/h2&gt;
+
+&lt;p&gt;These structures usually evolve unplanned and organically (like a tree’s branches growing in all directions). One developer has to solve a bug that states some value in a UI element is incorrect so does a quick-and-dirty fix by attaching to some event and updates that control. Another one later comes and does another quick fix by doing the same someplace else etc. This kind of “architecture” was so prevalent in WinForms apps, that it led to Microsoft developing MVVM for WPF, and introducing observables, view models, templates and proper bidirectional data-binding.
+But things depend on one another, don’t they?&lt;/p&gt;
+
+&lt;p&gt;Yes, they do. You will always have coupling, but you can have loose-coupling or tight-coupling. And while sometimes, a bit of tight coupling is inevitable, one thing you want to avoid at all costs is circular references. If component A depends on B, and B depends on A, if you want to do changes, you need to change both at the same time. An example of this is the following: your UI will always have references to your business layer, but you should never reference the UI from the business — you just created a bidirectional monolithic bloc. The way to solve this is easy — ensure that the business is UI agnostic, and only the UI calls methods (or subscribes to events) from the business or model layer. The listener pattern is an excellent method of implementing low coupling.&lt;/p&gt;
+
+&lt;p&gt;I mentioned agnosticism. The general rule of thumb is that the components that are more prone to change, should depend on core components which are stable, and the stable ones should be agnostic of the other ones. The core components and interfaces (logging, routing, database access etc.) form the backbone of the application (the foundation, if you will) and the backbone should be closely guarded by the architect or the lead developer. The reason why you want to have this dependency topology (and not vice-versa), is because you don’t want a small change by John The-New-Guy in the model of the /socks-and-ties page of your online store application, to bring down everything. Also remember, that you should really give a good thought to the foundation, because after you’ve build level one and two of your structure, it’s really damn hard to make changes to the foundation because the whole thing rests on top of it.&lt;/p&gt;
+
+&lt;h2 id=&quot;an-analogy&quot;&gt;An Analogy&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/motherboard.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive, img-left&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine a computer. It has a motherboard, a processor, video card, memory, a hard-drive etc. The processor is a nicely encapsulated box, which communicates with the other nicely encapsulated boxes through well defined interfaces (the slot it’s fitted in, the other slots of the components in the mother board — all of these are industry standards). Regardless who makes the motherboard (MSI, Asus), the interfaces are the same for a specific hardware architecture. So let’s say, I get pissed at my video card for being so slow. Or with the hard drive, because I want an SSD. All I have to do is swap it with another one, just that simple. This is what loose coupling is.&lt;/p&gt;
+
+&lt;p&gt;Now imagine if the CPU had wires directly to the video-card, memory or hard-drive. If you’d wanted to change something, you’d have to trow the whole computer away and buy another one. Also, a keep in mind that a CPU has more than a billion transistors, but it’s socket has only hundreds of pins. Now, that’s encapsulation! The more state you can keep private in a class, the better, because over time there will be other code that links to it, which means tight coupling.&lt;/p&gt;
+
+&lt;p&gt;So the next time you want to call a component from another component directly, it might be worth it to consider an abstraction layer. Lastly, there is such a thing as the law of diminishing returns. It’s really easy to over-engineer stuff in the name of code art.&lt;/p&gt;</content><author><name></name></author><summary type="html">When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming).</summary></entry><entry><title type="html">Tail Call Optimizations In F#</title><link href="http://localhost:4000/jekyll/update/2016/06/13/tail-calls-fsharp.html" rel="alternate" type="text/html" title="Tail Call Optimizations In F#" /><published>2016-06-13T06:39:37+03:00</published><updated>2016-06-13T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2016/06/13/tail-calls-fsharp</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2016/06/13/tail-calls-fsharp.html">&lt;p&gt;I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied 
+to any language, even JavaScript.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/fsharp.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being 
+evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an 
+Enumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s 
+infinite, obviously summation will fail. The reason why I am using a sequence instead of a list is because a lot of the time 
+in F# we abstract the data reading part of a process in the form of an IEnumerable that yields data, similar to C#. 
+Now obviously when dealing with sequences, there are a lot of prebuilt functions — so you won’t need to implement a Sum() function, 
+but let’s say we want to implement our own for the sake of argument.&lt;/p&gt;
+
+&lt;p&gt;A lot of the stuff that we are doing in F# is based on functions which are recursive, because pure functional programming is 
+stateless (so no iterating blocks that update a state variable). So it will look like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;isEmpty&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;The sum of the sequence is %d:&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mySequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;But what happens if our collection is so big, that the code will throw a stack overflow exception?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Enter Tail Call Optimizations&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It turns out that if the recursive call is the last instruction in the method, the F# compiler is smart enough to replace 
+recursive calls with sequential goto calls, because there’s nothing to do afterwards (hence, no need to save a stack-frame 
+with the current execution state on the stack). So let’s revisit the code we wrote and explain why it isn’t tail optimized. 
+We are going to break the last instruction into separate instructions like so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt; 
+    &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;recursiveSum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;recursiveSum&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The sum of the sequence is %d:&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;You can clearly see that the recursive call isn’t the last instruction in the method, so the compiler won’t be able to do the 
+optimization we just talked about. Maybe there is a way to rewrite our code so that we can actually achieve this purpose. There 
+actually is. We are going to use accumulators.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+    &lt;span class=&quot;nf&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The sum of the sequence is %d:&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is tail optimized because we can write it like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remainingSequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newAccValue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remainingSequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newAccValue&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The sum of the sequence is %d:&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So what we are doing is simply adding the sum in a local value which we are passing along recursively. This is as close a thing to 
+state we have in purely functional programming. The problem with this code is that it is not very nice, because we need to initialize 
+it with the starting value for the accumulator. A nice feature of functional programming is that we can create nested functions like so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSumInternal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequenceInternal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isEmpty&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequenceInternal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remainingSequence&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequenceInternal&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newAccValue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;sequenceInternal&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;seqSumInternal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remainingSequence&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newAccValue&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seqSumUtil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequence&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;seqSum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mySequence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The sum of the sequence is %d:&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We just encapsulated our “ugly” function inside a “nice” one and we are exposing a proper signature. Our internal function is 
+also nicely recursion tail optimized. This is how all the default F# functions are implemented so you can be sure that when you 
+are using them, they will not blow up your stack. A word of causing for those looking to implement a functional programming style 
+in C#: Tail optimization doesn’t always work. The JIT will produce optimized code for .NET applications running on 64 bit machines 
+with “Platform target: Any CPU” or for a 64 bit target. Any other combination will result in unoptimized code.&lt;/p&gt;</content><author><name></name></author><summary type="html">I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript.</summary></entry></feed>

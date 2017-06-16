@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title>
+  <meta name="description" content="Disclaimer: I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/javascript/2017/06/14/js-statically-typed.html">
+  <link rel="alternate" type="application/rss+xml" title="achiral" href="/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Roboto:200,300,400" rel="stylesheet">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    <svg class="site-logo" width="35" height="35" viewBox="0 0 100 100" stroke="#bbb" stroke-width="2.5" fill="#222" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="400" fill="#222" stroke-width="0"></rect>
+      <line x1="50" y1="40" x2="20" y2="35" />
+      <line x1="50" y1="40" x2="80" y2="35" />
+      <line x1="50" y1="40" x2="50" y2="75" />
+      <line x1="50" y1="40" x2="30" y2="60" />
+      <line x1="50" y1="40" x2="70" y2="60" />
+      <circle cx="50" cy="40" r="9" />
+      <circle cx="20" cy="35" r="9" />
+      <circle cx="80" cy="35" r="9" />
+      <circle cx="25" cy="62" r="9" />
+      <circle cx="75" cy="62" r="9" />
+      <circle cx="50" cy="75" r="9" />
+    </svg>
+
+     
+
+    <a class="site-title" href="/">achiral</a> 
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      <div class="trigger">
+          
+        <a class="page-link" href="/about/">About</a>           
+      </div>
+    </nav>
+    
+  </div>
+</header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <br/>
+  <br/>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</h1>   
+
+    <p class="post-meta">
+      <time datetime="2017-06-14T06:39:37+03:00" itemprop="datePublished">
+        
+        Jun 14, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><em><strong>Disclaimer:</strong> I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.</em></p>
+
+<p><img src="/images/chrome.png" alt="image-title-here" class="img-responsive" /></p>
+
+<p>Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database — Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.</p>
+
+<p>For those who have not used node.js, it uses Google’s V8 JavaScript engine which powers Chrome, and it’s fast. And the reason why it’s fast is because it actually compiles you JS code instead of interpreting it. The whole process works as follows:</p>
+
+<ol>
+  <li>
+    <p>V8 evaluates the JavaScript in your file and does just-in-time compilation to machine code using a compiler that’s designed to compile as fast as possible, and then stores the compiled code for that portion of the program.</p>
+  </li>
+  <li>
+    <p>V8 also maintains a hot-map of the code that runs. If it sees functions being run several times, it will use a second compiler which optimizes your code, but it’s slower.</p>
+  </li>
+  <li>
+    <p>The engine also relies heavily on making assumptions about your code, and optimizing preemptively.</p>
+  </li>
+</ol>
+
+<p>What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do — it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="c1">// good
+</span><span class="k">let</span> <span class="n">obj1</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">SomeClass</span><span class="p">(</span><span class="m">31</span><span class="p">,</span> <span class="err">'</span><span class="n">Obj1</span><span class="err">'</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">obj2</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">SomeClass</span><span class="p">(</span><span class="m">55</span><span class="p">,</span> <span class="err">'</span><span class="n">Obj2</span><span class="err">'</span><span class="p">);</span>
+
+<span class="c1">// bad
+</span><span class="n">obj1</span><span class="p">.</span><span class="n">additionalProperty</span> <span class="p">=</span> <span class="err">'</span><span class="n">something</span> <span class="k">else</span><span class="err">'</span><span class="p">;</span>  </code></pre></figure>
+
+<p>If you add a new property to obj1, V8 is no longer able map the properties of the object to the same hidden class, so it will create a new one. V8 also tries to preemptively optimize your code and it does so by looking for repetitions.</p>
+
+<p><em>JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.</em></p>
+
+<p>If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff) — I suggest you use classes to structure your project, and use getters and setters.</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+  <span class="nf">constructor</span><span class="p">(</span><span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// we indicate these are private fields by using an underscore
+</span>    <span class="k">this</span><span class="p">.</span><span class="n">_firstName</span> <span class="p">=</span> <span class="n">firstName</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">_lastName</span> <span class="p">=</span> <span class="n">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">get</span> <span class="nf">firstName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">_firstName</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">set</span> <span class="nf">firstName</span><span class="p">(</span><span class="k">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">_firstName</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">get</span> <span class="nf">lastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="n">_lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">set</span> <span class="nf">lastName</span><span class="p">(</span><span class="k">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="n">_lastName</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="k">get</span> <span class="nf">fullName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="err">`$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="n">_firstName</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="n">_lastName</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="n">person</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Person</span><span class="p">(</span><span class="err">'</span><span class="n">John</span><span class="err">'</span><span class="p">,</span> <span class="err">'</span><span class="n">Doe</span><span class="err">'</span><span class="p">);</span></code></pre></figure>
+
+<p>Of course, there’s nothing preventing you from modifying the “private” fields in JavaScript (except maybe a code review from your technical lead), and also there is nothing preventing you from adding new properties to the object (except using Object.freeze() but this has a performance penalty). Not only will this give you better encapsulation, but it will speed up your code because V8 is able to optimize it better. Of course, if you really want to have private members and proper static (compile time) type checking, you can use Facebook’s Flow, or Microsoft’s TypeScript.</p>
+
+<p>Also, a lot of developers tend to use plain JS objects as dictionaries because objects are key-value pairs. However, knowing how the V8 compiler optimizer works, that’s not a very good idea. Computed property names are also problematic for the optimizer, and they make code also hard to understand, so they should be avoided. The Map object is great, if you need to use key-value pairs.</p>
+
+<p>Another word of caution: be extra careful with arrays. Check out the following code:</p>
+
+<figure class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">const</span> <span class="n">arr</span> <span class="p">=</span> <span class="p">[];</span>
+<span class="n">arr</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="err">'</span><span class="n">Something</span><span class="err">'</span><span class="p">);</span>
+<span class="n">arr</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="err">'</span><span class="n">Something</span> <span class="k">else</span><span class="err">'</span><span class="p">);</span>
+<span class="n">arr</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="m">23</span><span class="p">);</span>
+
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="m">1</span><span class="p">]);</span> <span class="c1">// so far, so good
+</span>
+<span class="n">arr</span><span class="p">[</span><span class="m">53</span><span class="p">]</span> <span class="p">=</span> <span class="err">'</span><span class="n">We</span> <span class="n">can</span> <span class="k">get</span> <span class="n">tricky</span><span class="p">,</span> <span class="n">whohoo</span><span class="err">'</span><span class="p">;</span>
+<span class="n">arr</span><span class="p">[</span><span class="err">'</span><span class="n">fridge</span><span class="err">'</span><span class="p">]</span> <span class="p">=</span> <span class="err">'</span><span class="n">Even</span> <span class="n">trickier</span><span class="err">'</span><span class="p">;</span>
+<span class="c1">// yes, you can do these things
+</span><span class="p">//</span> <span class="n">but</span> <span class="n">V8</span> <span class="n">won</span><span class="err">'</span><span class="n">t</span> <span class="n">be</span> <span class="n">too</span> <span class="n">happy</span> <span class="n">about</span> <span class="n">it</span></code></pre></figure>
+
+<p>As long as an array doesn’t have holes in it, it’s going to be treated as a contiguous memory area, which makes the code using it fast. However, if you get fancy like in the example above, you are going to have a sparse array, and V8 will convert it to a hash-table, which will make writing and reading slower.</p>
+
+<p><strong>tldr;</strong></p>
+
+<p>The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.</p>
+
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            <b>
+              achiral
+            </b>
+          </li>
+          <li>
+            Intrarea Doinei 5
+          </li>
+          
+          <li><a href="mailto:office@achiral.com">office@achiral.com</a></li>
+          
+          <li>
+            +40 732 591 103
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p style="margin-top:10px">
+          <b>achiral</b> offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks. 
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Relational Database Isolation Levels Explained</title>
+  <meta name="description" content="This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/jekyll/update/2017/06/13/isolation-levels.html">
+  <link rel="alternate" type="application/rss+xml" title="achiral" href="/feed.xml">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display|Roboto:200,300,400" rel="stylesheet">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    <svg class="site-logo" width="35" height="35" viewBox="0 0 100 100" stroke="#bbb" stroke-width="2.5" fill="#222" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="400" fill="#222" stroke-width="0"></rect>
+      <line x1="50" y1="40" x2="20" y2="35" />
+      <line x1="50" y1="40" x2="80" y2="35" />
+      <line x1="50" y1="40" x2="50" y2="75" />
+      <line x1="50" y1="40" x2="30" y2="60" />
+      <line x1="50" y1="40" x2="70" y2="60" />
+      <circle cx="50" cy="40" r="9" />
+      <circle cx="20" cy="35" r="9" />
+      <circle cx="80" cy="35" r="9" />
+      <circle cx="25" cy="62" r="9" />
+      <circle cx="75" cy="62" r="9" />
+      <circle cx="50" cy="75" r="9" />
+    </svg>
+
+     
+
+    <a class="site-title" href="/">achiral</a> 
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      <div class="trigger">
+          
+        <a class="page-link" href="/about/">About</a>           
+      </div>
+    </nav>
+    
+  </div>
+</header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <br/>
+  <br/>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Relational Database Isolation Levels Explained</h1>   
+
+    <p class="post-meta">
+      <time datetime="2017-06-13T06:39:37+03:00" itemprop="datePublished">
+        
+        Jun 13, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>This seems to be a murky concept for a lot of developers, so I thought I
+would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</p>
+
+<p><img src="/images/levels.png" alt="image-title-here" class="img-responsive" /></p>
+
+<p>The SQL standard defines four isolation levels:</p>
+
+<ol>
+  <li>Read uncommitted</li>
+  <li>Read committed</li>
+  <li>Repeatable reads</li>
+  <li>Serializable</li>
+</ol>
+
+<p>Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between <em>dirty reads, non repeatable reads, and phantom reads</em>.</p>
+
+<p>Let’s try to explain them one by one.</p>
+
+<h2 id="dirty-reads">Dirty Reads</h2>
+
+<p>A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.</p>
+
+<p>This is the <strong>read uncommitted</strong> isolation level.</p>
+
+<h2 id="non-repeatable-reads">Non Repeatable Reads</h2>
+
+<p>A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.</p>
+
+<p>This is the <strong>read committed</strong> isolation level.</p>
+
+<p>The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.</p>
+
+<h2 id="phantom-reads">Phantom Reads</h2>
+
+<p>Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.</p>
+
+<p>The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range.</p>
+
+<p>This range is based on the query - for example:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">WHERE</span> <span class="k">TimeStamp</span> <span class="o">&gt;</span> <span class="n">T1</span> <span class="k">AND</span> <span class="k">TimeStamp</span> <span class="o">&lt;</span> <span class="n">T2</span></code></pre></figure>
+
+<p>Obviously, this introduces even more contention.</p>
+
+<p>Happy coding!</p>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            <b>
+              achiral
+            </b>
+          </li>
+          <li>
+            Intrarea Doinei 5
+          </li>
+          
+          <li><a href="mailto:office@achiral.com">office@achiral.com</a></li>
+          
+          <li>
+            +40 732 591 103
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p style="margin-top:10px">
+          <b>achiral</b> offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks. 
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+
+</html>
