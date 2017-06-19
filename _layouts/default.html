@@ -4,14 +4,15 @@
   {% include head.html %}
 
   <body>
+    {% include header.html %}ß
+    <div style="height: 20px; background-color: #ccc; z-index: -1;">
 
-    {% include header.html %}
-
-    <main class="page-content" aria-label="Content">
+    </div>
+    <main class="page-content" aria-label="Content" style="margin-top:0; z-index: 1000;">
       <div class="wrapper">
         {{ content }}
       </div>
-    </main>
+    </main>    
 
     {% include footer.html %}
 

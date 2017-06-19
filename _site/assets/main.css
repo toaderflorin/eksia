@@ -60,7 +60,8 @@ blockquote {
 pre, code {
   font-size: 14.0625px;
   border: 1px solid #f2f2f2;
-  border-radius: 3px;
+  border-left: 3px solid #ee4477;
+  border-radius: 0px;
   font-family: 'Courier New';
   background-color: #fcfcfc; }
 
@@ -109,10 +110,10 @@ pre {
   border-top: 3px solid #ee4477;
   border-bottom: 1px solid #ddd;
   min-height: 45px;
-  box-shadow: 0px 1px 5px #888888;
   background-color: #222;
   width: 100%;
-  position: fixed; }
+  position: fixed;
+  top: 0; }
 
 .site-title {
   font-size: 24.375px;
@@ -194,7 +195,7 @@ pre {
 
 .footer-col {
   float: left;
-  font-size: 12px;
+  font-size: 12.75px;
   margin-bottom: 15px;
   padding-left: 15px; }
 
@@ -210,14 +211,6 @@ pre {
   width: -webkit-calc(45% - (30px / 2));
   width: calc(45% - (30px / 2)); }
 
-@media screen and (max-width: 800px) {
-  .footer-col-1, .footer-col-2 {
-    width: -webkit-calc(50% - (30px / 2));
-    width: calc(50% - (30px / 2)); }
-
-  .footer-col-3 {
-    width: -webkit-calc(100% - (30px / 2));
-    width: calc(100% - (30px / 2)); } }
 @media screen and (max-width: 600px) {
   .footer-col {
     float: none;
