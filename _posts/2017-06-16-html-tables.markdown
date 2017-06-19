@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "HTML Layouts: Part 1"
+title:  "Don't Use Tables For Layouts"
 description: "It wasn't that long ago when developers were using tables to format their web pages. Although we all know that's wrong, 
 if you ask developers to point out why it's wrong. you will get a myriad of answers and a lot of them actually won't 
 know what to actually say. We'll get to that in a minute, but first, let's start with a brief history of HTML. HTML was 
