@@ -1,126 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-19T06:26:39+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>Bla bla bla
-</subtitle><entry><title type="html">Head To Head: Angular vs React vs Vue</title><link href="http://localhost:4000/jekyll/update/2017/06/15/angular-react-vue.html" rel="alternate" type="text/html" title="Head To Head: Angular vs React vs Vue" /><published>2017-06-15T06:39:37+03:00</published><updated>2017-06-15T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/06/15/angular-react-vue</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/06/15/angular-react-vue.html">&lt;p&gt;They are all component based. They all have a big backer behind them - React and Angular need no introduction, but for Vue, it’s Alibaba. So what exactly is the difference? Just to be sure we are all on the same page, I am talking about Angular 2+ here (Angular 1 is not component based). And interestingly enough, even though all frameworks are build around components, actually neither of them implement the standard HTML component specification - that task is up to Polymer, if you want to go that route but that’s another discussion.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/versus-banner.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;start&quot;&gt;Start!&lt;/h2&gt;
-
-&lt;p&gt;Let’s first pit the brain childs of the two giants head to head, and then we’ll tackle Vue, which is the newcomer. Admitedly, this is a bit unfair, because Angular is a fully fledged framework (it’s advertised as a MV* - Model-View-Whatever), and React represents just the view layer, and Facebook recommends using a pattern such as Flux with it. Angular has dependency injection, validation, directives, routing etc., React doesn’t even have a router. And here’s another way the frameworks differ drastically: Angular is built on TypeScript, and for the best development experience, it’s also recommended you develop with TS. I know Google mentions you can use plain old JS do develop Angular applications, that’s not going to be a particulary pleasant experience. React on the other hand doesn’t necesarily require TS, altough you can certainly use it, but for best experience, you have to use JSX, which is a Facebook contraption / invention - it’s essentially a way of embeding HTML into JavaScript, which again &lt;em&gt;might not be your cup of tea&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Vue on the other hand is interesting because &lt;strong&gt;it does not&lt;/strong&gt; require you to use any fancy transpilation, and it’s more like React and not like face book - as in it doesn’t have with everything and the kitchen sync packaged in it.&lt;/p&gt;
-
-&lt;h2 id=&quot;i-want-to-see-some-examples&quot;&gt;I Want To See Some Examples!&lt;/h2&gt;
-
-&lt;p&gt;Let’s try to give a little bit of sample code for each of the three platforms. We are going to attempt to build the same component, and we’ll discuss props and state. In our example, we’ll attempt to build a simple blog post page which will involve two components - a post summary and a post list. This would allow us to see how component composition works.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Greeting&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;React&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nf&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;props&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;An angular component looks like this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;nf&quot;&gt;@Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;templateUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;styleUrls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;css&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;works&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And a Vue component would look like:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Vue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;increment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You might have noticed that Angular uses databinding whereas React and Vue do not. What does that actually mean? Well, in layman’s terms, they use unidirectional dataflow, whereas databinding can happen two way.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/vuex.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">They are all component based. They all have a big backer behind them - React and Angular need no introduction, but for Vue, it’s Alibaba. So what exactly is the difference? Just to be sure we are all on the same page, I am talking about Angular 2+ here (Angular 1 is not component based). And interestingly enough, even though all frameworks are build around components, actually neither of them implement the standard HTML component specification - that task is up to Polymer, if you want to go that route but that’s another discussion.</summary></entry><entry><title type="html">Don’t Use Tables For Layouts</title><link href="http://localhost:4000/javascript/2017/06/14/html-tables.html" rel="alternate" type="text/html" title="Don't Use Tables For Layouts" /><published>2017-06-14T06:39:37+03:00</published><updated>2017-06-14T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/14/html-tables</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/14/html-tables.html">&lt;p&gt;It wasn’t that long ago when developers were using tables to format their web pages. Although we all know that’s “wrong”, 
-if you ask developers to point out why it’s wrong, you will get a myriad of answers and a lot of them actually won’t 
-know what to actually say. We’ll get to that in a minute, but first, let’s start with a brief history of HTML. HTML was 
-designed mainly for flowing text articles. It had paragraphs, headings and so forth. It also had hyperlinks, so you could 
-click on one and that would take you to another article.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;This means that an html page is vertically biased, and this is an important distinction to make. It’s designed to flow vertically, 
-but NOT horizontally.&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">It wasn’t that long ago when developers were using tables to format their web pages. Although we all know that’s “wrong”, if you ask developers to point out why it’s wrong, you will get a myriad of answers and a lot of them actually won’t know what to actually say. We’ll get to that in a minute, but first, let’s start with a brief history of HTML. HTML was designed mainly for flowing text articles. It had paragraphs, headings and so forth. It also had hyperlinks, so you could click on one and that would take you to another article.</summary></entry><entry><title type="html">Facebook Flux And Parallels With CQRS</title><link href="http://localhost:4000/jekyll/update/2017/05/11/cqrs-flux.html" rel="alternate" type="text/html" title="Facebook Flux And Parallels With CQRS" /><published>2017-05-11T06:39:37+03:00</published><updated>2017-05-11T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/05/11/cqrs-flux</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/05/11/cqrs-flux.html">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result. Architecturally, it looks something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily — namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
-Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.&lt;/p&gt;
-
-&lt;p&gt;A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
-The problem with the following picture is keeping track of data.&lt;/p&gt;
-
-&lt;p&gt;We can do two things:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Connect all application servers to a single database server.&lt;/li&gt;
-  &lt;li&gt;We can have each application have it’s own server.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;But the problem in case number 1. is that the database server quickly becomes a bottleneck, and in case number 2. we might have a be redirected to server B when he/she writes something, and then when reading that data, a user would be redirected to server A. To solve this, there are two strategies that can be used, and they can be used together. Affinity and replication.
-Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place. Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users — let’s say rendering the wall in Facebook. The users might have their data on multiple servers.&lt;/p&gt;
-
-&lt;h2 id=&quot;cqrs-to-the-rescue&quot;&gt;CQRS to the rescue&lt;/h2&gt;
-
-&lt;p&gt;An application the size of Facebook probably has hundreds of thousands of servers and sophisticated proprietary caching and data storage. But it is a good example of the problems that can arise when scaling out web applications. We also don’t want to replicate all the data on all database server because it really becomes huge. So we usually use a combination of the techniques — for a very big application we would replicate data across data centers for speed and consistency, and we also use some for of affinity.&lt;/p&gt;
-
-&lt;p&gt;Let’s get back to the Facebook wall example. Imagine that we need to aggregate data from 30 different Facebook friends. Because we used write affinity, their posts might be on different servers, so aggregating the whole wall would be quite time consuming. Jill from the US might post something, my colleagues from the Netherlands might post something else, so it’s very unlikely the data will end up on the same database server. Decoupling reading and writing allows us to have both read and write affinity. The read database in the architectural diagram acts as a view cache. With CQRS, posting something on your wall will write it into the primary (write) database(s), and this will send notification events to everybody that’s interested in that. So let’s say my user is configured to always have read affinity with server X. That server will be notified by the servers which host the write part of the application queue, and it will update it’s local cache. Also, not only does the read part have different user affinity than the write part, the models are usually denormalized for speed of access.&lt;/p&gt;
-
-&lt;h2 id=&quot;enter-flux&quot;&gt;Enter Flux&lt;/h2&gt;
-
-&lt;p&gt;It didn’t occur to me for quite some time, but there are significant similarities between CQRS and Flux - one being present on the server side and the other one on the client side. In fact, they can be used together.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The paralels here mean that you don’t mutate state directly.&lt;/p&gt;</content><author><name></name></author><summary type="html">CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result. Architecturally, it looks something like this:</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-05-02T06:39:37+03:00</published><updated>2017-05-02T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/05/02/isolation-levels</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
-would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Read uncommitted&lt;/li&gt;
-  &lt;li&gt;Read committed&lt;/li&gt;
-  &lt;li&gt;Repeatable reads&lt;/li&gt;
-  &lt;li&gt;Serializable&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
-
-&lt;h2 id=&quot;dirty-reads&quot;&gt;Dirty Reads&lt;/h2&gt;
-
-&lt;p&gt;A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.&lt;/p&gt;
-
-&lt;p&gt;This is the &lt;strong&gt;read uncommitted&lt;/strong&gt; isolation level.&lt;/p&gt;
-
-&lt;h2 id=&quot;non-repeatable-reads&quot;&gt;Non Repeatable Reads&lt;/h2&gt;
-
-&lt;p&gt;A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.&lt;/p&gt;
-
-&lt;p&gt;This is the &lt;strong&gt;read committed&lt;/strong&gt; isolation level.&lt;/p&gt;
-
-&lt;p&gt;The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.&lt;/p&gt;
-
-&lt;h2 id=&quot;phantom-reads&quot;&gt;Phantom Reads&lt;/h2&gt;
-
-&lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
-
-&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
-
-&lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;
-
-&lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/04/23/statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-04-23T06:39:37+03:00</published><updated>2017-04-23T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/04/23/statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/04/23/statically-typed.html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-19T12:20:35+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>Bla bla bla
+</subtitle><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/06/16/statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/16/statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/16/statically-typed.html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -207,7 +86,51 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html">Disclaimer: I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.</summary></entry><entry><title type="html">Architectural Ramblings: Cohesion And Coupling</title><link href="http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling.html" rel="alternate" type="text/html" title="Architectural Ramblings: Cohesion And Coupling" /><published>2017-04-14T06:39:37+03:00</published><updated>2017-04-14T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling.html">&lt;p&gt;When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming).&lt;/p&gt;
+&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html">Disclaimer: I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-05-02T06:39:37+03:00</published><updated>2017-05-02T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/05/02/isolation-levels</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
+would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Read uncommitted&lt;/li&gt;
+  &lt;li&gt;Read committed&lt;/li&gt;
+  &lt;li&gt;Repeatable reads&lt;/li&gt;
+  &lt;li&gt;Serializable&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
+
+&lt;h2 id=&quot;dirty-reads&quot;&gt;Dirty Reads&lt;/h2&gt;
+
+&lt;p&gt;A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read uncommitted&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-repeatable-reads&quot;&gt;Non Repeatable Reads&lt;/h2&gt;
+
+&lt;p&gt;A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read committed&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;p&gt;The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.&lt;/p&gt;
+
+&lt;h2 id=&quot;phantom-reads&quot;&gt;Phantom Reads&lt;/h2&gt;
+
+&lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
+
+&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
+
+&lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;
+
+&lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">Architectural Ramblings: Cohesion And Coupling</title><link href="http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling.html" rel="alternate" type="text/html" title="Architectural Ramblings: Cohesion And Coupling" /><published>2017-04-14T06:39:37+03:00</published><updated>2017-04-14T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/04/14/cohesion-and-coupling.html">&lt;p&gt;When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming).&lt;/p&gt;
 
 &lt;p&gt;That means a few conditions need to be met.&lt;/p&gt;
 

@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "Head To Head: Angular vs React vs Vue"
-date:   2017-06-15 06:39:37 +0300
-description: "They are all component based. They all have a big backer behind them - React and Angular need no introduction, but for Vue, it's Alibaba. So what exactly is the difference? Just to be sure we are all on the same page, I am talking about Angular 2+ here (Angular 1 is not component based). And interestingly enough, even though all frameworks are build around components, actually neither of them implement the standard HTML component specification - that task is up to Polymer, if you want to go that route but that’s another discussion.
+date:   2017-06-16 06:39:37 +0300
+description: "They are all component based. They all have a big backer behind them - React and Angular need no introduction, but for Vue, it's Alibaba. So what exactly is the difference? Just to be sure we are all on the same page, I am talking about Angular 2+ here (Angular 1 is not component based). And interestingly enough, even though all frameworks are build around components, actually neither of them implement the standard HTML component specification...
 "
 icon: "versus.png"
 categories: jekyll update
