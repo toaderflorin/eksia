@@ -19,7 +19,6 @@
 
 
   <body>
-
     <header class="site-header" role="banner">
 
   <div class="wrapper">
@@ -60,12 +59,15 @@
     </nav>
     
   </div>
-</header>
+</header>ß
+    <div style="height: 20px; background-color: #ccc; z-index: -1;">
 
-    <main class="page-content" aria-label="Content">
+    </div>
+    <main class="page-content" aria-label="Content" style="margin-top:0; z-index: 1000;">
       <div class="wrapper">
         <br/>
 <br/>
+
 <div class="home">
 
   
@@ -75,46 +77,22 @@
     
     <li>
       <h2>
-        <a class="post-link" href="/javascript/2017/06/14/html2.html">HTML Layouts: Part 2</a>
+        <a class="post-link" href="/javascript/2017/06/16/statically-typed.html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</a>
       </h2>
       
-      <span class="post-meta">Jun 14, 2017</span>
+      <span class="post-meta">Jun 16, 2017</span>
       <div class="post-description">
-        <img src="images/html.jpg" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
-        It wasn't that long ago when developers were using tables to format their web pages. Although we all know that's wrong, if you ask developers to point out why it's wrong. you will get a myriad of answers and a lot of them actually won't know what to actually say. We'll get to that in a minute, but first, let's start with a brief history of HTML. HTML was designed mainly for flowing text articles.
-      </div>
-    </li>
-    
-    <li>
-      <h2>
-        <a class="post-link" href="/javascript/2017/06/14/html1.html">HTML Layouts: Part 1</a>
-      </h2>
-      
-      <span class="post-meta">Jun 14, 2017</span>
-      <div class="post-description">
-        <img src="images/html.jpg" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
-        It wasn't that long ago when developers were using tables to format their web pages. Although we all know that's wrong, if you ask developers to point out why it's wrong. you will get a myriad of answers and a lot of them actually won't know what to actually say. We'll get to that in a minute, but first, let's start with a brief history of HTML. HTML was designed mainly for flowing text articles.
-      </div>
-    </li>
-    
-    <li>
-      <h2>
-        <a class="post-link" href="/javascript/2017/06/14/js-statically-typed.html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</a>
-      </h2>
-      
-      <span class="post-meta">Jun 14, 2017</span>
-      <div class="post-description">
-        <img src="images/js-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
+        <img src="images/chrome-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
         Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using...
       </div>
     </li>
     
     <li>
       <h2>
-        <a class="post-link" href="/jekyll/update/2017/06/13/isolation-levels.html">Relational Database Isolation Levels Explained</a>
+        <a class="post-link" href="/jekyll/update/2017/05/02/isolation-levels.html">Relational Database Isolation Levels Explained</a>
       </h2>
       
-      <span class="post-meta">Jun 13, 2017</span>
+      <span class="post-meta">May 2, 2017</span>
       <div class="post-description">
         <img src="images/db-icon.jpg" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
         This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. The SQL standard defines four isolation levels... 
@@ -123,22 +101,10 @@
     
     <li>
       <h2>
-        <a class="post-link" href="/jekyll/update/2017/06/13/cqrs.html">Facebook Flux And Parallels With CQRS</a>
+        <a class="post-link" href="/jekyll/update/2017/04/14/cohesion-and-coupling.html">Architectural Ramblings: Cohesion And Coupling</a>
       </h2>
       
-      <span class="post-meta">Jun 13, 2017</span>
-      <div class="post-description">
-        <img src="images/flux-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
-        CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result. 
-      </div>
-    </li>
-    
-    <li>
-      <h2>
-        <a class="post-link" href="/jekyll/update/2017/06/13/cohesion-and-coupling.html">Architectural Ramblings: Cohesion And Coupling</a>
-      </h2>
-      
-      <span class="post-meta">Jun 13, 2017</span>
+      <span class="post-meta">Apr 14, 2017</span>
       <div class="post-description">
         <img src="images/arch-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
         When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming). That means a few conditions need to be met. 
@@ -147,10 +113,10 @@
     
     <li>
       <h2>
-        <a class="post-link" href="/jekyll/update/2016/06/13/tail-calls-fsharp.html">Tail Call Optimizations In F#</a>
+        <a class="post-link" href="/jekyll/update/2017/04/07/tail-calls-fsharp.html">Tail Call Optimizations In F#</a>
       </h2>
       
-      <span class="post-meta">Jun 13, 2016</span>
+      <span class="post-meta">Apr 7, 2017</span>
       <div class="post-description">
         <img src="images/fsharp-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
         I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript. Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an IEnumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s infinite, obviously summation will fail... 
@@ -160,7 +126,7 @@
   </ul>
 </div>
       </div>
-    </main>
+    </main>    
 
     <footer class="site-footer">
   <div class="wrapper">

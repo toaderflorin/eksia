@@ -1,11 +1,10 @@
 ---
 layout: post
-title:  "HTML Layouts: Part 1"
+title: 
 description: "It wasn't that long ago when developers were using tables to format their web pages. Although we all know that's wrong, 
 if you ask developers to point out why it's wrong. you will get a myriad of answers and a lot of them actually won't 
-know what to actually say. We'll get to that in a minute, but first, let's start with a brief history of HTML. HTML was 
-designed mainly for flowing text articles."
-date:   2017-06-14 06:39:37 +0300
+know what to actually say. We'll get to that in a minute, but first, let's start with a brief history of HTML."
+date: 2017-05-16 06:39:37 +0300
 icon: "html.jpg"
 categories: javascript
 ---
