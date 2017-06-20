@@ -41,7 +41,7 @@ a {
   text-decoration: none; }
   a:hover {
     color: #333;
-    text-decoration: underline; }
+    transition-duration: 1.3s; }
   .social-media-list a:hover {
     text-decoration: none; }
     .social-media-list a:hover .username {
@@ -113,7 +113,8 @@ pre {
   background-color: #222;
   width: 100%;
   position: fixed;
-  top: 0; }
+  top: 0;
+  box-shadow: 0 10px 50px -15px black; }
 
 .site-title {
   font-size: 24.375px;
