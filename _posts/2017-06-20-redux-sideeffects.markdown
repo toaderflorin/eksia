@@ -3,8 +3,8 @@ layout: post
 title:  "Server Access: Handling Side Effects In Redux"
 date:   2017-06-20 06:39:37 +0300
 description: "
-This seems to be a murky concept for a lot of developers, so I thought I
-would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. 
+Since Redux allows for custom middleware, we can use something called Redux Thunk to help us. It is important to be aware that without middleware, Redux only supports a synchronous flow. So what is a thunk? It’s just a function - it wraps an expression, so you can delay the evaluation of the result of that expression. Here’s a code sample I “borrowed” (promise I will give it right back) straight from the library documentation:
+ 
 "
 icon: "logo-redux.png"
 categories: jekyll update

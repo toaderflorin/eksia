@@ -45,10 +45,11 @@
     
 </header>
     
-    <div style="color: #888; height: 75px; max-height: 75px; background-color: #444; z-index: -1; padding-top: 62px;">
+    <div style="color: #888; height: 70px; max-height: 70px; background-color: #444; z-index: -1; padding-top: 62px;">
       <div class="wrapper">
         <div style="margin-left: -5px;">
-          <svg class="site-logo" width="46" height="46" viewBox="0 0 100 100" stroke="#ee4477" stroke-width="2.5" fill="#2f2f2f" xmlns="http://www.w3.org/2000/svg"
+          <svg class="site-logo" width="46" height="46" viewBox="0 0 100 100" stroke="#ee4477" stroke-width="2.5" fill="#2f2f2f" 
+            xmlns="http://www.w3.org/2000/svg"
             style="margin-right: 10px">
 
             <rect x="0" y="0" width="100" height="100" fill="#2f2f2f" />
@@ -92,8 +93,9 @@
       
       <span class="post-meta">Jun 20, 2017</span>
       <div class="post-description">
-        <img src="images/logo-redux.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
-         This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. 
+        <img src="images/logo-redux.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
+         Since Redux allows for custom middleware, we can use something called Redux Thunk to help us. It is important to be aware that without middleware, Redux only supports a synchronous flow. So what is a thunk? It’s just a function - it wraps an expression, so you can delay the evaluation of the result of that expression. Here’s a code sample I “borrowed” (promise I will give it right back) straight from the library documentation:
+
       </div>
     </li>
     
@@ -104,7 +106,7 @@
       
       <span class="post-meta">Jun 16, 2017</span>
       <div class="post-description">
-        <img src="images/chrome-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
+        <img src="images/chrome-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
         Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using...
       </div>
     </li>
@@ -116,7 +118,7 @@
       
       <span class="post-meta">May 2, 2017</span>
       <div class="post-description">
-        <img src="images/db-icon.jpg" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
+        <img src="images/db-icon.jpg" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
         This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. The SQL standard defines four isolation levels... 
       </div>
     </li>
@@ -128,7 +130,7 @@
       
       <span class="post-meta">Apr 14, 2017</span>
       <div class="post-description">
-        <img src="images/architecture.jpg" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
+        <img src="images/architecture.jpg" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
         When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming). That means a few conditions need to be met. 
       </div>
     </li>
@@ -140,7 +142,7 @@
       
       <span class="post-meta">Apr 7, 2017</span>
       <div class="post-description">
-        <img src="images/fsharp-icon.png" style="float: left; height: 64px; width: 64px; margin-right: 8px; margin-top: 5px;" />
+        <img src="images/fsharp-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
         I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript. Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an IEnumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s infinite, obviously summation will fail... 
       </div>
     </li>
