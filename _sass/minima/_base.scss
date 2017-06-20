@@ -49,11 +49,11 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
   color: $brand-color;
-  text-decoration: none;
-
+  text-decoration: none;  
+  
   &:hover {
     color: $text-color;
-    text-decoration: underline;
+    transition-duration: 1.3s;
   }
 
   .social-media-list &:hover {
