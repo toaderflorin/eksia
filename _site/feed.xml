@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-20T11:37:25+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>Bla bla bla
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-20T11:40:00+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>Bla bla bla
 </subtitle><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/06/16/statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/16/statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/16/statically-typed.html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -144,7 +144,7 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;An architecture in which components have a high level of cohesion makes development fast, because developers don’t spend a lot of time searching through thousand of lines code, talking to one another, sending emails around and waiting etc. It’s just smooth. Now obviously nobody wants their closet to look like the previous picture, and nobody does it intentionally. Also I am 100% sure that the owner of this baby is well aware that this is not the tidiest closet on planet Earth. My experience is that when this happens in software development, the developers fully realize it (because devs are a pretty smart bunch of people), but there isn’t a lot they can do about it — it’s usually a by product of various outside pressures.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-is-coupling&quot;&gt;What is coupling?&lt;/h2&gt;
+&lt;h2 id=&quot;what-is-coupling&quot;&gt;What Is Coupling?&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/rubik.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive, img-left&quot; /&gt;&lt;/p&gt;
 
