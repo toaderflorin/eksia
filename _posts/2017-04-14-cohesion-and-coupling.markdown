@@ -26,7 +26,7 @@ Just try to find your favourite shirt in here:
 
 An architecture in which components have a high level of cohesion makes development fast, because developers don’t spend a lot of time searching through thousand of lines code, talking to one another, sending emails around and waiting etc. It’s just smooth. Now obviously nobody wants their closet to look like the previous picture, and nobody does it intentionally. Also I am 100% sure that the owner of this baby is well aware that this is not the tidiest closet on planet Earth. My experience is that when this happens in software development, the developers fully realize it (because devs are a pretty smart bunch of people), but there isn’t a lot they can do about it — it’s usually a by product of various outside pressures. 
 
-## What is coupling?
+## What Is Coupling?
 
 ![image-title-here](/images/rubik.png){:class="img-responsive, img-left"} 
 
