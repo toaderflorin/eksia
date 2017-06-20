@@ -16,7 +16,7 @@
 title: ::blog
 email: achiralsoftware@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Bla bla bla
+  achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: achiral
