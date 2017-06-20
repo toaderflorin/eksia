@@ -39,9 +39,6 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: #ff4477;
   text-decoration: none; }
-  a:hover {
-    color: #333;
-    transition-duration: 1.3s; }
   .social-media-list a:hover {
     text-decoration: none; }
     .social-media-list a:hover .username {
@@ -107,17 +104,16 @@ pre {
   padding-top: 5px; }
 
 .site-header {
-  border-top: 3px solid #ee4477;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ee4477;
   min-height: 45px;
   background-color: #222;
   width: 100%;
   position: fixed;
   top: 0;
-  box-shadow: 0 10px 50px -15px #333; }
+  box-shadow: 0 10px 30px -15px #111; }
 
 .site-title {
-  font-size: 21.9375px;
+  font-size: 15.1875px;
   font-weight: 300;
   line-height: 45.5625px;
   letter-spacing: -1px;

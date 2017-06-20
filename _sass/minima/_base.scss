@@ -51,10 +51,10 @@ a {
   color: $brand-color;
   text-decoration: none;  
   
-  &:hover {
-    color: $text-color;
-    transition-duration: 1.3s;
-  }
+  // &:hover {
+  //   color: #ee4444;
+  //   transition-duration: 0.5s;
+  // }
 
   .social-media-list &:hover {
     text-decoration: none;
