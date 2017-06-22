@@ -22,9 +22,29 @@ internal state and then update the view components. A key aspect to take away fr
 Redux is an alternative Flux implementation, sort of. The reason I say sort of, is because it doesn't follow the architecture 100%, just loosely. 
 Instead of using a dispatcher that sends actions to multiple stores, it uses **a single store** which keeps the state for the whole application,
 and a concept known as a *reducer* which is essentially a function that gets the current state and an action, and produces a new state based on
-the action. Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few ques from it - the application 
+the action. 
+
+It looks something like this:
+
+![image-title-here](/images/redux.png){:class="img-responsive"}
+
+Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few ques from it - the application 
 state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become,
 unwieldy very fast), needs to be a *pure* function - which means it's not allowed to have *side-effects*. 
+
+In Redux, an action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a 
+plain JS function that returns an action object. It looks something like this:
+
+{% highlight javascript %}
+function addBlogPost(text) {
+  return {
+    type: 'ADD_BLOG_POST',
+    somePayload: '...'
+  }
+}
+{% endhighlight %}
+
+## A Bit Of Functional Programming
 
 Let's explore these concepts by looking at a couple of functions first:
 
@@ -62,18 +82,6 @@ won't be pure anymore.
 A real world Flux architecture might look something like this:
 
 ![image-title-here](/images/flux-2.png){:class="img-responsive"}
-
-In Redux, an action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a 
-plain JS function that returns an action object. It looks something like this:
-
-{% highlight javascript %}
-function addBlogPost(text) {
-  return {
-    type: 'ADD_BLOG_POST',
-    somePayload: '...'
-  }
-}
-{% endhighlight %}
 
 You might have noticed something that sits in between Flux and the server side API.
 
