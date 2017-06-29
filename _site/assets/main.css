@@ -3,7 +3,7 @@ body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
   padding: 0; }
 
 body {
-  font: 300 13.5px/1.5 "Roboto", Helvetica, Arial, sans-serif;
+  font: 300 14px/1.5 "Roboto", Helvetica, Arial, sans-serif;
   color: #333;
   background-color: #222;
   -webkit-text-size-adjust: 100%;
@@ -24,7 +24,7 @@ figure > img {
   display: block; }
 
 figcaption {
-  font-size: 11.8125px; }
+  font-size: 12.25px; }
 
 ul, ol {
   margin-left: 30px; }
@@ -48,14 +48,14 @@ blockquote {
   color: #828282;
   border-left: 4px solid #e8e8e8;
   padding-left: 15px;
-  font-size: 15.1875px;
+  font-size: 15.75px;
   letter-spacing: -1px;
   font-style: italic; }
   blockquote > :last-child {
     margin-bottom: 0; }
 
 pre, code {
-  font-size: 12.65625px;
+  font-size: 13.125px;
   border: 1px solid #f2f2f2;
   border-left: 2px solid #ee4477;
   border-radius: 0px;
@@ -74,16 +74,16 @@ pre {
     padding-left: 0; }
 
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: -webkit-calc(900px - (30px * 2));
+  max-width: calc(900px - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px; }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 900px) {
     .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
+      max-width: -webkit-calc(900px - (30px));
+      max-width: calc(900px - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
 
@@ -113,9 +113,9 @@ pre {
   box-shadow: 0 10px 30px -15px #111; }
 
 .site-title {
-  font-size: 15.1875px;
+  font-size: 15.75px;
   font-weight: 300;
-  line-height: 45.5625px;
+  line-height: 47.25px;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left; }
@@ -124,7 +124,7 @@ pre {
 
 .site-nav {
   float: right;
-  line-height: 45.5625px; }
+  line-height: 47.25px; }
   .site-nav .nav-trigger {
     display: none; }
   .site-nav .menu-icon {
@@ -178,7 +178,7 @@ pre {
   padding: 30px 0; }
 
 .footer-heading {
-  font-size: 15.1875px;
+  font-size: 15.75px;
   margin-bottom: 15px; }
 
 .contact-list, .social-media-list {
@@ -186,13 +186,13 @@ pre {
   margin-left: 0; }
 
 .footer-col-wrapper {
-  font-size: 12.65625px;
+  font-size: 13.125px;
   color: #828282;
   margin-left: -15px; }
 
 .footer-col {
   float: left;
-  font-size: 12.15px;
+  font-size: 12.6px;
   margin-bottom: 15px;
   padding-left: 15px; }
 
@@ -218,7 +218,7 @@ pre {
   padding: 30px 0; }
 
 .page-heading {
-  font-size: 16.875px; }
+  font-size: 17.5px; }
 
 .post-list {
   margin-left: 0;
@@ -237,31 +237,31 @@ pre {
   line-height: 160%; }
 
 .post-meta {
-  font-size: 11.8125px;
+  font-size: 12.25px;
   color: #828282; }
 
 .post-link {
   display: block;
   font-family: "Roboto";
-  font-size: 14.85px; }
+  font-size: 15.4px; }
 
 .post-header {
   margin-bottom: 30px; }
 
 .post-title {
-  font-size: 28.35px;
+  font-size: 29.4px;
   letter-spacing: -1px;
   line-height: 1;
   font-family: 'Roboto', serif; }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 900px) {
     .post-title {
-      font-size: 30.375px; } }
+      font-size: 31.5px; } }
 
 .post-content {
   margin-bottom: 30px;
   line-height: 160%; }
   .post-content h2 {
-    font-size: 20.25px;
+    font-size: 21px;
     margin-bottom: 8px; }
 
 .img-left {
