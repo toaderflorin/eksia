@@ -26,7 +26,7 @@ the action.
 
 It looks something like this:
 
-![image-title-here](/images/redux.png){:class="img-responsive"}
+![image-title-here](/images/redux.png){:class="img-responsive center-image"}
 
 Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few ques from it - the application 
 state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become,
@@ -81,7 +81,7 @@ won't be pure anymore.
 
 A real world Flux architecture might look something like this:
 
-![image-title-here](/images/flux-2.png){:class="img-responsive"}
+![image-title-here](/images/flux-2.png){:class="img-responsive center-image"}
 
 You might have noticed something that sits in between Flux and the server side API.
 
