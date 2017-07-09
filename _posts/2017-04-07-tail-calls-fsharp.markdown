@@ -28,13 +28,7 @@ but let’s say we want to implement our own for the sake of argument.
 A lot of the stuff that we are doing in F# is based on functions which are recursive, because pure functional programming is
 stateless (so no iterating blocks that update a state variable). So it will look like this:
 
-{% highlight javascript %}
-let mySequence = seq { 1..1000 }
-let rec seqSum sequence =
-  if Seq.isEmpty sequence then 0
-  else Seq.head + seqSum (Seq.skip 1 sequence)
-printf "The sum of the sequence is %d:" (seqSum mySequence)
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/dde7beeffb3be1fded7625ee83cc424a.js"></script>
 
 But what happens if our collection is so big, that the code will throw a stack overflow exception?
 
@@ -45,66 +39,23 @@ recursive calls with sequential goto calls, because there’s nothing to do afte
 with the current execution state on the stack). So let’s revisit the code we wrote and explain why it isn’t tail optimized.
 We are going to break the last instruction into separate instructions like so:
 
-{% highlight csharp %}
-let mySequence = seq { 1..1000 }
-let rec seqSum sequence =
-  if Seq.isEmpty sequence then
-    0
-  else
-    let recursiveSum = seqSum (Seq.skip 1 sequence)
-    Seq.head sequence + recursiveSum
-let sum = seqSum mySequence
-printf "The sum of the sequence is %d:" sum
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/37e7c80a19120b8e753ad78d5d60e9bd.js"></script>
 
 You can clearly see that the recursive call isn’t the last instruction in the method, so the compiler won’t be able to do the
 optimization we just talked about. Maybe there is a way to rewrite our code so that we can actually achieve this purpose. There
 actually is. We are going to use accumulators.
 
-{% highlight csharp %}
-let mySequence = seq { 1..1000 }
-let rec seqSum sequence acc:int =
-  if Seq.isEmpty sequence then
-    acc
-  else
-    seqSum (Seq.skip 1 sequence) (acc + Seq.head sequence)
-let sum = seqSum mySequence 0
-printf "The sum of the sequence is %d:" sum
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/5f00ac59005c1be59a4c8f6fd03bb989.js"></script>
 
 This is tail optimized because we can write it like this:
 
-{% highlight csharp %}
-let mySequence = seq { 1..1000 }
-let rec seqSum sequence acc:int =
-  if Seq.isEmpty sequence then
-    acc
-  else
-    let remainingSequence = Seq.skip 1 sequence
-    let newAccValue = acc + Seq.head sequence
-    seqSum remainingSequence newAccValue
-let sum = seqSum mySequence 0
-printf "The sum of the sequence is %d:" sum
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/454fb0e3a21390655adac66296b830bc.js"></script>
 
 So what we are doing is simply adding the sum in a local value which we are passing along recursively. This is as close a thing to
 state we have in purely functional programming. The problem with this code is that it is not very nice, because we need to initialize
 it with the starting value for the accumulator. A nice feature of functional programming is that we can create nested functions like so:
 
-{% highlight csharp %}
-let mySequence = seq { 1..1000 }
-let seqSum sequence =
-  let rec seqSumInternal sequenceInternal acc =
-    if Seq.isEmpty sequenceInternal then
-      acc
-    else
-      let remainingSequence = Seq.skip 1 sequenceInternal
-      let newAccValue = acc + Seq.head
-      sequenceInternal
-        seqSumInternal remainingSequence newAccValue seqSumUtil sequence 0
-let sum = seqSum (mySequence)
-printf "The sum of the sequence is %d:" sum
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/b1db2d67965aac6649628cfa7d630b47.js"></script>
 
 We just encapsulated our “ugly” function inside a “nice” one and we are exposing a proper signature. Our internal function is
 also nicely recursion tail optimized. This is how all the default F# functions are implemented so you can be sure that when you
