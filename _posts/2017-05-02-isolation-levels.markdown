@@ -49,5 +49,3 @@ This range is based on the query - for example:
 <script src="https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js"></script>
 
 Obviously, this introduces even more contention.
-
-Happy coding!

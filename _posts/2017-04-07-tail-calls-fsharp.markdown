@@ -32,7 +32,7 @@ stateless (so no iterating blocks that update a state variable). So it will look
 
 But what happens if our collection is so big, that the code will throw a stack overflow exception?
 
-**Enter Tail Call Optimizations**
+## Enter Tail Call Optimizations
 
 It turns out that if the recursive call is the last instruction in the method, the F# compiler is smart enough to replace
 recursive calls with sequential goto calls, because there’s nothing to do afterwards (hence, no need to save a stack-frame
