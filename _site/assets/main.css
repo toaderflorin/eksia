@@ -111,7 +111,8 @@ pre {
   width: 100%;
   position: fixed;
   top: 0;
-  box-shadow: 0 10px 30px -15px #111; }
+  box-shadow: 0 10px 30px -15px #111;
+  z-index: 10000; }
 
 .site-title {
   font-size: 15.75px;
