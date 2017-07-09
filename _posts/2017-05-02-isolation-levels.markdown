@@ -46,9 +46,7 @@ The serializable isolation solves this problem in a similar way to the previous 
 
 This range is based on the query - for example:
 
-{% highlight sql %}
-WHERE TimeStamp > T1 AND TimeStamp < T2
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js"></script>
 
 Obviously, this introduces even more contention.
 

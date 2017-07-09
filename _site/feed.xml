@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-09T11:41:21+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-09T12:28:38+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">Redux Thunk: The Redux Async Flow And Handling Side Effects</title><link href="http://localhost:4000/jekyll/update/2017/06/20/redux-async-flow.html" rel="alternate" type="text/html" title="Redux Thunk: The Redux Async Flow And Handling Side Effects" /><published>2017-06-20T06:39:37+03:00</published><updated>2017-06-20T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/06/20/redux-async-flow</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/06/20/redux-async-flow.html">&lt;p&gt;Redux advertises itself as a predictable state container for JavaScript applications and if you are just getting started with Redux 
 (whether you are using it with React or Angular or another framework), you might have started reading the official documentation, and 
 know that Redux is Flux implementation. Here’s a quick refresher of the Flux architecture:&lt;/p&gt;
@@ -25,34 +25,19 @@ unwieldy very fast), needs to be a &lt;em&gt;pure&lt;/em&gt; function - which me
 &lt;p&gt;In Redux, an action is just a plain object - the only requirement is that this object has to have a &lt;em&gt;type&lt;/em&gt; property. An action creator is just a 
 plain JS function that returns an action object. It looks something like this:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;addBlogPost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ADD_BLOG_POST'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;somePayload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'...'&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/dbd3ad78285ecd7decfec8cd88877eb3.js&quot;&gt;&lt;/script&gt;
 
 &lt;h2 id=&quot;a-bit-of-functional-programming&quot;&gt;A Bit Of Functional Programming&lt;/h2&gt;
 
 &lt;p&gt;Let’s explore these concepts by looking at a couple of functions first:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pureFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nonPureFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;Action creators are just normal JavaScript functions that return an Action object - and an object can be any type of JS obiect in Redux, the only 
 requirement is to have a &lt;em&gt;type&lt;/em&gt; property of type string. The first function is &lt;em&gt;pure&lt;/em&gt; because it’s return result is &lt;strong&gt;always&lt;/strong&gt; reproducible for 
 the same input parameter, which is not the case for the second function. Now have a look at the following function:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;globalVar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;globalVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/96c280e5330d84851f103710ed381524.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;This function is said to have side-effects, because it changes a global variable which then changes the return value on subsequent
 calls. Obviously, functions that have side-effects are not pure.&lt;/p&gt;
@@ -79,14 +64,7 @@ middleware, Redux only supports a synchronous flow. So what is a &lt;em&gt;thunk
 the evaluation of the result of that expression. Here’s a code sample I “borrowed” (promise I will give it right back) straight from the 
 library documentation:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// calculation of 1 + 2 is immediate&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// x === 3&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// calculation of 1 + 2 is delayed&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// foo can be called later to perform the calculation&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// foo is a thunk!&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/7961dfce75a8d1748b4192e3d16ed611.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;How does this help us you might ask?&lt;/p&gt;
 
@@ -95,9 +73,9 @@ however, that function can evaluate it whenever it wants. This means you can do 
 
 &lt;p&gt;And this is important because modern web applications are mostly asynchronous in their nature - you usually build a rich responsive client which 
 communicates with an API. This means when the user presses a button, or does something that needs fetching data, you usually show spinners and such. 
-Redux helps us by providing &lt;em&gt;async actions&lt;/em&gt;, which integrate nicely with Redux Thunk.&lt;/p&gt;</content><author><name></name></author><summary type="html">Redux advertises itself as a predictable state container for JavaScript applications and if you are just getting started with Redux (whether you are using it with React or Angular or another framework), you might have started reading the official documentation, and know that Redux is Flux implementation. Here’s a quick refresher of the Flux architecture:</summary></entry><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/06/16/statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/16/statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/16/statically-typed.html">&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
+Redux helps us by providing &lt;em&gt;async actions&lt;/em&gt;, which integrate nicely with Redux Thunk.&lt;/p&gt;</content><author><name></name></author><summary type="html">Redux advertises itself as a predictable state container for JavaScript applications and if you are just getting started with Redux (whether you are using it with React or Angular or another framework), you might have started reading the official documentation, and know that Redux is Flux implementation. Here’s a quick refresher of the Flux architecture:</summary></entry><entry><title type="html">JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way</title><link href="http://localhost:4000/javascript/2017/06/16/statically-typed.html" rel="alternate" type="text/html" title="JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/javascript/2017/06/16/statically-typed</id><content type="html" xml:base="http://localhost:4000/javascript/2017/06/16/statically-typed.html">&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive img-left&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database — Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
 
@@ -117,12 +95,7 @@ Redux helps us by providing &lt;em&gt;async actions&lt;/em&gt;, which integrate 
 
 &lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do — it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// good
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Obj1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;55&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Obj2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// bad
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;additionalProperty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;something&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6dafc797abe6a17bb7d63d8d94e22fb5.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;If you add a new property to obj1, V8 is no longer able map the properties of the object to the same hidden class, so it will create a new one. V8 also tries to preemptively optimize your code and it does so by looking for repetitions.&lt;/p&gt;
 
@@ -130,35 +103,7 @@ Redux helps us by providing &lt;em&gt;async actions&lt;/em&gt;, which integrate 
 
 &lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff) — I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nf&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// we indicate these are private fields by using an underscore
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fullName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_firstName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_lastName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;John&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Doe&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/eb5fb6e45dd943a3f6ad87da7f1fe827.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;Of course, there’s nothing preventing you from modifying the “private” fields in JavaScript (except maybe a code review from your technical lead), and also there is nothing preventing you from adding new properties to the object (except using Object.freeze() but this has a performance penalty). Not only will this give you better encapsulation, but it will speed up your code because V8 is able to optimize it better. Of course, if you really want to have private members and proper static (compile time) type checking, you can use Facebook’s Flow, or Microsoft’s TypeScript.&lt;/p&gt;
 
@@ -166,23 +111,13 @@ Redux helps us by providing &lt;em&gt;async actions&lt;/em&gt;, which integrate 
 
 &lt;p&gt;Another word of caution: be extra careful with arrays. Check out the following code:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csharp&quot; data-lang=&quot;csharp&quot;&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Something&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Something&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// so far, so good
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;53&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;We&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tricky&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whohoo&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fridge&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Even&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trickier&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// yes, you can do these things
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;but&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V8&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;won&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;too&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;happy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;about&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/2b22591a73bd61ad4b07dec88fdae5b7.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;As long as an array doesn’t have holes in it, it’s going to be treated as a contiguous memory area, which makes the code using it fast. However, if you get fancy like in the example above, you are going to have a sparse array, and V8 will convert it to a hash-table, which will make writing and reading slower.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html">Disclaimer: I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-05-02T06:39:37+03:00</published><updated>2017-05-02T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/05/02/isolation-levels</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
+&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-05-02T06:39:37+03:00</published><updated>2017-05-02T06:39:37+03:00</updated><id>http://localhost:4000/jekyll/update/2017/05/02/isolation-levels</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2017/05/02/isolation-levels.html">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
 would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -222,7 +157,7 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TimeStamp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;
 
