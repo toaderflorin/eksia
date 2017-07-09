@@ -276,9 +276,9 @@ pre {
 
 .gradient {
   color: white;
-  height: 140px;
+  height: 130px;
   max-height: 400px;
-  background-color: #f5f5f5;
+  background-color: #eee;
   z-index: -1;
   padding-top: 62px;
   display: flex; }
