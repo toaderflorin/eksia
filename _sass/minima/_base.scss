@@ -51,11 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: $brand-color;
   text-decoration: none;  
-  
-  // &:hover {
-  //   color: #ee4444;
-  //   transition-duration: 0.5s;
-  // }
 
   .social-media-list &:hover {
     text-decoration: none;

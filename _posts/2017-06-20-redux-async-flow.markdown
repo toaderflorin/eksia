@@ -9,6 +9,7 @@ Redux advertises itself as a predictable state container for JavaScript applicat
 icon: "logo-redux.png"
 categories: jekyll update
 ---
+
 Redux advertises itself as a predictable state container for JavaScript applications and if you are just getting started with Redux 
 (whether you are using it with React or Angular or another framework), you might have started reading the official documentation, and 
 know that Redux is Flux implementation. Here's a quick refresher of the Flux architecture:
@@ -35,40 +36,19 @@ unwieldy very fast), needs to be a *pure* function - which means it's not allowe
 In Redux, an action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a 
 plain JS function that returns an action object. It looks something like this:
 
-{% highlight javascript %}
-function addBlogPost(text) {
-  return {
-    type: 'ADD_BLOG_POST',
-    somePayload: '...'
-  }
-}
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/dbd3ad78285ecd7decfec8cd88877eb3.js"></script>
 
 ## A Bit Of Functional Programming
 
 Let's explore these concepts by looking at a couple of functions first:
 
-{% highlight javascript %}
-function pureFunction(x) {
-  return x * 2
-}
-
-function nonPureFunction(x) {
-  return x + Math.random() * 100
-}
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js"></script>
 
 Action creators are just normal JavaScript functions that return an Action object - and an object can be any type of JS obiect in Redux, the only 
 requirement is to have a *type* property of type string. The first function is *pure* because it's return result is **always** reproducible for 
 the same input parameter, which is not the case for the second function. Now have a look at the following function:
 
-{% highlight javascript %}
-let globalVar = 0
-
-function f(x) {
-  return x + globalVar++
-}
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/96c280e5330d84851f103710ed381524.js"></script>
 
 This function is said to have side-effects, because it changes a global variable which then changes the return value on subsequent
 calls. Obviously, functions that have side-effects are not pure. 
@@ -95,16 +75,7 @@ middleware, Redux only supports a synchronous flow. So what is a *thunk*? It's j
 the evaluation of the result of that expression. Here's a code sample I "borrowed" (promise I will give it right back) straight from the 
 library documentation:
 
-{% highlight javascript %}
-// calculation of 1 + 2 is immediate
-// x === 3
-let x = 1 + 2
-
-// calculation of 1 + 2 is delayed
-// foo can be called later to perform the calculation
-// foo is a thunk!
-let foo = () => 1 + 2
-{% endhighlight %}
+<script src="https://gist.github.com/toaderflorin/7961dfce75a8d1748b4192e3d16ed611.js"></script>
 
 How does this help us you might ask?
 
