@@ -18,7 +18,8 @@ h1, h3, h4, h5, h6, p, blockquote, pre, ul, ol, dl, figure, .highlight {
 
 img {
   max-width: 100%;
-  vertical-align: middle; }
+  vertical-align: middle;
+  text-align: center; }
 
 figure > img {
   display: block; }
@@ -37,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300; }
 
 a {
-  color: #ff4477;
+  color: #fa0265;
   text-decoration: none; }
   .social-media-list a:hover {
     text-decoration: none; }
@@ -122,6 +123,10 @@ pre {
   .site-title, .site-title:visited {
     color: #ddd; }
 
+.center-image {
+  margin: 0 auto;
+  display: block; }
+
 .site-nav {
   float: right;
   line-height: 47.25px; }
@@ -146,8 +151,8 @@ pre {
       .site-nav label[for="nav-trigger"] {
         display: block;
         float: right;
-        width: 36px;
-        height: 36px;
+        width: 28px;
+        height: 28px;
         z-index: 2;
         cursor: pointer; }
       .site-nav .menu-icon {
@@ -268,6 +273,15 @@ pre {
   float: right;
   margin-right: 15px;
   margin-bottom: 5px; }
+
+.gradient {
+  color: white;
+  height: 130px;
+  max-height: 400px;
+  background-color: #eee;
+  z-index: -1;
+  padding-top: 62px;
+  display: flex; }
 
 .highlight {
   background: #fff; }

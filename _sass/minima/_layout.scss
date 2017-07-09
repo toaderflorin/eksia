@@ -22,6 +22,12 @@
   }
 }
 
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
+
 .site-nav {
   float: right;
   line-height: $base-line-height * $base-font-size * 2.25;
@@ -29,6 +35,7 @@
   .nav-trigger {
     display: none;
   }
+
 
   .menu-icon {
     display: none;
@@ -55,8 +62,8 @@
     label[for="nav-trigger"] {
       display: block;
       float: right;
-      width: 36px;
-      height: 36px;
+      width: 28px;
+      height: 28px;
       z-index: 2;
       cursor: pointer;
     }
@@ -220,4 +227,15 @@
   float: right;
   margin-right: 15px;
   margin-bottom: 5px;
+}
+
+.gradient {
+  color: white;
+  height: 130px;
+  max-height: 400px;
+  background-color: #eee;
+  // background: linear-gradient(to bottom, #ff308d, #fa0265);
+  z-index: -1;
+  padding-top: 62px;
+  display: flex;
 }
