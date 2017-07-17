@@ -1,6 +1,6 @@
 
 .site-header {
-  border-top: 2px solid #ee4477;
+  border-top: 1px solid #ee4477;
   min-height: $spacing-unit * 1.5;
   background-color: #222;
   width: 100%;
@@ -232,10 +232,9 @@
 
 .gradient {
   color: white;
-  height: 170px;
-  max-height: 400px;
+  height: 120px;
+  max-height: 350px;
   background-color: #f7f7f7;
-  // background: linear-gradient(to bottom, #ff308d, #fa0265);
   z-index: -1;
   padding-top: 62px;
   display: flex;
