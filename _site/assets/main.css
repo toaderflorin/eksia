@@ -105,7 +105,7 @@ pre {
   padding-top: 5px; }
 
 .site-header {
-  border-top: 2px solid #ee4477;
+  border-top: 1px solid #ee4477;
   min-height: 45px;
   background-color: #222;
   width: 100%;
@@ -277,8 +277,8 @@ pre {
 
 .gradient {
   color: white;
-  height: 170px;
-  max-height: 400px;
+  height: 120px;
+  max-height: 350px;
   background-color: #f7f7f7;
   z-index: -1;
   padding-top: 62px;
