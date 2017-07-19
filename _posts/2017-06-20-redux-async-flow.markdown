@@ -10,17 +10,7 @@ icon: "logo-redux.png"
 categories: jekyll update
 ---
 
-Redux advertises itself as a predictable state container for JavaScript applications and if you are just getting started with Redux 
-(whether you are using it with React or Angular or another framework), you might have started reading the official documentation, and 
-know that Redux is Flux implementation. Here's a quick refresher of the Flux architecture:
-
-![image-title-here](/images/flux-simple.png){:class="img-responsive"}
-
-The idea behind Flux is that the user interface doesn't modify the state of the application directly - instead it sends *actions* to a dispatcher, 
-which then in turn notifies on ore more *data stores* who are interested in particular action and they handle that action, they change their
-internal state and then update the view components. A key aspect to take away from here is that the data flow is *unidirectional*, as I explained in my architecture article. You can find Facebook's Flux implementation here. 
-
-Redux is an alternative Flux implementation, sort of. The reason I say sort of, is because it doesn't follow the architecture 100%, just loosely. 
+The first thing that needs to be mentioned is that Redux, while "fluxish" in nature, is not an exact canonical implementation of the Flux architecture.
 Instead of using a dispatcher that sends actions to multiple stores, it uses **a single store** which keeps the state for the whole application,
 and a concept known as a *reducer* which is essentially a function that gets the current state and an action, and produces a new state based on
 the action. 
@@ -30,17 +20,24 @@ It looks something like this:
 ![image-title-here](/images/redux.png){:class="img-responsive center-image"}
 
 Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few ques from it - the application 
-state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become,
+state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become
 unwieldy very fast), needs to be a *pure* function - which means it's not allowed to have *side-effects*. 
 
-In Redux, an action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a 
+An action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a 
 plain JS function that returns an action object. It looks something like this:
 
 <script src="https://gist.github.com/toaderflorin/dbd3ad78285ecd7decfec8cd88877eb3.js"></script>
 
+And a reducer would look something like this:
+
+<script src="https://gist.github.com/toaderflorin/7c5ad3feedd8d6047cf29fb27efa9782.js"></script>
+
+This is the Redux *synchronous flow*. Obviously, real world applications are more complicated than that because the client needs to sync with 
+the server, which means there are side-effects, but before we look at the async flow, let's get into...  
+
 ## A Bit Of Functional Programming
 
-Let's explore these concepts by looking at a couple of functions first:
+Let's explore the concepts of pure/unpure functions and side-effects by looking at some code:
 
 <script src="https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js"></script>
 
@@ -53,20 +50,9 @@ the same input parameter, which is not the case for the second function. Now hav
 This function is said to have side-effects, because it changes a global variable which then changes the return value on subsequent
 calls. Obviously, functions that have side-effects are not pure. 
 
-## In The Real World
-
 We went over the basic Flux architecture and some simple functional concepts. However in the real world, web applications are rarely this simple. 
 This initial architecture diagram is missing an essential aspect: server-side access. Obviously, this introduces side-effects, so as a result, the reducers 
 won't be pure anymore.
-
-A real world Flux architecture might look something like this:
-
-![image-title-here](/images/flux-2.png){:class="img-responsive center-image"}
-
-You might have noticed something that sits in between Flux and the server side API.
-
-Action creators are functions that create actions - this separation allows us to keep our action handlers pure, and does the dirty work for us.
-It's sort of like *man-in-the-middle* pattern.
 
 ## Enter Redux Thunk
 
