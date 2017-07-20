@@ -5,7 +5,7 @@ body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
 body {
   font: 300 14px/1.5 "Roboto", Helvetica, Arial, sans-serif;
   color: #333;
-  background-color: #222;
+  background-color: #000;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -107,7 +107,7 @@ pre {
 .site-header {
   border-top: 1px solid #ee4477;
   min-height: 45px;
-  background-color: #222;
+  background-color: #111;
   width: 100%;
   position: fixed;
   top: 0;
@@ -145,7 +145,7 @@ pre {
       position: absolute;
       top: 9px;
       right: 15px;
-      background-color: #222;
+      background-color: #000;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
       text-align: right; }
@@ -180,7 +180,7 @@ pre {
           margin-right: 0; } }
 
 .site-footer {
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid #fff;
   padding: 30px 0; }
 
 .footer-heading {
@@ -193,7 +193,7 @@ pre {
 
 .footer-col-wrapper {
   font-size: 13.125px;
-  color: #828282;
+  color: #aaa;
   margin-left: -15px; }
 
 .footer-col {

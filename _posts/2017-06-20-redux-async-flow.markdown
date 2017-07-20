@@ -70,4 +70,11 @@ however, that function can evaluate it whenever it wants. This means you can do 
 
 And this is important because modern web applications are mostly asynchronous in their nature - you usually build a rich responsive client which 
 communicates with an API. This means when the user presses a button, or does something that needs fetching data, you usually show spinners and such. 
-Redux helps us by providing *async actions*, which integrate nicely with Redux Thunk.
+The standard way to handle this is using the Redux *Thunk middleware*.
+
+This is how you set it up:
+
+<script src="https://gist.github.com/toaderflorin/b4754731b7a7ed4967cc7fcbb0fb3d9e.js"></script>
+
+So instead of dispatching normal action objects, we will be dispatching *async actions*, or thunks. This means we have have to change our action creators
+to return functions instead of plain objects.
