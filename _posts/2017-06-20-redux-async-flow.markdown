@@ -7,7 +7,7 @@ Redux advertises itself as a predictable state container for JavaScript applicat
  
 "
 icon: "logo-redux.png"
-categories: jekyll update
+categories:
 ---
 
 The first thing that needs to be mentioned is that Redux, while "fluxish" in nature, is not an exact canonical implementation of the Flux architecture.

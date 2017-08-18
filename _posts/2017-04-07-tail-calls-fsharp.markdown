@@ -10,7 +10,7 @@ actually implemented under the hood in the CLR, so it can even be infinite —
 will fail...
 "
 icon: "fsharp-icon.png"
-categories: jekyll update
+categories:
 ---
 I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied
 to any language, even JavaScript.
