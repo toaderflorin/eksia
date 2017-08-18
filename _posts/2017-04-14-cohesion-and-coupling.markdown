@@ -9,7 +9,7 @@ not by debugging it (because debugging is an order of magnitude more time consum
 That means a few conditions need to be met.
 "
 icon: "architecture.jpg"
-categories: jekyll update
+categories:
 ---
 
 When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming. That means a few conditions need to be met. 

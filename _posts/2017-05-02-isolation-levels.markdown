@@ -5,7 +5,7 @@ date:   2017-05-02 06:39:37 +0300
 description: "This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. The SQL standard defines four isolation levels...
 "
 icon: "db-icon.jpg"
-categories: jekyll update
+categories:
 ---
 
 This seems to be a murky concept for a lot of developers, so I thought I
