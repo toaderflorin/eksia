@@ -30,13 +30,13 @@ the server, which means there are side-effects, but before we look at the async 
 
 ## A Bit Of Functional Programming
 
-Let's explore the concepts of pure/unpure functions and side-effects by looking at some code:
+Let's explore the concepts of pure / unpure functions and side-effects by looking at some code:
 
 <script src="https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js"></script>
 
-Action creators are just normal JavaScript functions that return an Action object - and an object can be any type of JS obiect in Redux, the only 
-requirement is to have a *type* property of type string. The first function is *pure* because it's return result is **always** reproducible for 
-the same input parameter, which is not the case for the second function. Now have a look at the following function:
+If you worked with the standard Flux implementation by Facebook, you might have come across the concept of *action creators*. They are just normal JavaScript functions that return an action, which can be any type of JS obiect in Redux, the only requirement is to have a *type* property of type string. The first function is *pure* because it's return result is **always** reproducible for the same input parameter, which is not the case for the second function. 
+
+Now have a look at the following function:
 
 <script src="https://gist.github.com/toaderflorin/96c280e5330d84851f103710ed381524.js"></script>
 
@@ -49,7 +49,7 @@ won't be pure anymore.
 
 ## Enter Redux Thunk
 
-Since Redux allows for custom middleware, we can use something called **Redux Thunk** to help us. It is important to be aware that without
+Since Redux allows for custom middleware, we can use something called *Redux Thunk* to help us. It is important to be aware that without
 middleware, Redux only supports a synchronous flow. So what is a *thunk*? It's just a function - it wraps an expression, so you can delay 
 the evaluation of the result of that expression. Here's a code sample straight from the library documentation:
 
@@ -66,4 +66,12 @@ This is how you set it up:
 
 <script src="https://gist.github.com/toaderflorin/b4754731b7a7ed4967cc7fcbb0fb3d9e.js"></script>
 
-So instead of dispatching normal action objects, we will be dispatching *async actions*, or thunks. This means we have have to change our action creators to return functions instead of plain objects.
+So instead of dispatching normal action objects, we will be dispatching *async actions*, or thunks. This means we have have to change our action creators to return functions instead of plain objects. Let us make a request to the server, and see how that would work. Obviously, that is an asynchronous action because it takes some time, and we might also want to show some sort of indication to the user that the request is ongoing - something like a spinner. And now let's add the asynchronous action. 
+
+We are using **axios**, a popular framework for making http requests.
+
+<script src="https://gist.github.com/toaderflorin/4519a92c396ee2bb912bece07983a2cc.js"></script>
+
+The reducer is going to receive the sync actions dispached and will take appropriate steps to reduce the application step. The async actions are the place where we are handling the "dirty" stuff, like making an http request.
+
+For the sake of simplicity, I chose to dispatch the actions inline, but we could (and should) extract them in a different action creator method. I also used the same action called *GET_ITEMS*, but you could use different actions for indicating the start, end and a potential error occurence in the operation.
