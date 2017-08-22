@@ -8,7 +8,7 @@ icon: "table-icon.png"
 categories:
 ---
 
-During interviews, I've found an interesting thing. Almost all candidates know that *you shouldn't use* tables for layout, but not a lot of them can actually explain **why** you shouldn't use tables. Ocasionally one would bring up the fact that they are not responsive, but that's about it. Before we get into the reasons, let me first point out this:
+While interviewing candidates for job positions, I found out an interesting thing. Almost all candidates know that *you shouldn't use* tables for layout, but not a lot of them can actually explain **why** you shouldn't use tables. Ocasionally one would bring up the fact that they are not responsive, but that's about it. Before we get into the reasons, let me first point out this:
 
 *HTML pages are designed to flow vertically - they are documents and the intention is to scroll vertically and read document headers, paragraphs, etc. one by one.*
 
@@ -17,8 +17,6 @@ The semantic intention of the *table* tag is to display tabular data, it's not t
 ![image-title-here](/images/table.png){:class="img-responsive"}
 
 Without further ado...
-
-## The Reasons ##
 
 1. First of all, tables don't flow and don't adapt well to multiple layouts. Mobile-first is a must these days, and it's simply not easy to acomplish this with tables.
 
@@ -29,3 +27,14 @@ Without further ado...
 4. Using a table confuses web-crawlers as to what the actual contents of the page really are, because you are not using it the way it was meant to be used semantically in html.
 
 If these are not reasons enough, please keep in mind your fellow developers will absolutely hate you if you use them. So please don't.
+
+## Here's What To Do Instead ##
+
+I mentioned that html tags have semantic meaning. Which means there is a correct way of actually doing layout in html from a "tag meaning" point of view. 
+
+![image-title-here](/images/html5-tags.gif){:class="img-responsive"}
+
+HTML5 provides a series of tags such as *nav*, *header*, *aside* etc.
+
+
+
