@@ -12,11 +12,11 @@ While interviewing candidates for job positions, I found out an interesting thin
 
 *HTML pages are designed to flow vertically - they are documents and the intention is to scroll vertically and read document headers, paragraphs, etc. one by one.*
 
-The semantic intention of the *table* tag is to display tabular data, it's not to be used as a layout mechanism.
+The standard way of doing grid like layouts is 12 grid systems. The advantage of such a system (say, as opposed to 10 grid systems) is that they are divisible by 2, 3, 4 and 6 as opposed to just 2 and 5, which means we can build more flexible layouts with them. Another advantage of 12 grid systems is that in case there isn't enough screen realestate, they can flow and wrap.
 
-![image-title-here](/images/table.png){:class="img-responsive"}
+![image-title-here](/images/xyz.png){:class="img-responsive"}
 
-Without further ado...
+The semantic intention of the *table* tag is to display tabular data, it's not to be used as a layout mechanism. Without further ado...
 
 1. First of all, tables don't flow and don't adapt well to multiple layouts. Mobile-first is a must these days, and it's simply not easy to acomplish this with tables.
 
@@ -26,7 +26,7 @@ Without further ado...
 
 4. Using a table confuses web-crawlers as to what the actual contents of the page really are, because you are not using it the way it was meant to be used semantically in html.
 
-If these are not reasons enough, please keep in mind your fellow developers will absolutely hate you if you use them. So please don't.
+5. If these are not reasons enough, please keep in mind your fellow developers will absolutely hate you if you use them. So please don't.
 
 ## Here's What To Do Instead ##
 
@@ -34,7 +34,4 @@ I mentioned that html tags have semantic meaning. Which means there is a correct
 
 ![image-title-here](/images/html5-tags.gif){:class="img-responsive"}
 
-HTML5 provides a series of tags such as *nav*, *header*, *aside* etc.
-
-
-
+HTML5 provides a series of tags such as *nav*, *header*, *aside* etc. which are meant to be used as in the picture above.
