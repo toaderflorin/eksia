@@ -31,4 +31,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
 
-permalink: /:title.html
+permalink: /:title
