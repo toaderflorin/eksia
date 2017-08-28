@@ -1,18 +1,14 @@
 ---
 layout: post
-title:  "Component Based Architecture With React"
+title:  "Forgoing Flux: Simple Component Based Architecture With React"
 date:   2017-08-22 06:39:37 +0300
-description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+description: "I normally would have wrote this article, but I've heard this sentence (or something along those lines) multiple times: <i>Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.</i> No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish...
 "
 icon: "react-icon.png"
 categories:
 ---
 
-I normally would have wrote this article, but I've heard this sentence (or something along those lines) multiple times:
-
-*Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.*
-
-No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish. At Boeing, we've used Redux with Angular 1, for example. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show. And if you've used Angular 1 with controllers and services, you've probably already built something similar to what we're going to look at now.
+I normally would have wrote this article, but I've heard this sentence (or something along those lines) multiple times: *Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.* No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.
 
 ## Our Demo Application Requirements ##
 
@@ -22,7 +18,7 @@ Here's a sketch of what we want our application to look like:
 
 ![image-title-here](/images/sketch.png){:class="img-responsive"}
 
-The dotted lines indicate how we want to split our application into smaller pieces - the components that are going to make up the application. Remember we want to avoid using a store to keep the application architecture simple, but at the same time we want to avoid, things like partial page updates or a lot of stateful event based interactions, which lead to spagetti like dependencies in our code. Here's an example of interaction I've unfortunatelly encountered all too often in UI code:
+The dotted lines indicate how we want to split our application into smaller pieces -- the components that are going to make up the application. Remember we want to avoid using a store to keep the application architecture simple, but at the same time we want to avoid, things like partial page updates or a lot of stateful event based interactions, which lead to spagetti like dependencies in our code. Here's an example of interaction I've unfortunatelly encountered all too often in UI code:
 
 *The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.* 
 
@@ -52,5 +48,7 @@ As you can see, we are not doing or state changes here -- instead we are calling
 And last but not least, the list of tasks:
 
 <script src="https://gist.github.com/toaderflorin/70e6cbc872f55cf9cfe3fdf546fb1178.js"></script>
+
+It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succint, but the fact that don't handle their own state is also advantageous. The *TaksList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*. 
 
 The code was slightly tweaked and simplfied for legibility. Download the full version [here](https://github.com/toaderflorin/florintoader).
