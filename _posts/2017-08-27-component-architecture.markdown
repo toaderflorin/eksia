@@ -31,9 +31,12 @@ We are going to build an application that allows a user to manage a list of todo
 
 ![image-title-here](/images/sketch.png){:class="img-responsive"}
 
-The dotted lines indicate how we want to split our application into smaller pieces -- the components that are going to make up the application. We get this hierarchy:
+The dotted lines indicate how we want to split our application into smaller pieces -- the components that are going to make up the application. This means we get this hierarchy:
 
-This is what the top level component looks like:
+![image-title-here](/images/hierarchy.png){:class="img-responsive"}
+
+<br/>
+Codewise, this is what the top level component looks like:
 
 <script src="https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js"></script>
 
