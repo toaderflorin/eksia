@@ -54,4 +54,4 @@ And last but not least, the list of tasks:
 
 It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succint, but the fact that don't handle their own state is also advantageous. The *TaskList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*. 
 
-The code was slightly tweaked and simplfied for legibility -- download the full version [here](https://github.com/toaderflorin/florintoader).
+The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application-- if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsabilities to each and splitting the state accordingly.
