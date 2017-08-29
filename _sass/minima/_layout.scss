@@ -189,14 +189,16 @@
 }
 
 .post-meta {
-  font-size: $small-font-size;
+  @include relative-font-size(0.93);
   color: $grey-color;
+  margin-bottom: 18px;
 }
 
 .post-link {
   display: block;
   font-family: "Roboto";
-  @include relative-font-size(1.1);
+  margin-top: 3px;
+  @include relative-font-size(1.2);
 }
 
 .post-header {
