@@ -243,13 +243,15 @@ pre {
   line-height: 160%; }
 
 .post-meta {
-  font-size: 13.125px;
-  color: #828282; }
+  font-size: 13.95px;
+  color: #828282;
+  margin-bottom: 18px; }
 
 .post-link {
   display: block;
   font-family: "Roboto";
-  font-size: 16.5px; }
+  margin-top: 3px;
+  font-size: 18px; }
 
 .post-header {
   margin-bottom: 30px; }
