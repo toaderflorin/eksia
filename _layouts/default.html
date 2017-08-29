@@ -7,10 +7,10 @@
     {% include header.html %}
 
     <div class="gradient">
-      <div style="width: 840px; max-width: calc(100% - 30px); margin: auto; margin-top: 50px; padding: 15px"; 
+      <div  
+        style="width: 840px; max-width: calc(100% - 30px); margin: auto; margin-top: 50px; padding: 15px"; 
         display: flex; flex-direction: column; align-items: left; background-color: red;">
-
-          <svg class="site-logo" width="80" height="80" viewBox="0 0 100 100" stroke="#ee4477" stroke-width="1.5" fill="#111"
+          <svg  p-animation="vertical" p-delay="0" p-duration="300"  p-param="-15" class="site-logo" width="80" height="80" viewBox="0 0 100 100" stroke="#ee4477" stroke-width="1.5" fill="#111"
             xmlns="http://www.w3.org/2000/svg"
             style="box-shadow: -2px 2px 12px -1px  rgba(0, 0, 0, 0.5); margin: 0;">
             
@@ -28,10 +28,11 @@
             <circle cx="50" cy="75" r="9" />
           </svg>
          
-          <div style=" font-size: 45px; color: white;">
+          <div p-animation="fade" p-delay="0" p-duration="700"  p-param="0.8" style=" font-size: 45px; color: white;">
             <b>achiral</b> software
           </div>
-          <div style="font-size: 15px; color: #ddd; height: 85px;">
+
+          <div p-animation="fade" p-delay="0" p-duration="700"  p-param="0.8" style="font-size: 15px; color: #ddd; height: 85px;">
             <b>achiral</b> offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
           </div>
 
@@ -41,14 +42,17 @@
           </div>
       </div>
     </div>
+
+    <script src="http://localhost:4000/assets/puppeteer.js"></script>
+
     <main class="page-content" aria-label="Content" style="margin-top:0; z-index: 1000;">
       <div class="wrapper">
         {{ content }}
       </div>
     </main>
-
+    
     {% include footer.html %}
 
   </body>
-
+  
 </html>
