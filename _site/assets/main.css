@@ -232,11 +232,6 @@ pre {
   .post-list > li {
     margin-bottom: 30px; }
 
-.site-logo {
-  float: left;
-  margin-top: 4px;
-  margin-right: 5px; }
-
 .post-description {
   color: #333;
   margin-top: 7.5px;
@@ -280,8 +275,9 @@ pre {
 .gradient {
   color: white;
   height: 120px;
+  height: 320px;
   max-height: 350px;
-  background-color: #f7f7f7;
+  background: linear-gradient(200deg, #333, #111);
   z-index: -1;
   padding-top: 62px;
   display: flex; }
