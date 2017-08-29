@@ -277,7 +277,7 @@ pre {
   height: 120px;
   height: 320px;
   max-height: 350px;
-  background: linear-gradient(200deg, #333, #111);
+  background: linear-gradient(200deg, #444, #111);
   z-index: -1;
   padding-top: 62px;
   display: flex; }
