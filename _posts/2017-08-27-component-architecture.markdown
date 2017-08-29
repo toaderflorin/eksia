@@ -52,6 +52,10 @@ And last but not least, the list of tasks:
 
 <script src="https://gist.github.com/toaderflorin/70e6cbc872f55cf9cfe3fdf546fb1178.js"></script>
 
+and...
+
+<script src="https://gist.github.com/toaderflorin/6ab7f1bbf8faa03609b7df11332a83be.js"></script>
+
 It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succint, but the fact that don't handle their own state is also advantageous. The *TaskList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*. 
 
-The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application -- if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsabilities to each and splitting the state accordingly. You might however reach the conclusion that it's worth to use Redux / Flux, as the application gets larger.
+The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application -- if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsabilities to each and splitting the state accordingly. You might however reach the conclusion that it's worth to use Redux / Flux as the application gets larger.
