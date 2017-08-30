@@ -1,14 +1,12 @@
 ---
 layout: post
-title: "JavaScript Is A Dynamic Language: But You Might Not Want To Use It That Way"
+title: "Under The Hood: V8 Internals"
 description: "Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using..."
 date: 2017-06-16 06:39:37 +0300
-icon: "chrome-icon.png"
+icon: "v8.png"
 categories:
 ---
 ![image-title-here](/images/chrome.png){:class="img-responsive img-left"}
-
-*__Disclaimer:__ I will mainly touch upon Google’s V8 engine, as Google Chrome is the most popular browser at this moment.*
 
 Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database — Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.
 
