@@ -4,7 +4,7 @@ title:  "Simple Component Based Architecture With React"
 date:   2017-08-22 06:39:37 +0300
 description: "I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: <i>Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.</i> No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish...
 "
-icon: "react-icon.png"
+icon: "hierarchy.png"
 categories:
 ---
 
