@@ -1,18 +1,15 @@
 ---
 layout: post
 title:  "Under The Hood: The Ruby Object Model"
-date:   2017-09-01 06:39:37 +0300
+date:   2017-09-04 06:39:37 +0300
 description: "First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types...
 "
 icon: "icon.ruby.png"
 categories:
 ---
-![image-title-here](/images/ruby-banner.png){:class="img-responsive"}
+First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types. 
 
-<br />
-First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types. Ruby doesn't make this distinction - even the classes themselves are objects which is a bit strange if you are coming from C#/Java/C++.
-
-In this article we will be looking at the MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core, there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
+Ruby doesn't make this distinction - even the classes themselves are objects which is a bit strange if you are coming from C#/Java/C++. In this article we will be looking at the MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core, there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
 
 ## Basic Structure ##
 
