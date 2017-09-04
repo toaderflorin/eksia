@@ -1,5 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-04T22:41:57+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library – in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-04T22:42:56+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">Under The Hood: The Ruby Object Model</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="Under The Hood: The Ruby Object Model" /><published>2017-09-01T06:39:37+03:00</published><updated>2017-09-01T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;&lt;img src=&quot;/images/ruby-banner.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+First things first: Ruby is a dynamic language but it’s not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn’t such a thing as reference types and value types. Ruby doesn’t make this distinction - even the classes themselves are objects which is a bit strange if you are coming from C#/Java/C++.&lt;/p&gt;
+
+&lt;p&gt;In this article we will be looking at the MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core, there are two structures that describe the curent list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-structure&quot;&gt;Basic Structure&lt;/h2&gt;
+
+&lt;p&gt;Both structs inherit from a structure called RBasic. Here’s a simplified version of the internal representation of these objects (the code is a little bit more complicated, but this gist should give you the gist of it - pun intended).&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/990fa1d977619e854d374d8ffc128e8b.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;You might have noticed a few things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Classes are also objects.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Each object contains a collection of property values, just like objects in Javascript.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unlike Javascript however, the methods are not implemented on the object level but rather at the class level – an object refers to a class, thus gaining access to the methods.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The RClass struct has a &lt;em&gt;super&lt;/em&gt; field which points to another &lt;em&gt;class instance object&lt;/em&gt; which is the base class of the respective class.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As a side note, because a class is an object, you can do something like:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/f88f4c6bced8898f353006d16a4e7c60.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The &lt;em&gt;Class.new&lt;/em&gt; method accepts a block in which we define the class methods.&lt;/p&gt;
+
+&lt;p&gt;As you can see, Ruby’s dynamic nature translates into a very potent meta-programming ability. How much meta-programming you want to do and still have a fairly maintainable application is up for debate (and the subject of another article) however. For the time being, let’s look at how singleton methods / eigenclasses are implemented internally in the MRI.&lt;/p&gt;
+
+&lt;h2 id=&quot;singleton-methods-and-eigenclasses&quot;&gt;Singleton Methods And Eigenclasses&lt;/h2&gt;
+
+&lt;p&gt;You can also do something like:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/dee2afd92c2a3f7fa8809858f9ea174d.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;…which defines a String instance and adds a method &lt;strong&gt;only&lt;/strong&gt; to this instance.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s correct. So what happens here is Ruby creates an &lt;em&gt;eigenclass&lt;/em&gt; which means “own class” specifically for this object (“eigen” means &lt;em&gt;own&lt;/em&gt; or &lt;em&gt;self&lt;/em&gt; in German). This class in our case is a child class of String. But we can go further – since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Let’s look at the following class definition:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/e784cd304b404c14916a64a851c1a7ab.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see, Ruby is quite unique in that it’s dynamic, but it’s still class based (as opposed to objects being just property bags) and it’s quite peculiar in the way it’s implemented. Hope this helps.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library – in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
 
 &lt;p&gt;Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here’s an example of interaction I’ve unfortunately encountered all too often in UI code:&lt;/p&gt;
 
