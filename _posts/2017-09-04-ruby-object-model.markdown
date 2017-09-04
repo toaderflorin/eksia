@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Under The Hood: The Ruby Object Model"
-date:   2017-09-01 06:39:37 +0300
+date:   2017-09-04 06:39:37 +0300
 description: "First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types...
 "
 icon: "icon.ruby.png"
