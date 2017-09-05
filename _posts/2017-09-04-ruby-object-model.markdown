@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Under The Hood: The Ruby Object Model"
+title:  "Under The Hood: The Ruby Object Model And Metaprogramming"
 date:   2017-09-04 06:39:37 +0300
 description: "First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types...
 "
@@ -53,4 +53,24 @@ Let's look at the following class definition:
 
 <script src="https://gist.github.com/toaderflorin/e784cd304b404c14916a64a851c1a7ab.js"></script>
 
-As you can see, Ruby is quite unique in that it's dynamic, but it's still class based (as opposed to objects being just property bags) and it's quite peculiar in the way it's implemented. Hope this helps.
+And last but not least, you can also add methods to a class like this:
+
+<script src="https://gist.github.com/toaderflorin/dede663e10f66dea16e67739ed73d38a.js"></script>
+
+As you can see, Ruby is quite unique in that it’s dynamic, but it’s still class based (as opposed to objects being just property bags like in Javascript) and it’s quite peculiar in the way it’s implemented. And all these dynamic features makes it easy for us to do...
+
+## Metaprogramming ##
+*Metaprogramming* is a rather loosely defined term, but the core concept is that the program is able to modify itself or generate new code on the fly. A very simple example of metaprogramming is defining accessors for properties in a class.
+
+<script src="https://gist.github.com/toaderflorin/668c759648ac89371bb173e5eb0d3708.js"></script>
+
+You don't see that very often in practice however, what you do see is:
+
+<script src="https://gist.github.com/toaderflorin/f72919ec8880ce84feded448e3f38360.js"></script>
+
+*attr_accessor* is a method defined of the *Object* class from which all Ruby classes inherit. It looks something like this:
+
+<script src="https://gist.github.com/toaderflorin/aadbf0fcc2ad54841d5d84e7dff23eeb.js"></script>
+
+If you are coming from C++, you might see the benefit in this particular example but might be scraching your head and wondering why is this desirable, because after all Ruby could have included a simplfied way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducing to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the userfriendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly. 
+
