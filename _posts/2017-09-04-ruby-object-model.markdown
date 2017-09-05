@@ -12,6 +12,7 @@ First things first: Ruby is a dynamic language but it's not a dynamic language i
 Both structs inherit from a structure called RBasic. Here's a simplified version of the internal representation of these objects (the code is a little bit more complicated):
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
+
 <br/>
 
 You might have noticed a few things:
