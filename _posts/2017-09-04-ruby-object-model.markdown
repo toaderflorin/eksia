@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Under The Hood: The Ruby Object Model And Metaprogramming"
+title:  "The Ruby Object Model And Metaprogramming"
 date:   2017-09-04 06:39:37 +0300
 description: "First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types...
 "
@@ -73,4 +73,6 @@ You don't see that very often in practice however, what you do see is:
 <script src="https://gist.github.com/toaderflorin/aadbf0fcc2ad54841d5d84e7dff23eeb.js"></script>
 
 If you are coming from C++, you might see the benefit in this particular example but might be scraching your head and wondering why is this desirable, because after all Ruby could have included a simplfied way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducing to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the userfriendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly. 
+
+Ruby might seem like the perfect programming language but all this dynamism commes at a significat performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
 
