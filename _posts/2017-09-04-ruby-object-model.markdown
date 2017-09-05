@@ -16,6 +16,7 @@ Ruby doesn't make this distinction - even the classes themselves are objects whi
 Both structs inherit from a structure called RBasic. Here's a simplified version of the internal representation of these objects (the code is a little bit more complicated, but this gist should give you the gist of it - pun intended).
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
+<br/>
 
 You might have noticed a few things:
 
@@ -82,6 +83,4 @@ you can very easily access it like so:
 
 <script src="https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js"></script>
 
-A lot less verbose than if you would have writen something similar in Java/C#, because the library takes care of a lot of magic for us.
-
-Ruby might seem like the perfect programming language but all this dynamism commes at a significat performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
+It's definitely a lot less verbose than if you would have writen something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism commes at a significat performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
