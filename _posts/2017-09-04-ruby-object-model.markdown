@@ -74,5 +74,15 @@ You don't see that very often in practice however, what you do see is:
 
 If you are coming from C++, you might see the benefit in this particular example but might be scraching your head and wondering why is this desirable, because after all Ruby could have included a simplfied way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducing to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the userfriendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly. 
 
+Here's an example straight from the AR docs. For the following table:
+
+<script src="https://gist.github.com/toaderflorin/831dd9e4f7631f2bb79c015c85a35e81.js"></script>
+
+you can very easily access it like so:
+
+<script src="https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js"></script>
+
+A lot less verbose than if you would have writen something similar in Java/C#, because the library takes care of a lot of magic for us.
+
 Ruby might seem like the perfect programming language but all this dynamism commes at a significat performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
 
