@@ -7,13 +7,9 @@ description: "First things first: Ruby is a dynamic language but it's not a dyna
 icon: "icon.ruby.png"
 categories:
 ---
-First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages), which makes it similar to Javascript, but you actually have real classes and class inheritance, as opposed to prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types. 
+First things first: Ruby is a dynamic language but it's not a dynamic language in the same way Javascript is a dynamic language. If you are coming from Java or C#, the first thing that you notice is that you can assign any object type to variables (as opposed to statically typed languages) which makes it similar to Javascript, but you actually have real classes and class inheritance and not just prototypical inheritance. Everything is an object, there isn't such a thing as reference types and value types. In Ruby everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
 
-Ruby doesn't make this distinction - even the classes themselves are objects which is a bit strange if you are coming from C#/Java/C++. In this article we will be looking at the MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core, there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
-
-## Basic Structure ##
-
-Both structs inherit from a structure called RBasic. Here's a simplified version of the internal representation of these objects (the code is a little bit more complicated, but this gist should give you the gist of it - pun intended).
+Both structs inherit from a structure called RBasic. Here's a simplified version of the internal representation of these objects (the code is a little bit more complicated):
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
 <br/>
@@ -28,7 +24,7 @@ You might have noticed a few things:
 
 4. The RClass struct has a *super* field which points to another *class instance object* which is the base class of the respective class.
 
-As a side note, because a class is an object, you can do something like:
+As a side note, because a class is an object you can do something like:
 
 <script src="https://gist.github.com/toaderflorin/f88f4c6bced8898f353006d16a4e7c60.js"></script>
 
