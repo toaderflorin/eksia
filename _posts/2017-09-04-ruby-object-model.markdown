@@ -44,7 +44,7 @@ You can also do something like:
 
 *But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.*
 
-That's correct. So what happens here is Ruby creates an *eigenclass* which means "own class" specifically for this object ("eigen" means *own* or *self* in German). This class in our case is a child class of String. But we can go further -- since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
+That's correct. So what happens here is Ruby creates an *eigenclass* specifically for this object (which means "own class" -- "eigen" means *own* or *self* in German). This class in our case is a child class of String. But we can go further -- since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
 
 <script src="https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js"></script>
 
