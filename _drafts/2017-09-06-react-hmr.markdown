@@ -24,19 +24,3 @@ Our *.babelrc* file looks like this:
 And finally, let's have a look at the Webpack configuration page.
 
 <script src="https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js"></script>
-
-We did a number of things:
-
-1. We configured Webpack to use the dev server -- that's what the *devServer* section is responsible for.
-
-2. The entry property consists of a bunch of entrie
-
-<blockquote cite="http://www.imdb.com/character/ch0000672/quotes">
-You know the golden rule, don’t you boy? Those who have the gold make the rules.
-<!-- <footer>— <a href="http://www.imdb.com/character/ch0000672/quotes">Crazy hunch-backed old guy in Aladdin</a></footer> -->
-</blockquote>
-
-<code>
-asdasda asd
-asd
-</code>
