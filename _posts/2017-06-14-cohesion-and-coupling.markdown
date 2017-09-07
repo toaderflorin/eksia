@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Architectural Ramblings: Cohesion And Coupling"
-date: 2017-04-14 06:39:37 +0300
+date: 2017-06-14 06:39:37 +0300
 description: "When you are writing code, you are usually not working alone. 
 That means working with other people’s code, so they need to understand your code 
 and you need to understand theirs. Good code is something that you can understand by reading, 

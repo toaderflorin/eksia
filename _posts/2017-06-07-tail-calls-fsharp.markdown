@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Tail Call Optimizations In F#"
-date:   2017-04-07 06:39:37 +0300
+date:   2017-6-07 06:39:37 +0300
 description: "I chose F# for this article because that’s the functional language I have most experience in,
 but the same concepts can be applied to any language, even JavaScript. Let’s take a simple piece of code in
 F# that calculates the sum of a large sequence. And let’s say this sequence is being evaluated on the fly, so we don’t
