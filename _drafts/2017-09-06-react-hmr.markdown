@@ -8,9 +8,21 @@ Here's what most people that worked with Webpack would agree: setting it up is n
 icon: "webpack.png"
 categories:
 ---
-![image-title-here](/images/react-webpack.png){:class="img-responsive"}
+Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. 
 
-Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we'll be using the *babel-es2015-preset* and we will be configuring a [loader](https://webpack.js.org/concepts/#loaders) for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.
+We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we'll be using the *babel-es2015-preset* and we will be configuring a [loader](https://webpack.js.org/concepts/#loaders) for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.
+
+<blockquote>
+Webpack at it's core is just a module bundler. It essentially detects dependencies between the stuff (for like of a better word) like code files,  style files etc. that makes up your code and creates a bundle out of it.
+</blockquote>
+
+![image-title-here](/images/webpack.svg){:class="img-responsive"}
+
+Webpack however doesn't actually do things like transpilation. If you have Coffeescript code, Typescript or ES6 code, you will have to use a loader.
+
+![image-title-here](/images/webpack-schematic.png){:class="img-responsive"}
+
+<br />
 
 ## Let's Jump Right In
 The dependencies section of the *package.json* file look like this:
@@ -24,3 +36,4 @@ Our *.babelrc* file looks like this:
 And finally, let's have a look at the Webpack configuration page.
 
 <script src="https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js"></script>
+
