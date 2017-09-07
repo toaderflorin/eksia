@@ -3,7 +3,7 @@ layout: post
 title:  "The Ruby Object Model And Metaprogramming"
 date:   2017-09-04 06:39:37 +0300
 description: "
-First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented - everything is an object, even classes, and there is no such thing as a distinction between value and reference types...
+First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented - everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes...
 "
 icon: "icon.ruby.png"
 categories:
