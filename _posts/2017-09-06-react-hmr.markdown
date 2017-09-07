@@ -37,3 +37,5 @@ And finally, let's have a look at the Webpack configuration page.
 
 <script src="https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js"></script>
 
+You can find the source code [here](https://github.com/toaderflorin/react-hmr).
+
