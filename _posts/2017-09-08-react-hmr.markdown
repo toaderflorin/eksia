@@ -10,22 +10,22 @@ categories:
 ---
 Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. 
 
-We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we'll be using the *babel-es2015-preset* and we will be configuring a [loader](https://webpack.js.org/concepts/#loaders) for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.
-
-![image-title-here](/images/webpack.svg){:class="img-responsive"}
+We are going to use the application we built in the [previous article](http://achiral.io/ruby-object-model) and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we'll be using the *babel-es2015-preset* and we will be configuring a [loader](https://webpack.js.org/concepts/#loaders) for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.
 
 <blockquote>
-Webpack at it's core is just a module bundler. It essentially detects dependencies between the stuff (for like of a better word) like code files,  style files etc. that makes up your code and creates a bundle out of it.
+Webpack at it's core is just a module bundler. It essentially detects dependencies between the stuff that makes up your application (for like of a better word) like code files,  style files etc. that makes up your code and creates a bundle out of it.
 </blockquote>
 
-Webpack however doesn't actually do things like transpilation. If you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
+![image-title-here](/images/schematic.png){:class="img-responsive"}
+
+It doesn't actually do things like transpilation -- if you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
 
 <br />
 ![image-title-here](/images/webpack-schematic.png){:class="img-responsive"}
 
 <br />
 
-On the other side of the chain there are [plugins](https://webpack.js.org/concepts/#plugins) like uglifyJS, which is a Javascript minifier. Another plugin example is *webpack-dev-server* which we will be using to implement hot reloading.
+On the other side of the chain there are [plugins](https://webpack.js.org/concepts/#plugins) like uglifyJS (which we're not using in the code sample, but I've added it in the drawing as an example of a plugin), which is a Javascript minifier. Another plugin example is *webpack-dev-server* which we will be using to implement hot reloading.
 
 ## Let's Jump Right In
 The dependencies section of the *package.json* file look like this:
