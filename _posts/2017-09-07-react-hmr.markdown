@@ -18,11 +18,14 @@ Webpack at it's core is just a module bundler. It essentially detects dependenci
 
 ![image-title-here](/images/webpack.svg){:class="img-responsive"}
 
-Webpack however doesn't actually do things like transpilation. If you have Coffeescript code, Typescript or ES6 code, you will have to use a loader.
+Webpack however doesn't actually do things like transpilation. If you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
 
+<br />
 ![image-title-here](/images/webpack-schematic.png){:class="img-responsive"}
 
 <br />
+
+On the other side of the chain there are [plugins](https://webpack.js.org/concepts/#plugins) like uglifyJS, which is a Javascript minifier. Another plugin example is *webpack-dev-server* which we will be using to implement hot reloading.
 
 ## Let's Jump Right In
 The dependencies section of the *package.json* file look like this:
@@ -37,5 +40,28 @@ And finally, let's have a look at the Webpack configuration page.
 
 <script src="https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js"></script>
 
-You can find the source code [here](https://github.com/toaderflorin/react-hmr).
+<br/>
+## Adding Hot Reloading ##
+Webpack Hot Module Replacement works by adding a small runtime to the generated bundle that is going to run inside your app that constantly communicates with the server and part of the module tree changes, it will inject the new dependencies. However, in order for this process to take place, we need to setup the Webpack Development Server, which means we need to add the following lines of code in the *webpack.config.js* file in the configuration object.
 
+<pre>
+plugins: [
+  new webpack.HotModuleReplacementPlugin()
+],
+devServer: {  
+  proxy: {
+    '*': 'http://localhost:3000'
+  },
+  hot: true,
+  contentBase: './src/static', 
+  port: 9000   
+}
+</pre>
+
+Second, we actually need to React to **do something** when the bundle changes, which is where the *react-hot-loader* package comes into place. A module can only be updated if you "accept" it. So you need to *module.hot.accept()* the module in the parents or the parents of the parents. *react-hot-loader* is what allows us to mount the newly accepted component on the fly.
+
+Have a look at the following code:
+
+<script src="https://gist.github.com/toaderflorin/d4d9e62d2b36d768bbefc78c7c084817.js"></script>
+
+You can find the source code [here](https://github.com/toaderflorin/react-hmr).
