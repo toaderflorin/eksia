@@ -1,5 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-07T12:32:14+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">The Ruby Object Model And Metaprogramming</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="The Ruby Object Model And Metaprogramming" /><published>2017-09-04T06:39:37+03:00</published><updated>2017-09-04T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented – everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the curent list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-07T12:33:07+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">Hot Module Reloading With Wepack, React And Babel</title><link href="http://localhost:4000/react-hmr" rel="alternate" type="text/html" title="Hot Module Reloading With Wepack, React And Babel" /><published>2017-09-06T06:39:37+03:00</published><updated>2017-09-06T06:39:37+03:00</updated><id>http://localhost:4000/react-hmr</id><content type="html" xml:base="http://localhost:4000/react-hmr">&lt;p&gt;Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend.&lt;/p&gt;
+
+&lt;p&gt;We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn’t do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we’ll be using the &lt;em&gt;babel-es2015-preset&lt;/em&gt; and we will be configuring a &lt;a href=&quot;https://webpack.js.org/concepts/#loaders&quot;&gt;loader&lt;/a&gt; for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.&lt;/p&gt;
+
+&lt;blockquote&gt;
+Webpack at it's core is just a module bundler. It essentially detects dependencies between the stuff (for like of a better word) like code files,  style files etc. that makes up your code and creates a bundle out of it.
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/webpack.svg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Webpack however doesn’t actually do things like transpilation. If you have Coffeescript code, Typescript or ES6 code, you will have to use a loader.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lets-jump-right-in&quot;&gt;Let’s Jump Right In&lt;/h2&gt;
+&lt;p&gt;The dependencies section of the &lt;em&gt;package.json&lt;/em&gt; file look like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/a7470f4ca4cadea9e8bc86573ecc4215.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Our &lt;em&gt;.babelrc&lt;/em&gt; file looks like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/f2264a5abc5f1ee8904ff6b93aa18feb.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And finally, let’s have a look at the Webpack configuration page.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend.</summary></entry><entry><title type="html">The Ruby Object Model And Metaprogramming</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="The Ruby Object Model And Metaprogramming" /><published>2017-09-04T06:39:37+03:00</published><updated>2017-09-04T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented – everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the curent list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
 
 &lt;p&gt;Both structs inherit from a structure called RBasic. Here’s a simplified version of the internal representation of these objects (the code is a little bit more complicated):&lt;/p&gt;
 
