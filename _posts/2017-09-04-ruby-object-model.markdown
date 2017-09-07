@@ -75,7 +75,13 @@ If you are coming from C++, you might see the benefit in this particular example
 
 Here's an example straight from the AR docs. For the following table:
 
-<script src="https://gist.github.com/toaderflorin/831dd9e4f7631f2bb79c015c85a35e81.js"></script>
+<pre>
+CREATE TABLE products (
+   id int(11) NOT NULL auto_increment,
+   name varchar(255),
+   PRIMARY KEY  (id)
+);
+</pre>
 
 you can very easily access it like so:
 
