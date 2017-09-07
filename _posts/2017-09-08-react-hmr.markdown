@@ -3,12 +3,12 @@ layout: post
 title:  "Hot Module Reloading With Wepack, React And Babel"
 date:   2017-09-07 06:39:37 +0300
 description: "
-Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper.  Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place...
+Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that's the problem I am trying to solve with this article. We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper.  Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place...
 "
 icon: "webpack.png"
 categories:
 ---
-Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. 
+Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that's the problem I am trying to solve with this article.
 
 We are going to use the application we built in the [previous article](http://achiral.io/ruby-object-model) and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we'll be using the *babel-es2015-preset* and we will be configuring a [loader](https://webpack.js.org/concepts/#loaders) for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.
 
@@ -42,7 +42,7 @@ And finally, let's have a look at the Webpack configuration page.
 
 <br/>
 ## Adding Hot Reloading ##
-Webpack Hot Module Replacement works by adding a small runtime to the generated bundle that is going to run inside your app that constantly communicates with the server and part of the module tree changes, it will inject the new dependencies. However, in order for this process to take place, we need to setup the Webpack Development Server, which means we need to add the following lines of code in the *webpack.config.js* file in the configuration object.
+Webpack Hot Module Replacement works by adding a small runtime to the generated bundle (which is going to run alongside your app) that constantly communicates with the server and if part of the dependency tree changes, it will inject the new dependencies. However, in order for this process to take place, we need to setup the Webpack Development Server, which means we need to add the following lines of code in the *webpack.config.js* file in the configuration object.
 
 <pre>
 plugins: [
