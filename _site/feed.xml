@@ -1,5 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-07T21:15:28+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">Hot Module Reloading With Wepack, React And Babel</title><link href="http://localhost:4000/react-hmr" rel="alternate" type="text/html" title="Hot Module Reloading With Wepack, React And Babel" /><published>2017-09-07T06:39:37+03:00</published><updated>2017-09-07T06:39:37+03:00</updated><id>http://localhost:4000/react-hmr</id><content type="html" xml:base="http://localhost:4000/react-hmr">&lt;p&gt;Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s the problem I am trying to solve with this article.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-08T12:42:23+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-08T06:39:37+03:00</published><updated>2017-09-08T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a restriction implemented on the browser level  – if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to “accept” calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it’s actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.&lt;/p&gt;
+
+&lt;h2 id=&quot;specifics&quot;&gt;Specifics&lt;/h2&gt;
+&lt;p&gt;OK, so let’s get into specifics: first let’s see what exactly constitutes the same origin and what is a different origin. The policy looks at the protocol (http or https), port number and host URL. Let’s assume that our page is served from &lt;em&gt;http://domain1.page.com/index.html&lt;/em&gt;. Accessing the following URLs will give the following results:&lt;/p&gt;
+
+&lt;pre&gt;
+http://domain1.page.com/items/3213
+# Success.
+
+https://domain1.page.com/items/12
+# This fails because it's using https instead of http.
+
+http://somethingelse.com/
+# Fails because it's a totally different domain.
+
+http://domain2.page.com/items/32
+# Fails because the subdomain is different
+
+http://domain1.page.com:9000/items/32
+# Fails because the port is different.
+&lt;/pre&gt;
+
+&lt;p&gt;Of course, if you ever built applications using a microservice architecture, you know that sometimes it’s desirable to allow access to the backend for applications that will be hosted elsewhere, but you don’t necesarily want to open access to everybody. So CORS is sort of a middle-road between the two and it comes in handy when your applications are distributed because sometimes you just want to hook up things without configuring proxies and whatnot.&lt;/p&gt;
+
+&lt;blockquote&gt;
+We first must make the distinction between &lt;b&gt;simple requests&lt;/b&gt; and &lt;b&gt;preflighted requests&lt;/b&gt;.
+&lt;/blockquote&gt;
+
+&lt;p&gt;A simple request is a GET, POST or HEAD that meets a few conditions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No event listeners are registered on any &lt;em&gt;XMLHttpRequestUpload&lt;/em&gt; object used in the request and no &lt;em&gt;ReadableStream&lt;/em&gt; object is used in the request.&lt;/li&gt;
+  &lt;li&gt;The only accepted headers are “CORS”: &lt;em&gt;Accept, Accept-Language, Content-Language, Content-Type, Last-Event-ID, DPR, Downlink, Save-Data, Viewport-Width&lt;/em&gt; and &lt;em&gt;Width&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;The accepted values for the Content header are: &lt;em&gt;application/x-www-form-urlencoded, multipart/form-data&lt;/em&gt; and &lt;em&gt;text/plain&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If the server supports CORS, it will return a response specifying a value for the &lt;em&gt;Access-Control-Allow-Origin&lt;/em&gt; header:&lt;/p&gt;
+
+&lt;pre&gt;
+Access-Control-Allow-Origin: *
+# this allows access from any origin
+
+Access-Control-Allow-Origin: http://domain2.page.com
+# allows access from domain2.page.com
+
+# etc.
+&lt;/pre&gt;
+
+&lt;p&gt;A &lt;em&gt;preflighted request&lt;/em&gt; is one that &lt;strong&gt;automatically&lt;/strong&gt; triggers an OPTIONS call to the server before the actual request.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cors_flow.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If any of the conditions for the request to be a simple request is violated, then we have a preflighted request on our hand. Which means that if we want to support CORS, our server needs to be able to respond to OPTIONS requests accordingly.&lt;/p&gt;
+
+&lt;p&gt;This means we need someting like:&lt;/p&gt;
+
+&lt;pre&gt;
+HTTP/1.1 200 OK
+...
+Access-Control-Allow-Origin: http://page.com
+Access-Control-Allow-Methods: POST, GET, OPTIONS
+Access-Control-Allow-Headers: Content-Type
+&lt;/pre&gt;
+
+&lt;p&gt;…in order to tell the browser it’s actually OK to send the real request.&lt;/p&gt;
+
+&lt;p&gt;Of course, you probably don’t want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you’re using Node, it’s very simple to support CORS by using the &lt;a href=&quot;https://www.npmjs.com/package/cors&quot;&gt;&lt;em&gt;cors&lt;/em&gt; library&lt;/a&gt; which is just simple Express middleware.&lt;/p&gt;
+
+&lt;p&gt;Configuring Rails to use CORS is equally easy.&lt;/p&gt;</content><author><name></name></author><summary type="html">CORS stands for Cross-Origin Resource Sharing and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as same-origin policy. What this policy refers to is that an application cannot access resources via XMLHttpRequest or the Fetch API that come from a different URL than where the page was originally served from.</summary></entry><entry><title type="html">Hot Module Reloading With Wepack, React And Babel</title><link href="http://localhost:4000/react-hmr" rel="alternate" type="text/html" title="Hot Module Reloading With Wepack, React And Babel" /><published>2017-09-07T06:39:37+03:00</published><updated>2017-09-07T06:39:37+03:00</updated><id>http://localhost:4000/react-hmr</id><content type="html" xml:base="http://localhost:4000/react-hmr">&lt;p&gt;Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s the problem I am trying to solve with this article.&lt;/p&gt;
 
 &lt;p&gt;We are going to use the application we built in the &lt;a href=&quot;http://achiral.io/ruby-object-model&quot;&gt;previous article&lt;/a&gt; and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn’t do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place. Third, because we want to use ES6, we’ll be using the &lt;em&gt;babel-es2015-preset&lt;/em&gt; and we will be configuring a &lt;a href=&quot;https://webpack.js.org/concepts/#loaders&quot;&gt;loader&lt;/a&gt; for Webpack. Also we are going to use Babel to transpile the .jsx syntax, NOT Webpack.&lt;/p&gt;
 
