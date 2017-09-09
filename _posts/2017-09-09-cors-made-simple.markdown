@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "CORS Made Simple"
-date:   2017-09-08 06:39:37 +0300
+date:   2017-09-09 06:39:37 +0300
 description: "
 CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level - if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error...
 "
@@ -58,7 +58,7 @@ Access-Control-Allow-Origin: http://domain2.page.com
 # etc.
 </pre>
 
-A *preflighted request* is one that **automatically** triggers an OPTIONS call to the server before the actual request. 
+A *preflighted request* is one that **automatically** triggers an OPTIONS call to the server before the actual request. It looks like this:
 
 ![image-title-here](/images/cors_flow.png){:class="img-responsive"}
 
@@ -78,6 +78,18 @@ Access-Control-Allow-Headers: Content-Type
 
 ...in order to tell the browser it's actually OK to send the real request.
 
-Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [*cors* library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
+The whole concept of a "preflight request" seems a bit strange and you might be wondering why it was included in the spec. Couldn't all requests be made without a preflight? A key concept to understand is that the role of the OPTIONS request doesn't have to do with security.
+
+<blockquote>
+Preflight requests have the role of preserving the semantics of the web before CORS.
+</blockquote>
+
+In most previous applications (before REST and client side applications became popular) involved GETs for retrieving webpages, and POSTs for posting back form data. Old webserver which are CORS agnostic would never expect to receive a cross-domain DELETE request, and might behave unexpectly in such cases. The preflight request is a way around this potential issue -- it allows to actually query the backend and see if it supports CORS in a safe manner.
+
+You might have noticed that the allowed verbs are the ones that read and create data but NOT the ones that can modify existing information -- like DELETE and PUT. Now you might be wondering: *couldn't somebody just send a DELETE request via a tool like Postman, since CORS is implemented on the browser level?* Sure, but that wouldn't be a problem because backend services usually require authentication that would be stored locally in the form of a cookie and would be accessible to Javascript running in the browser but not to somebody doing a request using Postman. 
+
+## Conclusion
+
+Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [cors library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
 
 Configuring Rails to use CORS is equally easy.
