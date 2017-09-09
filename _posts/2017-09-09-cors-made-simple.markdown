@@ -10,7 +10,7 @@ categories:
 ---
 CORS stands for *Cross-Origin Resource Sharing* and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as *same-origin policy*. What this policy refers to is that an application cannot access resources via [XMLHttpRequest](https://www.w3schools.com/xml/xml_http.asp) or the [Fetch API](https://developers.google.com/web/updates/2015/03/introduction-to-fetch) that come from a different URL than where the page was originally served from. 
 
-![image-title-here](/images/cors.png){:class="img-responsive center-image"}
+![image-title-here](/images/cors.png){:class="img-responsive"}
 
 This is a restriction implemented on the browser level  -- if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
 

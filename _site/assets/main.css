@@ -228,7 +228,8 @@ pre {
 
 .post-list {
   margin-left: 0;
-  list-style: none; }
+  list-style: none;
+  margin-top: 20px; }
   .post-list > li {
     margin-bottom: 30px; }
 
