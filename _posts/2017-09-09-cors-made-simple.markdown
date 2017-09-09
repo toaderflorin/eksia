@@ -92,4 +92,12 @@ You might have noticed that the allowed verbs are the ones that read and create 
 
 Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [cors library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
 
+<pre>
+npm install cors
+</pre>
+
+Using it is also very simple, it just needs to be registered as a middleware with Express.
+
+<script src="https://gist.github.com/toaderflorin/de8610422124cce393883120e77e150b.js"></script>
+
 Configuring Rails to use CORS is equally easy.
