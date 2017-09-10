@@ -86,6 +86,7 @@ Preflight requests have the role of preserving the semantics of the web before C
 
 In most previous applications (before REST and client side applications became popular) involved GETs for retrieving webpages, and POSTs for posting back form data. Old webserver which are CORS agnostic would never expect to receive a cross-domain DELETE request, and might behave unexpectly in such cases. The preflight request is a way around this potential issue -- it allows to actually query the backend and see if it supports CORS in a safe manner. You might have noticed that the allowed verbs are the ones that read and create data but NOT the ones that can modify existing information -- like DELETE and PUT. Now you might be wondering: *couldn't somebody just send a DELETE request via a tool like Postman, since CORS is implemented on the browser level?* Sure, but that wouldn't be a problem because backend services usually require authentication that would be stored locally in the form of a cookie and would be accessible to Javascript running in the browser but not to somebody doing a request using Postman. 
 
+## In Closing
 Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [cors library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
 
 <pre>
