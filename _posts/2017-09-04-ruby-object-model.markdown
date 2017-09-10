@@ -10,7 +10,7 @@ categories:
 ---
 First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented -- everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at CRUby (also called, MRI -- Matz's Ruby Implementation which is written in C)to see how everything works behind the scenes. 
 
-At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called RBasic. Here's a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):
+At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called *RBasic*. Here's a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
 
