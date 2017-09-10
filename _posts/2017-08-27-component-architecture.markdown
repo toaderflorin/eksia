@@ -14,6 +14,8 @@ Our goal for this demo app is to avoid using a separate store to keep the applic
 
 *The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.* 
 
+![image-title-here](/images/big-ball.png){:class="img-responsive"}
+
 You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:
 
 1. We will keep the whole application state as the state of the top level *App* component. 
@@ -40,7 +42,7 @@ Codewise, this is what the top level component looks like:
 
 <script src="https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js"></script>
 
-As you can see, it contains the methods for adding and removing todos. These are passed down as props to the *AddTask* and *TaskList* components respectively. 
+As you can see, it contains the methods for adding and removing todos (what else?!). These are passed down as props to the *AddTask* and *TaskList* components respectively. 
 
 Here is the *AddTask* component:
 
