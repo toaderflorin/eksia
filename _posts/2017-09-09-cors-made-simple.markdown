@@ -12,7 +12,7 @@ CORS stands for *Cross-Origin Resource Sharing* and if you've built rich client 
 
 ![image-title-here](/images/cors.png){:class="img-responsive"}
 
-This is a restriction implemented on the browser level  -- if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
+This is a restriction implemented on the browser level  -- if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls to a resource from a different domain. The reason I am using quotes is because, as previously mentioned, it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
 
 ## Specifics
 OK, so let's get into specifics: first let's see what exactly constitutes the same origin and what is a different origin. The policy looks at the protocol (http or https), port number and host URL. Let's assume that our page is served from *http://domain1.page.com/index.html*. Accessing the following URLs will give the following results:
@@ -89,7 +89,7 @@ In most previous applications (before REST and client side applications became p
 Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [cors library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
 
 <pre>
-npm install cors
+npm install cors --save
 </pre>
 
 Using it is also very simple, it just needs to be registered as a middleware with Express.
