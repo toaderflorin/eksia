@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-10T13:43:00+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-10T14:03:53+03:00</updated><id>http://localhost:4000/</id><title type="html">blog</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -238,6 +238,8 @@ CREATE TABLE products (
 
 &lt;p&gt;&lt;em&gt;The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.&lt;/em&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;img src=&quot;/images/big-ball.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -266,7 +268,7 @@ Codewise, this is what the top level component looks like:&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;As you can see, it contains the methods for adding and removing todos. These are passed down as props to the &lt;em&gt;AddTask&lt;/em&gt; and &lt;em&gt;TaskList&lt;/em&gt; components respectively.&lt;/p&gt;
+&lt;p&gt;As you can see, it contains the methods for adding and removing todos (what else?!). These are passed down as props to the &lt;em&gt;AddTask&lt;/em&gt; and &lt;em&gt;TaskList&lt;/em&gt; components respectively.&lt;/p&gt;
 
 &lt;p&gt;Here is the &lt;em&gt;AddTask&lt;/em&gt; component:&lt;/p&gt;
 
