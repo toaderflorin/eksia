@@ -42,7 +42,7 @@ Codewise, this is what the top level component looks like:
 
 <script src="https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js"></script>
 
-As you can see, it contains the methods for adding and removing todos (what else?!). These are passed down as props to the *AddTask* and *TaskList* components respectively. 
+As you can see, it contains the methods for adding and removing todos. These are passed down as props to the *AddTask* and *TaskList* components respectively. 
 
 Here is the *AddTask* component:
 

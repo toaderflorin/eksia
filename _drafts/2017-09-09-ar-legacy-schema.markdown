@@ -25,3 +25,11 @@ While it's not as much fun as creating the database from scratch, it's perfectly
 
 We will go through the settings that can be customized:
 
+Probably the first things that we'd want to customize would be table and column names, which is something you should approach like this:
+
+<pre>
+class Account < ActiveRecord::Base
+  set_table_name "adsadasd"
+  set_primary_key "account_id"
+end
+</pre>
