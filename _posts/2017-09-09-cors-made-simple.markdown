@@ -12,11 +12,7 @@ CORS stands for *Cross-Origin Resource Sharing* and if you've built rich client 
 
 ![image-title-here](/images/cors.png){:class="img-responsive"}
 
-<<<<<<< HEAD:_posts/2017-09-08-cors-made-simple.markdown
 This is a restriction implemented on the browser level — if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
-=======
-This is a restriction implemented on the browser level  -- if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because (as previously mentioned) it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
->>>>>>> 161c8c4eb8ec2f0f272adce41916041dd9b0c06c:_posts/2017-09-09-cors-made-simple.markdown
 
 ## Specifics
 OK, so let's get into specifics: first let's see what exactly constitutes the same origin and what is a different origin. The policy looks at the protocol (http or https), port number and host URL. Let's assume that our page is served from *http://domain1.page.com/index.html*. Accessing the following URLs will give the following results:
