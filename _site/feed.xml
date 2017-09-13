@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-13T19:09:07+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-13T19:17:33+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confined in me they considered doing this (including your’s truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -32,6 +32,15 @@
 &lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered everytime it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/attack.gif&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Valdiate inputs: this means checking that the user didn’t try to input any funky stuff and warning him if this is the case.&lt;/li&gt;
+  &lt;li&gt;Sanitize outputs: everything that’s rendered to the bage must be HTML escaped. This means that script blocks will be displayed as text, and won’t be part of the DOM, and thus executed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as &lt;a href=&quot;https://www.npmjs.com/package/helmet&quot;&gt;helmet&lt;/a&gt; or &lt;a href=&quot;https://www.npmjs.com/package/xssfilter&quot;&gt;xssfilter&lt;/a&gt; etc.&lt;/p&gt;
 
 &lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
 &lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;

@@ -36,6 +36,13 @@ A typical example of XSS is *persistent cross-site scripting*. If a page isn't p
 
 ![image-title-here](/images/attack.gif){:class="img-responsive"}
 
+What can we do about it? Actually two things:
+
+1. Valdiate inputs: this means checking that the user didn't try to input any funky stuff and warning him if this is the case.
+2. Sanitize outputs: everything that's rendered to the bage must be HTML escaped. This means that script blocks will be displayed as text, and won't be part of the DOM, and thus executed.
+
+If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as [helmet](https://www.npmjs.com/package/helmet) or [xssfilter](https://www.npmjs.com/package/xssfilter) etc.
+
 ## Session Hijacking
 Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of *session_id* (usually a string) and setting a cookie with that value on the user's browser. Session hijacking is a way of getting to know that string.
 
