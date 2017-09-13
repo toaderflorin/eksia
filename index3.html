@@ -1,0 +1,292 @@
+<html>
+
+<head>
+  <script src="smooth.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="web-animations.min.js"></script>
+  <script src="puppeteer.js"></script>
+  <script src="menu.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Amatica+SC|Nothing+You+Could+Do|Reenie+Beanie" rel="stylesheet">
+</head>
+
+<body>
+  <script>
+    function scrollToTop() {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    }
+
+    function start() {
+      var el = document.getElementById("start");
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+
+  <div id="header" class="header">
+    <div id="header-content">
+      <div class="header-item">
+        <i class="fa fa-film" aria-hidden="true"></i>
+        <b onclick="scrollToTop()" style="cursor: pointer;">
+          puppeteer
+        </b>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 100%; background-color: white;">
+    <div class="outer-header-box">
+      <div class="inner-header-box">
+        <div class="title-box">
+          <div class="title-div">
+            <span>puppeteer</span> <span style="color: white;">(alpha)<span>
+          </div>
+          <div class="subtitle">
+            <b>puppeteer</b> is a scroll aware, mobile first, animation library for creating presentation websites. It is
+            currently work in progress and not ready for production.
+          </div>
+          <div>
+            <div id="line1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="start" class="body-content" style="cursor: pointer; text-align: center; height: 200px; padding-top: 0; align-items: center; justify-content: center;">
+      <div style="height: 70px;">
+        <div id="line2"></div>
+      </div>
+      <div style="height: 70px; font-size: 1.9em; line-height: 70px; font-family: 'Amatica SC';" onclick="start()">
+        Try it!
+      </div>
+      <div style="height: 60px;">
+        Let's go.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-white">
+    <div class="section-wrapper-840px">
+      <h2>Getting Started</h2>
+      <p>
+        Puppeteer is a <i>scroll aware</i> animation library for creating websites. It was created for personal use by myself.
+        Getting started with puppeteer is fairly simple - you just need to reference the JavaScript file (which uses ES5
+        for compatibility) and annotate your html elements with special attributes, such as <i>p-animation</i>.
+      </p>
+
+      <script src="https://gist.github.com/toaderflorin/d983f06a902e124d83477e8ce5063963.js"></script>
+
+      <p>
+        Puppeteer needs the <i>web-animations</i> polyfill, because currently IE/Edge and Safari do not support the 
+        <i>object.animate()</i> method. Even so, the polyfill doesn't support filter animations such as blur or colorize.
+        Check it out <a href="https://github.com/web-animations/web-animations-js">here</a>.
+      </p>
+
+      <br>
+      <h2>Basic Examples</h2>
+
+      <p>
+        The simplest way to use it would be something like this:
+      </p>
+
+      <script src="https://gist.github.com/toaderflorin/973be5101b88206047fef82806038b26.js"></script>
+      <p>And it looks like this:</p>
+      <div class="example-box" p-animation="horizontal">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, dolor nec molestie molestie, mauris nisl pretium
+        lorem, a condimentum diam orci ac arcu. Quisque vitae felis et arcu bibendum finibus in non eros. Phasellus diam
+        mauris, mattis nec faucibus id, auctor a lectus. Praesent rhoncus ornare nunc, sit amet mollis lorem placerat vitae.
+        Pellentesque tristique varius tellus, ut aliquet enim. Class aptent taciti sociosqu ad litora torquent per conubia
+        nostra, per inceptos himenaeos. Duis eget dolor suscipit, congue quam sed, consectetur diam.
+      </div>
+
+      <br>
+      <p>
+        Turns out, we can customize our animation.
+      </p>
+
+      <script src="https://gist.github.com/toaderflorin/225aa38684c5e4a7bd66b714df5a9b29.js"></script>
+      <p>
+        Which looks like this:
+      </p>
+      <div class="example-box" p-animation="horizontal" p-delay="500" p-duration="3000">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean viverra, dolor nec molestie molestie, mauris nisl pretium
+        lorem, a condimentum diam orci ac arcu. Quisque vitae felis et arcu bibendum finibus in non eros. Phasellus diam
+        mauris, mattis nec faucibus id, auctor a lectus. Praesent rhoncus ornare nunc, sit amet mollis lorem placerat vitae.
+        Pellentesque tristique varius tellus, ut aliquet enim. Class aptent taciti sociosqu ad litora torquent per conubia
+        nostra, per inceptos himenaeos. Duis eget dolor suscipit, congue quam sed, consectetur diam.
+      </div>
+    </div>
+
+    <div style="background: white;">
+      <div class="section-wrapper-840px">
+        <br/>
+        <h2>Animation Library</h2>
+        <p>Click on the polaroids to see a demo of the animation.</p>
+        <div class="polaroid-container">
+
+          <!-- polaroids -->
+
+          <div class="polaroid" onclick="puppeteer.animations.rotate(this)">
+            <div class="polaroid-pic polaroid-pic-dylan">
+            </div>
+            <div class="polaroid-title">
+              <h3>rotate</h3>
+              <div>p-param indicates the number of degrees to rotate. Negative values are supported.</div>
+            </div>
+          </div>
+
+          <div p-duration="2000" class="polaroid" onclick="puppeteer.animations.colorize(this)">
+            <div class="polaroid-pic polaroid-pic-met">
+            </div>
+            <div class="polaroid-title">
+              <h3>colorize</h3>
+              <div><i>p-param</i> indicates the amount of pixels to slide.</div>
+            </div>
+          </div>
+
+          <div p-duration="1000" class="polaroid" onclick="puppeteer.animations.blur(this)">
+            <div class="polaroid-pic polaroid-pic-srv">
+            </div>
+            <div class="polaroid-title">
+              <h3>blur</h3>
+              <div><i>p-param</i> indicates the amount of pixels to use for the gaussian blur filter.</div>
+            </div>
+          </div>
+
+          <div class="polaroid" onclick="puppeteer.animations.horizontal(this)">
+            <div class="polaroid-pic polaroid-pic-place">
+            </div>
+            <div class="polaroid-title">
+              <h3>horizontal</h3>
+              <div><i>p-param</i> indicates the amount of pixels to slide horizontally. Negative values are supported.</div>
+            </div>
+          </div>
+
+          <div class="polaroid" onclick="puppeteer.animations.vertical(this)">
+            <div class="polaroid-pic polaroid-pic-hendrix">
+            </div>
+            <div class="polaroid-title">
+              <h3>vertical</h3>
+              <div><i>p-param</i> indicates the amount of pixels to slide vertically. Negative values are supported.</div>
+            </div>
+          </div>
+
+          <div class="polaroid" onclick="puppeteer.animations.scale(this)">
+            <div class="polaroid-pic polaroid-pic-tower">
+
+            </div>
+            <div class="polaroid-title">
+              <h3>scale</h3>
+              <div><i>p-param</i> indicates the starting ratio, 0 means a dot 1 is 100%. Values greater than one are supported.</div>
+            </div>
+          </div>
+
+          <div p-duration="1000" class="polaroid" onclick="puppeteer.animations.fade(this)">
+            <div class="polaroid-pic polaroid-pic-tracy">
+            </div>
+            <div class="polaroid-title">
+              <h3>fade</h3>
+              <div><i>p-param</i> indicates the starting opacity, must be between 0 means and 1.</div>
+            </div>
+          </div>
+
+          <div style="clear: both;"></div>
+        </div>
+
+        <br>
+        <p>
+          You can call an animation programatically like this:
+        </p>
+        <script src="https://gist.github.com/toaderflorin/f5a5d830f647eb2aab4a131946bdb665.js"></script>
+
+        <br/>
+        <h2>Groups</h2>
+
+        <p>
+          Normally, an animation will be triggered the moment an element enters the viewport but it's possible to combine multiple
+          animations using groups. If it wasn't for groups, the animations of individual elements would load one by one,
+          as they enter the page, but that's not what we might want in some cases. If we have a panel, like the one above,
+          we might want the animations to start all at once, the moment the panel (not the elements) enter the screen.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="group">
+    <div p-group="group1" class="group-inner">
+      <div p-animation="horizontal" p-duration="1000" style="text-align: center;">
+        <h1 style="color: white; text-shadow: 1px 2px 8px #000;">Hello There</h1>
+      </div>
+
+      <br>
+      <div style="display: flex; flex-grow: 2;">
+        <div class="group-box" p-animation="vertical" p-duration="500" p-param="30">
+          <div style="display:inline-block;">
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+          </div>
+        </div>
+
+        <div class="group-box" p-animation="vertical" p-delay="500" p-duration="500"  p-param="30">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+          </p>
+        </div>
+
+        <div class="group-box" p-animation="vertical" p-delay="1000" p-duration="500"  p-param="30">
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-white">
+    <div class="section-wrapper-840px">
+      <br>
+      <p>
+        That's as simple as putting a <i>p-group</i> attribute on an HTML element wraping the group.
+      </p>
+
+      <script src="https://gist.github.com/toaderflorin/2dcb99e97c0970b76d94393af0c069c0.js"></script>
+      <br>
+      <h2>Under The Hood</h2>
+      <p>
+        On <i>DOMContentLoaded</i> browser event, Puppeteer querries the DOM and builds a collection of groups and elements.
+        Puppeteer also reacts to the browser scroll event and checks whether a particular element or group has just entered
+        the viewport, and if so, it looks at the <i>p-animation</i> attribute of that element (it does this for each element
+        in the case of a group), and attempts to call a method in the <i>puppeteer.animations</i> namespace with the animation
+        name.
+      </p>
+      <p>
+        Here's what the <i>rotate</i> animation looks like:
+      </p>
+      <script src="https://gist.github.com/toaderflorin/c443b3b33d397687b0ed33c130ce57ea.js"></script>
+      <p>
+        As you can see, the handling of the additional parameters such as <i>p-duration</i> and <i>p-delay</i> is the responsibility
+        of the animation handler, and they can be optional. This approach also makes it extremely simple to extend puppeteer
+        with your own custom animations, in which case you can add whatever attributes you need to the element.
+      </p>
+      <p>
+        Keep in mind that puppeteer converts kebab case animation name strings to camel case. For example, when encountering an element
+        with
+        <i>p-animation="my-animation"</i>, puppeteer will attempt to call <i>puppeteer.animations.myAnimation(element)</i>.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-content">
+      made by <a href="http://achiral.io"><b>achiral</b><sup>©</sup></a>, check it out on
+      <a href="https://github.com/toaderflorin/pupeteer2" style="font-size: 22px">
+        <i class="fa fa-github" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

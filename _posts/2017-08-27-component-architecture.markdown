@@ -8,7 +8,7 @@ icon: "hierarch-logo.png"
 categories:
 ---
 
-I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: *Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.* No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it if you are using React and you can also use Flux even if you are using another library -- in fact it's quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.
+I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: *Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.* No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it if you are using React and you can also use Flux even if you are using another library — in fact it's quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.
 
 Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here's an example of interaction I've unfortunately encountered all too often in UI code:
 
@@ -21,7 +21,7 @@ You can quickly see that this kind of approach becomes unwieldy quite fast, so w
 1. We will keep the whole application state as the state of the top level *App* component. 
 2. We are going to use a *top-down* approach, were the top level component acts as a sort of manager and coordinates what's happening.
 
-Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a *chain of command*. What we are trying to avoid here is components talking *directly to one another*, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior -- that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).
+Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a *chain of command*. What we are trying to avoid here is components talking *directly to one another*, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).
 
 ![image-title-here](/images/dilbert.jpg){:class="img-responsive"}
 
@@ -33,7 +33,7 @@ We are going to build an application that allows a user to manage a list of todo
 
 ![image-title-here](/images/sketch.png){:class="img-responsive"}
 
-The dotted lines indicate how we want to split our application into smaller pieces -- the components that are going to make up the application. This means we get this hierarchy:
+The dotted lines indicate how we want to split our application into smaller pieces — the components that are going to make up the application. This means we get this hierarchy:
 
 ![image-title-here](/images/hierarchy.png){:class="img-responsive"}
 
@@ -42,7 +42,7 @@ Codewise, this is what the top level component looks like:
 
 <script src="https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js"></script>
 
-As you can see, it contains the methods for adding and removing todos (what else?!). These are passed down as props to the *AddTask* and *TaskList* components respectively. 
+As you can see, it contains the methods for adding and removing todos. These are passed down as props to the *AddTask* and *TaskList* components respectively. 
 
 Here is the *AddTask* component:
 
@@ -60,4 +60,4 @@ and...
 
 It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don't handle their own state is also advantageous. The *TaskList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*. 
 
-The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application -- if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it's worth using Redux / Flux as the application gets larger.
+The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it's worth using Redux / Flux as the application gets larger.

@@ -18,7 +18,7 @@ Webpack at its core is just a module bundler. It essentially detects dependencie
 
 ![image-title-here](/images/schematic.png){:class="img-responsive"}
 
-It doesn't actually do things like transpilation -- if you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
+It doesn't actually do things like transpilation — if you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
 
 <br />
 ![image-title-here](/images/webpack-schematic.png){:class="img-responsive"}

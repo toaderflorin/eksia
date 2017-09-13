@@ -3,7 +3,7 @@ layout: post
 title:  "CORS Made Simple"
 date:   2017-09-09 06:39:37 +0300
 description: "
-CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level - if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error...
+CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level — if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error...
 "
 icon: "cors-icon.png"
 categories:
@@ -12,7 +12,11 @@ CORS stands for *Cross-Origin Resource Sharing* and if you've built rich client 
 
 ![image-title-here](/images/cors.png){:class="img-responsive"}
 
+<<<<<<< HEAD:_posts/2017-09-08-cors-made-simple.markdown
+This is a restriction implemented on the browser level — if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
+=======
 This is a restriction implemented on the browser level  -- if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to "accept" calls incoming from a different origin. The reason I am using quotes is because (as previously mentioned) it's actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.
+>>>>>>> 161c8c4eb8ec2f0f272adce41916041dd9b0c06c:_posts/2017-09-09-cors-made-simple.markdown
 
 ## Specifics
 OK, so let's get into specifics: first let's see what exactly constitutes the same origin and what is a different origin. The policy looks at the protocol (http or https), port number and host URL. Let's assume that our page is served from *http://domain1.page.com/index.html*. Accessing the following URLs will give the following results:
