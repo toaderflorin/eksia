@@ -10,7 +10,7 @@ categories:
 ---
 First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented — everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
 
-Both structs inherit from a structure called RBasic. Here's a simplified version of the internal representation of these objects (the code is a little bit more complicated):
+At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called *RBasic*. Here's a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
 
@@ -20,7 +20,7 @@ You might have noticed a few things:
 
 1. Classes are also objects, like previously mentioned.
 
-2. Each object contains a collection of property values, just like objects in Javascript.
+2. Each object contains a collection of property values, just like Javascript objects.
 
 3. Unlike Javascript however, the methods are not implemented on the object level but rather at the class level — an object refers to a class, thus gaining access to the methods.
 
@@ -44,7 +44,11 @@ You can also do something like:
 
 *But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.*
 
+<<<<<<< HEAD
 That's correct. So what happens here is Ruby creates an *eigenclass* specifically for this object (which means "own class" — "eigen" means *own* or *self* in German). This class in our case is a child class of String. But we can go further — since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
+=======
+That's correct. So what happens here is Ruby creates an *eigenclass* specifically for this object (which means "own class" -- "eigen" means *own* or *self* in German). This class in our case is a subclass class of String. But we can go further -- since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
+>>>>>>> 161c8c4eb8ec2f0f272adce41916041dd9b0c06c
 
 <script src="https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js"></script>
 

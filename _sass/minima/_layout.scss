@@ -170,6 +170,7 @@
 .post-list {
   margin-left: 0;
   list-style: none;
+  margin-top: 20px;
 
   > li {
     margin-bottom: $spacing-unit;
@@ -216,6 +217,7 @@
 
   h2 {
     @include relative-font-size(1.5);
+    margin-top: 27px;
     margin-bottom: 8px;
   }
 }
