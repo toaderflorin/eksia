@@ -97,7 +97,7 @@
      
       <div class="post-description">
         <img src="images/cors-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
-         CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level - if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error... 
+         CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level — if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error... 
       </div>
     </li>
     
@@ -124,6 +124,19 @@
       <div class="post-description">
         <img src="images/icon.ruby.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
          First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented - everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes... 
+      </div>
+    </li>
+    
+    <li>
+      
+      <span class="post-meta">Sep 1, 2017</span>
+      <h2>
+        <a class="post-link" href="/isomorphic-react">Isomorphic React Applications With Webpack</a>
+      </h2>
+     
+      <div class="post-description">
+        <img src="images/isomorphic.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
+         One of the advantages of using Javascript on the server is that you don't have to learn another language, and this has been tauted as one of the main appeals on Node. However, people soon found out that there's an even bigger one: *you can actually reuse code.* The word *iso-morphic* means 'shaped the same', refering to the fact that both server side and clientside rendering of the application looks the same -- but there is a push to actually changed it to something else - like universal. 
       </div>
     </li>
     
@@ -168,6 +181,19 @@
     
     <li>
       
+      <span class="post-meta">Jun 20, 2017</span>
+      <h2>
+        <a class="post-link" href="/html-tables">Why You Shouldn&#39;t Use Html Tables</a>
+      </h2>
+     
+      <div class="post-description">
+        <img src="images/table-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
+        During interviews, I've found an interesting thing. Almost all candidates know that you shouldn't use tables for layout, but not a lot of them can actually explain why you shouldn't use tables. Ocasionally one would bring up the fact that they are not responsive, but that's about it. 
+      </div>
+    </li>
+    
+    <li>
+      
       <span class="post-meta">Jun 16, 2017</span>
       <h2>
         <a class="post-link" href="/v8-internals">Under The Hood: V8 Internals</a>
@@ -202,6 +228,19 @@
       <div class="post-description">
         <img src="images/fsharp-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
         I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript. Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an IEnumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s infinite, obviously summation will fail... 
+      </div>
+    </li>
+    
+    <li>
+      
+      <span class="post-meta">May 11, 2017</span>
+      <h2>
+        <a class="post-link" href="/cqrs-flux">Facebook Flux And Parallels With CQRS</a>
+      </h2>
+     
+      <div class="post-description">
+        <img src="images/flux-icon.png" style="float: left; height: 56px; width: 56px; margin-right: 8px; margin-top: 5px;" />
+        CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result. 
       </div>
     </li>
     
