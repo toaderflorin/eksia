@@ -8,7 +8,9 @@
   puppeteer._windowOffset = 0;
   puppeteer._scrollUp = false;
 
-  puppeteer._update = function () {  
+  puppeteer._update = function () {
+    puppeteer._updateHeader();
+
     puppeteer._allElementsSet.forEach(function (elem) {
       var rect = elem.getBoundingClientRect();
       var anim = elem.getAttribute('p-animation');
@@ -20,7 +22,7 @@
           elem.visible = true;
         }
       } else if (puppeteer._scrollUp && rect.top > window.innerHeight) {
-        // elem.visible = false;
+        elem.visible = false;
       }
     });
 
@@ -40,10 +42,25 @@
 
         grp.visible = true;
       } else if (rect.bottom > window.innerHeight) {
-        // disabling resseting for the time being
-        // grp.visible = false;
+        grp.visible = false;
       }
     });
+  }
+
+  puppeteer._updateHeader = function () {
+    var elem = document.getElementById('header');
+
+    if (puppeteer._windowOffset > 500) {
+      if (elem.classList.contains('header')) {
+        elem.classList.remove('header');
+        elem.classList.add('header2');
+      }
+    } else {
+      if (elem.classList.contains('header2')) {
+        elem.classList.remove('header2');
+        elem.classList.add('header');
+      }
+    }
   }
 
   document.addEventListener("DOMContentLoaded", function () {
