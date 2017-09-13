@@ -15,7 +15,7 @@ It looks something like this:
 
 ![image-title-here](/images/redux.png){:class="img-responsive center-image"}
 
-Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it -- the application 
+Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it — the application 
 state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become
 unwieldy very fast), needs to be a *pure* function - which means it's not allowed to have *side-effects*. An action is just a plain object - the only requirement is that this object has to have a *type* property. An action creator is just a plain JS function that returns an action object. It looks something like this:
 
