@@ -8,7 +8,7 @@ I know quite a lot of senior developers that when it comes to web application se
 icon: "lock.png"
 categories:
 ---
-I can testify that a lot of people confined in me they considered doing this (including your's truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:
+I can testify that a lot of people confined in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:
 
 ![image-title-here](/images/my-password.jpg){:class="img-responsive"}
 
