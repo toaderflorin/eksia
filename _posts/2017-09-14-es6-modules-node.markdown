@@ -3,12 +3,12 @@ layout: post
 title:  "ES6 Modules In Node.js"
 date:   2017-09-14 09:39:37 +0300
 description: "
-I've heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception...
+I've heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception...
 "
 icon: "es6-modules.png"
 categories:
 ---
-I've heard people say that with the addition of *async/await* and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
+I've heard people say that with the addition of *async/await* and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
 
 ![image-title-here](/images/es6-mods.jpg){:class="img-responsive"}
 
@@ -17,7 +17,7 @@ I've heard people say that with the addition of *async/await* and classes in Jav
 Which seems to be a little bit weird because you'd guess that it's probabably one of the easiest things to be implemented in a JS engine. But you'd be wrong. Supporting this in Node is even harder because a lot of the current libraries use the CommonJS specification, and adding ES6 imports on top of that (in the way they are currently defined) would end up breaking a lot of existing code.
 
 ## ES6 Modules Versus CommonJS
-On the surface, they seem similary, but they are not. There is a fundamental difference between the two: *the code CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).*
+On the surface, they seem similary, but they are not. There is a fundamental difference between the two: *the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).*
 
 <pre>
 // this code is imperative, so it needs to be run to get the result
@@ -50,8 +50,9 @@ Browsers know that a module is ES6 or not like this:
 
 However Node.js doesn't have that luxury. The solution the community agreed upon was using *.mjs* files to denote ES6 modules, also affectionally named the **Michael Jackson Solution**.
 
-## Conclusion
-While this is work in progress, it's fair to assume that:
+*In a real world application, the dependency graph between modules is complex, in that a module can reference another module which references another module and so forth. It even includes circular dependencies where module X references module Y and module Y references module X. And if you are extending a big codebase, you will have a lot of existing CommonJS modules.*
+
+This means there will be a bunch of constraints on what is possible and what is not. While this is work in progress, so far it's fair to assume that:
 
 1. The *require()* function won't be available in ES6 module files.
 2. *import* won't be available to CommonJS modules, because they require synchronous dependency resolving.
