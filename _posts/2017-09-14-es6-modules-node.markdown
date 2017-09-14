@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "ES6 Modules In Node.js"
+title:  "ES6 Modules And Node.js"
 date:   2017-09-14 09:39:37 +0300
 description: "
 I've heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception...
