@@ -17,7 +17,7 @@ I've heard people say that with the addition of *async/await* and classes in Jav
 Which seems to be a little bit weird because you'd guess that it's probabably one of the easiest things to be implemented in a JS engine. But you'd be wrong. Supporting this in Node is even harder because a lot of the current libraries use the CommonJS specification, and adding ES6 imports on top of that (in the way they are currently defined) would end up breaking a lot of existing code.
 
 ## ES6 Modules Versus CommonJS
-On the surface, they seem similary, but they are not. There is a fundamental difference between the two: *the code CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).*
+On the surface, they seem similary, but they are not. There is a fundamental difference between the two: *the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).*
 
 <pre>
 // this code is imperative, so it needs to be run to get the result
