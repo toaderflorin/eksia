@@ -78,8 +78,7 @@ a, a:hover {
   height: 100%;
   width: 100%;
   background-position: center;
-  box-shadow: 0px 22px 35px -20px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));  
+  box-shadow: 0px 22px 35px -20px rgba(0, 0, 0, 0.4); 
 }
 
 .inner-header-box {
