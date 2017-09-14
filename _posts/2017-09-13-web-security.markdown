@@ -12,7 +12,7 @@ I can testify that a lot of people confined in me they considered doing this (in
 
 ![image-title-here](/images/my-password.jpg){:class="img-responsive"}
 
-This sort of thing happens more than you would imagine — what a lot of people don't know is that hackers rely a lot on social engineering to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintainance".
+This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on social engineering to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintainance".
 
 ## Phishing
 If you've followed the election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phising* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
