@@ -71,6 +71,10 @@ a, a:hover {
   padding: 0px;
 }
 
+.top-outer {
+  height: 100%; background-color: white;
+}
+
 .outer-header-box {
   margin-top: 0;
   background-image: url(puppeteer.png);
@@ -202,31 +206,31 @@ a, a:hover {
 }
 
 .polaroid-pic-dylan {
-  background-image: url(./pics/bob.jpg);
+  background-image: url(./images/bob.jpg);
 }
 
 .polaroid-pic-met {
-  background-image: url(./pics/met.jpg);
+  background-image: url(./images/met.jpg);
 }
 
 .polaroid-pic-srv {
-  background-image: url(./pics/srv.jpg);
+  background-image: url(./images/srv.jpg);
 }
 
 .polaroid-pic-place {
-  background-image: url(./pics/place.jpg);
+  background-image: url(./images/place.jpg);
 }
 
 .polaroid-pic-hendrix {
-  background-image: url(./pics/hendrix.jpg);
+  background-image: url(./images/hendrix.jpg);
 }
 
 .polaroid-pic-tower {
-  background-image: url(./pics/tower.jpg);
+  background-image: url(./images/tower.jpg);
 }
 
 .polaroid-pic-tracy {
-  background-image: url(./pics/tracy.jpg);
+  background-image: url(./images/tracy.jpg);
 }
 
 .group {
