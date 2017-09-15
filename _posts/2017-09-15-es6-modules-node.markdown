@@ -68,7 +68,7 @@ The importing code would look like:
 
 <script src="https://gist.github.com/toaderflorin/065b799bf404d013d39990d9f19d9482.js"></script>
 
-Keep in mind that defaultImport will not be 'some_text' because *import* doesn't evaluate the code. It would actually be an object containing the two methods, *someFunc()* and *someOtherFunc()*.
+Keep in mind that defaultImport will not be 'some_text' because *import* doesn't evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:
 
 <pre>
 {
@@ -76,7 +76,5 @@ Keep in mind that defaultImport will not be 'some_text' because *import* doesn't
   someOtherFunc: Function
 }
 </pre>
-
-The default export would actually mean ALL the objects defined in the module 
 
 Also, we are probably looking at beginning 2018 before any of this functionality is available.
