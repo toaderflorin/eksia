@@ -1,71 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T15:50:27+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-14T09:39:37+03:00</published><updated>2017-09-14T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;I’ve heard people say that with the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await. Actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probabably one of the easiest things to be implemented in a JS engine. But you’d be wrong. Supporting this in Node is even harder because a lot of the current libraries use the CommonJS specification, and adding ES6 imports on top of that (in the way they are currently defined) would end up breaking a lot of existing code.&lt;/p&gt;
-
-&lt;h2 id=&quot;es6-modules-versus-commonjs&quot;&gt;ES6 Modules Versus CommonJS&lt;/h2&gt;
-&lt;p&gt;On the surface, they seem similary, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-// this code is imperative, so it needs to be run to get the result
-var MyClass = function () {
-}
-module.exports = MyClass
-&lt;/pre&gt;
-
-&lt;p&gt;whereas ES6 exports look like this:&lt;/p&gt;
-
-&lt;pre&gt;
-// this one is declarative
-class MyClass {
-}
-export default MyClass
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;em&gt;Ideally, we’d want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface infered, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;This means it won’t be possible to change &lt;em&gt;require()&lt;/em&gt; to import ES6 modules. The alternative would be to create a new &lt;em&gt;require.import()&lt;/em&gt; function, but this isn’t as nice.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It does however mean that ES6 modules will be able to import CommonJS modules, because they happen in one tick. The tricky part here is figuring if a module is ES6 or CommonJS.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Browsers know that a module is ES6 or not like this:&lt;/p&gt;
-&lt;pre&gt;
-&amp;lt;script type=&quot;module&quot; src=&quot;./es6module.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionally named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;While this is work in progress, so far it’s fair to assume that:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The &lt;em&gt;require()&lt;/em&gt; function won’t be available in ES6 module files.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;import&lt;/em&gt; won’t be available to CommonJS modules.&lt;/li&gt;
-  &lt;li&gt;ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).&lt;/li&gt;
-  &lt;li&gt;CJS modules will be able to &lt;em&gt;require.import()&lt;/em&gt; ES6 modules, as well as other CJS modules using &lt;em&gt;require()&lt;/em&gt; like before.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed. Which means:&lt;/p&gt;
-
-&lt;pre&gt;
-  // this is possible
-  import defaultImport from 'cjs-module'
-
-  import {namedImport1, namedImport2} from 'cjs-module'
-&lt;/pre&gt;
-
-&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">I’ve heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await. Actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confined in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T16:02:34+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confined in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -676,4 +610,53 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;Imagine a computer. It has a motherboard, a processor, video card, memory, a hard-drive etc. The processor is a nicely encapsulated box, which communicates with the other nicely encapsulated boxes through well defined interfaces (the slot it’s fitted in, the other slots of the components in the mother board — all of these are industry standards). Regardless who makes the motherboard (MSI, Asus), the interfaces are the same for a specific hardware architecture. So let’s say, I get pissed at my video card for being so slow. Or with the hard drive, because I want an SSD. All I have to do is swap it with another one, just that simple. This is what loose coupling is. Now imagine if the CPU had wires directly to the video-card, memory or hard-drive. If you’d wanted to change something, you’d have to trow the whole computer away and buy another one. Also, a keep in mind that a CPU has more than a billion transistors, but it’s socket has only hundreds of pins. Now, that’s encapsulation! The more state you can keep private in a class, the better, because over time there will be other code that links to it, which means tight coupling.&lt;/p&gt;
 
-&lt;p&gt;So the next time you want to call a component from another component directly, it might be worth it to consider an abstraction layer. Lastly, there is such a thing as the law of diminishing returns. It’s really easy to over-engineer stuff in the name of code art.&lt;/p&gt;</content><author><name></name></author><summary type="html">When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming. That means a few conditions need to be met.</summary></entry></feed>
+&lt;p&gt;So the next time you want to call a component from another component directly, it might be worth it to consider an abstraction layer. Lastly, there is such a thing as the law of diminishing returns. It’s really easy to over-engineer stuff in the name of code art.&lt;/p&gt;</content><author><name></name></author><summary type="html">When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming. That means a few conditions need to be met.</summary></entry><entry><title type="html">Tail Call Optimizations In F#</title><link href="http://localhost:4000/tail-calls-fsharp" rel="alternate" type="text/html" title="Tail Call Optimizations In F#" /><published>2017-06-07T06:39:37+03:00</published><updated>2017-06-07T06:39:37+03:00</updated><id>http://localhost:4000/tail-calls-fsharp</id><content type="html" xml:base="http://localhost:4000/tail-calls-fsharp">&lt;p&gt;I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied
+to any language, even JavaScript.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/fsharp.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being
+evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an
+Enumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s
+infinite, obviously summation will fail. The reason why I am using a sequence instead of a list is because a lot of the time
+in F# we abstract the data reading part of a process in the form of an IEnumerable that yields data, similar to C#.
+Now obviously when dealing with sequences, there are a lot of prebuilt functions — so you won’t need to implement a Sum() function,
+but let’s say we want to implement our own for the sake of argument.&lt;/p&gt;
+
+&lt;p&gt;A lot of the stuff that we are doing in F# is based on functions which are recursive, because pure functional programming is
+stateless (so no iterating blocks that update a state variable). So it will look like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/dde7beeffb3be1fded7625ee83cc424a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;But what happens if our collection is so big, that the code will throw a stack overflow exception?&lt;/p&gt;
+
+&lt;h2 id=&quot;enter-tail-call-optimizations&quot;&gt;Enter Tail Call Optimizations&lt;/h2&gt;
+
+&lt;p&gt;It turns out that if the recursive call is the last instruction in the method, the F# compiler is smart enough to replace
+recursive calls with sequential goto calls, because there’s nothing to do afterwards (hence, no need to save a stack-frame
+with the current execution state on the stack). So let’s revisit the code we wrote and explain why it isn’t tail optimized.
+We are going to break the last instruction into separate instructions like so:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/37e7c80a19120b8e753ad78d5d60e9bd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;You can clearly see that the recursive call isn’t the last instruction in the method, so the compiler won’t be able to do the
+optimization we just talked about. Maybe there is a way to rewrite our code so that we can actually achieve this purpose. There
+actually is. We are going to use accumulators.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/5f00ac59005c1be59a4c8f6fd03bb989.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;This is tail optimized because we can write it like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/454fb0e3a21390655adac66296b830bc.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;So what we are doing is simply adding the sum in a local value which we are passing along recursively. This is as close a thing to
+state we have in purely functional programming. The problem with this code is that it is not very nice, because we need to initialize
+it with the starting value for the accumulator. A nice feature of functional programming is that we can create nested functions like so:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/b1db2d67965aac6649628cfa7d630b47.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;We just encapsulated our “ugly” function inside a “nice” one and we are exposing a proper signature. Our internal function is
+also nicely recursion tail optimized. This is how all the default F# functions are implemented so you can be sure that when you
+are using them, they will not blow up your stack. A word of causing for those looking to implement a functional programming style
+in C#: Tail optimization doesn’t always work. The JIT will produce optimized code for .NET applications running on 64 bit machines
+with “Platform target: Any CPU” or for a 64 bit target. Any other combination will result in unoptimized code.&lt;/p&gt;</content><author><name></name></author><summary type="html">I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript.</summary></entry></feed>
