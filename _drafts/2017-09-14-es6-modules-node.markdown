@@ -58,12 +58,15 @@ While this is work in progress, so far it's fair to assume that:
 3. ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).
 4. CJS modules will be able to *require.import()* ES6 modules, as well as other CJS modules using *require()* like before.
 
-Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed. Which means:
+Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed. 
+
+Which means:
 
 <pre>
-  // this is possible
+  // this would be possible
   import defaultImport from 'cjs-module'
 
+  // this will not be possible
   import {namedImport1, namedImport2} from 'cjs-module'
 </pre>
 
