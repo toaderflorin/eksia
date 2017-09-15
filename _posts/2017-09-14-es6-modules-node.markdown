@@ -50,12 +50,21 @@ Browsers know that a module is ES6 or not like this:
 
 However Node.js doesn't have that luxury. The solution the community agreed upon was using *.mjs* files to denote ES6 modules, also affectionally named the **Michael Jackson Solution**.
 
-*In a real world application, the dependency graph between modules is complex, in that a module can reference another module which references another module and so forth. It even includes circular dependencies where module X references module Y and module Y references module X. And if you are extending a big codebase, you will have a lot of existing CommonJS modules.*
-
-This means there will be a bunch of constraints on what is possible and what is not. While this is work in progress, so far it's fair to assume that:
+## Conclusion
+While this is work in progress, so far it's fair to assume that:
 
 1. The *require()* function won't be available in ES6 module files.
-2. *import* won't be available to CommonJS modules, because they require synchronous dependency resolving.
+2. *import* won't be available to CommonJS modules.
 3. ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).
 4. CJS modules will be able to *require.import()* ES6 modules, as well as other CJS modules using *require()* like before.
 
+Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed. Which means:
+
+<pre>
+  // this is possible
+  import defaultImport from 'cjs-module'
+
+  import {namedImport1, namedImport2} from 'cjs-module'
+</pre>
+
+Also, we are probably looking at beginning 2018 before any of this functionality is available.
