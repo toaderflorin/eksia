@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T16:24:34+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-15T16:44:12+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;I’ve heard people say that with the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await. Actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -66,7 +66,7 @@ export default MyClass
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/065b799bf404d013d39990d9f19d9482.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing the two methods, &lt;em&gt;someFunc()&lt;/em&gt; and &lt;em&gt;someOtherFunc()&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
 
 &lt;pre&gt;
 {
@@ -74,8 +74,6 @@ export default MyClass
   someOtherFunc: Function
 }
 &lt;/pre&gt;
-
-&lt;p&gt;The default export would actually mean ALL the objects defined in the module&lt;/p&gt;
 
 &lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">I’ve heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await. Actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confined in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
