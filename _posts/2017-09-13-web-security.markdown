@@ -32,6 +32,8 @@ Both XSS and SQL Injection are cases of *code injection*.
 ## Cross-Site Scripting
 XSS refers to a vulnerabity where an attacker is able to "inject" Javascript code that will be run by the application. In my previous article, I've discussed the [same-origin](http://achiral.io/cors-made-simple) policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately. 
 
+<i>A lot of people think the purpose if CORS is to prevent XSS attacks. This is not the case. The concepts are <b>unrelated</b></i>
+
 A typical example of XSS is *persistent cross-site scripting*. If a page isn't properly *sanitizing* the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered everytime it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.
 
 ![image-title-here](/images/attack.gif){:class="img-responsive"}
