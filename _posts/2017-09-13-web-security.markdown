@@ -17,7 +17,7 @@ This sort of thing happens more than you would imagine—what a lot of people do
 ## Phishing
 If you've followed the US 2016 election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phising* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
 
-*But this is a scam, it's not what I wanted to talk about, because YOU as a developer cannot do anything about it. I actually want to talk about REAL  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.*
+*But this is a scam, it's not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.*
 
 There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering:
 
