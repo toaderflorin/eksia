@@ -21,7 +21,7 @@ If you've followed the US 2016 election cycle news, you might have heard that Jo
 
 There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering:
 
-1. Cross-site scripting, also called XSS scripting
+1. Cross-site scripting, also called XSS
 2. Session hijacking
 3. Cross-site request forgery, or CSRF
 4. SQL injection

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-17T13:12:05+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-17T13:15:27+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, many more developers started considering that Node.js is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -91,7 +91,7 @@ export default MyClass
 &lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Cross-site scripting, also called XSS scripting&lt;/li&gt;
+  &lt;li&gt;Cross-site scripting, also called XSS&lt;/li&gt;
   &lt;li&gt;Session hijacking&lt;/li&gt;
   &lt;li&gt;Cross-site request forgery, or CSRF&lt;/li&gt;
   &lt;li&gt;SQL injection&lt;/li&gt;
