@@ -3,12 +3,12 @@ layout: post
 title:  "ES6 Modules And Node.js"
 date:   2017-09-15 09:39:37 +0300
 description: "
-I've heard people say that with the addition of async/await and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception...
+With the addition of async/await and classes in Javascript and subsequently in V8, many more developers started considering that Node.js is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception...
 "
 icon: "es6-modules.png"
 categories:
 ---
-I've heard people say that with the addition of *async/await* and classes in Javascript and subsequently in V8, Node is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await and actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
+With the addition of *async/await* and classes in Javascript and subsequently in V8, many more developers started considering that Node.js is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await and actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
 
 ![image-title-here](/images/es6-mods.jpg){:class="img-responsive"}
 
