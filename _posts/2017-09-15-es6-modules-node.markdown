@@ -62,11 +62,6 @@ The importing code would look like:
 
 Keep in mind that defaultImport will not be 'some_text' because *import* doesn't evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:
 
-<pre>
-{
-  someFunc: Function,
-  someOtherFunc: Function
-}
-</pre>
+<script src="https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js"></script>
 
 Also, we are probably looking at beginning 2018 before any of this functionality is available.
