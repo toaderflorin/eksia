@@ -3,7 +3,7 @@ layout: post
 title:  "Understanding Web Application Security"
 date:   2017-09-13 09:39:37 +0300
 description: "
-I know quite a lot of senior developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering: 1. Cross-site scripting, also called XSS scripting, 2. Session hijacking, 3. SQL Injection. Both cross-site scripting and SQL injection are cases of code injection...
+There are quite a lot of senior developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering: 1. Cross-site scripting, also called XSS scripting, 2. Session hijacking, 3. SQL Injection. Both cross-site scripting and SQL injection are cases of code injection...
 "
 icon: "lock.png"
 categories:
@@ -15,11 +15,11 @@ I can testify that a lot of people confined in me they considered doing this (in
 This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on social engineering to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintainance".
 
 ## Phishing
-If you've followed the election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phising* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
+If you've followed the US 2016 election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phising* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
 
 *But this is a scam, it's not what I wanted to talk about, because YOU as a developer cannot do anything about it. I actually want to talk about REAL  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.*
 
-I know quite a lot of senior developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering:
+There are quite a lot of senior developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering:
 
 1. Cross-site scripting, also called XSS scripting
 
