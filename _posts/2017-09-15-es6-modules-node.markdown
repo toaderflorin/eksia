@@ -21,21 +21,11 @@ And serverside applications are a big part of the JS landscape.
 ## ES6 Modules Versus CommonJS
 On the surface, they seem similary, but they are not. There is a fundamental difference between the two: *the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).*
 
-<pre>
-// this code is imperative, so it needs to be run to get the result
-var MyClass = function () {
-}
-module.exports = MyClass
-</pre>
+<script src="https://gist.github.com/toaderflorin/5876ea604202b6a97e4ddef1d96bf6ee.js"></script>
 
 whereas ES6 exports look like this:
 
-<pre>
-// this one is declarative
-class MyClass {
-}
-export default MyClass
-</pre>
+<script src="https://gist.github.com/toaderflorin/7ba115e874be93f08cca634b0990ac1b.js"></script>
 
 *Ideally, we'd want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.*
 
