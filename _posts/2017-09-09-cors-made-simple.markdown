@@ -34,7 +34,7 @@ http://domain1.page.com:9000/items/32
 # Fails because the port is different.
 </pre>
 
-Of course, if you ever built applications using a microservice architecture, you know that sometimes it's desirable to allow access to the backend for applications that will be hosted elsewhere, but you don't necesarily want to open access to everybody. So CORS is sort of a middle-road between the two and it comes in handy when your applications are distributed because sometimes you just want to hook up things without configuring proxies and whatnot.
+Of course, if you ever built applications using a microservice architecture, you know that sometimes it's desirable to allow access to the backend for applications that will be hosted elsewhere, but you don't necessarily want to open access to everybody. So CORS is sort of a middle-road between the two and it comes in handy when your applications are distributed because sometimes you just want to hook up things without configuring proxies and whatnot.
 
 <blockquote>
 We first must make the distinction between <b>simple requests</b> and <b>preflighted requests</b>.
@@ -66,7 +66,7 @@ A *preflighted request* is one that **automatically** triggers an OPTIONS call t
 
 If any of the conditions for the request to be a simple request is violated, then we have a preflighted request on our hand. Which means that if we want to support CORS, our server needs to be able to respond to OPTIONS requests accordingly.
 
-This means we need someting like:
+This means we need something like:
 
 <pre>
 HTTP/1.1 200 OK
@@ -84,7 +84,7 @@ The whole concept of a "preflight request" seems a bit strange and you might be 
 Preflight requests have the role of preserving the semantics of the web before CORS.
 </blockquote>
 
-In most previous applications (before REST and client side applications became popular) involved GETs for retrieving webpages, and POSTs for posting back form data. Old webserver which are CORS agnostic would never expect to receive a cross-domain DELETE request, and might behave unexpectly in such cases. The preflight request is a way around this potential issue -- it allows to actually query the backend and see if it supports CORS in a safe manner. You might have noticed that the allowed verbs are the ones that read and create data but NOT the ones that can modify existing information -- like DELETE and PUT. Now you might be wondering: *couldn't somebody just send a DELETE request via a tool like Postman, since CORS is implemented on the browser level?* Sure, but that wouldn't be a problem because backend services usually require authentication that would be stored locally in the form of a cookie and would be accessible to Javascript running in the browser but not to somebody doing a request using Postman. 
+In most previous applications (before REST and client side applications became popular) involved GETs for retrieving webpages, and POSTs for posting back form data. Old webserver which are CORS agnostic would never expect to receive a cross-domain DELETE request, and might behave unexpectedly in such cases. The preflight request is a way around this potential issue -- it allows to actually query the backend and see if it supports CORS in a safe manner. You might have noticed that the allowed verbs are the ones that read and create data but NOT the ones that can modify existing information -- like DELETE and PUT. Now you might be wondering: *couldn't somebody just send a DELETE request via a tool like Postman, since CORS is implemented on the browser level?* Sure, but that wouldn't be a problem because backend services usually require authentication that would be stored locally in the form of a cookie and would be accessible to Javascript running in the browser but not to somebody doing a request using Postman. 
 
 ## In Closing
 Of course, you probably don't want to be doing all that yourself, which is why there are libraries for supporting CORS in most platforms. If you're using Node, it's very simple to support CORS by using the [cors library](https://www.npmjs.com/package/cors) which is just simple Express middleware.
