@@ -222,15 +222,15 @@ a, a:hover {
 }
 
 .polaroid-pic-hendrix {
-  background-image: url(./pics/hendrix.jpg);
+  background-image: url(./puppeteer/pics/hendrix.jpg);
 }
 
 .polaroid-pic-tower {
-  background-image: url(./pics/tower.jpg);
+  background-image: url(./puppeteer/pics/tower.jpg);
 }
 
 .polaroid-pic-tracy {
-  background-image: url(./pics/tracy.jpg);
+  background-image: url(./puppeteer/pics/tracy.jpg);
 }
 
 .group {
