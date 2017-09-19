@@ -8,9 +8,9 @@ First things first: Ruby is a dynamic language but it's not dynamic in the same 
 icon: "icon.ruby.png"
 categories:
 ---
-First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented — everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
+First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented — everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI's core there are two structures that describe the current list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.
 
-At MRI's core there are two structures that describe the curent list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called *RBasic*. Here's a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):
+At MRI's core there are two structures that describe the current list of objects in memory: *RObject* and *RClass*. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called *RBasic*. Here's a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):
 
 ![image-title-here](/images/ruby-objs.png){:class="img-responsive"}
 
@@ -44,11 +44,7 @@ You can also do something like:
 
 *But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.*
 
-<<<<<<< HEAD
 That's correct. So what happens here is Ruby creates an *eigenclass* specifically for this object (which means "own class" — "eigen" means *own* or *self* in German). This class in our case is a child class of String. But we can go further — since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
-=======
-That's correct. So what happens here is Ruby creates an *eigenclass* specifically for this object (which means "own class" -- "eigen" means *own* or *self* in German). This class in our case is a subclass class of String. But we can go further -- since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods. 
->>>>>>> 161c8c4eb8ec2f0f272adce41916041dd9b0c06c
 
 <script src="https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js"></script>
 
@@ -75,7 +71,7 @@ You don't see that very often in practice however, what you do see is:
 
 <script src="https://gist.github.com/toaderflorin/aadbf0fcc2ad54841d5d84e7dff23eeb.js"></script>
 
-If you are coming from C++, you might see the benefit in this particular example but might be scraching your head and wondering why is this desirable, because after all Ruby could have included a simplfied way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducing to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the userfriendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly. 
+If you are coming from C++, you might see the benefit in this particular example but might be scratching your head and wondering why is this desirable, because after all Ruby could have included a simplified way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducive to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the user friendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly. 
 
 Here's an example straight from the AR docs. For the following table:
 
@@ -91,4 +87,4 @@ you can very easily access it like so:
 
 <script src="https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js"></script>
 
-It's definitely a lot less verbose than if you would have writen something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism commes at a significat performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
+It's definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.
