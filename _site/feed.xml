@@ -1,36 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-17T13:18:27+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, many more developers started considering that Node.js is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-19T15:41:16+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probabably one of the easiest things to be implemented in a JS engine. But you’d be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.&lt;/p&gt;
+&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probably one of the easiest things to be implemented in a JS engine. But you’d be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.&lt;/p&gt;
 
 &lt;p&gt;And serverside applications are a big part of the JS landscape.&lt;/p&gt;
 
 &lt;h2 id=&quot;es6-modules-versus-commonjs&quot;&gt;ES6 Modules Versus CommonJS&lt;/h2&gt;
-&lt;p&gt;On the surface, they seem similary, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;On the surface, they seem similar, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
 
-&lt;pre&gt;
-// this code is imperative, so it needs to be run to get the result
-var MyClass = function () {
-}
-module.exports = MyClass
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/5876ea604202b6a97e4ddef1d96bf6ee.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;whereas ES6 exports look like this:&lt;/p&gt;
 
-&lt;pre&gt;
-// this one is declarative
-class MyClass {
-}
-export default MyClass
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/7ba115e874be93f08cca634b0990ac1b.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;&lt;em&gt;Ideally, we’d want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface infered, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
+&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -46,7 +36,7 @@ export default MyClass
 &amp;lt;script type=&quot;module&quot; src=&quot;./es6module.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/pre&gt;
 
-&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionally named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionately  named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;While this is work in progress, so far it’s fair to assume that:&lt;/p&gt;
@@ -70,14 +60,9 @@ export default MyClass
 
 &lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
 
-&lt;pre&gt;
-{
-  someFunc: Function,
-  someOtherFunc: Function
-}
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, many more developers started considering that Node.js is actually a platform worth considering. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
+&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point — its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -86,7 +71,7 @@ export default MyClass
 &lt;h2 id=&quot;phishing&quot;&gt;Phishing&lt;/h2&gt;
 &lt;p&gt;If you’ve followed the US 2016 election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a &lt;em&gt;phising&lt;/em&gt; scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn’t pay attention to the URL it seems), and he entered his old and &lt;em&gt;supposedly&lt;/em&gt; new credentials.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because YOU as a developer cannot do anything about it. I actually want to talk about REAL  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
 
