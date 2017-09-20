@@ -12,10 +12,10 @@ I can testify that a lot of people confided in me they considered doing this (in
 
 ![image-title-here](/images/my-password.jpg){:class="img-responsive"}
 
-This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on *social engineering* to gain access to systems. Mitnick was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintenance".
+This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on *social engineering* to gain access to systems. [Kevin Mitnick](https://en.wikipedia.org/wiki/Kevin_Mitnick) was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintenance".
 
 ## Phishing
-If you've followed the US 2016 election cycle news, you might have heard that John Podesta was hacked. We was actually the victim of a *phishing* scam whereby he received an email made to look like an email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL it seems), and he entered his old and *supposedly* new credentials.
+If you've followed the US 2016 election cycle news, you might have heard that John Podesta, Hillary Clinton's campaign manager, was hacked. He was actually the victim of a *phishing* scam whereby he received an email made to look like an authentic email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn't pay attention to the URL, it seems), where he entered his old and *supposedly* new credentials.
 
 *But this is a scam, it's not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.*
 
@@ -47,7 +47,7 @@ If the site finds something, it returns a list of results, but if it doesn't, it
 
 *Your search, 'something', returned no results.*
 
-... which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result, and will return with a *not found* page containing the script rendered directly on the page. 
+...which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result, and will return with a *not found* page containing the script rendered directly on the page. 
 
 <pre>
 GET http://www.onlineshop.com?
