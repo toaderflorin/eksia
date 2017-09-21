@@ -20,7 +20,7 @@ The SQL standard defines four isolation levels:
 3. Repeatable reads
 4. Serializable
 
-Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between _dirty reads, non repeatable reads, and phantom reads_.
+Most developers can explain the difference between Read committed and Serializable—between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between _dirty reads, non repeatable reads, and phantom reads_.
 
 Let's try to explain them one by one.
 
@@ -42,7 +42,7 @@ The repeatable reads isolation level solves the previous problem. In this case, 
 
 Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections. 
 
-The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range. 
+The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range. 
 
 This range is based on the query - for example:
 
