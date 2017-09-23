@@ -64,4 +64,6 @@ Keep in mind that defaultImport will not be 'some_text' because *import* doesn't
 
 <script src="https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js"></script>
 
+Floating is a typical way of 
+
 Also, we are probably looking at beginning 2018 before any of this functionality is available.
