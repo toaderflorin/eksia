@@ -5,7 +5,7 @@ date:   2017-09-23 06:39:37 +0300
 description: "
 If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain.
 "
-icon: "isomorphic-icon.png"
+icon: "html-icon.png"
 categories:
 ---
 If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that. *Sometimes things expand to fill the available spaces. Sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not.* Most developers would feel your pain. But here's the thing:
@@ -66,7 +66,7 @@ Floats are a standard way of incorporating an image (or some sort of container b
 Keep in mind that floating elements don't have any effect on the size of the container:
 
 <div style="background-color: #f8f8f8; padding: 15px;">
-  <div style="display: block; width: 128px; height: 128px; background-color: cyan; float: left; margin-right: 12px;"></div>  
+  <div style="display: block; width: 128px; height: 128px; background-color: salmon; float: left; margin-right: 12px;"></div>  
   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
 </div>
 <br/>
@@ -74,7 +74,7 @@ Keep in mind that floating elements don't have any effect on the size of the con
 This might not actually be the desired outcome, but it turns out there is a workaround.
 
 <div style="background-color: #f8f8f8; padding: 15px;">
-  <div style="display: block; width: 128px; height: 128px; background-color: cyan; float: left; margin-right: 12px;"></div>  
+  <div style="display: block; width: 128px; height: 128px; background-color: orange; float: left; margin-right: 12px;"></div>  
   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
   <div style="clear: both;"></div>
 </div>

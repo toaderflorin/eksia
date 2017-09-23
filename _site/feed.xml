@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-23T16:54:15+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-23T17:30:33+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-23T06:39:37+03:00</published><updated>2017-09-23T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. &lt;em&gt;Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not.&lt;/em&gt; Most developers would feel your pain. But here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
@@ -59,7 +59,7 @@
 &lt;p&gt;Keep in mind that floating elements don’t have any effect on the size of the container:&lt;/p&gt;
 
 &lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
-  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: cyan; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
+  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: salmon; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -67,7 +67,7 @@
 &lt;p&gt;This might not actually be the desired outcome, but it turns out there is a workaround.&lt;/p&gt;
 
 &lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
-  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: cyan; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
+  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: orange; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
