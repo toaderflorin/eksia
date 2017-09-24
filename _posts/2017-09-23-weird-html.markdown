@@ -85,8 +85,8 @@ That's a bit annoying so what you could do is create a CSS class that always app
 
 Then, all you need to do is simply add that class to all the elements that you want clearfixed.
 
-## OK, What Is A Block Formatting Context?
-It's a sort of a container. To be more precise, an element also generates a block formatting context if it is:
+## Block Formatting Contexts
+An element generates a block formatting context if it is:
 
 * the root element or something that contains it
 * floats (elements where float is not none)
