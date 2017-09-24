@@ -23,7 +23,7 @@ a, a:hover {
 
 .download {
   margin-top: -120px; 
-  border: 1px solid #89eb00; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
   text-decoration: none; 
   background-color: rgba(0, 0, 0, 0.2); 
   font-size: 24px; 
