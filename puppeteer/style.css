@@ -21,6 +21,24 @@ a, a:hover {
   color: #5ebd00;
 }
 
+.download {
+  margin-top: -120px; 
+  border: 1px solid #89eb00; 
+  text-decoration: none; 
+  background-color: rgba(0, 0, 0, 0.2); 
+  font-size: 24px; 
+  padding: 10px 20px; 
+  color: #89eb00; 
+  border-radius: 12px;
+  outline: none;
+  font-family: 'Amatica SC';
+}
+
+.download:hover {
+  background-color: rgba(0, 0, 0, 1); 
+  text-decoration: none;
+}
+
 .header {
   position: fixed;
   left: 0px;
@@ -86,7 +104,7 @@ a, a:hover {
 }
 
 .inner-header-box {
-  height: calc(100% - 200px);
+  height: calc(100% - 300px);
   text-align: center;
   color: white;
   display: flex;
