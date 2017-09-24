@@ -1,5 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-21T10:52:12+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-24T11:29:14+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-23T06:39:37+03:00</published><updated>2017-09-23T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Yet as web developers, we need to use it so we still need to understand its quirks. And we need to understand the fundamental philosophy: HTML was designed to describe pages that flow vertically, as opposed to say something like PDF documents which don’t flow AT ALL (they have &lt;strong&gt;fixed layout&lt;/strong&gt;). Mobile applications are also not really designed to flow so a lot of the UI elements like labels and buttons have fixed positions. Desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: &lt;em&gt;the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate&lt;/em&gt;. The Facebook wall would be a perfect example of this philosophy.&lt;/p&gt;
+
+&lt;p&gt;A byproduct of this assumption is that divs expand to fill the whole available space horizontally but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it’s important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.&lt;/p&gt;
+
+&lt;p&gt;Before we explain the more quirky aspects of HTML, we need to have a basic overview of the box layout of the elements:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/css-box-model.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So an element will have&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Some content&lt;/li&gt;
+  &lt;li&gt;A border which can have some thickness to it&lt;/li&gt;
+  &lt;li&gt;Some padding between the border  and the actual content&lt;/li&gt;
+  &lt;li&gt;Margin which indicates the space between the border and the neighboring elements&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Keep in mind that by default the &lt;em&gt;width&lt;/em&gt; and &lt;em&gt;height&lt;/em&gt; CSS properties actually refer to the size of the content and they DON’T include padding and margin size, which is a bit counterintuitive.&lt;/p&gt;
+
+&lt;p&gt;Here’s what you need to do:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The default value is &lt;em&gt;content-box&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;margin-collapse&quot;&gt;Margin Collapse&lt;/h2&gt;
+&lt;p&gt;A weird aspect of HTML (if you don’t know about it) is the way margins behave.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/collapse.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens &lt;strong&gt;only vertically&lt;/strong&gt;. This again has to do with the vertical flow philosophy of HTML.&lt;/p&gt;
+
+&lt;p&gt;But there’s another catch: margin collapsing doesn’t happen for the first or last element of a &lt;em&gt;block formatting context&lt;/em&gt;. But before we talk about those, let’s talk about…&lt;/p&gt;
+
+&lt;h2 id=&quot;float-and-clear&quot;&gt;Float And Clear&lt;/h2&gt;
+&lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
+  &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: cyan; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: red; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: magenta; float: right; margin-left: 12px;&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: yellow; float:left; clear: left; margin-right: 12px; margin-top: 12px&quot;&gt;&lt;/div&gt;
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;The CSS for these elements actually looks like this:
+&lt;script src=&quot;https://gist.github.com/toaderflorin/81854817ad5a2c3262633cc8b5e06717.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Floats are a standard way of incorporating an image (or some sort of container block) into a paragraph of text. Not only can you have multiple images, but you can actually use both &lt;em&gt;float&lt;/em&gt; and &lt;em&gt;clear&lt;/em&gt; at the same time.&lt;/p&gt;
+
+&lt;p&gt;Keep in mind that floating elements don’t have any effect on the size of the container:&lt;/p&gt;
+
+&lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
+  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: salmon; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;This might not actually be the desired outcome, but it turns out there is a workaround.&lt;/p&gt;
+
+&lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
+  &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: orange; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
+  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+  &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+What I did was add an empty div at the end of the parent container, like so:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/08ba23d70fdf75540776c69b3bc40ced.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;That’s a bit annoying so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a &lt;strong&gt;clearfix&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Then, all you need to do is simply add that class to all the elements that you want clearfixed.&lt;/p&gt;
+
+&lt;h2 id=&quot;ok-what-is-a-block-formatting-context&quot;&gt;OK, What Is A Block Formatting Context?&lt;/h2&gt;
+&lt;p&gt;It’s a sort of a container. To be more precise, an element also generates a block formatting context if it is:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the root element or something that contains it&lt;/li&gt;
+  &lt;li&gt;floats (elements where float is not none)&lt;/li&gt;
+  &lt;li&gt;absolutely positioned elements (elements where position is absolute or fixed)&lt;/li&gt;
+  &lt;li&gt;an inline-block (elements with display: inline-block)&lt;/li&gt;
+  &lt;li&gt;a table cell (elements with display: table-cell, which is the default for HTML table cells)&lt;/li&gt;
+  &lt;li&gt;a table table caption (elements with display: table-caption, which is the default for HTML table captions)&lt;/li&gt;
+  &lt;li&gt;a block element where overflow has a value other than visible&lt;/li&gt;
+  &lt;li&gt;an element with display: flow-root&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When dealing with blocks, it’s important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically, but there’s a gotcha:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/width-auto.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This by default makes just the content to be 100%.&lt;/p&gt;
+
+&lt;h2 id=&quot;vertical-centering&quot;&gt;Vertical Centering&lt;/h2&gt;
+&lt;p&gt;Something as simple as centering something in the middle of a container was problematic before the addition of flexbox. It still is for older browsers which don’t fully support the &lt;em&gt;display: flex&lt;/em&gt; CSS specification. Before we get into the quirky cases, let’s see how we solve vertical centering with flexbox:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/0ed3a4426693a015ce6327bd30102502.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;If you know the height of the panel you want to center you can do something like:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;If your browser doesn’t support calc, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hack-ish.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -61,6 +172,8 @@
 &lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Floating is a typical way of&lt;/p&gt;
 
 &lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
@@ -320,7 +433,7 @@ devServer: {
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/d4d9e62d2b36d768bbefc78c7c084817.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry><entry><title type="html">The Ruby Object Model And Metaprogramming</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="The Ruby Object Model And Metaprogramming" /><published>2017-09-04T06:39:37+03:00</published><updated>2017-09-04T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented — everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
+&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry><entry><title type="html">The Ruby Object Model And Metaprogramming</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="The Ruby Object Model And Metaprogramming" /><published>2017-09-04T06:39:37+03:00</published><updated>2017-09-04T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
 
 &lt;p&gt;At MRI’s core there are two structures that describe the current list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called &lt;em&gt;RBasic&lt;/em&gt;. Here’s a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):&lt;/p&gt;
 
@@ -363,7 +476,7 @@ devServer: {
 
 &lt;p&gt;&lt;em&gt;But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;That’s correct. So what happens here is Ruby creates an &lt;em&gt;eigenclass&lt;/em&gt; specifically for this object (which means “own class” — “eigen” means &lt;em&gt;own&lt;/em&gt; or &lt;em&gt;self&lt;/em&gt; in German). This class in our case is a child class of String. But we can go further — since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods.&lt;/p&gt;
+&lt;p&gt;That’s correct. So what happens here is Ruby creates an &lt;em&gt;eigenclass&lt;/em&gt; specifically for this object (which means “own class”—”eigen” means &lt;em&gt;own&lt;/em&gt; or &lt;em&gt;self&lt;/em&gt; in German). This class in our case is a child class of String. But we can go further—since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js&quot;&gt;&lt;/script&gt;
 
@@ -406,7 +519,7 @@ CREATE TABLE products (
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;It’s definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.&lt;/p&gt;</content><author><name></name></author><summary type="html">First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented — everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: RObject and RClass. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.</summary></entry><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library — in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
+&lt;p&gt;It’s definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.&lt;/p&gt;</content><author><name></name></author><summary type="html">First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: RObject and RClass. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.</summary></entry><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
 
 &lt;p&gt;Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here’s an example of interaction I’ve unfortunately encountered all too often in UI code:&lt;/p&gt;
 
@@ -433,7 +546,7 @@ CREATE TABLE products (
 
 &lt;p&gt;&lt;img src=&quot;/images/sketch.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The dotted lines indicate how we want to split our application into smaller pieces — the components that are going to make up the application. This means we get this hierarchy:&lt;/p&gt;
+&lt;p&gt;The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/hierarchy.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -460,13 +573,13 @@ Codewise, this is what the top level component looks like:&lt;/p&gt;
 
 &lt;p&gt;It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don’t handle their own state is also advantageous. The &lt;em&gt;TaskList&lt;/em&gt; component just passes the &lt;em&gt;deleteTaskClick&lt;/em&gt; handler through to the &lt;em&gt;Task&lt;/em&gt; component. We are using a similar bind approach here, as we did for &lt;em&gt;AddTask&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library — in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry><entry><title type="html">The Redux Async Flow And Handling Side Effects</title><link href="http://localhost:4000/redux-async-flow" rel="alternate" type="text/html" title="The Redux Async Flow And Handling Side Effects" /><published>2017-07-20T06:39:37+03:00</published><updated>2017-07-20T06:39:37+03:00</updated><id>http://localhost:4000/redux-async-flow</id><content type="html" xml:base="http://localhost:4000/redux-async-flow">&lt;p&gt;The first thing that needs to be mentioned is that Redux, while &lt;em&gt;fluxish&lt;/em&gt; in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses &lt;strong&gt;a single store&lt;/strong&gt; which keeps the state for the whole application, and a concept known as a &lt;em&gt;reducer&lt;/em&gt; which is essentially a function that gets the current state and an action, and produces a new state based on the action.&lt;/p&gt;
+&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry><entry><title type="html">The Redux Async Flow And Handling Side Effects</title><link href="http://localhost:4000/redux-async-flow" rel="alternate" type="text/html" title="The Redux Async Flow And Handling Side Effects" /><published>2017-07-20T06:39:37+03:00</published><updated>2017-07-20T06:39:37+03:00</updated><id>http://localhost:4000/redux-async-flow</id><content type="html" xml:base="http://localhost:4000/redux-async-flow">&lt;p&gt;The first thing that needs to be mentioned is that Redux, while &lt;em&gt;fluxish&lt;/em&gt; in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses &lt;strong&gt;a single store&lt;/strong&gt; which keeps the state for the whole application, and a concept known as a &lt;em&gt;reducer&lt;/em&gt; which is essentially a function that gets the current state and an action, and produces a new state based on the action.&lt;/p&gt;
 
 &lt;p&gt;It looks something like this:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/redux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it — the application 
+&lt;p&gt;Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it—the application 
 state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become
 unwieldy very fast), needs to be a &lt;em&gt;pure&lt;/em&gt; function - which means it’s not allowed to have &lt;em&gt;side-effects&lt;/em&gt;. An action is just a plain object - the only requirement is that this object has to have a &lt;em&gt;type&lt;/em&gt; property. An action creator is just a plain JS function that returns an action object. It looks something like this:&lt;/p&gt;
 
@@ -539,7 +652,7 @@ would give a simple explanation. The concept of isolation is related to what hap
   &lt;li&gt;Serializable&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Most developers can explain the difference between Read committed and Serializable — between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Most developers can explain the difference between Read committed and Serializable—between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
 
@@ -561,7 +674,7 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
 
-&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it — the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
+&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
 
 &lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
 
@@ -569,7 +682,7 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">Under The Hood: V8 Internals</title><link href="http://localhost:4000/v8-internals" rel="alternate" type="text/html" title="Under The Hood: V8 Internals" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/v8-internals</id><content type="html" xml:base="http://localhost:4000/v8-internals">&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive img-left&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why — they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast — depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database — Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
+&lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why—they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast—depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database—Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
 
 &lt;p&gt;For those who have not used node.js, it uses Google’s V8 JavaScript engine which powers Chrome, and it’s fast. And the reason why it’s fast is because it actually compiles you JS code instead of interpreting it. The whole process works as follows:&lt;/p&gt;
 
@@ -585,7 +698,7 @@ would give a simple explanation. The concept of isolation is related to what hap
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do — it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
+&lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do—it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/6dafc797abe6a17bb7d63d8d94e22fb5.js&quot;&gt;&lt;/script&gt;
 
@@ -593,7 +706,7 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;&lt;em&gt;JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff) — I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
+&lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff)— I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/eb5fb6e45dd943a3f6ad87da7f1fe827.js&quot;&gt;&lt;/script&gt;
 
@@ -609,69 +722,4 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Architectural Ramblings: Cohesion And Coupling</title><link href="http://localhost:4000/cohesion-and-coupling" rel="alternate" type="text/html" title="Architectural Ramblings: Cohesion And Coupling" /><published>2017-06-14T06:39:37+03:00</published><updated>2017-06-14T06:39:37+03:00</updated><id>http://localhost:4000/cohesion-and-coupling</id><content type="html" xml:base="http://localhost:4000/cohesion-and-coupling">&lt;p&gt;When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming. That means a few conditions need to be met.&lt;/p&gt;
-
-&lt;p&gt;Probably the most important thing is knowing where to find things in the codebase.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-cohesion&quot;&gt;What Is Cohesion?&lt;/h2&gt;
-
-&lt;p&gt;In software engineering, cohesion refers to how much items in a class are logically related to one another. An example of this would be having all your summer shirts neatly folded into one drawer, the casual t-shirts in another etc. How does it help? It’s obvious: when you are looking for something, you know exactly where to find it, so you don’t waste time with trial and error.&lt;/p&gt;
-
-&lt;p&gt;Just try to find your favourite shirt in here:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/closet.jpeg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;An architecture in which components have a high level of cohesion makes development fast, because developers don’t spend a lot of time searching through thousand of lines code, talking to one another, sending emails around and waiting etc. It’s just smooth. Now obviously nobody wants their closet to look like the previous picture, and nobody does it intentionally. Also I am 100% sure that the owner of this baby is well aware that this is not the tidiest closet on planet Earth. My experience is that when this happens in software development, the developers fully realize it (because devs are a pretty smart bunch of people), but there isn’t a lot they can do about it — it’s usually a by product of various outside pressures.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-is-coupling&quot;&gt;What Is Coupling?&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/rubik.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive, img-left&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Ever tried solving a Rubik cube? What most people do is try to solve one or two faces, and then the rest. Problem is: after solving the first face, trying to do the next will mess up what you’ve already done. Actually, that’s not how you solve a Rubik cube, but that’s another story.&lt;/p&gt;
-
-&lt;p&gt;The problem with the Rubik cube is that the faces are interdependent, and this kind of dependencies between faces (or components) is something that you want to avoid at all costs in software engineering. Imagine a team of 6 people (developers), who are trying to solve this puzzle. Each person does a move at a time, while the rest think. The first individual is trying to do the red face, the second is trying to do the blue face etc. Because the project is a bit behind schedule, six guys were brought in to make things go faster, instead of one. Probably, those guys are more likely to get on each other’s nerves than do anything particularly useful, because:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;They have different goals (each guy is trying to do his own user story, or face), and is evaluated as such by upper management.&lt;/li&gt;
-  &lt;li&gt;They are not isolated from one another and are stepping on each other’s toes.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Consider the following:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Component A depends on component B (it has a direct reference to component B of some sort).&lt;/li&gt;
-  &lt;li&gt;Component B has a dependence on component C.&lt;/li&gt;
-  &lt;li&gt;And component C has a dependence on component A.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;What happens if you do some changes on A? Well, now the public signature of A is different and C will probably not work any more with A. So we need to change C. But B depends on C, so we also need to change B. So we just changed B, but remember that A was dependent on B. Is A now still compatible with the changes we made to B? We might need to change A again. But wait! If we change A again, will it still work with C? We have a chain of dependencies, and also a circular reference. If we don’t manage to fit the pieces together, we might have to throw the whole system away and start from scratch.&lt;/p&gt;
-
-&lt;p&gt;This might sound like a contrived example, but it’s not. I encountered it quite a bit in client side applications and in systems based on events that maintain and manipulate state. One button click would trigger some computation and then partial update of just some sections of the UI, including setting values on various controls. Change event handlers on these controls (text-box or other input elements) would trigger additional computations and partial updates in other parts of the UI and would also set public state flags used by other events that update other parts of the UI etc. Sometimes the partial updates would overlap and cause circular dependencies, or a very complicated flow that is hard to follow / change. SPAs not using an MVC, MVVM or a Flux pattern are even more problematic because many times they involve unobtrusive attachment of event handlers, and auto-magic JS is notoriously hard to debug when it’s not working properly.&lt;/p&gt;
-
-&lt;p&gt;The problem is in the real world these structures usually evolve unplanned and organically (like a tree’s branches growing in all directions). One developer has to solve a bug that states some value in a UI element is incorrect so does a quick-and-dirty fix by attaching to some event and updates that control. Another one later comes and does another quick fix by doing the same someplace else etc.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;But things depend on one another, don’t they?&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Yes, they do. You will always have coupling, but you can have loose-coupling or tight-coupling. And while sometimes a bit of tight coupling is inevitable, one thing you want to avoid at all costs is circular references. If component A depends on B, and B depends on A, if you want to do changes, you need to change both at the same time. An example of this is the following: your UI will always have references to your business layer, but you should never reference the UI from the business — you just created a bidirectional monolithic bloc.&lt;/p&gt;
-
-&lt;h2 id=&quot;flux-as-a-real-world-example&quot;&gt;Flux As A Real World Example&lt;/h2&gt;
-
-&lt;p&gt;All this stuff might seem a bit theoretical, so I thought I would use Flux as an example on how you can mitigate these problems.&lt;/p&gt;
-
-&lt;p&gt;Here’s a high level overview of the architecture:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Explaining the concepts of Flux is beyond the scope of this article, but one key thing to take away from this architecture, is that the information flow is &lt;strong&gt;unidirectional&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Which leads us to…&lt;/p&gt;
-
-&lt;h2 id=&quot;agnosticism&quot;&gt;Agnosticism&lt;/h2&gt;
-
-&lt;p&gt;The general rule of thumb is that the components that are more prone to change, should depend on core components which are stable, and the stable ones should be agnostic of the other ones. The core components and interfaces (logging, routing, database access etc.) form the backbone of the application (the foundation, if you will) and the backbone should be closely guarded by the architect or the lead developer. The reason why you want to have this dependency topology (and not vice-versa), is because you don’t want a small change by John The-New-Guy in the model of the /socks-and-ties page of your online store application, to bring down everything. Also remember, that you should really give a good thought to the foundation, because after you’ve build level one and two of your structure, it’s really damn hard to make changes to the foundation because the whole thing rests on top of it.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/motherboard.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive, img-left&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Imagine a computer. It has a motherboard, a processor, video card, memory, a hard-drive etc. The processor is a nicely encapsulated box, which communicates with the other nicely encapsulated boxes through well defined interfaces (the slot it’s fitted in, the other slots of the components in the mother board — all of these are industry standards). Regardless who makes the motherboard (MSI, Asus), the interfaces are the same for a specific hardware architecture. So let’s say, I get pissed at my video card for being so slow. Or with the hard drive, because I want an SSD. All I have to do is swap it with another one, just that simple. This is what loose coupling is. Now imagine if the CPU had wires directly to the video-card, memory or hard-drive. If you’d wanted to change something, you’d have to trow the whole computer away and buy another one. Also, a keep in mind that a CPU has more than a billion transistors, but it’s socket has only hundreds of pins. Now, that’s encapsulation! The more state you can keep private in a class, the better, because over time there will be other code that links to it, which means tight coupling.&lt;/p&gt;
-
-&lt;p&gt;So the next time you want to call a component from another component directly, it might be worth it to consider an abstraction layer. Lastly, there is such a thing as the law of diminishing returns. It’s really easy to over-engineer stuff in the name of code art.&lt;/p&gt;</content><author><name></name></author><summary type="html">When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming. That means a few conditions need to be met.</summary></entry></feed>
+&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

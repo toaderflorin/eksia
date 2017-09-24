@@ -8,7 +8,7 @@ icon: "hierarch-logo.png"
 categories:
 ---
 
-I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: *Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.* No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it if you are using React and you can also use Flux even if you are using another library — in fact it's quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.
+I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: *Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.* No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it's quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.
 
 Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here's an example of interaction I've unfortunately encountered all too often in UI code:
 
@@ -33,7 +33,7 @@ We are going to build an application that allows a user to manage a list of todo
 
 ![image-title-here](/images/sketch.png){:class="img-responsive"}
 
-The dotted lines indicate how we want to split our application into smaller pieces — the components that are going to make up the application. This means we get this hierarchy:
+The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:
 
 ![image-title-here](/images/hierarchy.png){:class="img-responsive"}
 
