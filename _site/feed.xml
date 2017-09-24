@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-24T11:36:11+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-24T14:51:40+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-23T06:39:37+03:00</published><updated>2017-09-23T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
@@ -43,7 +43,7 @@
   &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: red; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;
   &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: magenta; float: right; margin-left: 12px;&quot;&gt;&lt;/div&gt;
   &lt;div style=&quot;display: block; width: 64px; height: 64px; background-color: yellow; float:left; clear: left; margin-right: 12px; margin-top: 12px&quot;&gt;&lt;/div&gt;
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante. Curabitur egestas luctus tortor, vitae fermentum est vestibulum id. Fusce imperdiet velit quis ornare hendrerit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam dapibus massa et magna egestas, sit amet vehicula turpis lacinia. Ut tristique elit purus, et ultricies lorem volutpat vitae. Phasellus pellentesque imperdiet sapien id pretium. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -56,15 +56,15 @@
 
 &lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
   &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: salmon; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante.
 &lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;This might not actually be the desired outcome, but it turns out there is a workaround.&lt;/p&gt;
 
 &lt;div style=&quot;background-color: #f8f8f8; padding: 15px;&quot;&gt;
   &lt;div style=&quot;display: block; width: 128px; height: 128px; background-color: orange; float: left; margin-right: 12px;&quot;&gt;&lt;/div&gt;  
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante.
   &lt;div style=&quot;clear: both;&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;
@@ -78,8 +78,8 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;p&gt;Then, all you need to do is simply add that class to all the elements that you want clearfixed.&lt;/p&gt;
 
-&lt;h2 id=&quot;ok-what-is-a-block-formatting-context&quot;&gt;OK, What Is A Block Formatting Context?&lt;/h2&gt;
-&lt;p&gt;It’s a sort of a container. To be more precise, an element also generates a block formatting context if it is:&lt;/p&gt;
+&lt;h2 id=&quot;block-formatting-contexts&quot;&gt;Block Formatting Contexts&lt;/h2&gt;
+&lt;p&gt;An element generates a block formatting context if it is:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;the root element or something that contains it&lt;/li&gt;

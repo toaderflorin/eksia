@@ -50,7 +50,7 @@ But there's another catch: margin collapsing doesn't happen for the first or las
   <div style="display: block; width: 64px; height: 64px; background-color: red; float: left; margin-right: 12px;"></div>
   <div style="display: block; width: 64px; height: 64px; background-color: magenta; float: right; margin-left: 12px;"></div>
   <div style="display: block; width: 64px; height: 64px; background-color: yellow; float:left; clear: left; margin-right: 12px; margin-top: 12px"></div>
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante. Curabitur egestas luctus tortor, vitae fermentum est vestibulum id. Fusce imperdiet velit quis ornare hendrerit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam dapibus massa et magna egestas, sit amet vehicula turpis lacinia. Ut tristique elit purus, et ultricies lorem volutpat vitae. Phasellus pellentesque imperdiet sapien id pretium. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 </div>
 <br/>
 
@@ -63,15 +63,15 @@ Keep in mind that floating elements don't have any effect on the size of the con
 
 <div style="background-color: #f8f8f8; padding: 15px;">
   <div style="display: block; width: 128px; height: 128px; background-color: salmon; float: left; margin-right: 12px;"></div>  
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante.
 </div>
-<br/>
+<br/><br/>
 
 This might not actually be the desired outcome, but it turns out there is a workaround.
 
 <div style="background-color: #f8f8f8; padding: 15px;">
   <div style="display: block; width: 128px; height: 128px; background-color: orange; float: left; margin-right: 12px;"></div>  
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor lacinia varius bibendum, augue ante tempor quam, nec faucibus tortor ligula non nisl. Suspendisse nec odio at orci dignissim ultrices. Morbi ac turpis ac tortor luctus euismod ut eget ante.
   <div style="clear: both;"></div>
 </div>
 <br/>
