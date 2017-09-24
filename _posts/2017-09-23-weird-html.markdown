@@ -3,12 +3,12 @@ layout: post
 title:  "HTML Layout: The Weird Parts"
 date:   2017-09-23 06:39:37 +0300
 description: "
-If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain.
+If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain.
 "
 icon: "html2-icon.png"
 categories:
 ---
-If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not. Most developers would feel your pain, but here's the thing:
+If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not. Most developers would feel your pain, but here's the thing:
 
 *HTML evolved overtime, and sometimes a bit chaotically. It wasn't thought out from the start in its current form.*
 
