@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-23T17:30:33+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-</subtitle><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-23T06:39:37+03:00</published><updated>2017-09-23T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. &lt;em&gt;Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not.&lt;/em&gt; Most developers would feel your pain. But here’s the thing:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-24T11:29:14+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+</subtitle><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-23T06:39:37+03:00</published><updated>2017-09-23T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;But as web developers, we need to use it so we still need to understand its quirks. And we need to understand the fundamental phylosophy: HTML was designed to describe pages that flow vertically, as opposed to say something like PDF documents which don’t flow AT ALL (they have &lt;strong&gt;fixed layout&lt;/strong&gt;). Mobile applications are also not really designed to flow so a lot of the UI elements like labels have fixed positions. Desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: &lt;em&gt;the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate&lt;/em&gt;. The Facebook wall would be a perfect example of this philosophy.&lt;/p&gt;
+&lt;p&gt;Yet as web developers, we need to use it so we still need to understand its quirks. And we need to understand the fundamental philosophy: HTML was designed to describe pages that flow vertically, as opposed to say something like PDF documents which don’t flow AT ALL (they have &lt;strong&gt;fixed layout&lt;/strong&gt;). Mobile applications are also not really designed to flow so a lot of the UI elements like labels and buttons have fixed positions. Desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: &lt;em&gt;the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate&lt;/em&gt;. The Facebook wall would be a perfect example of this philosophy.&lt;/p&gt;
 
-&lt;p&gt;A byproduct of this assumption is that divs expand to fill the whole available space horizontaly but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it’s important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.&lt;/p&gt;
+&lt;p&gt;A byproduct of this assumption is that divs expand to fill the whole available space horizontally but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it’s important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.&lt;/p&gt;
 
 &lt;p&gt;Before we explain the more quirky aspects of HTML, we need to have a basic overview of the box layout of the elements:&lt;/p&gt;
 
@@ -20,15 +20,11 @@
   &lt;li&gt;Margin which indicates the space between the border and the neighboring elements&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Keep in mind that by default the &lt;em&gt;width&lt;/em&gt; and &lt;em&gt;height&lt;/em&gt; CSS properties actually refer to the size of the content and they DON’T include padding and margin size, which is a bit counterintuitive if you are comming from other layout engines such as WPF.&lt;/p&gt;
+&lt;p&gt;Keep in mind that by default the &lt;em&gt;width&lt;/em&gt; and &lt;em&gt;height&lt;/em&gt; CSS properties actually refer to the size of the content and they DON’T include padding and margin size, which is a bit counterintuitive.&lt;/p&gt;
 
 &lt;p&gt;Here’s what you need to do:&lt;/p&gt;
 
-&lt;pre&gt;
-.box-sized-element {
-  box-sizing: box-sizing: border-box;    
-}
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;The default value is &lt;em&gt;content-box&lt;/em&gt;.&lt;/p&gt;
 
@@ -37,7 +33,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/collapse.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens &lt;strong&gt;only vertically&lt;/strong&gt;. This again has to do with the vertical flow philsophy of HTML.&lt;/p&gt;
+&lt;p&gt;Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens &lt;strong&gt;only vertically&lt;/strong&gt;. This again has to do with the vertical flow philosophy of HTML.&lt;/p&gt;
 
 &lt;p&gt;But there’s another catch: margin collapsing doesn’t happen for the first or last element of a &lt;em&gt;block formatting context&lt;/em&gt;. But before we talk about those, let’s talk about…&lt;/p&gt;
 
@@ -74,23 +70,13 @@
 &lt;p&gt;&lt;br /&gt;
 What I did was add an empty div at the end of the parent container, like so:&lt;/p&gt;
 
-&lt;pre&gt;
-&amp;lt;div class=&quot;container&quot;&amp;gt;
-  ...
-  &amp;lt;div style=&quot;clear: both;&quot;&amp;gt;&amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/08ba23d70fdf75540776c69b3bc40ced.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;That’s a bit annoyting so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a &lt;strong&gt;clearfix&lt;/strong&gt;.&lt;/p&gt;
-&lt;pre&gt;
-.clearfix:after {
-  content: &quot;&quot;;
-  display: table;
-  clear: both;
-}
-&lt;/pre&gt;
+&lt;p&gt;That’s a bit annoying so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a &lt;strong&gt;clearfix&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Then, all you need to do is simply add that class to all the elemetns that you want clearfixed.&lt;/p&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Then, all you need to do is simply add that class to all the elements that you want clearfixed.&lt;/p&gt;
 
 &lt;h2 id=&quot;ok-what-is-a-block-formatting-context&quot;&gt;OK, What Is A Block Formatting Context?&lt;/h2&gt;
 &lt;p&gt;It’s a sort of a container. To be more precise, an element also generates a block formatting context if it is:&lt;/p&gt;
@@ -106,7 +92,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
   &lt;li&gt;an element with display: flow-root&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;When dealing with blocks, it’s important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically. But there’s a gotcha:&lt;/p&gt;
+&lt;p&gt;When dealing with blocks, it’s important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically, but there’s a gotcha:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/width-auto.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -115,28 +101,16 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;h2 id=&quot;vertical-centering&quot;&gt;Vertical Centering&lt;/h2&gt;
 &lt;p&gt;Something as simple as centering something in the middle of a container was problematic before the addition of flexbox. It still is for older browsers which don’t fully support the &lt;em&gt;display: flex&lt;/em&gt; CSS specification. Before we get into the quirky cases, let’s see how we solve vertical centering with flexbox:&lt;/p&gt;
 
-&lt;pre&gt;
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/0ed3a4426693a015ce6327bd30102502.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;If you know the height of the panel you want to center you can do something like:&lt;/p&gt;
 
-&lt;pre&gt;
-.centered-fixed {
-  margin-top: calc(100% - 100px)
-  margin-left: auto;
-  margin-right: auto;
-}
-&lt;/pre&gt;
+&lt;script src=&quot;https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;If your browser doesn’t support calc, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hack-ish.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain. But here’s the thing:</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
+&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-15T09:39:37+03:00</published><updated>2017-09-15T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 

@@ -8,13 +8,13 @@ If you have worked with another layout engine other than HTML, you probably thin
 icon: "html-icon.png"
 categories:
 ---
-If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that. *Sometimes things expand to fill the available spaces. Sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not.* Most developers would feel your pain. But here's the thing:
+If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that. Sometimes things expand to fill the available spaces. Sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not. Most developers would feel your pain, but here's the thing:
 
 *HTML evolved overtime, and sometimes a bit chaotically. It wasn't thought out from the start in its current form.*
 
-But as web developers, we need to use it so we still need to understand its quirks. And we need to understand the fundamental phylosophy: HTML was designed to describe pages that flow vertically, as opposed to say something like PDF documents which don't flow AT ALL (they have **fixed layout**). Mobile applications are also not really designed to flow so a lot of the UI elements like labels have fixed positions. Desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: *the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate*. The Facebook wall would be a perfect example of this philosophy. 
+Yet as web developers, we need to use it so we still need to understand its quirks. And we need to understand the fundamental philosophy: HTML was designed to describe pages that flow vertically, as opposed to say something like PDF documents which don't flow AT ALL (they have **fixed layout**). Mobile applications are also not really designed to flow so a lot of the UI elements like labels and buttons have fixed positions. Desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: *the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate*. The Facebook wall would be a perfect example of this philosophy. 
 
-A byproduct of this assumption is that divs expand to fill the whole available space horizontaly but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it's important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.
+A byproduct of this assumption is that divs expand to fill the whole available space horizontally but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it's important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.
 
 Before we explain the more quirky aspects of HTML, we need to have a basic overview of the box layout of the elements:
 
@@ -27,15 +27,11 @@ So an element will have
 3. Some padding between the border  and the actual content
 4. Margin which indicates the space between the border and the neighboring elements
 
-Keep in mind that by default the *width* and *height* CSS properties actually refer to the size of the content and they DON'T include padding and margin size, which is a bit counterintuitive if you are comming from other layout engines such as WPF.
+Keep in mind that by default the *width* and *height* CSS properties actually refer to the size of the content and they DON'T include padding and margin size, which is a bit counterintuitive.
 
 Here's what you need to do:
 
-<pre>
-.box-sized-element {
-  box-sizing: box-sizing: border-box;    
-}
-</pre>
+<script src="https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js"></script>
 
 The default value is *content-box*.
 
@@ -44,7 +40,7 @@ A weird aspect of HTML (if you don't know about it) is the way margins behave.
 
 ![image-title-here](/images/collapse.png){:class="img-responsive"}
 
-Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens **only vertically**. This again has to do with the vertical flow philsophy of HTML.
+Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens **only vertically**. This again has to do with the vertical flow philosophy of HTML.
 
 But there's another catch: margin collapsing doesn't happen for the first or last element of a *block formatting context*. But before we talk about those, let's talk about...
 
@@ -81,23 +77,13 @@ This might not actually be the desired outcome, but it turns out there is a work
 <br/>
 What I did was add an empty div at the end of the parent container, like so:
 
-<pre>
-&lt;div class="container"&gt;
-  ...
-  &lt;div style="clear: both;"&gt;&lt;/div&gt;
-&lt;/div&gt;
-</pre>
+<script src="https://gist.github.com/toaderflorin/08ba23d70fdf75540776c69b3bc40ced.js"></script>
 
-That's a bit annoyting so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a **clearfix**.
-<pre>
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</pre>
+That's a bit annoying so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a **clearfix**.
 
-Then, all you need to do is simply add that class to all the elemetns that you want clearfixed.
+<script src="https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js"></script>
+
+Then, all you need to do is simply add that class to all the elements that you want clearfixed.
 
 ## OK, What Is A Block Formatting Context?
 It's a sort of a container. To be more precise, an element also generates a block formatting context if it is:
@@ -111,7 +97,7 @@ It's a sort of a container. To be more precise, an element also generates a bloc
 * a block element where overflow has a value other than visible
 * an element with display: flow-root
 
-When dealing with blocks, it's important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically. But there's a gotcha:
+When dealing with blocks, it's important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically, but there's a gotcha:
 
 ![image-title-here](/images/width-auto.png){:class="img-responsive"}
 
@@ -120,23 +106,11 @@ This by default makes just the content to be 100%.
 ## Vertical Centering
 Something as simple as centering something in the middle of a container was problematic before the addition of flexbox. It still is for older browsers which don't fully support the *display: flex* CSS specification. Before we get into the quirky cases, let's see how we solve vertical centering with flexbox:
 
-<pre>
-.centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</pre>
+<script src="https://gist.github.com/toaderflorin/0ed3a4426693a015ce6327bd30102502.js"></script>
 
 If you know the height of the panel you want to center you can do something like:
 
-<pre>
-.centered-fixed {
-  margin-top: calc(100% - 100px)
-  margin-left: auto;
-  margin-right: auto;
-}
-</pre>
+<script src="https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js"></script>
 
 If your browser doesn't support calc, there are other ways to do it such as using line-height (which works only for text) or using *display: table-cell*. Obviously, these are a bit hack-ish.
 
