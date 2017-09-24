@@ -39,6 +39,10 @@ a, a:hover {
   text-decoration: none;
 }
 
+.download:active {
+  text-decoration: none;
+}
+
 .header {
   position: fixed;
   left: 0px;
