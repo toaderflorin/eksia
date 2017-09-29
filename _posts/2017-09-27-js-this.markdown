@@ -55,7 +55,7 @@ That's helpful, but we might not always want to pass that *this* object as a par
 
 <script src="https://gist.github.com/toaderflorin/1be29639d35f2074cf1b4a93204e0818.js"></script>
 
-What we've done is create a **new** function instance that calls the old function but *this* is bound. Yes, we can do this because Javascript is a dynamic language, which means functions are first class citizens and also objects at the same time! It's important to keep this in mind: just because you declared a function inside a class in ES6, it doesn't mean it's bound to an object, which is why we use the bind trick in the constructor. 
+What we've done is create a **new** function instance that calls the old function for which *this* (inside the function) is bound to an object. Yes, we can do this because Javascript is a dynamic language, which means functions are first class citizens and also objects at the same time! It's important to keep this in mind: just because you declared a function inside a class in ES6, it doesn't mean it's bound to an object, which is why we use the bind trick in the constructor. 
 
 One more thing. You might have seen something like this in old jQuery code:
 
