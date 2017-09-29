@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-29T17:20:09+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-29T17:23:44+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js&quot;&gt;&lt;/script&gt;
@@ -61,7 +61,72 @@
 
 &lt;/blockquote&gt;
 
-&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-15T06:39:37+03:00</published><updated>2017-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
+&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-23T09:39:37+03:00</published><updated>2017-09-23T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probably one of the easiest things to be implemented in a JS engine. But you’d be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.&lt;/p&gt;
+
+&lt;p&gt;And serverside applications are a big part of the JS landscape.&lt;/p&gt;
+
+&lt;h2 id=&quot;es6-modules-versus-commonjs&quot;&gt;ES6 Modules Versus CommonJS&lt;/h2&gt;
+&lt;p&gt;On the surface, they seem similar, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/5876ea604202b6a97e4ddef1d96bf6ee.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;whereas ES6 exports look like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/7ba115e874be93f08cca634b0990ac1b.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;em&gt;Ideally, we’d want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;This means it won’t be possible to change &lt;em&gt;require()&lt;/em&gt; to import ES6 modules. The alternative would be to create a new &lt;em&gt;require.import()&lt;/em&gt; function, but this isn’t as nice.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;It does however mean that ES6 modules will be able to import CommonJS modules, because they happen in one tick. The tricky part here is figuring if a module is ES6 or CommonJS.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Browsers know that a module is ES6 or not like this:&lt;/p&gt;
+&lt;pre&gt;
+&amp;lt;script type=&quot;module&quot; src=&quot;./es6module.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionately  named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;While this is work in progress, so far it’s fair to assume that:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The &lt;em&gt;require()&lt;/em&gt; function won’t be available in ES6 module files.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;import&lt;/em&gt; won’t be available to CommonJS modules.&lt;/li&gt;
+  &lt;li&gt;ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).&lt;/li&gt;
+  &lt;li&gt;CJS modules will be able to &lt;em&gt;require.import()&lt;/em&gt; ES6 modules, as well as other CJS modules using &lt;em&gt;require()&lt;/em&gt; like before.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed.&lt;/p&gt;
+
+&lt;p&gt;Which means for a CJS module that looks like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/9767933b001009e22e308646bded11fb.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The importing code would look like:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/065b799bf404d013d39990d9f19d9482.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Floating is a typical way of&lt;/p&gt;
+
+&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-15T06:39:37+03:00</published><updated>2017-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
 
@@ -172,72 +237,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;p&gt;If your browser doesn’t support calc, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hack-ish.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probably one of the easiest things to be implemented in a JS engine. But you’d be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.&lt;/p&gt;
-
-&lt;p&gt;And serverside applications are a big part of the JS landscape.&lt;/p&gt;
-
-&lt;h2 id=&quot;es6-modules-versus-commonjs&quot;&gt;ES6 Modules Versus CommonJS&lt;/h2&gt;
-&lt;p&gt;On the surface, they seem similar, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/5876ea604202b6a97e4ddef1d96bf6ee.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;whereas ES6 exports look like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/7ba115e874be93f08cca634b0990ac1b.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;em&gt;Ideally, we’d want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;This means it won’t be possible to change &lt;em&gt;require()&lt;/em&gt; to import ES6 modules. The alternative would be to create a new &lt;em&gt;require.import()&lt;/em&gt; function, but this isn’t as nice.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It does however mean that ES6 modules will be able to import CommonJS modules, because they happen in one tick. The tricky part here is figuring if a module is ES6 or CommonJS.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Browsers know that a module is ES6 or not like this:&lt;/p&gt;
-&lt;pre&gt;
-&amp;lt;script type=&quot;module&quot; src=&quot;./es6module.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionately  named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;While this is work in progress, so far it’s fair to assume that:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The &lt;em&gt;require()&lt;/em&gt; function won’t be available in ES6 module files.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;import&lt;/em&gt; won’t be available to CommonJS modules.&lt;/li&gt;
-  &lt;li&gt;ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).&lt;/li&gt;
-  &lt;li&gt;CJS modules will be able to &lt;em&gt;require.import()&lt;/em&gt; ES6 modules, as well as other CJS modules using &lt;em&gt;require()&lt;/em&gt; like before.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed.&lt;/p&gt;
-
-&lt;p&gt;Which means for a CJS module that looks like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/9767933b001009e22e308646bded11fb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The importing code would look like:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/065b799bf404d013d39990d9f19d9482.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Floating is a typical way of&lt;/p&gt;
-
-&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
+&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
