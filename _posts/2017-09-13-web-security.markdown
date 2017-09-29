@@ -86,7 +86,7 @@ Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit 
 Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.
 
 ## Cross-Site Request Forgery
-CSRF is an attack that tricks the victim into submitting a malicious request. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is *social engineering*. 
+CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is *social engineering*. 
 
 ![image-title-here](/images/csfr.png){:class="img-responsive"}
 
