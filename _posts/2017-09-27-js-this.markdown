@@ -5,7 +5,7 @@ date:   2017-09-27 06:39:37 +0300
 description: "
 Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes). Here's the thing: <i>class</i> and <i>constructor</i> are just syntactic sugar because Javascript doesn't really have classes, it supports only prototypical inheritance. What it means is: 1. Each object is actually a property bag—it's nothing more than a dictionary where the keys are always strings. 2. Each object has a prototype property, which is a reference to the object it extends.
 "
-icon: "js-icon.jpg"
+icon: "this.jpg"
 categories:
 ---
 Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):
