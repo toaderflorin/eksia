@@ -8,7 +8,7 @@ With the addition of <i>async/await</i> and classes in Javascript and subsequent
 icon: "es6-modules.png"
 categories:
 ---
-With the addition of *async/await* and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await and actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
+With the addition of *async/await* and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await and actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
 
 ![image-title-here](/images/es6-mods.jpg){:class="img-responsive"}
 
@@ -29,7 +29,7 @@ whereas ES6 exports look like this:
 
 *Ideally, we'd want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.*
 
-So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing *require()* function is synchronous, whereas the ES6 specification states that imports can be async (but DON'T HAVE TO BE, which is good news for Node). Changing the existing implementation for *require()* would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks. 
+So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing *require()* function is synchronous, whereas the ES6 specification states that imports can be async (but DON'T HAVE TO BE, which is good news for Node). Changing the existing implementation for *require()* would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks.
 
 1. This means it won't be possible to change *require()* to import ES6 modules. The alternative would be to create a new *require.import()* function, but this isn't as nice.
 
@@ -50,7 +50,7 @@ While this is work in progress, so far it's fair to assume that:
 3. ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).
 4. CJS modules will be able to *require.import()* ES6 modules, as well as other CJS modules using *require()* like before.
 
-Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed. 
+Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed.
 
 Which means for a CJS module that looks like this:
 
@@ -64,6 +64,6 @@ Keep in mind that defaultImport will not be 'some_text' because *import* doesn't
 
 <script src="https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js"></script>
 
-Floating is a typical way of 
+Floating is a typical way of
 
 Also, we are probably looking at beginning 2018 before any of this functionality is available.

