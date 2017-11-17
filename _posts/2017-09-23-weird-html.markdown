@@ -12,7 +12,7 @@ If you have worked with another layout engine other than HTML, you probably thin
 
 *HTML evolved overtime, and sometimes a bit chaotically. It wasn't thought out from the start in its current form.*
 
-Yet as web developers, we need to use it so we still need to understand its quirks. And first and foremost we need to understand the fundamental philosophy of HTML: it designed to describe pages that flow vertically, as opposed to say something like PDF documents which don't flow AT ALL (they have **fixed layout**). Mobile applications are also not really designed to flow so a lot of the UI elements like labels and buttons have fixed positions, while desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: *the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate*. The Facebook wall would be a perfect example of this philosophy. 
+Yet as web developers, we need to use it so we still need to understand its quirks. And first and foremost we need to understand the fundamental philosophy of HTML: it designed to describe pages that flow vertically, as opposed to say something like PDF documents which don't flow AT ALL (they have **fixed layout**). Mobile applications are also not really designed to flow so a lot of the UI elements like labels and buttons have fixed positions, while desktop applications (both Windows and MacOS) are somewhere in between because you can resize the application window. Keep this in mind: *the browser usually assumes you read the content in the webpage from top to bottom and you use the scroll bar to navigate*. The Facebook wall would be a perfect example of this philosophy.
 
 A byproduct of this assumption is that divs expand to fill the whole available space horizontally but not vertically. As a web developer, you are also expected to take into account the possibility the user might change the zoom factor of the page (to increase font-size), so it's important that the application is responsive. Not to mention he or she might view the webpage from a mobile device.
 
@@ -36,7 +36,7 @@ Here's what you need to do:
 The default value is *content-box*.
 
 ## Margin Collapse
-A weird aspect of HTML (if you don't know about it) is the way margins behave. 
+A weird aspect of HTML (if you don't know about it) is the way margins behave.
 
 ![image-title-here](/images/collapse.png){:class="img-responsive"}
 
@@ -93,7 +93,7 @@ An element generates a block formatting context if it is:
 * absolutely positioned elements (elements where position is absolute or fixed)
 * an inline-block (elements with display: inline-block)
 * a table cell (elements with display: table-cell, which is the default for HTML table cells)
-* a table table caption (elements with display: table-caption, which is the default for HTML table captions)
+* a table caption (elements with display: table-caption, which is the default for HTML table captions)
 * a block element where overflow has a value other than visible
 * an element with display: flow-root
 
@@ -112,7 +112,7 @@ If you know the height of the panel you want to center you can do something like
 
 <script src="https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js"></script>
 
-If your browser doesn't support calc, there are other ways to do it such as using line-height (which works only for text) or using *display: table-cell*. Obviously, these are a bit hack-ish.
+If your browser doesn't support *calc*, there are other ways to do it such as using line-height (which works only for text) or using *display: table-cell*. Obviously, these are a bit hackish.
 
 ## Conclusion
 Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.
