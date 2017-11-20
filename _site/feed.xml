@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-29T17:24:10+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-20T17:53:39+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
 </subtitle><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js&quot;&gt;&lt;/script&gt;
@@ -61,7 +61,7 @@
 
 &lt;/blockquote&gt;
 
-&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-23T09:39:37+03:00</published><updated>2017-09-23T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
+&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-23T09:39:37+03:00</published><updated>2017-09-23T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -126,7 +126,7 @@
 
 &lt;p&gt;Floating is a typical way of&lt;/p&gt;
 
-&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, mmany more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-15T06:39:37+03:00</published><updated>2017-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
+&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-15T06:39:37+03:00</published><updated>2017-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
 
@@ -214,7 +214,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
   &lt;li&gt;absolutely positioned elements (elements where position is absolute or fixed)&lt;/li&gt;
   &lt;li&gt;an inline-block (elements with display: inline-block)&lt;/li&gt;
   &lt;li&gt;a table cell (elements with display: table-cell, which is the default for HTML table cells)&lt;/li&gt;
-  &lt;li&gt;a table table caption (elements with display: table-caption, which is the default for HTML table captions)&lt;/li&gt;
+  &lt;li&gt;a table caption (elements with display: table-caption, which is the default for HTML table captions)&lt;/li&gt;
   &lt;li&gt;a block element where overflow has a value other than visible&lt;/li&gt;
   &lt;li&gt;an element with display: flow-root&lt;/li&gt;
 &lt;/ul&gt;
@@ -234,7 +234,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;If your browser doesn’t support calc, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hack-ish.&lt;/p&gt;
+&lt;p&gt;If your browser doesn’t support &lt;em&gt;calc&lt;/em&gt;, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hackish.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
@@ -268,7 +268,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputed. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
+&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
 
 &lt;pre&gt;
 GET http://www.onlineshop.com?search=something
@@ -282,7 +282,7 @@ GET http://www.onlineshop.com?search=something
 
 &lt;pre&gt;
 GET http://www.onlineshop.com?
-  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E 
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
   HTTP/1.1
 &lt;/pre&gt;
 
@@ -300,7 +300,7 @@ GET http://www.onlineshop.com?
 &lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
 &lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;
 
-&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted wifi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
+&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
 
 &lt;p&gt;Another way to gain access to a user’s session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.&lt;/p&gt;
 
@@ -449,7 +449,7 @@ Webpack at its core is just a module bundler. It essentially detects dependencie
 
 &lt;p&gt;&lt;img src=&quot;/images/schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;It doesn’t actually do things like transpilation — if you have Coffeescript code, Typescript or ES6 code, you will have to use a loader. We will be using &lt;em&gt;babel-loader&lt;/em&gt; to compile our ES6/jsx code and feed it into Webpack.&lt;/p&gt;
+&lt;p&gt;It doesn’t actually do things like transpilation — if you have Coffee-script code, Typescript or ES6 code, you will have to use a loader. We will be using &lt;em&gt;babel-loader&lt;/em&gt; to compile our ES6/jsx code and feed it into Webpack.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;img src=&quot;/images/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -484,7 +484,7 @@ devServer: {
     '*': 'http://localhost:3000'
   },
   hot: true,
-  contentBase: './src/static', 
+  contentBase: './src/static',
   port: 9000   
 }
 &lt;/pre&gt;
