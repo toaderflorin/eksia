@@ -20,60 +20,65 @@
 
 <body>
   <div>
-    
-  <header class="site-header" role="banner">
+
+    <header class="site-header" role="banner">
   <div class="wrapper">
      
     <a class="site-title" href="/">achiral</a> 
   </div>   
 </header>
 
-  <div class="gradient">
-    <div style="width: 840px; max-width: calc(100% - 30px); margin: auto; margin-top: 40px; padding: 15px; display: flex; flex-direction:column; align-items: left;">
+    <script src="/assets/puppeteer.js"></script>
 
-      <svg  p-animation="vertical" p-delay="0" p-duration="300"
-        p-param="-15 " class="site-logo" width="80" height="80 " viewBox="0 0 100 100"
-        stroke="#ee4477 " stroke-width="1.5 " fill="#111"
-        xmlns="http://www.w3.org/2000/svg" style="box-shadow: -2px 2px 12px -1px rgba(0, 0, 0, 0.5); margin: 0;">
+    <div class="gradient">
+  <div style="width: 840px; max-width: calc(100% - 30px); margin: auto; margin-top: 40px; padding: 15px; display: flex; flex-direction:column; align-items: left;">
 
-        <rect x="0 " y="0 " width="100 " height="100 " fill="#111 " stroke="fa0265 " stroke-width="2.5 "/>
-        <line x1="50 " y1="40 " x2="20 " y2="35 " />
-        <line x1="50 " y1="40 " x2="80 " y2="35 " />
-        <line x1="50 " y1="40 " x2="50 " y2="75 " />
-        <line x1="50 " y1="40 " x2="30 " y2="60 " />
-        <line x1="50 " y1="40 " x2="70 " y2="60 " />
-        <circle cx="50 " cy="40 " r="9 " />
-        <circle cx="20 " cy="35 " r="9 " />
-        <circle cx="80 " cy="35 " r="9 " />
-        <circle cx="25 " cy="62 " r="9 " />
-        <circle cx="75 " cy="62 " r="9 " />
-        <circle cx="50 " cy="75 " r="9 " />
-      </svg>
+    <svg  p-animation="vertical" p-delay="0" p-duration="300"
+      p-param="-15 " class="site-logo" width="80" height="80 " viewBox="0 0 100 100"
+      stroke="#ee4477 " stroke-width="1.5 " fill="#111"
+      xmlns="http://www.w3.org/2000/svg" style="box-shadow: -2px 2px 12px -1px rgba(0, 0, 0, 0.5); margin: 0;">
 
-      <div p-animation="fade " p-delay="0 " p-duration="2700 "  p-param="0.8 " style=" font-size: 45px; color: white; ">
-        <b>achiral</b> software
+      <rect x="0 " y="0 " width="100 " height="100 " fill="#111 " stroke="fa0265 " stroke-width="2.5 "/>
+      <line x1="50 " y1="40 " x2="20 " y2="35 " />
+      <line x1="50 " y1="40 " x2="80 " y2="35 " />
+      <line x1="50 " y1="40 " x2="50 " y2="75 " />
+      <line x1="50 " y1="40 " x2="30 " y2="60 " />
+      <line x1="50 " y1="40 " x2="70 " y2="60 " />
+      <circle cx="50 " cy="40 " r="9 " />
+      <circle cx="20 " cy="35 " r="9 " />
+      <circle cx="80 " cy="35 " r="9 " />
+      <circle cx="25 " cy="62 " r="9 " />
+      <circle cx="75 " cy="62 " r="9 " />
+      <circle cx="50 " cy="75 " r="9 " />
+    </svg>
+
+    <div p-animation="fade " p-delay="0 " p-duration="2700 "  p-param="0.8 " style=" font-size: 45px; color: white; ">
+      <b>achiral</b> software
+    </div>
+
+    <div p-animation="fade " p-delay="0 " p-duration="2700 "  p-param="0.8 " style="font-size: 15px; color: #ddd; height: 40px; ">
+      <b>achiral</b> offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
+    </div>
+
+    <div id="lower" style="width: 840px; max-width: calc(100% - 30px); display: flex; flex-direction: column; align-items: center; ">
+      <div style="background-color: black; color: white; padding: 8px; text-align: center; width: 150px; margin-bottom: 18px;
+        box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);">
+        try <a href="/puppeteer"><b>puppeteer (alpha)</b></a>
       </div>
-
-      <div p-animation="fade " p-delay="0 " p-duration="2700 "  p-param="0.8 " style="font-size: 15px; color: #ddd; height: 40px; ">
-        <b>achiral</b> offers consulting and custom software development services on the node.js, Ruby on Rails and .NET stacks.
-      </div>
-
-      <div id="lower" style="width: 840px; max-width: calc(100% - 30px); display: flex; flex-direction: column; align-items: center; ">
-        <div style="background-color: black; color: white; padding: 8px; text-align: center; width: 150px; margin-bottom: 18px;
-          box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);">
-          try <a href="/puppeteer"><b>puppeteer (alpha)</b></a>
-        </div>
-        <div style="border-bottom: 1px solid #fa0265; width: 50px; ">
-        </div>
+      <div style="border-bottom: 1px solid #fa0265; width: 50px; ">
       </div>
     </div>
   </div>
+</div>
 
-    <script src="/assets/puppeteer.js "></script>
+<main class="page-content " aria-label="Content " style="margin-top:0; z-index: 1000; ">
+  <div class="wrapper ">
 
-    <main class="page-content " aria-label="Content " style="margin-top:0; z-index: 1000; ">
-      <div class="wrapper ">
-        <div class="home">
+
+
+
+
+<div class="home">
   
 
 
@@ -82,6 +87,7 @@
     <li>
       
       <span class="post-meta">Sep 27, 2017</span>
+
       <h2>
         <a class="post-link" href="/js-this">The Pesky Javascript &quot;This&quot; Keyword</a>
       </h2>
@@ -95,6 +101,7 @@
     <li>
       
       <span class="post-meta">Sep 23, 2017</span>
+
       <h2>
         <a class="post-link" href="/es6-modules-node">ES6 Modules And Node.js</a>
       </h2>
@@ -108,6 +115,7 @@
     <li>
       
       <span class="post-meta">Sep 15, 2017</span>
+
       <h2>
         <a class="post-link" href="/weird-html">HTML Layout: The Weird Parts</a>
       </h2>
@@ -121,6 +129,7 @@
     <li>
       
       <span class="post-meta">Sep 13, 2017</span>
+
       <h2>
         <a class="post-link" href="/web-security">Understanding Web Application Security</a>
       </h2>
@@ -134,6 +143,7 @@
     <li>
       
       <span class="post-meta">Sep 9, 2017</span>
+
       <h2>
         <a class="post-link" href="/cors-made-simple">CORS Made Simple</a>
       </h2>
@@ -147,6 +157,7 @@
     <li>
       
       <span class="post-meta">Sep 7, 2017</span>
+
       <h2>
         <a class="post-link" href="/react-hmr">Hot Module Reloading With Wepack, React And Babel</a>
       </h2>
@@ -160,6 +171,7 @@
     <li>
       
       <span class="post-meta">Sep 4, 2017</span>
+
       <h2>
         <a class="post-link" href="/ruby-object-model">The Ruby Object Model And Metaprogramming</a>
       </h2>
@@ -173,6 +185,7 @@
     <li>
       
       <span class="post-meta">Aug 22, 2017</span>
+
       <h2>
         <a class="post-link" href="/component-architecture">Simple Component Based Architecture With React</a>
       </h2>
@@ -186,6 +199,7 @@
     <li>
       
       <span class="post-meta">Jul 20, 2017</span>
+
       <h2>
         <a class="post-link" href="/redux-async-flow">The Redux Async Flow And Handling Side Effects</a>
       </h2>
@@ -199,6 +213,7 @@
     <li>
       
       <span class="post-meta">Jul 2, 2017</span>
+
       <h2>
         <a class="post-link" href="/isolation-levels">Relational Database Isolation Levels Explained</a>
       </h2>
@@ -212,6 +227,7 @@
     <li>
       
       <span class="post-meta">Jun 16, 2017</span>
+
       <h2>
         <a class="post-link" href="/v8-internals">Under The Hood: V8 Internals</a>
       </h2>
@@ -225,6 +241,7 @@
     <li>
       
       <span class="post-meta">Jun 14, 2017</span>
+
       <h2>
         <a class="post-link" href="/cohesion-and-coupling">Architectural Ramblings: Cohesion And Coupling</a>
       </h2>
@@ -238,6 +255,7 @@
     <li>
       
       <span class="post-meta">Jun 7, 2017</span>
+
       <h2>
         <a class="post-link" href="/tail-calls-fsharp">Tail Call Optimizations In F#</a>
       </h2>
@@ -252,8 +270,9 @@
 
 </div>
 
-      </div>
-    </main>
+</div>
+</main>
+
 
     <footer class="site-footer">
   <div class="wrapper">
