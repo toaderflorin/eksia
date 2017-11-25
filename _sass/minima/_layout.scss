@@ -48,8 +48,7 @@
   margin-top: 5px;
 }
 
-.center-image
-{
+.center-image {
   margin: 0 auto;
   display: block;
 }
@@ -254,23 +253,21 @@
 
 .gradient {
   color: white;
-  height: 120px;
-  height: 320px;
-  max-height: 350px;
+  height: 500px;
   background: linear-gradient(200deg, #444, #111);
   z-index: -1;
   padding-top: 62px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .gradient-inner {
   width: 840px;
-  max-width: calc(100% - 30px);
-  margin: auto;
-  margin-top: 40px;
+  max-width: calc(100% - 30px);  
   padding: 15px;
   display: flex;
   flex-direction:column;
   align-items: left;
-
 }
