@@ -23,6 +23,23 @@
   }
 }
 
+.lower {
+  width: 840px;
+  max-width: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lower-inner {
+  background-color: black;
+  color: white; padding: 8px;
+  text-align: center;
+  width: 150px;
+  margin-bottom: 18px;
+  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
 .post-icon {
   float: left;
   height: 56px;
@@ -33,8 +50,8 @@
 
 .center-image
 {
-    margin: 0 auto;
-    display: block;
+  margin: 0 auto;
+  display: block;
 }
 
 .site-nav {
