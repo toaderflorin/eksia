@@ -1,6 +1,7 @@
-body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
+html, body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
@@ -50,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
   color: $brand-color;
-  text-decoration: none;  
+  text-decoration: none;
 
   .social-media-list &:hover {
     text-decoration: none;

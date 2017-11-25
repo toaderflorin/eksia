@@ -1,6 +1,7 @@
-body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
+html, body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  height: 100%; }
 
 body {
   font: 300 15px/1.5 "Roboto", Helvetica, Arial, sans-serif;
@@ -123,6 +124,22 @@ pre {
   float: left; }
   .site-title, .site-title:visited {
     color: #ddd; }
+
+.lower {
+  width: 840px;
+  max-width: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.lower-inner {
+  background-color: black;
+  color: white;
+  padding: 8px;
+  text-align: center;
+  width: 150px;
+  margin-bottom: 18px;
+  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4); }
 
 .post-icon {
   float: left;
@@ -283,13 +300,22 @@ pre {
 
 .gradient {
   color: white;
-  height: 120px;
-  height: 320px;
-  max-height: 350px;
+  height: 500px;
   background: linear-gradient(200deg, #444, #111);
   z-index: -1;
   padding-top: 62px;
-  display: flex; }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+.gradient-inner {
+  width: 840px;
+  max-width: calc(100% - 30px);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: left; }
 
 .highlight {
   background: #fff; }
