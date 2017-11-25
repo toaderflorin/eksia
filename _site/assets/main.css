@@ -291,6 +291,16 @@ pre {
   padding-top: 62px;
   display: flex; }
 
+.gradient-inner {
+  width: 840px;
+  max-width: calc(100% - 30px);
+  margin: auto;
+  margin-top: 40px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: left; }
+
 .highlight {
   background: #fff; }
   .highlighter-rouge .highlight {
