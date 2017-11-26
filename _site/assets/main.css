@@ -337,13 +337,16 @@ pre {
   margin-bottom: 10px; }
 
 .gradient {
-  color: white;
-  height: 480px;
   background-image: url(/images/iso2.jpg);
   background-size: cover;
+  background-position: center; }
+
+.gradient-back {
+  color: white;
+  height: 480px;
+  background: linear-gradient(to left bottom, transparent, rgba(0, 0, 0, 0.6));
   z-index: -1;
   padding-top: 62px;
-  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
