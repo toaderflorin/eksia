@@ -7,25 +7,26 @@ layout: default
 <main class="page-content " aria-label="Content " style="margin-top:0; z-index: 1000; ">
   <div class="wrapper ">
     <div class="home">
+      <p>
+        Quisque sed turpis ac nisi consequat hendrerit tempus id risus. Nullam lectus augue, sagittis eu tellus ac,
+        euismod semper felis. Phasellus venenatis nulla mauris, ac dignissim nulla sodales nec. Sed ultricies fermentum
+        aliquam. Mauris sed ornare lectus. Vestibulum mollis velit eget accumsan malesuada. Morbi semper rhoncus justo
+        porta rutrum. Ut porttitor luctus neque nec viverra. In tincidunt euismod pharetra. Vivamus iaculis, urna sit
+        amet tristique vehicula, felis lorem maximus diam, in facilisis nulla mauris vel nisl. Morbi eu posuere magna.
+         Aenean fringilla sit amet velit pretium vulputate. Ut sollicitudin, nisi in pretium bibendum, leo risus ultrices
+         dolor, sed venenatis elit diam id lorem. Morbi tincidunt dolor scelerisque, pulvinar odio vel, iaculis justo.
+      </p>
+      <p>
+        Quisque sed turpis ac nisi consequat hendrerit tempus id risus. Nullam lectus augue, sagittis eu tellus ac,
+        euismod semper felis. Phasellus venenatis nulla mauris, ac dignissim nulla sodales nec. Sed ultricies fermentum
+        aliquam. Mauris sed ornare lectus. Vestibulum mollis velit eget accumsan malesuada. Morbi semper rhoncus justo
+        porta rutrum. Ut porttitor luctus neque nec viverra. In tincidunt euismod pharetra. Vivamus iaculis, urna sit
+        amet tristique vehicula, felis lorem maximus diam, in facilisis nulla mauris vel nisl. Morbi eu posuere magna.
+         Aenean fringilla sit amet velit pretium vulputate. Ut sollicitudin, nisi in pretium bibendum, leo risus ultrices
+         dolor, sed venenatis elit diam id lorem. Morbi tincidunt dolor scelerisque, pulvinar odio vel, iaculis justo.
+      </p>
+
       {{ content }}
-
-      <ul class="post-list">
-        {% for post in site.posts %}
-        <li>
-          {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-          <span class="post-meta">{{ post.date | date: date_format }}</span>
-
-          <h2>
-            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/{{ post.icon }}" class="post-icon" />
-            {{ post.description }}
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
     </div>
   </div>
 </main>

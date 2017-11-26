@@ -76,194 +76,27 @@
 <main class="page-content " aria-label="Content " style="margin-top:0; z-index: 1000; ">
   <div class="wrapper ">
     <div class="home">
+      <p>
+        Quisque sed turpis ac nisi consequat hendrerit tempus id risus. Nullam lectus augue, sagittis eu tellus ac,
+        euismod semper felis. Phasellus venenatis nulla mauris, ac dignissim nulla sodales nec. Sed ultricies fermentum
+        aliquam. Mauris sed ornare lectus. Vestibulum mollis velit eget accumsan malesuada. Morbi semper rhoncus justo
+        porta rutrum. Ut porttitor luctus neque nec viverra. In tincidunt euismod pharetra. Vivamus iaculis, urna sit
+        amet tristique vehicula, felis lorem maximus diam, in facilisis nulla mauris vel nisl. Morbi eu posuere magna.
+         Aenean fringilla sit amet velit pretium vulputate. Ut sollicitudin, nisi in pretium bibendum, leo risus ultrices
+         dolor, sed venenatis elit diam id lorem. Morbi tincidunt dolor scelerisque, pulvinar odio vel, iaculis justo.
+      </p>
+      <p>
+        Quisque sed turpis ac nisi consequat hendrerit tempus id risus. Nullam lectus augue, sagittis eu tellus ac,
+        euismod semper felis. Phasellus venenatis nulla mauris, ac dignissim nulla sodales nec. Sed ultricies fermentum
+        aliquam. Mauris sed ornare lectus. Vestibulum mollis velit eget accumsan malesuada. Morbi semper rhoncus justo
+        porta rutrum. Ut porttitor luctus neque nec viverra. In tincidunt euismod pharetra. Vivamus iaculis, urna sit
+        amet tristique vehicula, felis lorem maximus diam, in facilisis nulla mauris vel nisl. Morbi eu posuere magna.
+         Aenean fringilla sit amet velit pretium vulputate. Ut sollicitudin, nisi in pretium bibendum, leo risus ultrices
+         dolor, sed venenatis elit diam id lorem. Morbi tincidunt dolor scelerisque, pulvinar odio vel, iaculis justo.
+      </p>
+
       
 
-
-      <ul class="post-list">
-        
-        <li>
-          
-          <span class="post-meta">Sep 27, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/js-this">The Pesky Javascript &quot;This&quot; Keyword</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/this.jpg" class="post-icon" />
-             Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes). Here's the thing: <i>class</i> and <i>constructor</i> are just syntactic sugar because Javascript doesn't really have classes, it supports only prototypical inheritance. What it means is: 1. Each object is actually a property bag—it's nothing more than a dictionary where the keys are always strings. 2. Each object has a prototype property, which is a reference to the object it extends. 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 23, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/es6-modules-node">ES6 Modules And Node.js</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/es6-modules.png" class="post-icon" />
-             With the addition of <i>async/await</i> and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await. Actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6, with a notable exception... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 15, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/weird-html">HTML Layout: The Weird Parts</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/html2-icon.png" class="post-icon" />
-             If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain. 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 13, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/web-security">Understanding Web Application Security</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/lock.png" class="post-icon" />
-             There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering: 1. Cross-site scripting, also called XSS scripting, 2. Session hijacking, 3. SQL Injection. Both cross-site scripting and SQL injection are cases of code injection... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 9, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/cors-made-simple">CORS Made Simple</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/cors-icon.png" class="post-icon" />
-             CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level—if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 7, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/react-hmr">Hot Module Reloading With Wepack, React And Babel</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/webpack.png" class="post-icon" />
-             Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that's the problem I am trying to solve with this article. We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper.  Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Sep 4, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/ruby-object-model">The Ruby Object Model And Metaprogramming</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/icon.ruby.png" class="post-icon" />
-             First things first: Ruby is a dynamic language but it's not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented - everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz's Ruby Implementation) which is written in C to see how everything works behind the scenes... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Aug 22, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/component-architecture">Simple Component Based Architecture With React</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/hierarch-logo.png" class="post-icon" />
-            I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: <i>Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.</i> No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Jul 20, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/redux-async-flow">The Redux Async Flow And Handling Side Effects</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/logo-redux.png" class="post-icon" />
-             The first thing that needs to be mentioned is that Redux, while fluxish in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses a single store which keeps the state for the whole application, and a concept known as a reducer which is essentially a function that gets the current state and an action, and produces a new state based on the action... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Jul 2, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/isolation-levels">Relational Database Isolation Levels Explained</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/db-icon.jpg" class="post-icon" />
-            This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. The SQL standard defines four isolation levels... 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Jun 16, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/v8-internals">Under The Hood: V8 Internals</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/v8.png" class="post-icon" />
-            Dynamic languages get a lot of love in the startup community, and it’s not hard to see why—they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast—depending on the benchmark you’re using...
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Jun 14, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/cohesion-and-coupling">Architectural Ramblings: Cohesion And Coupling</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/architecture.jpg" class="post-icon" />
-            When you are writing code, you are usually not working alone. That means working with other people’s code, so they need to understand your code and you need to understand theirs. Good code is something that you can understand by reading, not by debugging it (because debugging is an order of magnitude more time consuming). That means a few conditions need to be met. 
-          </div>
-        </li>
-        
-        <li>
-          
-          <span class="post-meta">Jun 7, 2017</span>
-
-          <h2>
-            <a class="post-link" href="/tail-calls-fsharp">Tail Call Optimizations In F#</a>
-          </h2>
-
-          <div class="post-description">
-            <img src="images/fsharp-icon.png" class="post-icon" />
-            I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied to any language, even JavaScript. Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an IEnumerable and that’s how it’s actually implemented under the hood in the CLR, so it can even be infinite — but if it’s infinite, obviously summation will fail... 
-          </div>
-        </li>
-        
-      </ul>
     </div>
   </div>
 </main>
