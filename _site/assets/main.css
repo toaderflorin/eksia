@@ -108,7 +108,7 @@ pre {
 .site-header {
   border-top: 2px solid #ee4477;
   min-height: 45px;
-  background-color: #111;
+  background-color: #000;
   width: 100%;
   position: fixed;
   top: 0;
@@ -300,10 +300,12 @@ pre {
 
 .gradient {
   color: white;
-  height: 500px;
-  background: linear-gradient(200deg, #444, #111);
+  height: 450px;
+  background-image: url(/images/iso2.jpg);
+  background-size: cover;
   z-index: -1;
   padding-top: 62px;
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;

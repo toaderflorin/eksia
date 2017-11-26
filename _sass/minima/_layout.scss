@@ -2,7 +2,7 @@
 .site-header {
   border-top: 2px solid #ee4477;
   min-height: $spacing-unit * 1.5;
-  background-color: #111;
+  background-color: #000;
   width: 100%;
   position: fixed;
   top: 0;
@@ -253,10 +253,12 @@
 
 .gradient {
   color: white;
-  height: 500px;
-  background: linear-gradient(200deg, #444, #111);
+  height: 450px;
+  background-image: url(/images/iso2.jpg);
+  background-size: cover;
   z-index: -1;
   padding-top: 62px;
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -265,7 +267,7 @@
 
 .gradient-inner {
   width: 840px;
-  max-width: calc(100% - 30px);  
+  max-width: calc(100% - 30px);
   padding: 15px;
   display: flex;
   flex-direction:column;
