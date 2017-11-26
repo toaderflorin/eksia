@@ -132,13 +132,16 @@ pre {
   flex-wrap: wrap; }
 
 .col8 {
-  width: 66.6%; }
+  width: 66.6%;
+  box-sizing: border-box; }
 
 .col4 {
-  width: 33.3%; }
+  width: 33.3%;
+  box-sizing: border-box; }
 
 .col6 {
-  width: 50%; }
+  width: 50%;
+  box-sizing: border-box; }
 
 .lower {
   width: 840px;
@@ -178,6 +181,11 @@ pre {
 .white {
   color: white;
   margin-right: 7px; }
+
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: #666; }
 
 .post-icon {
   float: left;
@@ -344,7 +352,7 @@ pre {
 .gradient-back {
   color: white;
   height: 480px;
-  background: linear-gradient(to left bottom, transparent, rgba(0, 0, 0, 0.6));
+  background: linear-gradient(to left bottom, transparent, black);
   z-index: -1;
   padding-top: 62px;
   display: flex;

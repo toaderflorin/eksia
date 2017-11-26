@@ -33,14 +33,17 @@
 
 .col8 {
   width: 66.6%;
+  box-sizing: border-box;
 }
 
 .col4 {
   width: 33.3%;
+  box-sizing: border-box;
 }
 
 .col6 {
   width: 50%;
+  box-sizing: border-box;
 }
 
 .lower {
@@ -86,6 +89,10 @@
 .white {
   color: white;
   margin-right: 7px;
+}
+
+.copyright {
+  text-align: center; font-size: 12px; color: #666;
 }
 
 .post-icon {
@@ -309,7 +316,7 @@
   color: white;
   height: 480px;
   // background:
-  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
+  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
   z-index: -1;
   padding-top: 62px;
 
