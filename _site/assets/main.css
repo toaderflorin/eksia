@@ -1,7 +1,6 @@
 html, body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, hr, dl, dd, ol, ul, figure {
   margin: 0;
-  padding: 0;
-  height: 100%; }
+  padding: 0; }
 
 body {
   font: 300 15px/1.5 "Roboto", Helvetica, Arial, sans-serif;
@@ -124,6 +123,22 @@ pre {
   float: left; }
   .site-title, .site-title:visited {
     color: #ddd; }
+
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; }
+
+.col8 {
+  width: 66.6%; }
+
+.col4 {
+  width: 33.3%; }
+
+.col6 {
+  width: 50%; }
 
 .lower {
   width: 840px;

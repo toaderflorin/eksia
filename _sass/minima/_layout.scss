@@ -23,6 +23,26 @@
   }
 }
 
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.col8 {
+  width: 66.6%;
+}
+
+.col4 {
+  width: 33.3%;
+}
+
+.col6 {
+  width: 50%;
+}
+
 .lower {
   width: 840px;
   max-width: calc(100% - 30px);
