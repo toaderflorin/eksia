@@ -60,6 +60,19 @@
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
+.wide {
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+.wide-inner {
+  margin: 20px auto;
+  width: 840px;
+  display: flex;
+}
+
 .post-icon {
   float: left;
   height: 56px;
@@ -273,7 +286,7 @@
 
 .gradient {
   color: white;
-  height: 450px;
+  height: 480px;
   background-image: url(/images/iso2.jpg);
   background-size: cover;
   z-index: -1;
