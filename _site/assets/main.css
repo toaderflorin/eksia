@@ -159,6 +159,17 @@ pre {
   margin-bottom: 18px;
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.4); }
 
+.icon {
+  color: #fa0265;
+  font-size: 50px; }
+
+#descr {
+  font-size: 19px;
+  color: #999; }
+
+#contact {
+  padding-left: 10px; }
+
 .wide {
   width: 100%;
   background-color: #f9f9f9;
@@ -172,6 +183,10 @@ pre {
 
 .wide h2 {
   margin: 8px 0; }
+
+.wide-item {
+  text-align: center;
+  padding: 15px; }
 
 .flex-h {
   display: flex;
