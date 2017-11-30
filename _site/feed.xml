@@ -1,38 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-29T13:31:19+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Tweaking React Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Performance" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. There comes a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Then you will probably need to dig a bit into how React handles page updates and how the &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-30T11:52:05+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Tweaking React Component Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Component Performance" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;You might have noticed something: in React (as opposed to Vue, for example), changing state doesn’t have any effect. You have to actually call the method &lt;em&gt;setState()&lt;/em&gt;. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it’s wrapping the state properties with getters and setters, but that’s a subject for another article).&lt;/p&gt;
+&lt;p&gt;You might have noticed something: in React (as opposed to Vue or AngularJS), changing state directly (mutating a property of a component) doesn’t have any effect on the actual UI and you have to actually call the method &lt;em&gt;setState()&lt;/em&gt; in order for this to happen. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it’s wrapping the state properties with getters and setters, but that’s a subject for another article).&lt;/p&gt;
 
 &lt;h2 id=&quot;understanding-the-diffing-process&quot;&gt;Understanding The Diffing Process&lt;/h2&gt;
-&lt;p&gt;I will briefly try to give an overview of how React handles state changes. Normally the optimal diffing algorithmic for two trees is of O(N&lt;sup&gt;3&lt;/sup&gt;) complexity, but Reacts uses some heuristics, which makes this faster for the majority of real cases.&lt;/p&gt;
+&lt;p&gt;I will briefly try to give an overview of how React handles state changes: when calling &lt;em&gt;setState()&lt;/em&gt;, React does a comparison (or diffing) between the value of the UI components and the component state, but it doesn’t check directly against the browser DOM, because that would be very slow. Instead, it maintains a &lt;em&gt;virtual DOM&lt;/em&gt; in memory and it does diffing against this.&lt;/p&gt;
 
-&lt;p&gt;Namely:&lt;/p&gt;
+&lt;p&gt;Normally the optimal diffing algorithmic for two trees is of O(N&lt;sup&gt;3&lt;/sup&gt;) complexity, but Reacts uses some heuristics, which makes this faster for the majority of real cases. Namely:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;First of all, if a non-leaf node in the instance of the object associated with a node in the tree has changed, React doesn’t bother diffing the subtree. It just rerenders the whole subtree.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;React provides the &lt;em&gt;shouldComponentUpdate&lt;/em&gt; lifecycle method, which is triggered before the rerendering
-process starts and provides the possibility of not computing a render tree entirely. The method receives
-&lt;em&gt;nextProps&lt;/em&gt; and &lt;em&gt;nextState&lt;/em&gt; as arguments, and you should return either true or false to tell React if the
-component needs to be re-rendered. It defaults to true, but if you return false, the component is considered
-clean, and therefore no diffing or rendering is performed.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;React first starts with the root of the trees. If they are not the same instance, it marks the whole tree as “dirty”, which will result in a complete re-render.&lt;/li&gt;
+  &lt;li&gt;If they are the same instance, it will proceed to compare all the properties and so forth recursively.&lt;/li&gt;
+  &lt;li&gt;If the instance has not changed, then React proceeds further down the tree and checks the properties of the objects.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/v-dom.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;ReactPerf&lt;/em&gt; is a profiling tool that gives an overview about an app’s overall performance and helps discover
-optimization opportunities where &lt;em&gt;shouldComponentUpdate&lt;/em&gt; lifecycle hooks should be implemented. The Perf
-object is available as a React add-on and can be used with React in development mode only. You should not
-include this bundle when building your app for production.&lt;/p&gt;
+&lt;p&gt;As you can see, calling &lt;em&gt;setState()&lt;/em&gt; doesn’t re-render that part of the component synchronously. Instead it just marks it, and renering happens at a later tick in the JS event loop.&lt;/p&gt;
+
+&lt;blockquote&gt;
+The key takeaway here is that the React diffing process is a &lt;b&gt;trade-off&lt;/b&gt;. It is not necessarily the optimal algorithm for diffing random trees, but it works well in real life scenarios, which is what we ultimately care about.
+&lt;/blockquote&gt;
+
+&lt;p&gt;Another way of telling React that the state of the children of a component are stable are with the &lt;em&gt;key&lt;/em&gt; attribute. If it encounters the same value for this, it’s not going to bother attempting to diff the subtrees.&lt;/p&gt;
+
+&lt;h2 id=&quot;measuring-performance&quot;&gt;Measuring Performance&lt;/h2&gt;
+&lt;p&gt;With all the nice performance features built in, there will still occasionally come a time where you need to profile the performance of your components. &lt;em&gt;ReactPerf&lt;/em&gt; is a tool that gives an overview about an app’s overall performance and helps discover optimization opportunities where &lt;em&gt;shouldComponentUpdate&lt;/em&gt; lifecycle hooks should be implemented. The Perf object is available as a React add-on and can be used with React in development mode only. You should not include this bundle when building your app for production.&lt;/p&gt;
+
+&lt;p&gt;Installing it is simple:&lt;/p&gt;
 
 &lt;pre&gt;
 npm install --save react-addons-perf
 &lt;/pre&gt;
+
+&lt;p&gt;…and it comes with a bunch of nifty methods which you can pepper throughout your code.&lt;/p&gt;
 
 &lt;p&gt;Here’s what it includes:&lt;/p&gt;
 
@@ -51,7 +54,15 @@ Perf.printExclusive()
 
 // prints wasted time
 Perf.printWasted()
-&lt;/pre&gt;</content><author><name></name></author><summary type="html">React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. There comes a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Then you will probably need to dig a bit into how React handles page updates and how the reconciliation process works.</summary></entry><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;The easiest way to use it is to just wrap your whole &lt;em&gt;&lt;App&gt;&lt;/App&gt;&lt;/em&gt; component and then display statics.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/06c305c1c4781ff69e150a06482d9c3a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reactperf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;React also provides the &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely. The method receives &lt;em&gt;nextProps&lt;/em&gt; and &lt;em&gt;nextState&lt;/em&gt; as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.&lt;/p&gt;</content><author><name></name></author><summary type="html">React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its reconciliation process works.</summary></entry><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js&quot;&gt;&lt;/script&gt;
 
