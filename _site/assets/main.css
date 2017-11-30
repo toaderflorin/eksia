@@ -68,7 +68,8 @@ code {
 
 pre {
   padding: 8px 12px;
-  overflow-x: auto; }
+  overflow-x: auto;
+  overflow-y: hidden; }
   pre > code {
     border: 0;
     padding-right: 0;

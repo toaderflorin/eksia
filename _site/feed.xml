@@ -1,5 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-27T11:56:31+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-30T15:19:49+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Tweaking React Application Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Application Performance" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You might have noticed something: in React (as opposed to Vue or AngularJS), changing state directly (mutating a property of a component) doesn’t have any effect on the actual UI and you have to actually call the method &lt;em&gt;setState()&lt;/em&gt; in order for this to happen. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it’s wrapping the state properties with getters and setters, but that’s a subject for another article).&lt;/p&gt;
+
+&lt;h2 id=&quot;understanding-the-diffing-process&quot;&gt;Understanding The Diffing Process&lt;/h2&gt;
+&lt;p&gt;I will briefly try to give an overview of how React handles state changes: when calling &lt;em&gt;setState()&lt;/em&gt;, React does a comparison (or diffing) between the value of the UI components and the component state, but it doesn’t check directly against the browser DOM, because that would be very slow. Instead, it maintains a &lt;em&gt;virtual DOM&lt;/em&gt; in memory and it does diffing against this.&lt;/p&gt;
+
+&lt;p&gt;Normally the optimal diffing algorithmic for two trees is of O(N&lt;sup&gt;3&lt;/sup&gt;) complexity, but Reacts uses some heuristics, which makes this faster for the majority of real cases. Namely:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;React first starts with the root of the trees. If they are not the same instance, it marks the whole tree as “dirty”, which will result in a complete re-render.&lt;/li&gt;
+  &lt;li&gt;If they are the same instance, it will proceed to compare all the properties and so forth recursively.&lt;/li&gt;
+  &lt;li&gt;If the instance has not changed, then React proceeds further down the tree and checks the properties of the objects.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/v-dom.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, calling &lt;em&gt;setState()&lt;/em&gt; doesn’t re-render that part of the component synchronously. Instead it just marks it, and rendering happens at a later tick in the JS event loop.&lt;/p&gt;
+
+&lt;blockquote&gt;
+The key takeaway here is that the React diffing process is a &lt;b&gt;trade-off&lt;/b&gt;. It is not necessarily the optimal algorithm for diffing random trees, but it works well in real life scenarios, which is what we ultimately care about.
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;measuring-performance&quot;&gt;Measuring Performance&lt;/h2&gt;
+&lt;p&gt;With all the nice performance features built in, there will still occasionally come a time where you need to profile the performance of your components. &lt;em&gt;ReactPerf&lt;/em&gt; is a tool that gives an overview about an app’s overall performance and helps discover optimization opportunities where &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle hooks should be implemented. The Perf object is available as a React add-on and can be used with React in development mode only. You should not include this bundle when building your app for production.&lt;/p&gt;
+
+&lt;p&gt;Installing it is simple:&lt;/p&gt;
+
+&lt;pre&gt;
+npm install --save react-addons-perf
+&lt;/pre&gt;
+
+&lt;p&gt;…and it comes with a bunch of nifty methods which you can pepper throughout your code.&lt;/p&gt;
+
+&lt;p&gt;Here’s what it includes:&lt;/p&gt;
+
+&lt;pre&gt;
+// starts the measurment
+Perf.start()
+
+// stops the measurement
+Perf.stop()
+
+// prints the whole time
+Perf.printInclusive()
+
+// prints the whole time
+Perf.printExclusive()
+
+// prints wasted time
+Perf.printWasted()
+&lt;/pre&gt;
+
+&lt;p&gt;The easiest way to use it is to just wrap your whole &lt;em&gt;&lt;App&gt;&lt;/App&gt;&lt;/em&gt; component and then display statics.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/06c305c1c4781ff69e150a06482d9c3a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The output of the library is something like this, which should give you hints on what components can be optimized:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reactperf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As I mentioned previously, if a parent component changes, React re-renders all the children, but there is a way to override this. It also provides the &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely—the method receives &lt;em&gt;nextProps&lt;/em&gt; and &lt;em&gt;nextState&lt;/em&gt; as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.&lt;/p&gt;
+
+&lt;p&gt;The default implementation of &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; is a simple function that always returns true. ReactPerf helps us figure out where time is being wasted on unnecessary redraws and where it might make sense to override this function but keep in mind that your implementation needs to be faster than actually re-rendering the component, otherwise you not only wasted development time, you’ve made the performance of your app worse.&lt;/p&gt;
+
+&lt;h2 id=&quot;immutability-to-the-rescue&quot;&gt;Immutability To The Rescue&lt;/h2&gt;
+&lt;p&gt;Immutability as a concept is useful because in functional programming you work with &lt;em&gt;values&lt;/em&gt; NOT &lt;em&gt;variables&lt;/em&gt;. This means your first class citizens are functions not objects, and functions by definition work with values, as opposed to objects which have a mutable state.&lt;/p&gt;
+
+&lt;p&gt;But an interesting side effect of using immutable values for state, is that it actually makes React’s diffing performance better. Since a library like ImmutableJs creates a new object instance for properties in an object that have changed, just doing a normal compare is going to tell React that something inside a complex object tree has changed, without the need to go recursively down the tree and check EACH property.&lt;/p&gt;</content><author><name></name></author><summary type="html">React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its reconciliation process works.</summary></entry><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js&quot;&gt;&lt;/script&gt;
 
@@ -700,46 +770,4 @@ however, that function can evaluate it whenever it wants. This means you can do 
 
 &lt;p&gt;The reducer is going to receive the sync actions dispatched and will take appropriate steps to reduce the application step. The async actions are the place where we are handling the “dirty” stuff, like making an http request.&lt;/p&gt;
 
-&lt;p&gt;For the sake of simplicity, I chose to dispatch the actions inline, but we could (and should) extract them in a different action creator method. I also used the same action called &lt;em&gt;GET_ITEMS&lt;/em&gt;, but you could use different actions for indicating the start, end and a potential error occurence in the occurrence eration.&lt;/p&gt;</content><author><name></name></author><summary type="html">The first thing that needs to be mentioned is that Redux, while fluxish in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses a single store which keeps the state for the whole application, and a concept known as a reducer which is essentially a function that gets the current state and an action, and produces a new state based on the action.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/isolation-levels" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-07-02T06:39:37+03:00</published><updated>2017-07-02T06:39:37+03:00</updated><id>http://localhost:4000/isolation-levels</id><content type="html" xml:base="http://localhost:4000/isolation-levels">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
-would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Read uncommitted&lt;/li&gt;
-  &lt;li&gt;Read committed&lt;/li&gt;
-  &lt;li&gt;Repeatable reads&lt;/li&gt;
-  &lt;li&gt;Serializable&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Most developers can explain the difference between Read committed and Serializable—between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
-
-&lt;h2 id=&quot;dirty-reads&quot;&gt;Dirty Reads&lt;/h2&gt;
-
-&lt;p&gt;A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.&lt;/p&gt;
-
-&lt;p&gt;This is the &lt;strong&gt;read uncommitted&lt;/strong&gt; isolation level.&lt;/p&gt;
-
-&lt;h2 id=&quot;non-repeatable-reads&quot;&gt;Non Repeatable Reads&lt;/h2&gt;
-
-&lt;p&gt;A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.&lt;/p&gt;
-
-&lt;p&gt;This is the &lt;strong&gt;read committed&lt;/strong&gt; isolation level.&lt;/p&gt;
-
-&lt;p&gt;The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.&lt;/p&gt;
-
-&lt;h2 id=&quot;phantom-reads&quot;&gt;Phantom Reads&lt;/h2&gt;
-
-&lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
-
-&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
-
-&lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry></feed>
+&lt;p&gt;For the sake of simplicity, I chose to dispatch the actions inline, but we could (and should) extract them in a different action creator method. I also used the same action called &lt;em&gt;GET_ITEMS&lt;/em&gt;, but you could use different actions for indicating the start, end and a potential error occurence in the occurrence eration.&lt;/p&gt;</content><author><name></name></author><summary type="html">The first thing that needs to be mentioned is that Redux, while fluxish in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses a single store which keeps the state for the whole application, and a concept known as a reducer which is essentially a function that gets the current state and an action, and produces a new state based on the action.</summary></entry></feed>
