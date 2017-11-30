@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tweaking React Component Performance"
+title:  "Tweaking React Application Performance"
 date:   2017-11-29 06:39:37 +0300
 description: "
 React is fast. If you're coming from the world of Angular, you might think it's REALLY, REALLY fast. There comes a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Then you will probably need to dig a bit into how React handles page updates and how the reconciliation process works. You might have noticed something: in React (as opposed to Vue, for example), changing state doesn't have any effect...
@@ -26,16 +26,16 @@ Normally the optimal diffing algorithmic for two trees is of O(N<sup>3</sup>) co
 
 ![image-title-here](/images/v-dom.png){:class="img-responsive"}
 
-As you can see, calling *setState()* doesn't re-render that part of the component synchronously. Instead it just marks it, and renering happens at a later tick in the JS event loop.
+As you can see, calling *setState()* doesn't re-render that part of the component synchronously. Instead it just marks it, and rendering happens at a later tick in the JS event loop.
 
 <blockquote>
 The key takeaway here is that the React diffing process is a <b>trade-off</b>. It is not necessarily the optimal algorithm for diffing random trees, but it works well in real life scenarios, which is what we ultimately care about.
 </blockquote>
 
-Another way of telling React that the state of the children of a component are stable are with the *key* attribute. If it encounters the same value for this, it's not going to bother attempting to diff the subtrees.
+<!-- Another way of telling React that the state of the children of a component are stable are with the *key* attribute. If it encounters the same value for this, it's not going to bother attempting to diff the subtrees. -->
 
 ## Measuring Performance
-With all the nice performance features built in, there will still occasionally come a time where you need to profile the performance of your components. *ReactPerf* is a tool that gives an overview about an app’s overall performance and helps discover optimization opportunities where *shouldComponentUpdate* lifecycle hooks should be implemented. The Perf object is available as a React add-on and can be used with React in development mode only. You should not include this bundle when building your app for production.
+With all the nice performance features built in, there will still occasionally come a time where you need to profile the performance of your components. *ReactPerf* is a tool that gives an overview about an app’s overall performance and helps discover optimization opportunities where *shouldComponentUpdate()* lifecycle hooks should be implemented. The Perf object is available as a React add-on and can be used with React in development mode only. You should not include this bundle when building your app for production.
 
 Installing it is simple:
 
@@ -68,6 +68,13 @@ The easiest way to use it is to just wrap your whole *<App/>* component and then
 
 <script src="https://gist.github.com/toaderflorin/06c305c1c4781ff69e150a06482d9c3a.js"></script>
 
+The output of the library is something like this, which should give you hints on what components can be optimized:
+
 ![image-title-here](/images/reactperf.png){:class="img-responsive"}
 
-React also provides the *shouldComponentUpdate()* lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely. The method receives *nextProps* and *nextState* as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.
+As I mentioned previously, if a parent component changes, React re-renders all the children, but there is a way to override this. It also provides the *shouldComponentUpdate()* lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely—the method receives *nextProps* and *nextState* as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.
+
+ReactPerf helps us figure out where time is being wasted on unnecessary redraws.
+
+## Immutability To The Rescue
+The simplest way to avoid this problem is to avoid mutating values that you are using as props or state. For example, the handleClick method above could be rewritten using concat as:
