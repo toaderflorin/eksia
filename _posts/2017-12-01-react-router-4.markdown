@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Multiple Levels Of Layout With React Router 4"
-date:   2017-11-29 06:39:37 +0300
+date:   2017-12-01 06:39:37 +0300
 description: "
 Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version. A webpage usually has common elements such as the top bar where the user can log in/out, the footer etc. Since the DRY (don't repeat yourself) principle tells us not to duplicate code, you obviously don't want to copy paste the common parts of the layout in every page of your website you are building.
 "
@@ -46,6 +46,6 @@ We can also have a Layout2, Layout3 etc. and so forth. Not to mention that we ca
 
 <script src="https://gist.github.com/toaderflorin/06454bf059091bd9e6d15d8e0692c2aa.js"></script>
 
-And there you have it! That is how you can achieve 1, 2 and 3 with React Router. Not only that, but this is how you pass values for parameters, say if you have something like a *product_id* which comes from the query string, because the router automatically passes query string params as props to our layout components. 
+And there you have it! That is how you can achieve 1, 2 and 3 with React Router. Not only that, but this is how you pass values for parameters, say if you have something like a *product_id* which comes from the query string, because the router automatically passes query string params as props to our layout components.
 
 Happy coding!
