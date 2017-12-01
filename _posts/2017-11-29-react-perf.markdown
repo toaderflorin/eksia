@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Tweaking React Application Performance"
-date:   2017-11-29 06:39:37 +0300
+date:   2017-11-19 06:39:37 +0300
 description: "
 React is fast. If you're coming from the world of Angular, you might think it's REALLY, REALLY fast. There comes a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Then you will probably need to dig a bit into how React handles page updates and how the reconciliation process works. You might have noticed something: in React (as opposed to Vue, for example), changing state doesn't have any effect...
 "
