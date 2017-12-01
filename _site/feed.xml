@@ -1,5 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-30T15:19:49+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Tweaking React Application Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Application Performance" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-01T13:56:22+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Multiple Levels Of Layout With React Router 4</title><link href="http://localhost:4000/react-router-4" rel="alternate" type="text/html" title="Multiple Levels Of Layout With React Router 4" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-router-4</id><content type="html" xml:base="http://localhost:4000/react-router-4">&lt;p&gt;Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/router4.jpeg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A webpage usually has common elements such as the top bar where the user can log in/out, the footer etc. Since the DRY (don’t repeat yourself) principle tells us not to duplicate code, you obviously don’t want to copy paste the common parts of the layout in every page of your website you are building. This is the reason why frameworks such as Rails or ASP.NET MVC come with layout and partial view functionality out of the box.&lt;/p&gt;
+
+&lt;p&gt;React’s compositional nature would also allow for this, but since you are on the client and you (presumably) want to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Deep_linking&quot;&gt;deep-linking&lt;/a&gt;, you would use a routing package such as React Router to be able to react to client-side route changes.&lt;/p&gt;
+
+&lt;p&gt;As a side note, client-side routing packages rely on the browser’s ability to redirect to &lt;em&gt;anchors&lt;/em&gt;, which locations within the same page, so it doesn’t to a request to the server. So whenever you are doing something like:&lt;/p&gt;
+
+&lt;pre&gt;
+&amp;lt;a href=&quot;http://thepage.com#anchor&quot;&amp;gt;Click me&amp;lt;/a&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;…the page will scroll to the position of the element with &lt;em&gt;id=”anchor”&lt;/em&gt; within the same page. In the early days of the web, this was useful for giving people links to a portion of the page–say if you had a long article, you could simply link to a paragraph in that article. Of course, that’s history because after &lt;a href=&quot;https://en.wikipedia.org/wiki/XMLHttpRequest&quot;&gt;XHR&lt;/a&gt; came along courtesy of Microsoft, we ended up with Ajax and with a plethora of frameworks on our hands, including React and its preferred routing package, React Router.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-look-at-react-router-as-it-comes-out-of-the-box&quot;&gt;A Look At React Router As It Comes Out Of The Box&lt;/h2&gt;
+&lt;p&gt;Since building a React application is like assembling Lego pieces (components), it would make sense that React Router also works the same, so your typical application root component (&lt;i&gt;&amp;lt;App/&amp;gt;&lt;/i&gt; by convention) would look something like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6e85c1ad656f6f8c92164479c37d9a7b.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see, it’s not really very hard to add common layout elements to a React application that is using React Router, because we can easily include components such as &lt;i&gt;Header&lt;/i&gt; and &lt;i&gt;Footer&lt;/i&gt; in the root component of the application. So…&lt;/p&gt;
+
+&lt;h2 id=&quot;what-exact-problem-are-we-trying-to-solve-here&quot;&gt;What Exact Problem Are We Trying To Solve Here?&lt;/h2&gt;
+&lt;p&gt;That is all fine and dandy, but what if you want to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Have layouts only for some pages and not for others (such as a login page)?&lt;/li&gt;
+  &lt;li&gt;Have one layout for some pages and another for other pages?&lt;/li&gt;
+  &lt;li&gt;Have nested levels of layout?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Turns out React’s compositional nature helps us here. We are going to start out by creating a &lt;em&gt;stateless&lt;/em&gt; component for our layout, which is going to look like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/dd7638803e2d716c01b7a79c2692ab9b.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;We can also have a Layout2, Layout3 etc. and so forth. Not to mention that we can embed one layout in another and add extra stuff.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/06454bf059091bd9e6d15d8e0692c2aa.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And there you have it! That is how you can achieve 1, 2 and 3 with React Router. Not only that, but this is how you pass values for parameters, say if you have something like a &lt;em&gt;product_id&lt;/em&gt; which comes from the query string, because the router automatically passes query string params as props to our layout components.&lt;/p&gt;
+
+&lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.</summary></entry><entry><title type="html">Tweaking React Application Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Application Performance" /><published>2017-11-29T05:39:37+02:00</published><updated>2017-11-29T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -705,69 +747,4 @@ Codewise, this is what the top level component looks like:&lt;/p&gt;
 
 &lt;p&gt;It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don’t handle their own state is also advantageous. The &lt;em&gt;TaskList&lt;/em&gt; component just passes the &lt;em&gt;deleteTaskClick&lt;/em&gt; handler through to the &lt;em&gt;Task&lt;/em&gt; component. We are using a similar bind approach here, as we did for &lt;em&gt;AddTask&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry><entry><title type="html">The Redux Async Flow And Handling Side Effects</title><link href="http://localhost:4000/redux-async-flow" rel="alternate" type="text/html" title="The Redux Async Flow And Handling Side Effects" /><published>2017-07-20T06:39:37+03:00</published><updated>2017-07-20T06:39:37+03:00</updated><id>http://localhost:4000/redux-async-flow</id><content type="html" xml:base="http://localhost:4000/redux-async-flow">&lt;p&gt;The first thing that needs to be mentioned is that Redux, while &lt;em&gt;fluxish&lt;/em&gt; in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses &lt;strong&gt;a single store&lt;/strong&gt; which keeps the state for the whole application, and a concept known as a &lt;em&gt;reducer&lt;/em&gt; which is essentially a function that gets the current state and an action, and produces a new state based on the action.&lt;/p&gt;
-
-&lt;p&gt;It looks something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/redux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive center-image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it—the application 
-state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become
-unwieldy very fast), needs to be a &lt;em&gt;pure&lt;/em&gt; function - which means it’s not allowed to have &lt;em&gt;side-effects&lt;/em&gt;. An action is just a plain object - the only requirement is that this object has to have a &lt;em&gt;type&lt;/em&gt; property. An action creator is just a plain JS function that returns an action object. It looks something like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/dbd3ad78285ecd7decfec8cd88877eb3.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;And a reducer would look something like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/7c5ad3feedd8d6047cf29fb27efa9782.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;This is the Redux &lt;em&gt;synchronous flow&lt;/em&gt;. Obviously, real world applications are more complicated than that because the client needs to sync with 
-the server, which means there are side-effects, but before we look at the async flow, let’s get into…&lt;/p&gt;
-
-&lt;h2 id=&quot;a-bit-of-functional-programming&quot;&gt;A Bit Of Functional Programming&lt;/h2&gt;
-
-&lt;p&gt;Let’s explore the concepts of pure / unpure functions and side-effects by looking at some code:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;If you worked with the standard Flux implementation by Facebook, you might have come across the concept of &lt;em&gt;action creators&lt;/em&gt;. They are just normal JavaScript functions that return an action, which can be any type of JS object in Redux, the only requirement is to have a &lt;em&gt;type&lt;/em&gt; property of type string. The first function is &lt;em&gt;pure&lt;/em&gt; because it’s return result is &lt;strong&gt;always&lt;/strong&gt; reproducible for the same input parameter, which is not the case for the second function.&lt;/p&gt;
-
-&lt;p&gt;Now have a look at the following function:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/96c280e5330d84851f103710ed381524.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;This function is said to have side-effects, because it changes a global variable which then changes the return value on subsequent
-calls. Obviously, functions that have side-effects are not pure.&lt;/p&gt;
-
-&lt;p&gt;We went over the basic Flux architecture and some simple functional concepts. However in the real world, web applications are rarely this simple. 
-This initial architecture diagram is missing an essential aspect: server-side access. Obviously, this introduces side-effects, so as a result, the reducers 
-won’t be pure anymore.&lt;/p&gt;
-
-&lt;h2 id=&quot;enter-redux-thunk&quot;&gt;Enter Redux Thunk&lt;/h2&gt;
-
-&lt;p&gt;Since Redux allows for custom middleware, we can use something called &lt;em&gt;Redux Thunk&lt;/em&gt; to help us. It is important to be aware that without
-middleware, Redux only supports a synchronous flow. So what is a &lt;em&gt;thunk&lt;/em&gt;? It’s just a function - it wraps an expression, so you can delay 
-the evaluation of the result of that expression. Here’s a code sample straight from the library documentation:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/7961dfce75a8d1748b4192e3d16ed611.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;How does this help us you might ask?&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;If you pass an expression as a parameter to another function, it will get evaluated within the same JavaScript event tick. If you pass a &lt;strong&gt;thunk&lt;/strong&gt; 
-however, that function can evaluate it whenever it wants. This means you can do &lt;strong&gt;async&lt;/strong&gt; stuff easily.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;And this is important because modern web applications are mostly asynchronous in their nature - you usually build a rich responsive client which communicates with an API. This means when the user presses a button, or does something that needs fetching data, you usually show spinners and such. The standard way to handle this is using the Redux &lt;em&gt;Thunk middleware&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is how you set it up:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/b4754731b7a7ed4967cc7fcbb0fb3d9e.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;So instead of dispatching normal action objects, we will be dispatching &lt;em&gt;async actions&lt;/em&gt;, or thunks. This means we have have to change our action creators to return functions instead of plain objects. Let us make a request to the server, and see how that would work. Obviously, that is an asynchronous action because it takes some time, and we might also want to show some sort of indication to the user that the request is ongoing - something like a spinner. And now let’s add the asynchronous action.&lt;/p&gt;
-
-&lt;p&gt;We are using &lt;strong&gt;axios&lt;/strong&gt;, a popular framework for making http requests.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/4519a92c396ee2bb912bece07983a2cc.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The reducer is going to receive the sync actions dispatched and will take appropriate steps to reduce the application step. The async actions are the place where we are handling the “dirty” stuff, like making an http request.&lt;/p&gt;
-
-&lt;p&gt;For the sake of simplicity, I chose to dispatch the actions inline, but we could (and should) extract them in a different action creator method. I also used the same action called &lt;em&gt;GET_ITEMS&lt;/em&gt;, but you could use different actions for indicating the start, end and a potential error occurence in the occurrence eration.&lt;/p&gt;</content><author><name></name></author><summary type="html">The first thing that needs to be mentioned is that Redux, while fluxish in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses a single store which keeps the state for the whole application, and a concept known as a reducer which is essentially a function that gets the current state and an action, and produces a new state based on the action.</summary></entry></feed>
+&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry></feed>
