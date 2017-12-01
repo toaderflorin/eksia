@@ -145,6 +145,7 @@ pre {
   box-sizing: border-box; }
 
 .lower {
+  margin-top: 30px;
   width: 840px;
   max-width: calc(100% - 30px);
   display: flex;
@@ -180,8 +181,30 @@ pre {
 .wide-inner {
   margin: 10px auto;
   width: 840px;
-  display: flex; }
+  display: flex;
+  flex-wrap: wrap; }
 
+@media only screen and (max-width: 500px) {
+  .container {
+    width: 100%; }
+
+  .wide-inner {
+    width: 100%; }
+
+  .col4 {
+    width: 100%; }
+
+  .col6 {
+    width: 100%; }
+
+  .col8 {
+    width: 100%; }
+
+  .col4.wide-item {
+    width: 100%; }
+
+  #map {
+    display: none; } }
 .wide h2 {
   margin: 8px 0; }
 

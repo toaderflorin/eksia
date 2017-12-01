@@ -47,6 +47,7 @@
 }
 
 .lower {
+  margin-top: 30px;
   width: 840px;
   max-width: calc(100% - 30px);
   display: flex;
@@ -87,6 +88,38 @@
   margin: 10px auto;
   width: 840px;
   display: flex;
+  flex-wrap: wrap;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .container {
+      width: 100%;
+  }
+
+  .wide-inner {
+    width: 100%;
+  }
+
+  .col4 {
+    width: 100%;
+  }
+
+  .col6 {
+    width: 100%;
+  }
+
+  .col8 {
+    width: 100%;
+  }
+
+  .col4.wide-item {
+    width: 100%;
+  }
+
+  #map {
+    display: none;
+  }
 }
 
 .wide h2 {
@@ -94,7 +127,8 @@
 }
 
 .wide-item {
-  text-align: center; padding: 15px;
+  text-align: center;
+  padding: 15px;
 }
 
 .flex-h {
