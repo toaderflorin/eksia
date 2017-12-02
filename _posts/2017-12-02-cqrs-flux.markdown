@@ -2,7 +2,7 @@
 layout: post
 title: "CQRS And Parallels With Flux"
 date: 2017-12-02 06:39:37 +0300
-description: "CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.
+description: "CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both—or to put it more simply, a method that returns a result should never change that result.
 "
 icon: "flux-icon.png"
 ---
@@ -12,7 +12,8 @@ Architecturally, it looks something like this:
 
 ![image-title-here](/images/cqrs.png){:class="img-responsive"}
 
-What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily — namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
+What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily—namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
+
 Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.
 
 A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
@@ -23,7 +24,8 @@ We can do two things:
 2. We can have each application have it’s own server.
 
 But the problem in case number 1. is that the database server quickly becomes a bottleneck, and in case number 2. we might have a be redirected to server B when he/she writes something, and then when reading that data, a user would be redirected to server A. To solve this, there are two strategies that can be used, and they can be used together. Affinity and replication.
-Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place. Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users — let’s say rendering the wall in Facebook. The users might have their data on multiple servers.
+
+Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place. Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users—let’s say rendering the wall in Facebook. The users might have their data on multiple servers.
 
 ## CQRS to the rescue
 
@@ -33,7 +35,7 @@ Let’s get back to the Facebook wall example. Imagine that we need to aggregate
 
 ## Enter Flux
 
-It didn't occur to me for quite some time, but there are significant similarities between CQRS and Flux - one being present on the server side and the other one on the client side. In fact, they can be used together.  
+It didn't occur to me for quite some time, but there are significant similarities between CQRS and Flux—one being present on the server side and the other one on the client side. In fact, they can be used together.  
 
 ![image-title-here](/images/flux.png){:class="img-responsive"}
 
