@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Facebook Flux And Parallels With CQRS"
-date: 2017-05-11 06:39:37 +0300
+title: "CQRS And Parallels With Flux"
+date: 2017-12-02 06:39:37 +0300
 description: "CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.
 "
 icon: "flux-icon.png"
-categories: jekyll update
 ---
+CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.
 
-CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result. Architecturally, it looks something like this:
+Architecturally, it looks something like this:
 
 ![image-title-here](/images/cqrs.png){:class="img-responsive"}
 
@@ -16,7 +16,7 @@ What would be the advantage of separating the read and write paths? Well, for st
 Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.
 
 A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
-The problem with the following picture is keeping track of data. 
+The problem with the following picture is keeping track of data.
 
 We can do two things:
 1. Connect all application servers to a single database server.
@@ -37,4 +37,4 @@ It didn't occur to me for quite some time, but there are significant similaritie
 
 ![image-title-here](/images/flux.png){:class="img-responsive"}
 
-The paralels here mean that you don't mutate state directly.
+The parallels here mean that you don't mutate state directly.
