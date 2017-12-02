@@ -1,5 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-02T12:34:07+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Multiple Layout Levels With React Router 4</title><link href="http://localhost:4000/react-router-4" rel="alternate" type="text/html" title="Multiple Layout Levels With React Router 4" /><published>2017-12-01T05:39:37+02:00</published><updated>2017-12-01T05:39:37+02:00</updated><id>http://localhost:4000/react-router-4</id><content type="html" xml:base="http://localhost:4000/react-router-4">&lt;p&gt;Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-02T18:36:33+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">CQRS And Parallels With Facebook Flux</title><link href="http://localhost:4000/cqrs-flux" rel="alternate" type="text/html" title="CQRS And Parallels With Facebook Flux" /><published>2017-12-02T05:39:37+02:00</published><updated>2017-12-02T05:39:37+02:00</updated><id>http://localhost:4000/cqrs-flux</id><content type="html" xml:base="http://localhost:4000/cqrs-flux">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.&lt;/p&gt;
+
+&lt;p&gt;Architecturally, it looks something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily — namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
+Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.&lt;/p&gt;
+
+&lt;p&gt;A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
+The problem with the following picture is keeping track of data.&lt;/p&gt;
+
+&lt;p&gt;We can do two things:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Connect all application servers to a single database server.&lt;/li&gt;
+  &lt;li&gt;We can have each application have it’s own server.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But the problem in case number 1. is that the database server quickly becomes a bottleneck, and in case number 2. we might have a be redirected to server B when he/she writes something, and then when reading that data, a user would be redirected to server A. To solve this, there are two strategies that can be used, and they can be used together. Affinity and replication.
+Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place. Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users — let’s say rendering the wall in Facebook. The users might have their data on multiple servers.&lt;/p&gt;
+
+&lt;h2 id=&quot;cqrs-to-the-rescue&quot;&gt;CQRS to the rescue&lt;/h2&gt;
+
+&lt;p&gt;An application the size of Facebook probably has hundreds of thousands of servers and sophisticated proprietary caching and data storage. But it is a good example of the problems that can arise when scaling out web applications. We also don’t want to replicate all the data on all database server because it really becomes huge. So we usually use a combination of the techniques — for a very big application we would replicate data across data centers for speed and consistency, and we also use some for of affinity.&lt;/p&gt;
+
+&lt;p&gt;Let’s get back to the Facebook wall example. Imagine that we need to aggregate data from 30 different Facebook friends. Because we used write affinity, their posts might be on different servers, so aggregating the whole wall would be quite time consuming. Jill from the US might post something, my colleagues from the Netherlands might post something else, so it’s very unlikely the data will end up on the same database server. Decoupling reading and writing allows us to have both read and write affinity. The read database in the architectural diagram acts as a view cache. With CQRS, posting something on your wall will write it into the primary (write) database(s), and this will send notification events to everybody that’s interested in that. So let’s say my user is configured to always have read affinity with server X. That server will be notified by the servers which host the write part of the application queue, and it will update it’s local cache. Also, not only does the read part have different user affinity than the write part, the models are usually denormalized for speed of access.&lt;/p&gt;
+
+&lt;h2 id=&quot;enter-flux&quot;&gt;Enter Flux&lt;/h2&gt;
+
+&lt;p&gt;It didn’t occur to me for quite some time, but there are significant similarities between CQRS and Flux - one being present on the server side and the other one on the client side. In fact, they can be used together.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The parallels here mean that you don’t mutate state directly.&lt;/p&gt;</content><author><name></name></author><summary type="html">CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.</summary></entry><entry><title type="html">Multiple Layout Levels With React Router 4</title><link href="http://localhost:4000/react-router-4" rel="alternate" type="text/html" title="Multiple Layout Levels With React Router 4" /><published>2017-12-01T05:39:37+02:00</published><updated>2017-12-01T05:39:37+02:00</updated><id>http://localhost:4000/react-router-4</id><content type="html" xml:base="http://localhost:4000/react-router-4">&lt;p&gt;Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/router4.jpeg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -693,58 +726,4 @@ CREATE TABLE products (
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;It’s definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.&lt;/p&gt;</content><author><name></name></author><summary type="html">First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: RObject and RClass. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.</summary></entry><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
-
-&lt;p&gt;Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here’s an example of interaction I’ve unfortunately encountered all too often in UI code:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/big-ball.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;We will keep the whole application state as the state of the top level &lt;em&gt;App&lt;/em&gt; component.&lt;/li&gt;
-  &lt;li&gt;We are going to use a &lt;em&gt;top-down&lt;/em&gt; approach, were the top level component acts as a sort of manager and coordinates what’s happening.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a &lt;em&gt;chain of command&lt;/em&gt;. What we are trying to avoid here is components talking &lt;em&gt;directly to one another&lt;/em&gt;, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/dilbert.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So no component should tell other component (on the same hierarchical level) it’s a piece of garbage &lt;em&gt;directly&lt;/em&gt;. But it’s OK if a component “higher in command” does it.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-application&quot;&gt;The Application&lt;/h2&gt;
-
-&lt;p&gt;We are going to build an application that allows a user to manage a list of todos. For the sake of simplicity, we are going to have a backend that globally manages a collection of tasks, so we don’t support multiple users. The application is meant to be run locally and we will demonstrate how to structure it with components. Here’s a sketch of what we want our application to look like:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/sketch.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/hierarchy.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-Codewise, this is what the top level component looks like:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As you can see, it contains the methods for adding and removing todos. These are passed down as props to the &lt;em&gt;AddTask&lt;/em&gt; and &lt;em&gt;TaskList&lt;/em&gt; components respectively.&lt;/p&gt;
-
-&lt;p&gt;Here is the &lt;em&gt;AddTask&lt;/em&gt; component:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/acf3aa438d747ff6fde2250ba976a897.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; You might have been worried about sending all that information up the chain of command. Turns out that we don’t need to notify the &lt;em&gt;App&lt;/em&gt; component for every keystroke that changes the input field, no need to bother the boss with irrelevant information every half a second or so. That’s why this component is going to have &lt;em&gt;some private state&lt;/em&gt; of its own. Since we have to track the value of the input field component and we will be reacting on the &lt;em&gt;onChanged&lt;/em&gt; event of the input in order to keep the state and the input value in sync. We also won’t be able to use a functional (stateless) component here because of this.&lt;/p&gt;
-
-&lt;p&gt;And last but not least, the list of tasks:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/70e6cbc872f55cf9cfe3fdf546fb1178.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;and…&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/6ab7f1bbf8faa03609b7df11332a83be.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don’t handle their own state is also advantageous. The &lt;em&gt;TaskList&lt;/em&gt; component just passes the &lt;em&gt;deleteTaskClick&lt;/em&gt; handler through to the &lt;em&gt;Task&lt;/em&gt; component. We are using a similar bind approach here, as we did for &lt;em&gt;AddTask&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry></feed>
+&lt;p&gt;It’s definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.&lt;/p&gt;</content><author><name></name></author><summary type="html">First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: RObject and RClass. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.</summary></entry></feed>
