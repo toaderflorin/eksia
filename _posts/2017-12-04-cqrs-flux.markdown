@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CQRS And Parallels With Flux"
-date: 2017-12-02 06:39:37 +0300
+date: 2017-12-04 06:39:37 +0300
 description: "CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both—or to put it more simply, a method that returns a result should never change that result.
 "
 icon: "flux-icon.png"
