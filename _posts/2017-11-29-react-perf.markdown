@@ -11,7 +11,7 @@ categories:
 
 React is fast. If you're coming from the world of Angular, you might think it's REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it's important to understand how React handles component updates and how its *reconciliation* process works.
 
-![image-title-here](/images/react-perf.png){:class="img-responsive"}
+![react-perf](/images/react-perf.png){:class="img-responsive"}
 
 You might have noticed something: in React (as opposed to Vue or AngularJS), changing state directly (mutating a property of a component) doesn't have any effect on the actual UI and you have to actually call the method *setState()* in order for this to happen. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it's wrapping the state properties with getters and setters, but that's a subject for another article).
 
@@ -24,7 +24,7 @@ Normally the optimal diffing algorithmic for two trees is of O(N<sup>3</sup>) co
 * If they are the same instance, it will proceed to compare all the properties and so forth recursively.
 * If the instance has not changed, then React proceeds further down the tree and checks the properties of the objects.
 
-![image-title-here](/images/v-dom.png){:class="img-responsive"}
+![v-dom](/images/v-dom.png){:class="img-responsive"}
 
 As you can see, calling *setState()* doesn't re-render that part of the component synchronously. Instead it just marks it, and rendering happens at a later tick in the JS event loop.
 
@@ -68,7 +68,7 @@ The easiest way to use it is to just wrap your whole *<App/>* component and then
 
 The output of the library is something like this, which should give you hints on what components can be optimized:
 
-![image-title-here](/images/reactperf.png){:class="img-responsive"}
+![react-perf](/images/reactperf.png){:class="img-responsive"}
 
 As I mentioned previously, if a parent component changes, React re-renders all the children, but there is a way to override this. It also provides the *shouldComponentUpdate()* lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely—the method receives *nextProps* and *nextState* as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.
 

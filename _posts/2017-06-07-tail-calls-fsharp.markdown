@@ -15,7 +15,7 @@ categories:
 I chose F# for this article because that’s the functional language I have most experience in, but the same concepts can be applied
 to any language, even JavaScript.
 
-![image-title-here](/images/fsharp.png){:class="img-responsive"}
+![fsharp](/images/fsharp.png){:class="img-responsive"}
 
 Let’s take a simple piece of code in F# that calculates the sum of a large sequence. And let’s say this sequence is being
 evaluated on the fly, so we don’t know how long it is (but it can be very long). A sequence is just the equivalent of an

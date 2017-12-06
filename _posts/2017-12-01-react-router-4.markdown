@@ -10,7 +10,7 @@ categories:
 ---
 Today, we are going to look at building page layouts with React Router 4. If you've switched to it, you would find that a lot of the code you used with Router 3 doesn't really work, and a lot of the answers on Stack Overflow refer to older version.
 
-![image-title-here](/images/router4.jpeg){:class="img-responsive"}
+![router-4](/images/router4.jpeg){:class="img-responsive"}
 
 A webpage usually has common elements such as the top bar where the user can log in/out, the footer etc. Since the DRY (don't repeat yourself) principle tells us not to duplicate code, you obviously don't want to copy paste the common parts of the layout in every page of your website you are building. This is the reason why frameworks such as Rails or ASP.NET MVC come with layout and partial view functionality out of the box.
 

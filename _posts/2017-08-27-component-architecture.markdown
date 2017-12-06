@@ -12,18 +12,18 @@ I normally wouldn't have wrote this article as I find what I am about to present
 
 Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here's an example of interaction I've unfortunately encountered all too often in UI code:
 
-*The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.* 
+*The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.*
 
-![image-title-here](/images/big-ball.png){:class="img-responsive"}
+![big-ball](/images/big-ball.png){:class="img-responsive"}
 
 You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:
 
-1. We will keep the whole application state as the state of the top level *App* component. 
+1. We will keep the whole application state as the state of the top level *App* component.
 2. We are going to use a *top-down* approach, were the top level component acts as a sort of manager and coordinates what's happening.
 
 Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a *chain of command*. What we are trying to avoid here is components talking *directly to one another*, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).
 
-![image-title-here](/images/dilbert.jpg){:class="img-responsive"}
+![dilbert](/images/dilbert.jpg){:class="img-responsive"}
 
 So no component should tell other component (on the same hierarchical level) it's a piece of garbage *directly*. But it's OK if a component "higher in command" does it.
 
@@ -31,18 +31,18 @@ So no component should tell other component (on the same hierarchical level) it'
 
 We are going to build an application that allows a user to manage a list of todos. For the sake of simplicity, we are going to have a backend that globally manages a collection of tasks, so we don't support multiple users. The application is meant to be run locally and we will demonstrate how to structure it with components. Here's a sketch of what we want our application to look like:
 
-![image-title-here](/images/sketch.png){:class="img-responsive"}
+![sketch](/images/sketch.png){:class="img-responsive"}
 
 The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:
 
-![image-title-here](/images/hierarchy.png){:class="img-responsive"}
+![hierarchy](/images/hierarchy.png){:class="img-responsive"}
 
 <br/>
 Codewise, this is what the top level component looks like:
 
 <script src="https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js"></script>
 
-As you can see, it contains the methods for adding and removing todos. These are passed down as props to the *AddTask* and *TaskList* components respectively. 
+As you can see, it contains the methods for adding and removing todos. These are passed down as props to the *AddTask* and *TaskList* components respectively.
 
 Here is the *AddTask* component:
 
@@ -58,6 +58,6 @@ and...
 
 <script src="https://gist.github.com/toaderflorin/6ab7f1bbf8faa03609b7df11332a83be.js"></script>
 
-It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don't handle their own state is also advantageous. The *TaskList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*. 
+It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don't handle their own state is also advantageous. The *TaskList* component just passes the *deleteTaskClick* handler through to the *Task* component. We are using a similar bind approach here, as we did for *AddTask*.
 
 The code was slightly tweaked and simplified for legibility, download the full version [here](https://github.com/toaderflorin/florintoader). And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple "levels of command" in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it's worth using Redux / Flux as the application gets larger.

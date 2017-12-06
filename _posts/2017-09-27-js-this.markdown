@@ -9,7 +9,6 @@ icon: "this.jpg"
 categories:
 ---
 
-
 Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):
 
 <script src="https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js"></script>

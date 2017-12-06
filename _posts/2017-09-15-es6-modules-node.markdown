@@ -10,11 +10,11 @@ categories:
 ---
 With the addition of *async/await* and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it's a far cry from writing code using async/await and actually, as of lately, it's possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception...
 
-![image-title-here](/images/es6-mods.jpg){:class="img-responsive"}
+![es6-mods](/images/es6-mods.jpg){:class="img-responsive"}
 
 *You cannot use ES6 imports YET.*
 
-Which seems to be a little bit weird because you'd guess that it's probably one of the easiest things to be implemented in a JS engine. But you'd be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS. 
+Which seems to be a little bit weird because you'd guess that it's probably one of the easiest things to be implemented in a JS engine. But you'd be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.
 
 And serverside applications are a big part of the JS landscape.
 

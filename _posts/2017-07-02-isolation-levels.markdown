@@ -9,9 +9,9 @@ categories:
 ---
 
 This seems to be a murky concept for a lot of developers, so I thought I
-would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time. 
+would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.
 
-![image-title-here](/images/levels.png){:class="img-responsive"}
+![levels](/images/levels.png){:class="img-responsive"}
 
 The SQL standard defines four isolation levels:
 
@@ -26,13 +26,13 @@ Let's try to explain them one by one.
 
 ## Dirty Reads
 
-A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data. 
+A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.
 
 This is the **read uncommitted** isolation level.
 
 ## Non Repeatable Reads
 
-A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row. 
+A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.
 
 This is the **read committed** isolation level.
 
@@ -40,9 +40,9 @@ The repeatable reads isolation level solves the previous problem. In this case, 
 
 ## Phantom Reads
 
-Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections. 
+Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.
 
-The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range. 
+The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range.
 
 This range is based on the query - for example:
 
