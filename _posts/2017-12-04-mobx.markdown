@@ -2,14 +2,13 @@
 layout: post
 title: "Head To Head: MobX Versus Redux"
 date: 2017-12-04 06:39:37 +0300
-description: "Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty--by that I mean, when you begin to have side-effects (calls to the server come to mind here).
+description: "Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty-by that I mean, when you begin to have side-effects (calls to the server come to mind here).
 "
 icon: "mobx.png"
 ---
 Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty--by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you've had a frustrating experience with Redux, it might be for you.
 
 ## A Quick Intro To MobX
-
 The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and *pure reducers*, whereas MobX actually relies on mutable state because the state is observable.
 
 ![image-title-here](/images/mobx-overview.png){:class="img-responsive"}
@@ -25,4 +24,11 @@ Which means the whole flow looks something like:
 Since your state is observable, you don't really need to do anything fancy to support async changes in your state, because whenever a property is set on an object or a collection changes, MobX runtime gets notified.
 
 ## Show Me Some Code!
-Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc.
+Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc. So let's say we have the following class for the application:
+
+<blockquote>
+@observer
+class SomeClass {
+  @observable
+}
+</blockquote>
