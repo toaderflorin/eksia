@@ -31,3 +31,5 @@ Using MobX is very simple: all one needs to do is to add decorators to your code
 Hooking up the store to a React component is also very simple:
 
 <script src="https://gist.github.com/toaderflorin/5beba93b2e280b3422c2f0c5d87184e7.js"></script>
+
+And there you have it. Of course, MobX's reactive and observable nature makes it usable with any library.
