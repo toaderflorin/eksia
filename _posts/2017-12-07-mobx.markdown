@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Head To Head: MobX Versus Redux"
-date: 2017-12-04 06:39:37 +0300
+title: "Ditching Redux For MobX"
+date: 2017-12-07 06:39:37 +0300
 description: "Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty-by that I mean, when you begin to have side-effects (calls to the server come to mind here).
 "
 icon: "mobx.png"
@@ -26,9 +26,8 @@ Since your state is observable, you don't really need to do anything fancy to su
 ## Show Me Some Code!
 Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc. So let's say we have the following class for the application:
 
-<blockquote>
-@observer
-class SomeClass {
-  @observable
-}
-</blockquote>
+<script src="https://gist.github.com/toaderflorin/cb14fbb06c7d89a5a9d1ed31b815b76c.js"></script>
+
+Hooking up the store to a React component is also very simple:
+
+<script src="https://gist.github.com/toaderflorin/5beba93b2e280b3422c2f0c5d87184e7.js"></script>
