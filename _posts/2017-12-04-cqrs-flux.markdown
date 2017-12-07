@@ -10,7 +10,7 @@ CQRS stands for Command Query Responsibility Segregation, and the main idea behi
 
 Architecturally, it looks something like this:
 
-![image-title-here](/images/cqrs.png){:class="img-responsive"}
+![cqrs](/images/cqrs.png){:class="img-responsive"}
 
 What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily—namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.
 
@@ -37,6 +37,6 @@ Let’s get back to the Facebook wall example. Imagine that we need to aggregate
 
 It didn't occur to me for quite some time, but there are significant similarities between CQRS and Flux—one being present on the server side and the other one on the client side. In fact, they can be used together.  
 
-![image-title-here](/images/flux.png){:class="img-responsive"}
+![flux](/images/flux.png){:class="img-responsive"}
 
 The parallels here mean that you don't mutate state directly.

@@ -1,9 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-03T19:38:47+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">CQRS And Parallels With Flux</title><link href="http://localhost:4000/cqrs-flux" rel="alternate" type="text/html" title="CQRS And Parallels With Flux" /><published>2017-12-02T05:39:37+02:00</published><updated>2017-12-02T05:39:37+02:00</updated><id>http://localhost:4000/cqrs-flux</id><content type="html" xml:base="http://localhost:4000/cqrs-flux">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-07T17:35:37+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Ditching Redux For MobX</title><link href="http://localhost:4000/mobx" rel="alternate" type="text/html" title="Ditching Redux For MobX" /><published>2017-12-07T05:39:37+02:00</published><updated>2017-12-07T05:39:37+02:00</updated><id>http://localhost:4000/mobx</id><content type="html" xml:base="http://localhost:4000/mobx">&lt;p&gt;Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple &lt;em&gt;hello world&lt;/em&gt; type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-quick-intro-to-mobx&quot;&gt;A Quick Intro To MobX&lt;/h2&gt;
+&lt;p&gt;The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and &lt;em&gt;pure reducers&lt;/em&gt;, whereas MobX actually relies on mutable state because the state is observable.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/mobx-overview.png&quot; alt=&quot;mobx-overview&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As I’ve explained in this article &lt;a href=&quot;/redux-async-flow&quot;&gt;here&lt;/a&gt;, anything but the simplest application involves side-effects, not to mention that any application that communicates to a backend service is by default non-pure and that means thunks which are not exactly easy to implement and maintain. Just as Redux, MobX holds the state for the whole application (as opposed to Facebook’s Flux implementation) and relies on Actions to change this state. MobX innovates by adding &lt;em&gt;reactions&lt;/em&gt; and &lt;em&gt;derivations&lt;/em&gt; to the mix, making it a truly reactive framework. Derivations are simply computed properties of other store properties and reactions are a way to react to mutations of the store and/or computed properties. How does MobX know a property has changed? Well, it works in a similar manner to Vue in that it wraps the state objects in observable objects and it adds getters and setters to the properties, as well as overriding methods such as &lt;em&gt;push()&lt;/em&gt; for observable arrays etc.&lt;/p&gt;
+
+&lt;p&gt;Which means the whole flow looks something like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/mobx-flow.png&quot; alt=&quot;mobx-flow&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Since your state is observable, you don’t really need to do anything fancy to support async changes in your state, because whenever a property is set on an object or a collection changes, MobX runtime gets notified.&lt;/p&gt;
+
+&lt;h2 id=&quot;show-me-some-code&quot;&gt;Show Me Some Code!&lt;/h2&gt;
+&lt;p&gt;Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc. So let’s say we have the following class for the application:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/cb14fbb06c7d89a5a9d1ed31b815b76c.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Hooking up the store to a React component is also very simple:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/5beba93b2e280b3422c2f0c5d87184e7.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And there you have it. Of course, MobX’s reactive and observable nature makes it usable with any library.&lt;/p&gt;</content><author><name></name></author><summary type="html">Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple hello world type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.</summary></entry><entry><title type="html">CQRS And Parallels With Flux</title><link href="http://localhost:4000/cqrs-flux" rel="alternate" type="text/html" title="CQRS And Parallels With Flux" /><published>2017-12-04T05:39:37+02:00</published><updated>2017-12-04T05:39:37+02:00</updated><id>http://localhost:4000/cqrs-flux</id><content type="html" xml:base="http://localhost:4000/cqrs-flux">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.&lt;/p&gt;
 
 &lt;p&gt;Architecturally, it looks something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;cqrs&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily—namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.&lt;/p&gt;
 
@@ -32,11 +56,11 @@ The problem with the following picture is keeping track of data.&lt;/p&gt;
 
 &lt;p&gt;It didn’t occur to me for quite some time, but there are significant similarities between CQRS and Flux—one being present on the server side and the other one on the client side. In fact, they can be used together.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;flux&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The parallels here mean that you don’t mutate state directly.&lt;/p&gt;</content><author><name></name></author><summary type="html">CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.</summary></entry><entry><title type="html">Multiple Layout Levels With React Router 4</title><link href="http://localhost:4000/react-router-4" rel="alternate" type="text/html" title="Multiple Layout Levels With React Router 4" /><published>2017-12-01T05:39:37+02:00</published><updated>2017-12-01T05:39:37+02:00</updated><id>http://localhost:4000/react-router-4</id><content type="html" xml:base="http://localhost:4000/react-router-4">&lt;p&gt;Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/router4.jpeg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/router4.jpeg&quot; alt=&quot;router-4&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;A webpage usually has common elements such as the top bar where the user can log in/out, the footer etc. Since the DRY (don’t repeat yourself) principle tells us not to duplicate code, you obviously don’t want to copy paste the common parts of the layout in every page of your website you are building. This is the reason why frameworks such as Rails or ASP.NET MVC come with layout and partial view functionality out of the box.&lt;/p&gt;
 
@@ -78,7 +102,7 @@ The problem with the following picture is keeping track of data.&lt;/p&gt;
 
 &lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.</summary></entry><entry><title type="html">Tweaking React Application Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Application Performance" /><published>2017-11-19T05:39:37+02:00</published><updated>2017-11-19T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;react-perf&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You might have noticed something: in React (as opposed to Vue or AngularJS), changing state directly (mutating a property of a component) doesn’t have any effect on the actual UI and you have to actually call the method &lt;em&gt;setState()&lt;/em&gt; in order for this to happen. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it’s wrapping the state properties with getters and setters, but that’s a subject for another article).&lt;/p&gt;
 
@@ -93,7 +117,7 @@ The problem with the following picture is keeping track of data.&lt;/p&gt;
   &lt;li&gt;If the instance has not changed, then React proceeds further down the tree and checks the properties of the objects.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/v-dom.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/v-dom.png&quot; alt=&quot;v-dom&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you can see, calling &lt;em&gt;setState()&lt;/em&gt; doesn’t re-render that part of the component synchronously. Instead it just marks it, and rendering happens at a later tick in the JS event loop.&lt;/p&gt;
 
@@ -137,7 +161,7 @@ Perf.printWasted()
 
 &lt;p&gt;The output of the library is something like this, which should give you hints on what components can be optimized:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/reactperf.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/reactperf.png&quot; alt=&quot;react-perf&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As I mentioned previously, if a parent component changes, React re-renders all the children, but there is a way to override this. It also provides the &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely—the method receives &lt;em&gt;nextProps&lt;/em&gt; and &lt;em&gt;nextState&lt;/em&gt; as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.&lt;/p&gt;
 
@@ -210,7 +234,7 @@ Perf.printWasted()
 
 &lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-23T09:39:37+03:00</published><updated>2017-09-23T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;es6-mods&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
 
@@ -386,7 +410,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
 
@@ -489,7 +513,7 @@ GET https://www.thesite.com/account?password=val HTTP/1.1
 &lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
 &lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
 
@@ -497,7 +521,7 @@ GET https://www.thesite.com/account?password=val HTTP/1.1
 
 &lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;cors&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a restriction implemented on the browser level—if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to “accept” calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it’s actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.&lt;/p&gt;
 
@@ -642,90 +666,4 @@ devServer: {
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/d4d9e62d2b36d768bbefc78c7c084817.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry><entry><title type="html">The Ruby Object Model And Metaprogramming</title><link href="http://localhost:4000/ruby-object-model" rel="alternate" type="text/html" title="The Ruby Object Model And Metaprogramming" /><published>2017-09-04T06:39:37+03:00</published><updated>2017-09-04T06:39:37+03:00</updated><id>http://localhost:4000/ruby-object-model</id><content type="html" xml:base="http://localhost:4000/ruby-object-model">&lt;p&gt;First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.&lt;/p&gt;
-
-&lt;p&gt;At MRI’s core there are two structures that describe the current list of objects in memory: &lt;em&gt;RObject&lt;/em&gt; and &lt;em&gt;RClass&lt;/em&gt;. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation. Both structs inherit from another structure called &lt;em&gt;RBasic&lt;/em&gt;. Here’s a simplified version of the internal representation of these objects (again, the real code is a bit more complicated):&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/ruby-objs.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;You might have noticed a few things:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Classes are also objects, like previously mentioned.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Each object contains a collection of property values, just like Javascript objects.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Unlike Javascript however, the methods are not implemented on the object level but rather at the class level — an object refers to a class, thus gaining access to the methods.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The RClass struct has a &lt;em&gt;super&lt;/em&gt; field which points to another &lt;em&gt;class instance object&lt;/em&gt; which is the base class of the respective class.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;As a side note, because a class is an object you can do something like:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/f88f4c6bced8898f353006d16a4e7c60.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The &lt;em&gt;Class.new&lt;/em&gt; method accepts a block in which we define the class methods.&lt;/p&gt;
-
-&lt;p&gt;As you can see, Ruby’s dynamic nature translates into a very potent meta-programming ability. How much meta-programming you want to do and still have a fairly maintainable application is up for debate (and the subject of another article) however. For the time being, let’s look at how singleton methods / eigenclasses are implemented internally in the MRI.&lt;/p&gt;
-
-&lt;h2 id=&quot;singleton-methods-and-eigenclasses&quot;&gt;Singleton Methods And Eigenclasses&lt;/h2&gt;
-
-&lt;p&gt;You can also do something like:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/dee2afd92c2a3f7fa8809858f9ea174d.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;…which defines a String instance and adds a method &lt;strong&gt;only&lt;/strong&gt; to this instance.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;But hold up, we discussed that we can only define methods on classes and those classes will be inherited by the object.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;That’s correct. So what happens here is Ruby creates an &lt;em&gt;eigenclass&lt;/em&gt; specifically for this object (which means “own class”—”eigen” means &lt;em&gt;own&lt;/em&gt; or &lt;em&gt;self&lt;/em&gt; in German). This class in our case is a child class of String. But we can go further—since you can add a method to any object, you can also add methods to class objects which turns out to be the closest thing Ruby has to static methods.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/ccbb0a2f5b1da6f580c38459f1203f27.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Let’s look at the following class definition:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/e784cd304b404c14916a64a851c1a7ab.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;And last but not least, you can also add methods to a class like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/dede663e10f66dea16e67739ed73d38a.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As you can see, Ruby is quite unique in that it’s dynamic, but it’s still class based (as opposed to objects being just property bags like in Javascript) and it’s quite peculiar in the way it’s implemented. And all these dynamic features makes it easy for us to do…&lt;/p&gt;
-
-&lt;h2 id=&quot;metaprogramming&quot;&gt;Metaprogramming&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;Metaprogramming&lt;/em&gt; is a rather loosely defined term, but the core concept is that the program is able to modify itself or generate new code on the fly. A very simple example of metaprogramming is defining accessors for properties in a class.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/668c759648ac89371bb173e5eb0d3708.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;You don’t see that very often in practice however, what you do see is:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/f72919ec8880ce84feded448e3f38360.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;em&gt;attr_accessor&lt;/em&gt; is a method defined of the &lt;em&gt;Object&lt;/em&gt; class from which all Ruby classes inherit. It looks something like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/aadbf0fcc2ad54841d5d84e7dff23eeb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;If you are coming from C++, you might see the benefit in this particular example but might be scratching your head and wondering why is this desirable, because after all Ruby could have included a simplified way of accessing properties directly in its syntax. Well, the answer is Ruby prides itself on being a very expressive language and being conducive to developer happiness and what metaprogramming allows is a lot of functionality to be added on the fly depending on the state of specific objects. This reflects in the user friendliness of the libraries people write and one example of this would be ActiveRecord where a lot of functionality is generated on the fly.&lt;/p&gt;
-
-&lt;p&gt;Here’s an example straight from the AR docs. For the following table:&lt;/p&gt;
-
-&lt;pre&gt;
-CREATE TABLE products (
-   id int(11) NOT NULL auto_increment,
-   name varchar(255),
-   PRIMARY KEY  (id)
-);
-&lt;/pre&gt;
-
-&lt;p&gt;you can very easily access it like so:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/39614ab27c80ff5bdb3f8f9c335ec7d6.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;It’s definitely a lot less verbose than if you would have written something similar in Java/C#, because the library takes care of a lot of magic for us. Ruby might seem like the perfect programming language but all this dynamism comes at a significant performance cost: Ruby (at least when using MRI) is two orders of magnitude slower than Node or Go.&lt;/p&gt;</content><author><name></name></author><summary type="html">First things first: Ruby is a dynamic language but it’s not dynamic in the same way Javascript is a dynamic language. You actually have real classes and class inheritance and not just prototypical inheritance. Also Ruby is truly object oriented—everything is an object, even classes, and there is no such thing as a distinction between value and reference types. In this article we will be looking at MRI (Matz’s Ruby Implementation) which is written in C to see how everything works behind the scenes. At MRI’s core there are two structures that describe the current list of objects in memory: RObject and RClass. The C code is a little bit complicated so I will present a simplified schematic version, which will allow you to understand the implementation.</summary></entry></feed>
+&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry></feed>

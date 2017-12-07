@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Ditching Redux For MobX"
+date: 2017-12-07 06:39:37 +0300
+description: "Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty-by that I mean, when you begin to have side-effects (calls to the server come to mind here).
+"
+icon: "mobx.png"
+---
+Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty--by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you've had a frustrating experience with Redux, it might be for you.
+
+## A Quick Intro To MobX
+The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and *pure reducers*, whereas MobX actually relies on mutable state because the state is observable.
+
+![mobx-overview](/images/mobx-overview.png){:class="img-responsive"}
+
+As I've explained in this article [here](/redux-async-flow), anything but the simplest application involves side-effects, not to mention that any application that communicates to a backend service is by default non-pure and that means thunks which are not exactly easy to implement and maintain. Just as Redux, MobX holds the state for the whole application (as opposed to Facebook's Flux implementation) and relies on Actions to change this state. MobX innovates by adding *reactions* and *derivations* to the mix, making it a truly reactive framework. Derivations are simply computed properties of other store properties and reactions are a way to react to mutations of the store and/or computed properties. How does MobX know a property has changed? Well, it works in a similar manner to Vue in that it wraps the state objects in observable objects and it adds getters and setters to the properties, as well as overriding methods such as *push()* for observable arrays etc.
+
+Which means the whole flow looks something like:
+
+![mobx-flow](/images/mobx-flow.png){:class="img-responsive"}
+
+Since your state is observable, you don't really need to do anything fancy to support async changes in your state, because whenever a property is set on an object or a collection changes, MobX runtime gets notified.
+
+## Show Me Some Code!
+Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc. So let's say we have the following class for the application:
+
+<script src="https://gist.github.com/toaderflorin/cb14fbb06c7d89a5a9d1ed31b815b76c.js"></script>
+
+Hooking up the store to a React component is also very simple:
+
+<script src="https://gist.github.com/toaderflorin/5beba93b2e280b3422c2f0c5d87184e7.js"></script>
+
+And there you have it. Of course, MobX's reactive and observable nature makes it usable with any library.

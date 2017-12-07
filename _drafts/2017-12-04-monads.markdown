@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Understanding Monads"
+date: 2017-12-04 08:39:37 +0300
+description: "CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both—or to put it more simply, a method that returns a result should never change that result.
+"
+icon: "flux-icon.png"
+---
+Functional programming is all the rage these days and with good reason because it has a number of benefits, such as immutability. One problem with C++/Javascript etc. is functions in these languages are nothing like functions in mathematics, so if you are modelling processes the language gets in the way more than it helps. In mathematics, a function is an operator that allows for a mapping between one set of values and another to be realized and it's essentially descriptive (or declarative), not imperative.
+
+<blockquote>
+  Functional programs work with <b>values</b> not <b>variables</b>, which gives us a few benefits.
+</blockquote>
+
+Since values are "immutable", comparison of complex object trees is a matter of simply checking if instances match. Monads are type constructor--they are the functional way of achieving *generic typing*. The name "monad" comes from the *category theory* branch of mathematics.
+
+Monads are specific types of functors, so before we get into the details, we need to understand...
+
+## What Are Functors?
+Within category theory, functors are functions that map one value to another while maintaining "structure". These are called homeomorphisms.

@@ -10,7 +10,7 @@ categories:
 ---
 I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:
 
-![image-title-here](/images/my-password.jpg){:class="img-responsive"}
+![my-password](/images/my-password.jpg){:class="img-responsive"}
 
 This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on *social engineering* to gain access to systems. [Kevin Mitnick](https://en.wikipedia.org/wiki/Kevin_Mitnick) was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintenance".
 
@@ -109,7 +109,7 @@ How about PUT and DELETE? Turns out that the *same-origin policy* helps us here,
 ## SQL Injection
 And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:
 
-![image-title-here](/images/exploit.png){:class="img-responsive"}
+![exploit](/images/exploit.png){:class="img-responsive"}
 
 For SQL injection to work, you'd have to be writing your SQL queries using string interpolation / concatenation.
 
