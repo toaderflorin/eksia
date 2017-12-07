@@ -13,9 +13,7 @@ The philosophy of the two frameworks is somewhat different: while both act as a 
 
 ![mobx-overview](/images/mobx-overview.png){:class="img-responsive"}
 
-As I've explained in this article [here](/redux-async-flow), anything but the simplest application involves side-effects, not to mention that any application that communicates to a backend service is by default non-pure and that means thunks which are not exactly easy to implement and maintain. Just as Redux, MobX holds the state for the whole application (as opposed to Facebook's Flux implementation) and relies on Actions to change this state.
-
-MobX innovates by adding *reactions* and *derivations* to the mix, making it a truly reactive framework. Derivations are simply computed properties of other store properties and reactions are a way to react to mutations of the store and/or computed properties. How does MobX know a property has changed? Well, it works in a similar manner to Vue in that it wraps the state objects in observable objects and it adds getters and setters to the properties, as well as overriding methods such as *push()* for observable arrays etc.
+As I've explained in this article [here](/redux-async-flow), anything but the simplest application involves side-effects, not to mention that any application that communicates to a backend service is by default non-pure and that means thunks which are not exactly easy to implement and maintain. Just as Redux, MobX holds the state for the whole application (as opposed to Facebook's Flux implementation) and relies on Actions to change this state. MobX innovates by adding *reactions* and *derivations* to the mix, making it a truly reactive framework. Derivations are simply computed properties of other store properties and reactions are a way to react to mutations of the store and/or computed properties. How does MobX know a property has changed? Well, it works in a similar manner to Vue in that it wraps the state objects in observable objects and it adds getters and setters to the properties, as well as overriding methods such as *push()* for observable arrays etc.
 
 Which means the whole flow looks something like:
 
