@@ -8,7 +8,7 @@ icon: "mobx.png"
 ---
 Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple *hello world* type apps and you actually get into the nitty gritty--by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you've had a frustrating experience with Redux, it might be for you.
 
-## A Quick Intro To MobX
+## Enter MobX
 The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and *pure reducers*, whereas MobX actually relies on mutable state because the state is observable.
 
 ![mobx-overview](/images/mobx-overview.png){:class="img-responsive"}
