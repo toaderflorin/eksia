@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Understanding Web Application Security"
-date:   2017-09-13 09:39:37 +0300
+date:   2018-07-28 09:39:37 +0300
 description: "
 There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering: 1. Cross-site scripting, also called XSS scripting, 2. Session hijacking, 3. SQL Injection. Both cross-site scripting and SQL injection are cases of code injection...
 "
