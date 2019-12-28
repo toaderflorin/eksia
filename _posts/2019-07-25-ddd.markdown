@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "Domain Driven Design"
+date:   2018-07-28 09:39:37 +0300
+description: "
+Like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. It doesn't happen immediately, it usually takes a bit of place on the structure to happen. It also takes time.  
+"
+icon: "lock.png"
+categories:
+---
+Like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. It doesn't happen immediately, it usually takes a bit of place on the structure to happen. It also takes time. But unlike with building, with software because of its fluid nature there's always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important. 
+
+And speaking of well architectured backend systems, Domain Driven Design (or DDD) seems to have entered public consciousness about 10 years ago.
+
+![my-password](/images/ddd.jpg){:class="img-responsive"}
+
+One common definition of DDD that gets thrown around quite a bit is that it's a top-down way of looking at the development process, but whether somebody subscribes to that definition also depends it depends on what exactly is understood by *top* and *down*. Ultimately, when we're creating software we're trying to solve a problem for somebody -- be it another person or business, so in that sense, top-down makes sense.
+
+Unfortunately, there is also another definition of top down that is also quite popular and one that's causing many-a-developer that have to cleanup code a lot of headaches. Technically this would make Keeping in line , it's quite normal to start with the UI and then work down from there because that's the part that's visible. Unfortunately this makes for very, very bad practice. The reason for why it's such a bad practice is it is actually the backend and not the frontend that is the foundation of any software system, so a well architected backend is crucial.
+
+Quite often, developers have a very poor understanding of how the or user or customers are actually using the application and sometimes even UX designers have trouble with it because users might not necessarily conform to the clearly thought out scenarios that they've planned beforehand. Customer support definitely has that understanding and ideally so should the product owner. 
+
+When doing software development, it's important that the development team understand the business needs, but it's also important that the business understands all the technical constraints.
+
+<pre><code>class Customer
+{
+  public Id { get; set; }
+  public FullName { get; set; }
+  public Address { get; set; }
+} 
+</code></pre>
+
+While a PO will most certainly not write any code, he or she can definitely define something like this in enterprise architect. 
+
+When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn't really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. 
+
+### DDD vs Previous
+
+All this might sound quite familiar and in effect what we've described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we'll get into it shortly. DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts.
+
+While a lack of technical or programing skills can be a problem in some cases, communication issues is much more prevalent and leads to problems in software development much more often. Words mean different things to different people, and it all depends on the context. While lack of skill can be a problem in some cases, what I've found is improper communication is much more prevalent and leads to problems in software development much more often. At the core of DDD there's a concept called ubiquitous language. The product owner might have a very good understanding of how the users are using the application.
+I'd like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes to the rescue.
