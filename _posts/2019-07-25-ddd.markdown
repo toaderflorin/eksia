@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Domain Driven Design"
-date:   2018-07-28 09:39:37 +0300
+date:   2019-07-28 09:39:37 +0300
 description: "
 Like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. It doesn't happen immediately, it usually takes a bit of place on the structure to happen. It also takes time.  
 "
@@ -11,7 +11,6 @@ categories:
 If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan's book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there's always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important. 
 
 ![image-title-here](/images/ddd.webp){:class="img-responsive"}
-
 
 One common definition of DDD that gets thrown around quite a bit is that it's a top-down way of looking at the development process, but whether somebody subscribes to that definition also depends it depends on what exactly is understood by *top* and *down*. Ultimately, when we're creating software we're trying to solve a problem for somebody -- be it another person or business, so in that sense, top-down makes sense. Unfortunately, there is also another definition of top down that is also quite popular and one that's causing many-a-developer that have to cleanup code a lot of headaches. Keeping in line with definition, it's quite normal to start with the UI and then work down from there because that's the part that's visible. Unfortunately this makes for very, very bad practice. The reason for why it's such a bad practice is it is actually the backend and not the frontend that is the foundation of any software system, so a well architected backend is crucial.
 
@@ -40,9 +39,8 @@ DDD is actually a bit more prescriptive when it comes to doing things and it int
 * Entity (what we just discussed)
 * Aggregate (a group of entities that can be treaded as a standalone enitity)
 * Service
+* Bounded context
 * Domain events
-
-We've covered entities at length. Of course, entities don't exist in a void and they don't make up for the entirety of our domain beause we also care between interactions. 
 
 ![my-password](/images/bounded.png){:class="img-responsive"}
 
@@ -53,6 +51,9 @@ I'd like to argue that DDD as a methodology pushes this approach. Which is where
 ## Event storming
 You can do event storming outside the context of DDD but if you aren't doing event storming, you are probably not doing DDD bby the book. Obviously, the goal is before the developers decide the technology stack, the approach etc. they know what exactly they are going to acomplish (the fact that they have to stand up while doing it also forces them to expedite matters).
 
+Event storming is intended to create and share a common understanding of the domain model; it's not a replacement for a design document, flow chart, UML diagram, deployment plan, architecture diagram, or anything else related to implementation.
+
 ![my-password](/images/storming.jpg){:class="img-responsive"}
 
 The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.
+
