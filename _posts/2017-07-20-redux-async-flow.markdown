@@ -8,7 +8,6 @@ The first thing that needs to be mentioned is that Redux, while fluxish in natur
 icon: "logo-redux.png"
 categories:
 ---
-
 The first thing that needs to be mentioned is that Redux, while *fluxish* in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses **a single store** which keeps the state for the whole application, and a concept known as a *reducer* which is essentially a function that gets the current state and an action, and produces a new state based on the action.
 
 It looks something like this:
