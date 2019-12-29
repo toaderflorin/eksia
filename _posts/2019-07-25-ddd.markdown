@@ -8,14 +8,14 @@ Like a poorly constructed building, a software project lacking a solid architect
 icon: "lock.png"
 categories:
 ---
-If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read X book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there's always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important. 
+If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan's book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there's always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important. 
 
 One common definition of DDD that gets thrown around quite a bit is that it's a top-down way of looking at the development process, but whether somebody subscribes to that definition also depends it depends on what exactly is understood by *top* and *down*. Ultimately, when we're creating software we're trying to solve a problem for somebody -- be it another person or business, so in that sense, top-down makes sense. Unfortunately, there is also another definition of top down that is also quite popular and one that's causing many-a-developer that have to cleanup code a lot of headaches. Keeping in line with definition, it's quite normal to start with the UI and then work down from there because that's the part that's visible. Unfortunately this makes for very, very bad practice. The reason for why it's such a bad practice is it is actually the backend and not the frontend that is the foundation of any software system, so a well architected backend is crucial.
 
 ## What DDD isn't
 Quite often, developers have a very poor understanding of how the or user or customers are actually using the application and sometimes even UX designers have trouble with it because users might not necessarily conform to the clearly thought out scenarios that they've planned beforehand. Customer support definitely has that understanding and ideally so should the product owner. 
 
-When doing software development, it's important that the development team understand the business needs, but it's also important that the business understands all the technical constraints.
+When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn't really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. All this might sound quite familiar and in effect what we've described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we'll get into it shortly.
 
 <pre><code>class Customer
 {
@@ -25,12 +25,31 @@ When doing software development, it's important that the development team unders
 } 
 </code></pre>
 
+Of course, a domain expert isn't interested things like databases (SQL vs NoSQL), comunication protocols like REST or gRPC and so forth. Domain experts aren't interested necesarily in UX either, all these things come afterwards. These things pertain to *how* the business goal is achieved not to *what* the business goal is.
+
+Domain modeling mandates that the software team defines the *what* first.
+
 <!-- While a PO will most certainly not write any code, he or she can definitely define something like this in enterprise architect.  -->
 
-When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn't really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. All this might sound quite familiar and in effect what we've described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we'll get into it shortly.
+## Enter DDD
+DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts such as
 
-## Enter DDDD
-DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts. While a lack of technical or programing skills can be a problem in some cases, communication issues are much more prevalent in software projects -- words mean different things to different people, and it all depends on the context so at the core of DDD lies a concept ccalled *ubiquitous language*.
+* Entity (what we just discussed)
+* Aggregate (a group of entities that can be treaded as a standalone enitity)
+* Service
+* Domain events
 
-I'd like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes to the rescue.
+We've covered entities at length. Of course, entities don't exist in a void and they don't make up for the entirety of our domain beause we also care between interactions. 
 
+![my-password](/images/bounded.png){:class="img-responsive"}
+
+While a lack of technical or programing skills can be a problem in some cases, communication issues are much more prevalent in software projects -- words mean different things to different people, and it all depends on the context so at the core of DDD lies a concept ccalled *ubiquitous language*.
+
+I'd like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes into play.
+
+## Event storming
+You can do event storming outside the context of DDD but if you aren't doing event storming, you are probably not doing DDD bby the book. Obviously, the goal is before the developers decide the technology stack, the approach etc. they know what exactly they are going to acomplish (the fact that they have to stand up while doing it also forces them to expedite matters).
+
+![my-password](/images/storming.jpg){:class="img-responsive"}
+
+The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.
