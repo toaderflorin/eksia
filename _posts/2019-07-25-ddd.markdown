@@ -3,9 +3,9 @@ layout: post
 title:  "Domain Driven Design"
 date:   2019-07-28 09:39:37 +0300
 description: "
-Like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. It doesn't happen immediately, it usually takes a bit of place on the structure to happen. It also takes time.  
+If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan's book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. 
 "
-icon: "lock.png"
+icon: "domain-icon.jpg"
 categories:
 ---
 If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan's book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with building, with software because of its fluid nature there's always the feeling that one can build functionality poorly initially and then go back and change things. The problem with this is if new functionality is built on top of the old one, it never ends up happening, so constructing a solid foundation is extremely important. 

@@ -3,7 +3,7 @@ layout: post
 title:  "Microservices In A Nutshell"
 date:   2019-12-28 09:39:37 +0300
 description: "
-Microservices seem to be very popular these days and everybody wants to be with the in crowd. You can argue that microservices are just a flavour of SOA and that they have been around for quite some time, but undoubtedly the microservice revolution was brought about by containers and the cloud.
+Microservices seem to be very popular these days and everybody wants to be with the in crowd. You can argue that microservices are just a flavour of SOA and that they have been around for quite some time, but undoubtedly the microservice revolution was brought about by containers and the cloud. Regardless of whether you're building backend applications, cloud applications, or what have you, the central tenets of high level design must apply (and probably the most important of them is low coupling). 
 "
 icon: "micro.png"
 categories:
