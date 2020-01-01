@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Microservices In A Nutshell"
-date:   2019-12-28 09:39:37 +0300
+date:   2019-12-17 09:39:37 +0300
 description: "
 Microservices seem to be very popular these days and everybody wants to be with the in crowd. You can argue that microservices are just a flavour of SOA and that they have been around for quite some time, but undoubtedly the microservice revolution was brought about by containers and the cloud. Regardless of whether you're building backend applications, cloud applications, or what have you, the central tenets of high level design must apply (and probably the most important of them is low coupling). 
 "
@@ -28,7 +28,7 @@ So what constitutes a microservice? Is this service too big and does it need bre
 
 A lot of companies use internal package repositories for shared functionality between projects (UI component packages are pretty common) and as a developer, whenever you are creating a new version of a package, you have to think about whether you've introduced breaking changes. Microservices compound this problem because different applications can use different versions of packages and not all projects have to be at the same. Microservices don't afford the same luxury and you need to pay. Packages and microservices allow you to finely control the development cycle of portions of your application, but as always, with great power comes great responsibility and you must pay close attention to what you are deploying and when. It is easy to break things if you're not being careful. 
 
-So what's the right granularity? As always, there is no right and set answer. If services aren't small enough, then you obviously don't have micro-services. But there is such a thing as too much fragmentation - say you are refactoring an existing monolithic application which has over one hundred controllers. Should you turn each of them in a microservice? That might be an overkill. [MOVE UP]
+So what's the right granularity? As always, there is no right and set answer. If services aren't small enough, then you obviously don't have micro-services. But there is such a thing as too much fragmentation - say you are refactoring an existing monolithic application which has over one hundred controllers. Should you turn each of them in a microservice? That might be an overkill.
 
 Distributed systems also introduce problems related to distributed transactions. Using replication compounds this problem. 
 
