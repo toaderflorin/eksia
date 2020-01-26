@@ -18,7 +18,7 @@ A byproduct of this assumption is that divs expand to fill the whole available s
 
 Before we explain the more quirky aspects of HTML, we need to have a basic overview of the box layout of the elements:
 
-![image-title-here](/images/css-box-model.png){:class="img-responsive"}
+![css-box-model](/images/weird-html/css-box-model.png){:class="img-responsive"}
 
 So an element will have
 
@@ -38,7 +38,7 @@ The default value is *content-box*.
 ## Margin Collapse
 A weird aspect of HTML (if you don't know about it) is the way margins behave.
 
-![image-title-here](/images/collapse.png){:class="img-responsive"}
+![image-title-here](/images/weird-html/collapse.png){:class="img-responsive"}
 
 Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens **only vertically**. This again has to do with the vertical flow philosophy of HTML.
 

@@ -35,7 +35,7 @@ XSS refers to a vulnerability where an attacker is able to "inject" Javascript c
 
 A typical example of XSS is *persistent cross-site scripting*. If a page isn't properly *sanitizing* the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.
 
-![image-title-here](/images/attack.png){:class="img-responsive"}
+![image-title-here](/images/security/attack.png){:class="img-responsive"}
 
 An alternative is the *reflected* (or non-persistent) XSS attack, whereby the user's input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
 
@@ -88,7 +88,7 @@ Since the attacker knows the session id, he/she can also log to that page and se
 ## Cross-Site Request Forgery
 CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is *social engineering*.
 
-![image-title-here](/images/csfr.png){:class="img-responsive"}
+![image-title-here](/images/security/csfr.png){:class="img-responsive"}
 
 Let's say a site exposes some functionality in the form of a web request, like so:
 

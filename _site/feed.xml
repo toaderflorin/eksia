@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T13:29:20+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T14:00:43+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
 </subtitle><entry><title type="html">Strategies For Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Strategies For Scaling Out Relational Databases" /><published>2020-01-12T08:39:37+02:00</published><updated>2020-01-12T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it’s definitely doing something right. At some point there’s really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you’ve moved various portions of your database to different machines, you get into several complications. To simplify things you can split them into two categories:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -96,7 +96,7 @@ Another approach is to map individual keys to nodes in the cluster.&lt;/p&gt;
 
 &lt;p&gt;Before we explain the more quirky aspects of HTML, we need to have a basic overview of the box layout of the elements:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/css-box-model.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/weird-html/css-box-model.png&quot; alt=&quot;css-box-model&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So an element will have&lt;/p&gt;
 
@@ -118,7 +118,7 @@ Another approach is to map individual keys to nodes in the cluster.&lt;/p&gt;
 &lt;h2 id=&quot;margin-collapse&quot;&gt;Margin Collapse&lt;/h2&gt;
 &lt;p&gt;A weird aspect of HTML (if you don’t know about it) is the way margins behave.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/collapse.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/weird-html/collapse.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Margin collapsing means that if you have two elements with margins set on them, the space between them will equal the maximum of the two margins, NOT the sum. But this happens &lt;strong&gt;only vertically&lt;/strong&gt;. This again has to do with the vertical flow philosophy of HTML.&lt;/p&gt;
 
@@ -226,7 +226,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;p&gt;A typical example of XSS is &lt;em&gt;persistent cross-site scripting&lt;/em&gt;. If a page isn’t properly &lt;em&gt;sanitizing&lt;/em&gt; the user input (a field in a for, for example), a user could actually type in valid Javascript code, which is going to be saved by the application in its database and be subsequently rendered every time it displays a page. Imagine you have a page that is visible to multiple users (such as a product page) which allows for users to add comments. If the page is not escaping user input, it is possible for a malicious user to write actual an script block, which will then be rendered to all users as part of the page HTML. The Javascript code has access to the cookies of that user and it can send that information to the a attacker.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/security/attack.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database, but returned back in the same way it was inputted. It works like this: say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
 
@@ -281,7 +281,7 @@ Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit 
 &lt;h2 id=&quot;cross-site-request-forgery&quot;&gt;Cross-Site Request Forgery&lt;/h2&gt;
 &lt;p&gt;CSRF is an attack that tricks the victim into submitting a malicious request, and relies on the fact that the user is logged in. Since the browser usually sends the session cookie with the request, the server perceives the request as legitimate. An important part of CSRF attacks is &lt;em&gt;social engineering&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/security/csfr.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
 
@@ -310,7 +310,7 @@ GET https://www.thesite.com/account?password=val HTTP/1.1
 
 &lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2017-09-09T06:39:37+03:00</published><updated>2017-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/cors.png&quot; alt=&quot;cors&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/cors/cors.png&quot; alt=&quot;cors&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a restriction implemented on the browser level—if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error. CORS is a mechanism to bypass this restriction. It allows the server to “accept” calls incoming from a different origin. The reason I am using quotes is because, as previously mentioned, it’s actually the browser that implements the restriction, but the server has the option of specifying several headers in the response that will make the browser accept the response.&lt;/p&gt;
 
@@ -362,7 +362,7 @@ Access-Control-Allow-Origin: http://domain2.page.com
 
 &lt;p&gt;A &lt;em&gt;preflighted request&lt;/em&gt; is one that &lt;strong&gt;automatically&lt;/strong&gt; triggers an OPTIONS call to the server before the actual request. It looks like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/cors_flow.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/cors/cors_flow.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -407,12 +407,12 @@ npm install cors --save
 Webpack at its core is just a module bundler. It essentially detects dependencies between the building blocks of your application (like code files, style files etc.) and creates a bundle out of everything.
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/hmr/schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It doesn’t actually do things like transpilation — if you have Coffee-script code, Typescript or ES6 code, you will have to use a loader. We will be using &lt;em&gt;babel-loader&lt;/em&gt; to compile our ES6/jsx code and feed it into Webpack.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/images/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/images/hmr/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -512,7 +512,7 @@ Codewise, this is what the top level component looks like:&lt;/p&gt;
 &lt;p&gt;The code was slightly tweaked and simplified for legibility, download the full version &lt;a href=&quot;https://github.com/toaderflorin/florintoader&quot;&gt;here&lt;/a&gt;. And of course, this is a very simple application — if you are using a component based approach, you will probably have multiple “levels of command” in the component hierarchy, similar to what you would have in a big organization. You need to use your judgement in designing the application state, splitting it into components, assigning responsibilities to each and splitting the state accordingly. You might however reach the conclusion that it’s worth using Redux / Flux as the application gets larger.&lt;/p&gt;</content><author><name></name></author><summary type="html">I normally wouldn’t have wrote this article as I find what I am about to present quite straightforward, but I’ve heard this sentence (or something along those lines) multiple times: Let’s not use React because it would be an overkill for our application. We would have to use Flux / Redux and it’s too much for what we need. No, you don’t, and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn’t mean you have to use it if you are using React and you can also use Flux even if you are using another library—in fact it’s quite popular to use Flux with Angular. React (just like Angular 2+) is built around components, and building a web application out of components is perfectly feasible, as I will show.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/isolation-levels" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-07-02T06:39:37+03:00</published><updated>2017-07-02T06:39:37+03:00</updated><id>http://localhost:4000/isolation-levels</id><content type="html" xml:base="http://localhost:4000/isolation-levels">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
 would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/levels.png&quot; alt=&quot;levels&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/isolation-levels/levels.png&quot; alt=&quot;levels&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The SQL standard defines four isolation levels:&lt;/p&gt;
 
