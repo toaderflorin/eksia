@@ -15,10 +15,7 @@ First of all, needing to scale out your database is a great problem to have beca
 
 SQL Server supports both out of the box provided you use a vertical scale out model, meaning you have some tables on one server and other tables on other servers. It does not support any of those for horizontal scale out or sharding. Another aspect worth mentioning is that when you are doing sharding, it means you have a bunch of servers which all have the same schema, but the tables on each server have only a subset of the data. While horizontal scale out provides a temporary solution, on the long term all rapidly growing applications will need to make use of horizontal scaleout.
 
-![image-title-here](/images/scaling-sql/shards.png){:class="img-responsive"}
-
 ## Strategies
-
 So since all of them have the same data schema we need a strategy -- usually that involves a *shard key*. Probably the most ubiquitous way to implement sharding is to use a tenant key -- one of the simplest sharding strategies is to have one database per user and in a lot of b2b applications use that approach. That's however not really tenable if you have hundreds of thousands of users because it would mean one VM per user. 
 
 * **Range**<br/>
@@ -29,6 +26,8 @@ An approach that was developed to solve the problems associated with sharding by
 
 * **Using a map**<br/>
 Another approach is to map individual keys to nodes in the cluster.
+
+![image-title-here](/images/scaling-sql/shards.png){:class="img-responsive"}
 
 Let's imagine we're building a social media application where users can create posts and comment on other users' posts. The most natural strategy for splitting our data would be to do it by how that data is related to a user. We would have the following database diagram.
 
@@ -42,6 +41,17 @@ So what happens if we want to create something like a "history" page, a central 
 
 Almost always, using sharding means we need to denormalize our data structure so we would have some duplication. Another example of duplication is the fact that our "catalog" or reference tables need to be duplicated across all shards. Here's an example -- when the user creates an account he or she could select a home country and we would like to enforce referential integrity via an FK constraint to a table containing a list of countries. But because this field is mandatory, we would need to have the Countries table replicated across all shards. Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture. Of course non relational databases such as Mongo are much easier to shard, but it's also much harder to enforce structural integrity with them so quite often you end up with bad data.
 
-## Conclusion
+Another thing worth mentioning is there's usually no escaping  multi-shard queries. Here's a typical feed for social media apps. While we can show a user's timeline by querying just one shard, we can't really do that for a newsfeed because a user is mostlikely following posts made by users residing on multiple shards.
+
+![image-title-here](/images/scaling-sql/feed.png){:class="img-responsive"}
+
+What social media sites do is they using a system called infinte scrolling where as the user scrolls the page down, more content is loaded. Obviously multiple shards are being hit but there are ways of otpimizing it. For example, most users probably follow:
+
+* For an application like Facebook, users mostly tend to follow users in their own country, so we can try combining users with the same country on the some node.
+* An asynchronos job could update a feed table with post ids.
+* Requests across shards can be batched.
+
+Whatever strategy we use, there is always some delay and problems associated with this.
+
 Using a sharding map we can have more users share the same VM. But what happens if the data for one user is too big for one shard (in our particular case, say he or she posts a lot or gets a lot of comments)? In that case our sharding key would be a combination of the *user-id* and the *post-id*. Regardless of how you're structuring your data, there's probably no escaping multi shard queries such as when you want to build a feed of the content your people you are following. You still want to limit the number of queries as much as possible, create a list of shards for the people a user follows and then send requests in batches to each shard and order them on the client. Taking the user's location (country) into account when generating the shard key can also be helpful because it's likely that users from one country will mostly follow users from the same country so that helps with optimization. And of course analytics and reports shouldn't use live data, they should use some form of data warehouse or data lake.
 
