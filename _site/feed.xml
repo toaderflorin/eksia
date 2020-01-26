@@ -1,71 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-01T15:39:48+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Domain Driven Design</title><link href="http://localhost:4000/ddd" rel="alternate" type="text/html" title="Domain Driven Design" /><published>2019-12-12T08:39:37+02:00</published><updated>2019-12-12T08:39:37+02:00</updated><id>http://localhost:4000/ddd</id><content type="html" xml:base="http://localhost:4000/ddd">&lt;p&gt;While the term &lt;em&gt;domain driven design&lt;/em&gt; gets thrown around quite a bit, if you ask five different developers what they understand by DDD, you are most likely going to get five different answers and to make matters slightly worse even Eric Evan’s book which is the canonical authority on all things DDD doesn’t give an exact definition.&lt;/p&gt;
-
-&lt;p&gt;While it goes without saying that a thorough understanding of the business should be important for all parties involved (developers, product owners, designers), sometimes there’s a slight disconnect between the imediate goals of the people involved.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T13:02:07+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Strategies For Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Strategies For Scaling Out Relational Databases" /><published>2020-01-12T08:39:37+02:00</published><updated>2020-01-12T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it’s definitely doing something right. At some point there’s really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you’ve moved various portions of your database to different machines, you get into several complications. To simplify things you can split them into two categories:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The company must make a profit so it needs to solve certain business needs for existing and potential customers.&lt;/li&gt;
-  &lt;li&gt;Developers usually earn a salary, don’t particularly like meetings and would like to work with new and exciting technologies.&lt;/li&gt;
+  &lt;li&gt;Distributed queries&lt;/li&gt;
+  &lt;li&gt;Distributed transactions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;SQL Server supports both out of the box provided you use a vertical scale out model, meaning you have some tables on one server and other tables on other servers. It does not support any of those for horizontal scale out or sharding. Another aspect worth mentioning is that when you are doing sharding, it means you have a bunch of servers which all have the same schema, but the tables on each server have only a subset of the data. While horizontal scale out provides a temporary solution, on the long term all rapidly growing applications will need to make use of horizontal scaleout.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/sharded-cluster.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;strategies&quot;&gt;Strategies&lt;/h2&gt;
+
+&lt;p&gt;So since all of them have the same data schema we need a strategy – usually that involves a &lt;em&gt;shard key&lt;/em&gt;. Probably the most ubiquitous way to implement sharding is to use a tenant key – one of the simplest sharding strategies is to have one database per user and in a lot of b2b applications use that approach. That’s however not really tenable if you have hundreds of thousands of users because it would mean one VM per user.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Range&lt;/strong&gt;&lt;br /&gt;
+Sharding by range is probably the most simple way to implement sharding and it means that each node in our cluster holds data associated with. The problem with that approach is that it really doesn’t split data evenly.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Consistent hashing&lt;/strong&gt;&lt;br /&gt;
+An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartion is uniform, hence the name &lt;em&gt;consistent&lt;/em&gt;. For readers interested in how it works under the hood, here’s a comprehensive &lt;a href=&quot;&quot;&gt;resource&lt;/a&gt; describing the exact implementation. The problem with consistent caching is that while it does ensure you don’t have hotspots – the data might be spread evenly but &lt;em&gt;utliisation&lt;/em&gt; (or reads) of that data isn’t. Consistent hashing also makes the rebalancing shards quite difficult.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Using a map&lt;/strong&gt;&lt;br /&gt;
+Another approach is to map individual keys to nodes in the cluster.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s imagine we’re building a social media application where users can create posts and comment on other users’ posts. The most natural strategy for splitting our data would be to do it by how that data is related to a user. We would have the following database diagram.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/scaling-sql/diagram1.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can immediately see that we have a small predicament: a comment is tied to both a post of a certain user AND to the user making the comment. So how would we go about partitioning? While we can store the comments in each user’s shard, that’s a really bad way to do it because if we want to display a post we would need to query a lot of shards to render that feed. So it’s much better to tie the comment to the post it’s being made.&lt;/p&gt;
+
+&lt;p&gt;So what happens if we want to create something like a “history” page, a central log of the user’s actions which contains all the comments a user made? We could of course query all the shards and get that info but if you’re a company like Facebook that’s not really feasible. An alternative is to duplicate information in something like a History table, so every time a user posts a comment, we also add an entry there.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/scaling-sql/db-diagram.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Almost always, using sharding means we need to denormalize our data structure so we would have some duplication. Another example of duplication is the fact that our “catalog” or reference tables need to be duplicated across all shards. Here’s an example – when the user creates an account he or she could select a home country and we would like to enforce referential integrity via an FK constraint to a table containing a list of countries. But because this field is mandatory, we would need to have the Countries table replicated across all shards. Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture. Of course non relational databases such as Mongo are much easier to shard, but it’s also much harder to enforce structural integrity with them so quite often you end up with bad data.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Using a sharding map we can have more users share the same VM. But what happens if the data for one user is too big for one shard (in our particular case, say he or she posts a lot or gets a lot of comments)? In that case our sharding key would be a combination of the &lt;em&gt;user-id&lt;/em&gt; and the &lt;em&gt;post-id&lt;/em&gt;. Regardless of how you’re structuring your data, there’s probably no escaping multi shard queries such as when you want to build a feed of the content your people you are following. You still want to limit the number of queries as much as possible, create a list of shards for the people a user follows and then send requests in batches to each shard and order them on the client. Taking the user’s location (country) into account when generating the shard key can also be helpful because it’s likely that users from one country will mostly follow users from the same country so that helps with optimization. And of course analytics and reports shouldn’t use live data, they should use some form of data warehouse or data lake.&lt;/p&gt;</content><author><name></name></author><summary type="html">First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it’s definitely doing something right. At some point there’s really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you’ve moved various portions of your database to different machines, you get into several complications. To simplify things you can split them into two categories:</summary></entry><entry><title type="html">Domain Driven Design</title><link href="http://localhost:4000/ddd" rel="alternate" type="text/html" title="Domain Driven Design" /><published>2019-12-12T08:39:37+02:00</published><updated>2019-12-12T08:39:37+02:00</updated><id>http://localhost:4000/ddd</id><content type="html" xml:base="http://localhost:4000/ddd">&lt;p&gt;While the term &lt;em&gt;domain driven design&lt;/em&gt; gets thrown around quite a bit, if you ask five different developers what they understand by DDD, you are most likely going to get five different answers. To make matters worse, even Eric Evan’s book which is the canonical authority on all things DDD doesn’t give an exact definition so the term DDD is used quite loosely. It goes without saying that a thorough understanding of the business should be important for all parties involved in software development (developers, product owners, designers), sometimes there’s a disconnect between the imediate goals of the people involved.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The company as a whole must make a profit so it needs to solve certain business needs for existing and potential new customers.&lt;/li&gt;
+  &lt;li&gt;Developers are usually more interested in the technology itself, don’t particularly like meetings and would like to work with the newest stacks available.&lt;/li&gt;
   &lt;li&gt;Designers are highly creative and would like to showcase their skills.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;At its core, DDD is a recipe (or codified prescription) for doing software development that attempts to bridge this disconnect.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/ddd.webp&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;One way to think about DDD is that it is a top-down way of looking at the development process, in the sense that we define and codify the business requirements first and then we build on top of that.&lt;/p&gt;
-
-&lt;p&gt;Let us imagine the following scenario: the team is tasked with creating creating a simple e-commerce site that sales sporting apparel. DDD mandates that before we choose what technology we build the application in, whether we choose a microservice approach and before we design the UX and UI, we define the exact business objects and processes. We know our application will have to have user accounts and these users need to be able to set their log on information, define billing details, one or more address and so forth. We also need to define what products we sell in our catalogue, product categories so we are able to offer the users a nice faceted search functionality and we need to keep track how many products we have in stock.&lt;/p&gt;
-
-&lt;p&gt;The product owner of course has all this information but it has to be communicated effectively to the development team. Enter Event Storming. The brainchild of Alberto Brandolini, it’s essentially a way for the team members to communicate ideas using sticky notes and a whiteboard.&lt;/p&gt;
+&lt;p&gt;At its core, DDD is a recipe (or codified prescription) for doing software development that attempts to bridge this disconnect. One way to think about DDD is that it is a top-down way of looking at the development process, in the sense that we define and codify the business requirements first and then we build on top of that. The transfer of knowledge between the business owner and developers usually happens during an &lt;em&gt;event storming&lt;/em&gt; session.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/storming.jpg&quot; alt=&quot;event-storming&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Virtually all team members of a software development team agree that properly architecting an application is extremely important – because just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with buildings, because of software’s fluid development nature there’s always the feeling that one can build functionality poorly initially (say to meet a deadline) and then go back and change things. The problem with this line of thinking is if new functionality is built on top of existing one, this never ends up happening, so constructing a solid foundation is extremely important.&lt;/p&gt;
+&lt;p&gt;The brainchild of Alberto Brandolini, it’s essentially a way for the team members to communicate ideas using sticky notes and a whiteboard. Event storming is intended to create and share a common understanding of the domain model. It’s not a replacement for a design document, flow chart, UML diagram, deployment plan, architecture diagram, or anything else related to implementation. The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-ddd-isnt&quot;&gt;What DDD isn’t&lt;/h2&gt;
-&lt;p&gt;When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn’t really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest. All this might sound quite familiar and in effect what we’ve described is a model driven architecture approach.  While DDD certainly is compatible with this approach, there is a bit more to it and we’ll get into it shortly.&lt;/p&gt;
+&lt;p&gt;Let us imagine the following scenario – the team is tasked with creating creating a simple e-commerce site that sales sporting apparel. DDD mandates that before we choose what technology we build the application in, whether we choose a microservice approach and before we design the UX and UI, we define the exact business objects and processes. We can identify some domain entities from the start – users need to log in so we’ll have an &lt;em&gt;Account&lt;/em&gt; object and we also need multiple types of users (for example an admin and a regular customer) so we will also have a Permission object. Of course we need to have a catalogue of products what we’re going to sell so we will define a &lt;em&gt;Product&lt;/em&gt; object and these products have to be kept in stock so we’ll have &lt;em&gt;Warehouse&lt;/em&gt; and &lt;em&gt;WarehouseProuct&lt;/em&gt; entries. And of course &lt;em&gt;Order&lt;/em&gt;, &lt;em&gt;OrderItem&lt;/em&gt; and &lt;em&gt;CardInfo&lt;/em&gt;.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class Customer
-{
-  public Id { get; set; }
-  public FullName { get; set; }
-  public Address { get; set; }
-} 
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can model it like this.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/domain-model.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When ORMs entered the scene, they put the concept of a model or entity at the forefront. All of a sudden developers didn’t really have to concern themselves with low level database queries, join tables in case of many-to-many relations etc. We could just focus on defining the objects and the levels between them and the library would take care of the rest.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/toaderflorin/db3cfb67153fba369a2604e6c21ac0be.js&quot;&gt;&lt;/script&gt;
 
 &lt;p&gt;Of course, a domain expert isn’t interested things like databases (SQL vs NoSQL), comunication protocols like REST or gRPC and so forth. Domain experts aren’t interested necesarily in UX either, all these things come afterwards. These things pertain to &lt;em&gt;how&lt;/em&gt; the business goal is achieved not to &lt;em&gt;what&lt;/em&gt; the business goal is.&lt;/p&gt;
 
-&lt;p&gt;What we described goes by the term &lt;a href=&quot;https://en.wikipedia.org/wiki/Model-driven_architecture&quot;&gt;Model Driven Architecture&lt;/a&gt;. Domain Driven Design counts as MDA but not viceversa because DDD is more strict.&lt;/p&gt;
-
-&lt;!-- While a PO will most certainly not write any code, he or she can definitely define something like this in enterprise architect.  --&gt;
-
-&lt;h2 id=&quot;enter-ddd&quot;&gt;Enter DDD&lt;/h2&gt;
-&lt;p&gt;Domain modeling mandates that the software team defines the &lt;em&gt;what&lt;/em&gt; first. DDD is actually a bit more prescriptive when it comes to doing things and it introduces more concepts such as:&lt;/p&gt;
+&lt;p&gt;What we described goes by the term &lt;a href=&quot;https://en.wikipedia.org/wiki/Model-driven_architecture&quot;&gt;Model Driven Architecture&lt;/a&gt;. Domain Driven Design counts as MDA but not viceversa because  DDD is actually a bit more prescriptive and it introduces additional concepts:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Entity (what we just discussed)&lt;/li&gt;
-  &lt;li&gt;Aggregate (a group of entities that can be treaded as a standalone enitity)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Entities&lt;/strong&gt; form the basis of our domain model.&lt;/li&gt;
+  &lt;li&gt;A collection of entities that can be treated as an atomic enity form an &lt;strong&gt;aggregate&lt;/strong&gt;.&lt;/li&gt;
   &lt;li&gt;Service&lt;/li&gt;
-  &lt;li&gt;Bounded context&lt;/li&gt;
-  &lt;li&gt;Domain events&lt;/li&gt;
+  &lt;li&gt;Entities and their associated services can be grouped into fairly isolated islands called &lt;strong&gt;bounded contexts&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Domain events&lt;/strong&gt; determine the flow of the domain in time.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Quite often, developers have a very poor understanding of how the or user or customers are actually using the application and sometimes even UX designers have trouble with it because users might not necessarily conform to the clearly thought out scenarios that they’ve planned beforehand. Customer support definitely has that understanding and ideally so should the product owner.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Bounded context make for good candidates for individual microservices but they don’t have to be. Remember, we are using DDD to inform our technical decisions, not the other way around.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;When your domain gets really complicated, it’s really worth for you to isolate it in individual islands. It makes it much easier to manage complexity.&lt;/p&gt;
+&lt;p&gt;One of the slightly overlooked benefits of DDD is that it can significantly imporive your architectural robustness your software solution. Virtually all team members of a software development team agree that properly architecting an application is extremely important – because just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. But unlike with buildings, because of software’s fluid development nature there’s always the feeling that one can build functionality poorly initially (say to meet a deadline) and then go back and change things. The problem with this line of thinking is if new functionality is built on top of existing one, this never ends up happening, so constructing a solid foundation is extremely important.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/bounded.png&quot; alt=&quot;bounded-contexts&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/mvvm.png&quot; alt=&quot;event-storming&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Bounded make for good candidates for individual microservices but they don’t have to be. Remember, we are using DDD to inform our technical decisions, not the other way around.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Let’s consider the MVVM architectural pattern. While not applications use this exact pattern, there’s usually some separation between the business logic and the domain model and what’s actually shown on screen – for example if you’re fetching data in a React / Redux application, usually the model will be whatever the API returns and the frontend will keep some transformed version of this data in the local state. So what happens if we don’t enforce this separation between domain models and view models? Developers end up changing the model to suit whatever needs to be shown on the screen, so we end up with a lot of hacks, temporary or computed fields, duplicate objects for the same business entity and a lot of fragmentation and corners cut in the codebase. The model should always be the primary source of truth.&lt;/p&gt;
 
-&lt;p&gt;While a lack of technical or programing skills can be a problem in some cases, communication issues are much more prevalent in software projects – words mean different things to different people, and it all depends on the context so at the core of DDD lies a concept ccalled &lt;em&gt;ubiquitous language&lt;/em&gt;. I’d like to argue that DDD as a methodology pushes this approach. Which is where ubiquitous language comes into play.&lt;/p&gt;
-
-&lt;p&gt;You can do event storming outside the context of DDD but if you aren’t doing event storming, you are probably not doing DDD bby the book. Obviously, the goal is before the developers decide the technology stack, the approach etc. they know what exactly they are going to acomplish (the fact that they have to stand up while doing it also forces them to expedite matters).&lt;/p&gt;
-
-&lt;p&gt;Event storming is intended to create and share a common understanding of the domain model. It’s not a replacement for a design document, flow chart, UML diagram, deployment plan, architecture diagram, or anything else related to implementation.&lt;/p&gt;
-
-&lt;p&gt;The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.&lt;/p&gt;</content><author><name></name></author><summary type="html">While the term domain driven design gets thrown around quite a bit, if you ask five different developers what they understand by DDD, you are most likely going to get five different answers and to make matters slightly worse even Eric Evan’s book which is the canonical authority on all things DDD doesn’t give an exact definition.</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2018-09-15T06:39:37+03:00</published><updated>2018-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
+&lt;p&gt;Ultimately, DDD is just an approach to keep focus on the endgoal of delivering business value while maintaining a clear architecture and separation of concerns.&lt;/p&gt;</content><author><name></name></author><summary type="html">While the term domain driven design gets thrown around quite a bit, if you ask five different developers what they understand by DDD, you are most likely going to get five different answers. To make matters worse, even Eric Evan’s book which is the canonical authority on all things DDD doesn’t give an exact definition so the term DDD is used quite loosely. It goes without saying that a thorough understanding of the business should be important for all parties involved in software development (developers, product owners, designers), sometimes there’s a disconnect between the imediate goals of the people involved.</summary></entry><entry><title type="html">HTML Layout: The Weird Parts</title><link href="http://localhost:4000/weird-html" rel="alternate" type="text/html" title="HTML Layout: The Weird Parts" /><published>2018-09-15T06:39:37+03:00</published><updated>2018-09-15T06:39:37+03:00</updated><id>http://localhost:4000/weird-html</id><content type="html" xml:base="http://localhost:4000/weird-html">&lt;p&gt;If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;HTML evolved overtime, and sometimes a bit chaotically. It wasn’t thought out from the start in its current form.&lt;/em&gt;&lt;/p&gt;
 
