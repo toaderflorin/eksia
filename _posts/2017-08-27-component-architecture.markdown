@@ -4,7 +4,7 @@ title:  "Simple Component Based Architecture With React"
 date:   2017-08-22 06:39:37 +0300
 description: "I normally wouldn't have wrote this article as I find what I am about to present quite straightforward, but I've heard this sentence (or something along those lines) multiple times: <i>Let's not use React because it would be an overkill for our application. We would have to use Flux / Redux and it's too much for what we need.</i> No, you don't,  and this is important: React is just a view layer. Flux is an architectural pattern, but it doesn't mean you have to use it and you can also use Flux even if you are not using React, if you wish...
 "
-icon: "hierarch-logo.png"
+icon: "component-architecture/hierarch-logo.png"
 categories:
 ---
 
@@ -14,7 +14,7 @@ Our goal for this demo app is to avoid using a separate store to keep the applic
 
 *The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.*
 
-![big-ball](/images/big-ball.png){:class="img-responsive"}
+![big-ball](/images/component-architecture/big-ball.png){:class="img-responsive"}
 
 You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:
 
@@ -23,7 +23,7 @@ You can quickly see that this kind of approach becomes unwieldy quite fast, so w
 
 Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a *chain of command*. What we are trying to avoid here is components talking *directly to one another*, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).
 
-![dilbert](/images/dilbert.jpg){:class="img-responsive"}
+![dilbert](/images/component-architecture/dilbert.jpg){:class="img-responsive"}
 
 So no component should tell other component (on the same hierarchical level) it's a piece of garbage *directly*. But it's OK if a component "higher in command" does it.
 
@@ -31,11 +31,11 @@ So no component should tell other component (on the same hierarchical level) it'
 
 We are going to build an application that allows a user to manage a list of todos. For the sake of simplicity, we are going to have a backend that globally manages a collection of tasks, so we don't support multiple users. The application is meant to be run locally and we will demonstrate how to structure it with components. Here's a sketch of what we want our application to look like:
 
-![sketch](/images/sketch.png){:class="img-responsive"}
+![sketch](/images/component-architecture/sketch.png){:class="img-responsive"}
 
 The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:
 
-![hierarchy](/images/hierarchy.png){:class="img-responsive"}
+![hierarchy](/images/component-architecture/hierarchy.png){:class="img-responsive"}
 
 <br/>
 Codewise, this is what the top level component looks like:

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T14:00:43+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T14:23:05+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
 </subtitle><entry><title type="html">Strategies For Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Strategies For Scaling Out Relational Databases" /><published>2020-01-12T08:39:37+02:00</published><updated>2020-01-12T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it’s definitely doing something right. At some point there’s really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you’ve moved various portions of your database to different machines, you get into several complications. To simplify things you can split them into two categories:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -181,7 +181,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;p&gt;When dealing with blocks, it’s important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically, but there’s a gotcha:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/width-auto.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/weird-html/width-auto.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This by default makes just the content to be 100%.&lt;/p&gt;
 
@@ -461,7 +461,7 @@ devServer: {
 
 &lt;p&gt;&lt;em&gt;The user changes a text input field which triggers a handler. That handler does some processing and does some partial updates in some other part of the UI which in turn triggers another set of events, which trigger more processing and more UI updating etc.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/big-ball.png&quot; alt=&quot;big-ball&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/component-architecture/big-ball.png&quot; alt=&quot;big-ball&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can quickly see that this kind of approach becomes unwieldy quite fast, so we are going to do two things to mitigate this:&lt;/p&gt;
 
@@ -472,7 +472,7 @@ devServer: {
 
 &lt;p&gt;Because components naturally form a hierarchy, we can use that hierarchy to act like sort of a &lt;em&gt;chain of command&lt;/em&gt;. What we are trying to avoid here is components talking &lt;em&gt;directly to one another&lt;/em&gt;, because that would mean NxN complexity and partial page updates. What they should do instead is they should communicate through their superior — that would mean receiving commands (like display this data) and sending notifications up the hierarchy (action X has been performed by the user like submitting a form, for example).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/dilbert.jpg&quot; alt=&quot;dilbert&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/component-architecture/dilbert.jpg&quot; alt=&quot;dilbert&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So no component should tell other component (on the same hierarchical level) it’s a piece of garbage &lt;em&gt;directly&lt;/em&gt;. But it’s OK if a component “higher in command” does it.&lt;/p&gt;
 
@@ -480,11 +480,11 @@ devServer: {
 
 &lt;p&gt;We are going to build an application that allows a user to manage a list of todos. For the sake of simplicity, we are going to have a backend that globally manages a collection of tasks, so we don’t support multiple users. The application is meant to be run locally and we will demonstrate how to structure it with components. Here’s a sketch of what we want our application to look like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/sketch.png&quot; alt=&quot;sketch&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/component-architecture/sketch.png&quot; alt=&quot;sketch&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The dotted lines indicate how we want to split our application into smaller pieces—the components that are going to make up the application. This means we get this hierarchy:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/hierarchy.png&quot; alt=&quot;hierarchy&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/component-architecture/hierarchy.png&quot; alt=&quot;hierarchy&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 Codewise, this is what the top level component looks like:&lt;/p&gt;

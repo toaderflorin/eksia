@@ -5,7 +5,7 @@ date:   2018-09-15 06:39:37 +0300
 description: "
 If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain.
 "
-icon: "html2-icon.png"
+icon: "weird-html/html2-icon.png"
 categories:
 ---
 If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn't be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don't. Sometimes you specify a margin and it is respected. Sometimes it's not. Most developers would feel your pain, but here's the thing:
@@ -99,7 +99,7 @@ An element generates a block formatting context if it is:
 
 When dealing with blocks, it's important to know how they affect their children. One such effect is the margin collapsing. Another effect is that block size affects the size of its children. By default, a div will expand to fill its parent container vertically, but there's a gotcha:
 
-![image-title-here](/images/width-auto.png){:class="img-responsive"}
+![image-title-here](/images/weird-html/width-auto.png){:class="img-responsive"}
 
 This by default makes just the content to be 100%.
 
