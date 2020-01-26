@@ -5,12 +5,12 @@ date:   2018-07-28 09:39:37 +0300
 description: "
 There are quite a lot of developers that when it comes to web application security they rely on whatever framework they are using to take care of that for them, but don't really have an understanding of what's happening behind the scenes. Web application security is quite a complex topic, we will be covering: 1. Cross-site scripting, also called XSS scripting, 2. Session hijacking, 3. SQL Injection. Both cross-site scripting and SQL injection are cases of code injection...
 "
-icon: "lock.png"
+icon: "security/lock.png"
 categories:
 ---
 I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:
 
-![my-password](/images/my-password.jpg){:class="img-responsive"}
+![my-password](/images/security/my-password.jpg){:class="img-responsive"}
 
 This sort of thing happens more than you would imagine—what a lot of people don't know is that hackers rely a lot on *social engineering* to gain access to systems. [Kevin Mitnick](https://en.wikipedia.org/wiki/Kevin_Mitnick) was famous for calling in, pretending to be somebody he wasn't and asking for somebody's password in order to "perform some maintenance".
 
@@ -109,7 +109,7 @@ How about PUT and DELETE? Turns out that the *same-origin policy* helps us here,
 ## SQL Injection
 And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:
 
-![exploit](/images/exploit.png){:class="img-responsive"}
+![exploit](/images/security/exploit.png){:class="img-responsive"}
 
 For SQL injection to work, you'd have to be writing your SQL queries using string interpolation / concatenation.
 

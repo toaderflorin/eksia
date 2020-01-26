@@ -15,7 +15,7 @@ First of all, needing to scale out your database is a great problem to have beca
 
 SQL Server supports both out of the box provided you use a vertical scale out model, meaning you have some tables on one server and other tables on other servers. It does not support any of those for horizontal scale out or sharding. Another aspect worth mentioning is that when you are doing sharding, it means you have a bunch of servers which all have the same schema, but the tables on each server have only a subset of the data. While horizontal scale out provides a temporary solution, on the long term all rapidly growing applications will need to make use of horizontal scaleout.
 
-![image-title-here](/images/sharded-cluster.png){:class="img-responsive"}
+![image-title-here](/images/scaling-sql/shards.png){:class="img-responsive"}
 
 ## Strategies
 
@@ -38,7 +38,7 @@ We can immediately see that we have a small predicament: a comment is tied to bo
 
 So what happens if we want to create something like a "history" page, a central log of the user's actions which contains all the comments a user made? We could of course query all the shards and get that info but if you're a company like Facebook that's not really feasible. An alternative is to duplicate information in something like a History table, so every time a user posts a comment, we also add an entry there.
 
-![image-title-here](/images/scaling-sql/db-diagram.png){:class="img-responsive"}
+![image-title-here](/images/scaling-sql/diagram1.png){:class="img-responsive"}
 
 Almost always, using sharding means we need to denormalize our data structure so we would have some duplication. Another example of duplication is the fact that our "catalog" or reference tables need to be duplicated across all shards. Here's an example -- when the user creates an account he or she could select a home country and we would like to enforce referential integrity via an FK constraint to a table containing a list of countries. But because this field is mandatory, we would need to have the Countries table replicated across all shards. Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture. Of course non relational databases such as Mongo are much easier to shard, but it's also much harder to enforce structural integrity with them so quite often you end up with bad data.
 

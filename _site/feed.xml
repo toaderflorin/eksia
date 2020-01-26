@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T13:02:07+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-26T13:29:20+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
 </subtitle><entry><title type="html">Strategies For Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Strategies For Scaling Out Relational Databases" /><published>2020-01-12T08:39:37+02:00</published><updated>2020-01-12T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it’s definitely doing something right. At some point there’s really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you’ve moved various portions of your database to different machines, you get into several complications. To simplify things you can split them into two categories:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -8,7 +8,7 @@
 
 &lt;p&gt;SQL Server supports both out of the box provided you use a vertical scale out model, meaning you have some tables on one server and other tables on other servers. It does not support any of those for horizontal scale out or sharding. Another aspect worth mentioning is that when you are doing sharding, it means you have a bunch of servers which all have the same schema, but the tables on each server have only a subset of the data. While horizontal scale out provides a temporary solution, on the long term all rapidly growing applications will need to make use of horizontal scaleout.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/sharded-cluster.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/scaling-sql/shards.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;strategies&quot;&gt;Strategies&lt;/h2&gt;
 
@@ -37,7 +37,7 @@ Another approach is to map individual keys to nodes in the cluster.&lt;/p&gt;
 
 &lt;p&gt;So what happens if we want to create something like a “history” page, a central log of the user’s actions which contains all the comments a user made? We could of course query all the shards and get that info but if you’re a company like Facebook that’s not really feasible. An alternative is to duplicate information in something like a History table, so every time a user posts a comment, we also add an entry there.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/scaling-sql/db-diagram.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/scaling-sql/diagram1.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Almost always, using sharding means we need to denormalize our data structure so we would have some duplication. Another example of duplication is the fact that our “catalog” or reference tables need to be duplicated across all shards. Here’s an example – when the user creates an account he or she could select a home country and we would like to enforce referential integrity via an FK constraint to a table containing a list of countries. But because this field is mandatory, we would need to have the Countries table replicated across all shards. Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture. Of course non relational databases such as Mongo are much easier to shard, but it’s also much harder to enforce structural integrity with them so quite often you end up with bad data.&lt;/p&gt;
 
@@ -199,7 +199,7 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Yes, HTML behaves quite unexpectedly if you are coming from something like WPF. As long as you are aware of some of the gotchas of the spec and the differences between browser implementations, developing in it is actually quite pleasurable.&lt;/p&gt;</content><author><name></name></author><summary type="html">If you have worked with another layout engine other than HTML, you probably think that HTML is really hacky and unpredictable. And you wouldn’t be mistaken to think that: sometimes things expand to fill the available spaces, sometimes they don’t. Sometimes you specify a margin and it is respected. Sometimes it’s not. Most developers would feel your pain, but here’s the thing:</summary></entry><entry><title type="html">Understanding Web Application Security</title><link href="http://localhost:4000/web-security" rel="alternate" type="text/html" title="Understanding Web Application Security" /><published>2018-07-28T09:39:37+03:00</published><updated>2018-07-28T09:39:37+03:00</updated><id>http://localhost:4000/web-security</id><content type="html" xml:base="http://localhost:4000/web-security">&lt;p&gt;I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/security/my-password.jpg&quot; alt=&quot;my-password&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This sort of thing happens more than you would imagine—what a lot of people don’t know is that hackers rely a lot on &lt;em&gt;social engineering&lt;/em&gt; to gain access to systems. &lt;a href=&quot;https://en.wikipedia.org/wiki/Kevin_Mitnick&quot;&gt;Kevin Mitnick&lt;/a&gt; was famous for calling in, pretending to be somebody he wasn’t and asking for somebody’s password in order to “perform some maintenance”.&lt;/p&gt;
 
@@ -302,7 +302,7 @@ GET https://www.thesite.com/account?password=val HTTP/1.1
 &lt;h2 id=&quot;sql-injection&quot;&gt;SQL Injection&lt;/h2&gt;
 &lt;p&gt;And last (in our article), but certainly not least, we have SQL injection. I think most of us remember this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/security/exploit.png&quot; alt=&quot;exploit&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation / concatenation.&lt;/p&gt;
 
