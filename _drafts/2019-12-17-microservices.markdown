@@ -36,4 +36,3 @@ A good rule of thumb is to assign responsibility to a microservice. You can have
 
 Another advantage of microservices is you can scale out only portions of your application. Applications such as Facebook and Google run on a lot of nodes in the cloud, but not all nodes take up the same amount of resources. It's nice to be able to scale just where it's needed.  
 
-
