@@ -34,5 +34,4 @@ Distributed systems also introduce problems related to distributed transactions.
 
 A good rule of thumb is to assign responsibility to a microservice. You can have an authentication microservice, a logging one. If you accept payments and refunds from your customers, you can create a payments microservice. You get where I'm going with this. 
 
-Another advantage of microservices is you can scale out only portions of your application. Applications such as Facebook and Google run on a lot of nodes in the cloud, but not all nodes take up the same amount of resources. It's nice to be able to scale just where it's needed.  
-
+Another advantage of microservices is you can scale out only portions of your application. Applications such as Facebook and Google run on a lot of nodes in the cloud, but not all nodes take up the same amount of resources. It's nice to be able to scale just where it's needed.
