@@ -5,7 +5,7 @@ date:   2020-02-12 09:39:37 +0300
 description: "
 First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it's definitely doing something right. At some point there's really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you've moved various portions of your database to different machines, you get into several complications.
 "
-icon: "domain-icon.jpg"
+icon: "scaling-sql/shard-icon (1).jpg"
 categories:
 ---
 Let's just start off by saying that needing to scale out your database server is a great problem to have from a business point of view. And while getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
