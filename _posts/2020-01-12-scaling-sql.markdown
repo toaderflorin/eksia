@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Scaling Out Microsoft SQL Server"
-date:   2020-01-12 09:39:37 +0300
+date:   2020-02-12 09:39:37 +0300
 description: "
 First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it's definitely doing something right. At some point there's really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you've moved various portions of your database to different machines, you get into several complications.
 "
 icon: "domain-icon.jpg"
 categories:
 ---
-First of all let's just start off by saying that needing to scale out your database server is a great problem to have from a business point of view. And while getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
+Let's just start off by saying that needing to scale out your database server is a great problem to have from a business point of view. And while getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
 
 There are several ways to set up database scale out.
 
@@ -21,7 +21,7 @@ There are several ways to set up database scale out.
 Since it's easy to implement vertical scaleout, this approach will very likely the first attempt at improving performance to be implemented, but more often than not it's just a temporary solution because just like with scaling up there quickly comes a point of diminishing returns. It can however provide some temporary relief while implementing a sharding approach.
 
 ## Sharding Strategies
-Probably the most ubiquitous way to implement sharding is to use a tenant key and one of the simplest sharding strategies is to have one database per user. That's however not really tenable if you have hundreds of thousands of users because it would mean one VM per user. 
+Probably the most ubiquitous sharding strategy is to use a tenant key and one of the simplest sharding strategies is to have one database per user. That's however not really tenable if you have hundreds of thousands of users because it would mean one VM per user. 
 
 * **Range.** Sharding by range is probably the most simple way to implement horizontal partitioning and it means that each node in our cluster holds data associated with a certain range, for example data related to users . One drawback with that approach is that it really doesn't split data evenly.
  
@@ -55,7 +55,7 @@ Regardless of how you're structuring your data, there's probably no escaping mul
 
 While we can show a user's timeline by querying just one shard, we can't really do that for feeds, because individual users are most likely following a multitude of users residing on multiple shards. Social media sites implement a system called infinite scrolling where as the user scrolls the page down, more content is loaded with multiple shards are being hit.
 
-* For an application like Facebook, users mostly tend to follow users in their own country, so we can try combining users with the same country on the same node.
+* With applications like Facebook, users mostly tend to follow users in their own country, so we can try combining users with the same country on the same node.
   
 * An asynchronous job could update a feed table with post ids for each user. Obviously this is not instantaneous which is why if you're using Facebook you might have noticed that there's a delay between a using posting something and that post showing up on your feed. Also not all posts show up in your feed, only a small portion of them. This is both to make your feed more easily consumable and to save up resources.
   
