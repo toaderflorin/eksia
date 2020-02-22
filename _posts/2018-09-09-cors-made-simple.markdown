@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "CORS Made Simple"
-date:   2017-09-09 06:39:37 +0300
+date:   2018-09-09 06:39:37 +0300
 description: "
 CORS stands for Cross-Origin Resource Sharing and if you've built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as <i>same-origin policy</i>. What this policy refers to is that an application cannot access resources via XMLHttpRequest that come from a different URL than where the page was originally served from. This is a restriction implemented on the browser level—if you load a page that contains Javascript that is attempting to do an XHR request, you are are going to get an error...
 "
