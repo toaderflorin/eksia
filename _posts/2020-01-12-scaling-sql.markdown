@@ -1,22 +1,22 @@
 ---
 layout: post
-title:  "Scaling Out Microsoft SQL Server"
+title:  "Scaling Out Relational Databases"
 date:   2020-02-12 09:39:37 +0300
 description: "
-First of all, needing to scale out your database is a great problem to have because if your company have gotten to this point it's definitely doing something right. At some point there's really no way to scale up by increasing CPU power, memory and disk space you are forced to scale out meaning you need more machines to handle the database load. Of course, once you've moved various portions of your database to different machines, you get into several complications.
+Let's just start off by saying that needing to scale out your database server is a great problem to have from a business point of view because the load a single database server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
 "
 icon: "scaling-sql/shard-icon (1).jpg"
 categories:
 ---
-Let's just start off by saying that needing to scale out your database server is a great problem to have from a business point of view. And while getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
+Let's just start off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
 
-There are several ways to set up database scale out.
+There are several ways to set up database scale-out.
 
-* **Vertical**. One approach to achieve scale out is to have different tables from your schema reside on different machines. This is easy to implement in SQL Server because it is supported out of the box -- distributed transactions across servers and hence referential integrity are also supported. This also called *functional* partitioning because avoiding distributed joins is usually not recommended, so the split will be done according to how tables are related to one another.
+* **Vertical**. One approach to achieve scale-out is to have different tables from your schema reside on different machines. This is easy to implement in SQL Server because it is supported out of the box -- distributed transactions across servers and hence referential integrity are also supported. This also called *functional* partitioning because avoiding distributed joins is usually not recommended, so the split will be done according to how tables are related to one another.
 
 * **Horizontal**. Also called *sharding*. With horizontal scale out, all nodes in the cluster have the same schema, but the data is being partitioned across the different nodes -- this means a *partitioning strategy* must be chosen for splitting the data. More on this later.
 
-* **Mixed**. This strategy involves a combination of both previous approaches. In some cases our domain model is not easily shardable across a single dimension, and it becomes convenient to use both vertical and horizontal partitioning.
+* **Mixed**. This strategy involves a combination of both previous approaches. In some cases our domain model is not easily shardable across a single dimension and it becomes convenient to use both vertical and horizontal partitioning.
 
 Since it's easy to implement vertical scaleout, this approach will very likely the first attempt at improving performance to be implemented, but more often than not it's just a temporary solution because just like with scaling up there quickly comes a point of diminishing returns. It can however provide some temporary relief while implementing a sharding approach.
 
@@ -28,8 +28,6 @@ Probably the most ubiquitous sharding strategy is to use a tenant key and one of
 * **Consistent hashing.** An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartion is uniform, hence the name *consistent*. The problem with consistent caching is that while it does ensure you don't have hotspots -- the data might be spread evenly but *utilisation* (or reads) of that data isn't. Consistent hashing also makes the rebalancing shards quite difficult.
 
 * **Using a key map.** As the name suggests, this approach involves maintaining a list of keys-to-nodes mappings and it is usually requires a different machine / database. Before querying data on a specific machine in the cluster, we first need to query the map, so this can add additional overhead.
-
-![shards](/images/scaling-sql/cluster.png){:class="img-responsive"}
 
 We'll mostly be looking at this approach from now on.
 
