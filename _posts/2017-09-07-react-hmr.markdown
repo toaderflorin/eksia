@@ -5,7 +5,7 @@ date:   2017-09-07 06:39:37 +0300
 description: "
 Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that's the problem I am trying to solve with this article. We are going to use the application we built in the previous article and add HMR to it. First of all, in order to use Hot Module Reloading in Webpack, we must use the Webpack Dev Server which is essentially a Node / Express wrapper.  Second, the HMR module doesn't do a whole lot unless we are able to take advantage of it, and this is where the React HMR module comes to place...
 "
-icon: "webpack.png"
+icon: "hmr/webpack.png"
 categories:
 ---
 Here's what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that's what I am trying to change with this article.
@@ -16,12 +16,12 @@ We are going to use the application we built in the [previous article](http://ac
 Webpack at its core is just a module bundler. It essentially detects dependencies between the building blocks of your application (like code files, style files etc.) and creates a bundle out of everything.
 </blockquote>
 
-![image-title-here](/images/schematic.png){:class="img-responsive"}
+![image-title-here](/images/hmr/schematic.png){:class="img-responsive"}
 
 It doesn't actually do things like transpilation — if you have Coffee-script code, Typescript or ES6 code, you will have to use a loader. We will be using *babel-loader* to compile our ES6/jsx code and feed it into Webpack.
 
 <br />
-![image-title-here](/images/webpack-schematic.png){:class="img-responsive"}
+![image-title-here](/images/hmr/webpack-schematic.png){:class="img-responsive"}
 
 <br />
 

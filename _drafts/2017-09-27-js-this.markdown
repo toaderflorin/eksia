@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "The Pesky Javascript \"This\" Keyword"
+date:   2018-09-27 06:39:37 +0300
+description: "
+Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes). Here's the thing: <i>class</i> and <i>constructor</i> are just syntactic sugar because Javascript doesn't really have classes, it supports only prototypical inheritance. What it means is: 1. Each object is actually a property bag—it's nothing more than a dictionary where the keys are always strings. 2. Each object has a prototype property, which is a reference to the object it extends.
+"
+icon: "this.jpg"
+categories:
+---
+
+Probably all React developers will nod knowingly when they see this (but surprisingly, not all of them can articulate what is really happening behind the scenes):
+
+<script src="https://gist.github.com/toaderflorin/9ef524ab66712f8eacec0468bc3d649b.js"></script>
+
+Here's the thing: *class* and *constructor* are just syntactic sugar because Javascript doesn't really have classes, it supports only prototypical inheritance.
+
+What it means is:
+
+1. Each object is actually a property bag—it's nothing more than a dictionary where the keys are always strings.
+2. Each object has a "prototype" property, which is a reference to the object it inherits from.
+
+Here's another example:
+
+<script src="https://gist.github.com/toaderflorin/c263477af7cb431aba62f16ee4dcf31a.js"></script>
+
+In ES5 code, this is equivalent to:
+
+<script src="https://gist.github.com/toaderflorin/0647bc237c84cf23bc13992fe00f571e.js"></script>
+
+We've already seen two examples of using the *this* keyword in Javascript. Here's the key takeaway: *In JS, this is contextual. It's being set by the calling code*.
+
+When a function is called with the *new* keyword, it means it's meant to be used as a constructor, so *this* will be set to **{}** (just an empty Javascript object). It's the role of the constructor to fill this object with data. You can also notice that in the constructor we are setting the *showX* property to a function (that could also have been set on the prototype property of the constructor, but that's another discussion). In the example, calling *this.showX()* is successful, but not calling *showX()* (the global variable which we set to point to the function). That's another example in which *this* is being bound to an object instance by Javascript.
+
+In fact, you could write something like this in ES5:
+
+<script src="https://gist.github.com/toaderflorin/3b6517676b08010cb7fedeed6518bc47.js"></script>
+
+And yes, it would work because we called the function in the context of the *myObj* object.
+
+As you can see, *this* is contextual. By default, it point points to the global *window* object (if you are running Javascript in the browser, and not on the server). You could also write some HTML code that looks like this:
+
+<pre>
+&lt;button onclick="onClick()"&gt;Click me!&lt;/button&gt;
+</pre>
+
+In this particular case, *this* will be bound to the *Button* instance and you would be able to do DOM manipulation in the handler. As you can see in React, you are not always getting a reference to what you expect in *this*! Luckily we can fix this, because we can actually specify the value *this* gets.
+
+So in our example, we could do this:
+
+<script src="https://gist.github.com/toaderflorin/08870436c4aaa5f0fab9fb7e70ccb849.js"></script>
+
+The Javascript [*apply()*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply) method (which all objects of type *Function* have) allows us to specify the value of *this*, as well as values for any params the function might take. [*call()*](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call) is similar, but it takes an array of values for the params.
+
+That's helpful, but we might not always want to pass that *this* object as a parameter. Isn't there an easier way? It actually is, we can use bind():
+
+<script src="https://gist.github.com/toaderflorin/1be29639d35f2074cf1b4a93204e0818.js"></script>
+
+What we've done is create a **new** function instance that calls the old function for which *this* (inside the function) is bound to an object. Yes, we can do this because Javascript is a dynamic language, which means functions are first class citizens and also objects at the same time! It's important to keep this in mind: just because you declared a function inside a class in ES6, it doesn't mean it's bound to an object, which is why we use the bind trick in the constructor.
+
+One more thing. You might have seen something like this in old jQuery code:
+
+<script src="https://gist.github.com/toaderflorin/1359ef89241073a5036c498856748ab1.js"></script>
+
+If you don't want to use this trick, what you could do is:
+
+<script src="https://gist.github.com/toaderflorin/a31be96ecaf71dab18f3df0ebb61f513.js"></script>>
+
+We used a *lambda* or inline function. Keep in mind these have no effect on the *this* keyword but are an ES6 feature which might not be supported by older browsers. Oh, and ditch jQuery altogether, I was just using it as an example.
