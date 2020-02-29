@@ -44,7 +44,7 @@ So what happens if we want to create something like a *history* page, a central 
 
 Actually almost always sharding means we need to denormalize our data structure, so we unavoidably we'll have some data duplication. 
 
-Another example of duplication is the fact that catalog data (reference tables) need to be replicated across nodes. Here's an example -- when the users create an account they can select a residence country and we would like to enforce referential integrity in the data via an FK constraint to a table containing a list of countries.  Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture.
+Another example of duplication is catalog data (reference tables) which needs to be replicated across nodes. Here's an example -- when the users create an account they can select a residence country and we would like to enforce referential integrity in the data via an FK constraint to a table containing a list of countries.  Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture.
 
 ## Multi Shard Queries
 Regardless of how you're structuring your data, there's probably no escaping multi shard queries. To explain why, here's what a typical feed from [500px]() looks like:
