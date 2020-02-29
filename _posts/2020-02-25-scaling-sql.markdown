@@ -1,14 +1,14 @@
 ---
 layout: post
 title:  "Scaling Out Relational Databases"
-date:   2020-02-12 09:39:37 +0300
+date:   2020-02-25 09:39:37 +0300
 description: "
-Let's start off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
+Since a single database server can support a considerable load, it's worth starting off by saying that needing to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
 "
 icon: "scaling-sql/shard-icon (1).jpg"
 categories:
 ---
-Let's start off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
+Since a single database server can support a considerable load, it's worth starting off by saying that needing to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
 
 There are several ways to set up database scale-out.
 
@@ -44,14 +44,14 @@ So what happens if we want to create something like a *history* page, a central 
 
 Actually almost always sharding means we need to denormalize our data structure, so we unavoidably we'll have some data duplication. 
 
-Another example of duplication is the fact that catalog data (reference tables) need to be replicated across nodes. Here's an example -- when the users create an account they can select a residence country and we would like to enforce referential integrity in the data via an FK constraint to a table containing a list of countries.  Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture.
+Another example of duplication is catalog data (reference tables) which needs to be replicated across nodes. Here's an example -- when the users create an account they can select a residence country and we would like to enforce referential integrity in the data via an FK constraint to a table containing a list of countries.  Obviously updating the supported list of countries means we need to update all the shards, hence the added complexity of having a sharding architecture.
 
 ## Multi Shard Queries
-Regardless of how you're structuring your data, there's probably no escaping multi shard queries such as when you want to build a feed of the content your people you are following.  To explain why, here's what a typical feed from [500px]() looks like:
+Regardless of how you're structuring your data, there's probably no escaping multi shard queries. To explain why, here's what a typical feed from [500px]() looks like:
 
 ![diagram2](/images/scaling-sql/feed.jpg){:class="img-responsive"}
 
-While we can show a user's timeline by querying just one shard, we can't really do that for feeds, because individual users are most likely following a multitude of users residing on multiple shards. Social media sites implement a system called infinite scrolling where as the user scrolls the page down, more content is loaded with multiple shards are being hit.
+While we can show a user's timeline by querying just one shard, we can't really do that for feeds, because individual users are most likely following a multitude of users residing on multiple shards. Social media sites implement a system called infinite scrolling where as the user scrolls the page down, more content is loaded with multiple shards being hit.
 
 * With applications like Facebook, users mostly tend to follow users in their own country, so we can try combining users with the same country on the same node.
   
