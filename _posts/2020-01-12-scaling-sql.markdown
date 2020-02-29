@@ -3,12 +3,12 @@ layout: post
 title:  "Scaling Out Relational Databases"
 date:   2020-02-12 09:39:37 +0300
 description: "
-Let's start off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
+It's worth starting off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
 "
 icon: "scaling-sql/shard-icon (1).jpg"
 categories:
 ---
-Let's start off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
+It's worth starting off by saying that needing to scale out your database server is a great problem to have because the load a single server can support is quite considerable and exceeding it means your business is doing several things right. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out however, consider the fact that most databases are **read heavy** meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance -- if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there's a small performance hit related to replication).
 
 There are several ways to set up database scale-out.
 
