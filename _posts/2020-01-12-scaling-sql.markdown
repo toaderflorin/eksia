@@ -51,7 +51,7 @@ Regardless of how you're structuring your data, there's probably no escaping mul
 
 ![diagram2](/images/scaling-sql/feed.jpg){:class="img-responsive"}
 
-While we can show a user's timeline by querying just one shard, we can't really do that for feeds, because individual users are most likely following a multitude of users residing on multiple shards. Social media sites implement a system called infinite scrolling where as the user scrolls the page down, more content is loaded with multiple shards are being hit.
+While we can show a user's timeline by querying just one shard, we can't really do that for feeds, because individual users are most likely following a multitude of users residing on multiple shards. Social media sites implement a system called infinite scrolling where as the user scrolls the page down, more content is loaded with multiple shards being hit.
 
 * With applications like Facebook, users mostly tend to follow users in their own country, so we can try combining users with the same country on the same node.
   
