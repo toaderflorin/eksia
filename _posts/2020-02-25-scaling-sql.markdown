@@ -23,7 +23,7 @@ Since it's easy to implement vertical scaleout, this approach will very likely t
 ## Sharding Strategies
 Probably the most ubiquitous sharding strategy is to use a tenant key and one of the simplest sharding strategies is to have one database per user. That's however not really tenable if you have hundreds of thousands of users because it would mean one VM per user. 
 
-* **Range.** Sharding by range is probably the most simple way to implement horizontal partitioning and it means that each node in our cluster holds data associated with a certain range, for example data related to users . One drawback with that approach is that it really doesn't split data evenly.
+* **Range.** Sharding by range is probably the most simple way to implement horizontal partitioning and it means that each node in our cluster holds data associated with a certain range, for example data related to users. One drawback with that approach is that it doesn't split data evenly across nodes.
  
 * **Consistent hashing.** An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartion is uniform, hence the name *consistent*. The problem with consistent caching is that while it does ensure you don't have hotspots -- the data might be spread evenly but *utilisation* (or reads) of that data isn't. Consistent hashing also makes the rebalancing shards quite difficult.
 
