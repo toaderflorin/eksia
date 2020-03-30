@@ -1,0 +1,62 @@
+---
+layout: post
+title:  "Atomic React Native"
+date:   2020-02-25 09:39:37 +0300
+description: "
+Since a single database server can support a considerable load, it's worth starting off by saying that needing to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
+"
+icon: "scaling-sql/shard-icon (1).jpg"
+categories:
+---
+Since React Native doesn't support classes, one of the first things React developers coming to RN do is they try do use style cascading in a similar way they would in a web application, for example trying to set things like font sizes on the root component of the application. Since obviously that doesn't work,  you see a lot of component level styles, which look something like this:
+
+The recommended way of doing things is to define your own custom component that your application would use. We can define overrides for most things such as buttons, links and other controls which is the CSS equivalent of adding styles for the basic html inputs. 
+
+But there's a secondary and slightly unexpected benefit of using this approach -- by putting this structure in place, you can also have controls like Heading, SubHeading and SubText etc. so in effect we really are enforcing a design system.
+
+1. Typography (fonts and font sizes)
+2. Colors
+3. Spacing
+
+A collection of design systems:
+
+![diagram1](/images/atomic/ibm.png){:class="img-responsive"}
+
+Some of it can be in the form controls, some of it can be in the form of shared constants for values or styles.
+
+The term design system gets thrown around quite a bit, but the Wikipedia definition is:
+
+We are also looking at recurring visual themes for example information panels that are supposed to stand out, ways of styling input forms.
+
+## Atomicity In A Nutshell
+To break it down, it works like this:
+
+![diagram1](/images/atomic/atomic-design.jpg){:class="img-responsive"}
+
+* **Atoms** -- these will be your basic inputs, like buttons or text fields.
+* **Molecules** -- Molecules are made out of multiple atoms and an example would be a form field.
+* **Organisms** -- Organisms are made out of molecules, so an example would be the actual form.
+
+Now that we have defined the basic building blocks for our UI, let's use them to build real world applications our clients can use. Atomic design methodology 
+
+* **Templates** - mostly refers to layout templates, like for example a blog page might use a specific layout with content in the middle, comments at the bottom and tags and other links in a panel on the side.
+* **Pages** are actually implementations of the templates, so a page would be an actual blog post.
+
+Sure, a consistent UI based on patterns makes user interaction intuitive but one thing that is being brought up less often is that in conjunction with libraries such as React, it also helps with reusability and DRY in terms of interaction logic. 
+
+In 2016, Dan Abramov (the creator of Redux) wrote an article about the component / container pattern. While the separation between container components and presentational components is a good idea, a lot of developers are under the impression that every presentational component has to be paired with a container component and as such be tied to redux. The problem with this is it breaks atomicity in quite a big way. 
+
+## An Example
+Imagine you want to attach notes or uploads to various other business entities in your application. The notion of "attachment" is quite generic and it shouldn't be tied to whatever the attachment is being tied to. An anti-pattern that is quite prevalent is having the uploading UI be connected to Redux directly and calling a method that attaches the file or note to a specific entity. If we want to reuse that component for uploading attachments to other types of domain entities it won't work. What we want is to [lift state up](https://reactjs.org/docs/lifting-state-up.html).
+
+As a rule of thumb, it's probably OK to just connect the root component of each route to Redux and use prop drilling and callbacks for composition.
+
+Another hotly contested topic is what state should be in Redux and what state should be local to the component. While some development teams are religious about the entirety of application state residing in Redux, that's probably not necessary and it might even be problematic for several reasons:
+
+1. Changing Redux state involves writing a lot of code and is quite cumbersome. 
+2. In React Native, we are usually serializing state.
+3. Just like some class properties that should be private if made public break encapsulation, so can a lot of global state, especially if several components attempt to change that state simultaneously and asynchronously.
+
+INLINE CODE IS EXTREMELY EASY TO WRITE
+
+DEVELOPERS USUALY DON'T GO BACK
