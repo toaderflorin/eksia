@@ -88,6 +88,11 @@ blockquote {
 .social-media-list li + li {
   padding-top: 5px; }
 
+.code {
+  font-family: "Courier New";
+  font-size: 15px;
+  background-color: "#eee"; }
+
 .site-header {
   border-top: 2px solid #ee4477;
   min-height: 45px;

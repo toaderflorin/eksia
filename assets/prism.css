@@ -32,7 +32,7 @@ pre[class*="language-"] {
 
 /* Code blocks */
 pre[class*="language-"] {
-  padding: 0.7em 0.5em;
+  padding: 0.7em 0.0em;
 	margin: 0;
 	overflow: auto;
 }
@@ -140,9 +140,9 @@ pre[class*="language-"].line-numbers > code {
 	top: 0;
 	font-size: 100%;
 	left: -3.8em;
-	width: 2.5em; 
+	width: 2.1em; 
 	letter-spacing: -1px;
-	border-right: 1px solid #555;
+	border-right: 1px solid #444;
 
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -160,7 +160,7 @@ pre[class*="language-"].line-numbers > code {
   content: counter(linenumber);
   color: #888;
   display: block;
-  padding-right: 0.6em;
+  padding-right: 0.5em;
   text-align: right;
 }
 

@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T14:15:03+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Reactivity And Immutability</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;One aspect that confuses a lot of newcomers to Redux is that of immutability in conjunction with pure functions, especially if they don’t have a lot of experience with functional programming.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T19:49:46+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Reactivity And Immutability In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
 
-&lt;p&gt;The aim of this article is to explain these concepts, as well as why they are important for React. But before explaining them, let’s look at how&lt;/p&gt;
+&lt;p&gt;Since in most programming languages mutating an existing instance doesn’t notify other objects or the runtime of the change, a typical pattern is to use events or callbacks for this. As an example, Windows Presentation Foundation uses models that implement an interface called
+&lt;span class=&quot;code&quot;&gt;INotifyPropertyChanged&lt;/span&gt; for data-binding and wraps class fields in getters and setters, and it’s the setter’s responsibility to fire change events. .NET provides a convenient base class object that implements the interface, so a typical observable view model would look like this:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
@@ -22,59 +23,55 @@ public class ObservableViewModel: ObservableObject
 
 &lt;p&gt;The WPF rendering system receives these events and then uses .NET’s reflection system to read the properties that are named like that. So if you are passing a different string in the notify event, it won’t work.&lt;/p&gt;
 
-&lt;p&gt;VueJS does something similar but it’s less transparent. It looks at the model the component was initialized with and then wraps the existing fields in getters and setters that also notify it.&lt;/p&gt;
+&lt;p&gt;VueJS does something similar, but it’s a little bit less transparent; it looks at the model the component was initialized with and then wraps the existing fields in getters and setters that also notify it. These wrappers aren’t directly visible to the user, which is why it is crucial to understand what the library does under the hood — adding a property to the model that wasn’t present when the component was initialized means that property isn’t observable.&lt;/p&gt;
 
-&lt;p&gt;React takes its name after the term “reactivity”, meaning the application needs to react to changes in some underlying model, but the way it handles that is quite different from what you are used to, if you are coming from Angular, VueJS or something like WPF.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/reactivity/vue-reactivity.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The concept of “data binding” is quite ubiquitous in all these libraries and reactivity simply means that the UI reacts to changes in the underlying data model, but where they differ is the manner in which they achieve this. WPF and Vue.JS make use of the notion of “observability” and so they rely on code specifically mutating an instance of an object.&lt;/p&gt;
+&lt;p&gt;Mutations play a central role when it comes to observability in these libraries, but React works a little bit differently because it is much more functional in nature. Rendering here is done by calling the setState method on a component, or the component receives new props from a parent. Of course, changing the whole thing is simple because react does a diff. But by using a little functional trick called &lt;em&gt;immutability&lt;/em&gt; in our code, we avoid even this diffing process.&lt;/p&gt;
 
-&lt;p&gt;VueJS does the same thing, it wraps the fields set on initialization. This lets the UI know it needs to refresh.&lt;/p&gt;
-
-&lt;p&gt;React works a little bit differently. Rendering is done when we call setState or the component receives props from a parent component. We’ll look at setState for now, as since current state is usually passed as state to child components, that means that calling it will signal to React to refresh the whole UI subtree.&lt;/p&gt;
-
-&lt;p&gt;Of course, changing the whole thing is simple because react does a diff. But by using a little functional trick called “immutability” in our code, we avoid even this diffing process.&lt;/p&gt;
-
-&lt;p&gt;Let’s have a look at the following code:&lt;/p&gt;
+&lt;p&gt;Let us use the customary task manager example and look at the following code:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-const personA = {
-  firstName: 'John',
-  lastName: 'Doe'
+const taskA = {
+  id: '4b390f82-8b6f-4176-b28e-455ce9c24150',
+  text: 'Send email to John.',
+  completed: false
 }
 
-const personB = {
-  firstName: 'John',
-  lastName: 'Doe'
+const taskB = {
+  id: '32557639-ca7a-4188-868a-2b5938d2bd01'
+  text: 'Play foosball.',
+  completed: false
 }
 
-const personC = personA
+const taskC = taskA
 
-console.log(personA === personB) // false
-console.log(personA === personC) // true
+console.log('This should be false.', taskA === taskB)
+console.log('This should be true.', taskA === taskC)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;This of course is nothing new because JavaScript doesn’t check the values of the fields, it checks the instances and in the case of person A and B we have two different instances of an object with fields of equal value.&lt;/p&gt;
 
-&lt;p&gt;Let’s say we now have a method that is called removeLastName(). In the case of mutable languages we could do something like:&lt;/p&gt;
+&lt;p&gt;Let’s say we now have a method that is called &lt;code&gt;removeLastName()&lt;/code&gt;. In the case of mutable languages we could write something like this:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-function removeLastName(person) {
-  person.lastName = null
+function completeTask(task) {
+  task.completed = true
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;But functional languages prohibit mutations. So we would have something like:&lt;/p&gt;
+&lt;p&gt;But functional languages prohibit mutations, and even if JavaSript allows them, if we want to abide by functional principles, we can write it like this instead:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-function removeLastName(person) {
+function completeTask(task) {
   return {
-    firstName: person.firstName,
-    lastName: person.lastName
+    text: task.text,
+    completed: true
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
@@ -84,33 +81,35 @@ function removeLastName(person) {
 
 &lt;p&gt;Because of how change notification works in React, immutability is also encouraged because it allows easy diffing of object trees because the comparison algorythm doesn’t have to go drill down recursively, it can simply stop when two fields name the same differ in instance.&lt;/p&gt;
 
-&lt;p&gt;Here’s a typical issue I see.&lt;/p&gt;
+&lt;p&gt;Quite often, beginner React developers write code like this:&lt;/p&gt;
+
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-updatePersonList = (id, firstName, lastName) =&amp;gt; {
-  const persons = this.state.persons
-  const existingPerson = persons.find(person =&amp;gt; person.id === id)
+updateTask = (id, newText, completed) =&amp;gt; {
+  const tasks = this.state.tasks
+  const existingTask = tasks.find(task =&amp;gt; task.id === id)
   
-  if (existingPerson) {
-    existingPerson.firstName = firstName
-    existingPerson.lastName = lastName
+  if (task) {
+    existingTask.text = newText
+    existingTask.completed = lastName
+
     this.setState({
-      persons
+      tasks
     })
   }
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;What we can do is use lodash shallow clone instead.&lt;/p&gt;
+&lt;p&gt;We can do something else insted.&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-updatePersonList = (id, firstName, lastName) =&amp;gt; {
-  const existingPerson = this.state.persons.find(person =&amp;gt; person.id === id)
+updateTask = (id, text, completed) =&amp;gt; {
+  const existingTask = this.state.tasks.find(person =&amp;gt; person.id === id)
 
-  if (existingPerson) {
-    const existingPersonIndex = persons.indexOf(existingPerson)
+  if (existingTask) {
+    const existingTaskIndex = persons.indexOf(existingPerson)
     persons[] = firstName
     existingPerson.lastName = lastName
     
@@ -122,29 +121,48 @@ updatePersonList = (id, firstName, lastName) =&amp;gt; {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;This ensures updating works. Also while this wasn’t the primary motivation for Redux, it also encourages this pattern. The three tenets of Redux are:&lt;/p&gt;
+&lt;p&gt;This ensures updating works.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Single source of truth&lt;/li&gt;
-  &lt;li&gt;State is read-only&lt;/li&gt;
-  &lt;li&gt;Changes are made with pure functions&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Redux is in a some ways similar to the concept of pushing state up, but instead of pushing it up to a higher component we push it to a single shared store.&lt;/p&gt;
-
-&lt;p&gt;Typically a reducer would work like this:&lt;/p&gt;
+&lt;p&gt;Redux is in a some ways similar to the concept of &lt;a href=&quot;https://reactjs.org/docs/lifting-state-up.html&quot;&gt;lifting state up&lt;/a&gt;, but instead of lifting it up to a parent component, we push it to a single shared store. Our fully-fledged todos reducer would look like this:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-case MY_ACTION: {
-  return { ...state, persons }
+const ADD_TODO = 'ADD_TODO'
+const TOGGLE_TODO = 'TOGGLE_TODO'
+const CLEAR_TODOS = 'CLEAR_TODOS'
+
+const todosReducer = (state = [], action) =&amp;gt; {
+    case ADD_TODO: {
+      return [
+        ...state,
+        {
+          text: action.text,
+          completed: false
+        }
+      ]
+    }
+    
+    case TOGGLE_TODO: {
+      return state.map(todo =&amp;gt; 
+        todo.id ===  action.id 
+          ? { ...todo, { completed: !todo.completed} } 
+          : todo      
+      })
+    }
+
+    case CLEAR_TODOS: {
+      return []
+    }
+    
+    default: {
+      return state
+    }
+  }
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Instead of calling setState, we dispatch an action which is received by a “reducer” which returns a new value for the application state based on the existing state and the action. Just like setState, a reducer typically leaves the existing fields untouched and just overrides what we want to change but the result is a new instance. In case we don’t want to change anything, we should return state instead of { …state }.&lt;/p&gt;
-
-&lt;p&gt;Instance comparison still works!&lt;/p&gt;</content><author><name></name></author><summary type="html">One aspect that confuses a lot of newcomers to Redux is that of immutability in conjunction with pure functions, especially if they don’t have a lot of experience with functional programming.</summary></entry><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
+&lt;p&gt;Instead of calling &lt;span class=&quot;code&quot;&gt;setState()&lt;/span&gt;, we dispatch an action which is received by a reducer which returns a new value for the application state based on the existing state and the action. Just like setState, a reducer typically leaves the existing fields untouched and just overrides what we want to change but the result is a new instance. In case we don’t want to change anything, we should return state instead of &lt;code class=&quot;code&quot;&gt;{ ...state }&lt;/code&gt;. Instance comparison still works.&lt;/p&gt;</content><author><name></name></author><summary type="html">Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.</summary></entry><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
 
 &lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out, however, consider the fact that most databases are &lt;strong&gt;read-heavy&lt;/strong&gt; meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance – if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there’s a small performance hit related to replication).&lt;/p&gt;
 
@@ -591,63 +609,7 @@ npm install cors --save
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/de8610422124cce393883120e77e150b.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;Configuring Rails to use CORS is equally easy.&lt;/p&gt;</content><author><name></name></author><summary type="html">CORS stands for Cross-Origin Resource Sharing and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as same-origin policy. What this policy refers to is that an application cannot access resources via XMLHttpRequest or the Fetch API that come from a different URL than where the page was originally served from.</summary></entry><entry><title type="html">Hot Module Reloading With Wepack, React And Babel</title><link href="http://localhost:4000/react-hmr" rel="alternate" type="text/html" title="Hot Module Reloading With Wepack, React And Babel" /><published>2017-09-07T06:39:37+03:00</published><updated>2017-09-07T06:39:37+03:00</updated><id>http://localhost:4000/react-hmr</id><content type="html" xml:base="http://localhost:4000/react-hmr">&lt;p&gt;Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.&lt;/p&gt;
-
-&lt;p&gt;We are going to use the application we built in the &lt;a href=&quot;http://achiral.io/ruby-object-model&quot;&gt;previous article&lt;/a&gt; and add HMR to it. First of all, to use Hot Module Reloading in Webpack we must use the Webpack Dev Server which is essentially a Node / Express wrapper. Second, the HMR module doesn’t do a whole lot unless we can take advantage of it, and this is where the React HMR module comes in. Third, because we want to use ES6, we’ll be using the &lt;em&gt;babel-es2015-preset&lt;/em&gt; and we will be configuring a &lt;a href=&quot;https://webpack.js.org/concepts/#loaders&quot;&gt;loader&lt;/a&gt; for Webpack. Also we are going to use Babel to transpile the .jsx syntax.&lt;/p&gt;
-
-&lt;blockquote&gt;
-Webpack at its core is just a module bundler. It essentially detects dependencies between the building blocks of your application (like code files, style files etc.) and creates a bundle out of everything.
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/hmr/schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It doesn’t do things like transpilation — if you have Coffee-script code, Typescript or ES6 code, you will have to use a loader. We will be using &lt;em&gt;babel-loader&lt;/em&gt; to compile our ES6/jsx code and feed it into Webpack.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/images/hmr/webpack-schematic.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;On the other side of the chain there are &lt;a href=&quot;https://webpack.js.org/concepts/#plugins&quot;&gt;plugins&lt;/a&gt; like uglifyJS (which we’re not using in the code sample, but I’ve added it in the drawing as an example of a plugin), which is a Javascript minifier. Another plugin example is &lt;em&gt;webpack-dev-server&lt;/em&gt; which we will be using to implement hot reloading.&lt;/p&gt;
-
-&lt;h2 id=&quot;lets-jump-right-in&quot;&gt;Let’s Jump Right In&lt;/h2&gt;
-&lt;p&gt;The dependencies section of the &lt;em&gt;package.json&lt;/em&gt; file look like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/a7470f4ca4cadea9e8bc86573ecc4215.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Our &lt;em&gt;.babelrc&lt;/em&gt; file looks like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/f2264a5abc5f1ee8904ff6b93aa18feb.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;And finally, let’s have a look at the Webpack configuration page.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/cff7cfbc3619a8115c880a22c8530697.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h2 id=&quot;adding-hot-reloading&quot;&gt;Adding Hot Reloading&lt;/h2&gt;
-&lt;p&gt;Webpack Hot Module Replacement works by adding a small runtime to the generated bundle (which is going to run alongside your app) that constantly communicates with the server and if part of the dependency tree changes, it will inject the new dependencies. However, for this process to take place, we need to set up the Webpack Development Server, which means we need to add the following lines of code in the &lt;em&gt;webpack.config.js&lt;/em&gt; file in the configuration object.&lt;/p&gt;
-
-&lt;pre&gt;
-plugins: [
-  new webpack.HotModuleReplacementPlugin()
-],
-devServer: {  
-  proxy: {
-    '*': 'http://localhost:3000'
-  },
-  hot: true,
-  contentBase: './src/static',
-  port: 9000   
-}
-&lt;/pre&gt;
-
-&lt;p&gt;Second, we need to React to &lt;strong&gt;do something&lt;/strong&gt; when the bundle changes, which is where the &lt;em&gt;react-hot-loader&lt;/em&gt; package comes into play. A module can only be updated if you “accept” it. So you need to &lt;em&gt;module.hot.accept()&lt;/em&gt; the module in the parents or the parents of the parents.&lt;/p&gt;
-
-&lt;p&gt;Have a look at the following code:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/d4d9e62d2b36d768bbefc78c7c084817.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;You can find the source code &lt;a href=&quot;https://github.com/toaderflorin/react-hmr&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Here’s what most people that worked with Webpack would agree: setting it up is not exactly a walk in the park, especially if you are trying to do multiple things at once like transpiling from ES6, using hot reloading and proxying your backend. But that’s what I am trying to change with this article.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/isolation-levels" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-07-02T06:39:37+03:00</published><updated>2017-07-02T06:39:37+03:00</updated><id>http://localhost:4000/isolation-levels</id><content type="html" xml:base="http://localhost:4000/isolation-levels">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
+&lt;p&gt;Configuring Rails to use CORS is equally easy.&lt;/p&gt;</content><author><name></name></author><summary type="html">CORS stands for Cross-Origin Resource Sharing and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as same-origin policy. What this policy refers to is that an application cannot access resources via XMLHttpRequest or the Fetch API that come from a different URL than where the page was originally served from.</summary></entry><entry><title type="html">Relational Database Isolation Levels Explained</title><link href="http://localhost:4000/isolation-levels" rel="alternate" type="text/html" title="Relational Database Isolation Levels Explained" /><published>2017-07-02T06:39:37+03:00</published><updated>2017-07-02T06:39:37+03:00</updated><id>http://localhost:4000/isolation-levels</id><content type="html" xml:base="http://localhost:4000/isolation-levels">&lt;p&gt;This seems to be a murky concept for a lot of developers, so I thought I
 would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/isolation-levels/levels.png&quot; alt=&quot;levels&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
@@ -687,46 +649,4 @@ would give a simple explanation. The concept of isolation is related to what hap
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/181e34df07fcb647671e9512c3e276bf.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;This introduces even more contention.&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry><entry><title type="html">Under The Hood: V8 Internals</title><link href="http://localhost:4000/v8-internals" rel="alternate" type="text/html" title="Under The Hood: V8 Internals" /><published>2017-06-16T06:39:37+03:00</published><updated>2017-06-16T06:39:37+03:00</updated><id>http://localhost:4000/v8-internals</id><content type="html" xml:base="http://localhost:4000/v8-internals">&lt;p&gt;&lt;img src=&quot;/images/chrome.png&quot; alt=&quot;chrome&quot; class=&quot;img-responsive img-left&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Dynamic languages get a lot of love in the startup community, and it’s not hard to see why—they are mostly open source, they are cross platform, and it’s very easy get an application up and running because their syntax tends to be very terse, and you can write a lot of functionality with very little code. But as a wise man used to say, with great power comes great responsibility, and as great as Ruby on Rails is, it’s no secret that Ruby is not exactly fast—depending on the benchmark you’re using, it’s about two orders of magnitude (that’s 100 times) slower than something like Java. Of course as a whole, RoR applications are not that slow because a lot of execution time is spent in native extensions such as querying the database—Ruby and Rails only serve the purpose of gluing stuff together. Nevertheless, more and more companies are moving from Rails to node.js or Go, and they are doing it for performance reasons / scalability. Another reason to use node.js is the fact that you can share code between the server-side and the client-side, but I digress.&lt;/p&gt;
-
-&lt;p&gt;For those who have not used node.js, it uses Google’s V8 JavaScript engine which powers Chrome, and it’s fast. And the reason why it’s fast is because it actually compiles you JS code instead of interpreting it. The whole process works as follows:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;V8 evaluates the JavaScript in your file and does just-in-time compilation to machine code using a compiler that’s designed to compile as fast as possible, and then stores the compiled code for that portion of the program.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;V8 also maintains a hot-map of the code that runs. If it sees functions being run several times, it will use a second compiler which optimizes your code, but it’s slower.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The engine also relies heavily on making assumptions about your code, and optimizing preemptively.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;What’s interesting is that V8 doesn’t treat objects as hash-tables, as most JS engines do—it instead creates a sort of struct with the properties of the object, which it calls a hidden class. You can think of this hidden class as similar to Ruby’s eigenclasses.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/6dafc797abe6a17bb7d63d8d94e22fb5.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;If you add a new property to obj1, V8 is no longer able map the properties of the object to the same hidden class, so it will create a new one. V8 also tries to preemptively optimize your code and it does so by looking for repetitions.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;JavaScript is a dynamic language but the more you are using it as a statically typed language, the better of you are when it comes to optimizations.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;If you are using ES6 (and I recommend that you do because there are great transpilation / bundling tools such as Babel and Webpack, not to mention the current version of node.js 7.10 has native support for classes, lambdas, await/async and a lot of other nifty stuff)— I suggest you use classes to structure your project, and use getters and setters.&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/eb5fb6e45dd943a3f6ad87da7f1fe827.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Of course, there’s nothing preventing you from modifying the “private” fields in JavaScript (except maybe a code review from your technical lead), and also there is nothing preventing you from adding new properties to the object (except using Object.freeze() but this has a performance penalty). Not only will this give you better encapsulation, but it will speed up your code because V8 is able to optimize it better. Of course, if you really want to have private members and proper static (compile time) type checking, you can use Facebook’s Flow, or Microsoft’s TypeScript.&lt;/p&gt;
-
-&lt;p&gt;Also, a lot of developers tend to use plain JS objects as dictionaries because objects are key-value pairs. However, knowing how the V8 compiler optimizer works, that’s not a very good idea. Computed property names are also problematic for the optimizer, and they make code also hard to understand, so they should be avoided. The Map object is great, if you need to use key-value pairs.&lt;/p&gt;
-
-&lt;p&gt;Another word of caution: be extra careful with arrays. Check out the following code:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/toaderflorin/2b22591a73bd61ad4b07dec88fdae5b7.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;As long as an array doesn’t have holes in it, it’s going to be treated as a contiguous memory area, which makes the code using it fast. However, if you get fancy like in the example above, you are going to have a sparse array, and V8 will convert it to a hash-table, which will make writing and reading slower.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;tldr;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The closer your JavaScript program is to static typed code, the better V8 is going to be able to optimize your code using static analysis. You can use TypeScript / Facebook Flow to enforce this.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
+&lt;p&gt;This introduces even more contention.&lt;/p&gt;</content><author><name></name></author><summary type="html">This seems to be a murky concept for a lot of developers, so I thought I would give a simple explanation. The concept of isolation is related to what happens when two or more transactions attempt to access (read and write) the same data at the same time.</summary></entry></feed>
