@@ -55,26 +55,6 @@ blockquote {
   blockquote > :last-child {
     margin-bottom: 0; }
 
-pre, code {
-  font-size: 14.0625px;
-  border: 1px solid #f2f2f2;
-  border-left: 2px solid #ee4477;
-  border-radius: 0px;
-  font-family: 'Courier New';
-  background-color: #fcfcfc; }
-
-code {
-  padding: 3px 15px; }
-
-pre {
-  padding: 8px 12px;
-  overflow-x: auto;
-  overflow-y: hidden; }
-  pre > code {
-    border: 0;
-    padding-right: 0;
-    padding-left: 0; }
-
 .wrapper {
   max-width: -webkit-calc(900px - (30px * 2));
   max-width: calc(900px - (30px * 2));
@@ -88,6 +68,9 @@ pre {
       max-width: calc(900px - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
+
+.margin-bottom {
+  margin-bottom: 15px; }
 
 .wrapper:after, .footer-col-wrapper:after {
   content: "";

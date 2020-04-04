@@ -27,7 +27,7 @@ Probably the most ubiquitous sharding strategy is to use a tenant key and one of
 
 * **Range.** Sharding by range is probably the most simple way to implement horizontal partitioning and it means that each node in our cluster holds data associated with a certain range, for example data related to users. One drawback of that approach is that it doesn't split data evenly.
  
-* **Consistent hashing.** An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartition is uniform, hence the name *consistent*. The problem with consistent caching is that while it does ensure you don't have hotspots -- the data might be spread evenly but * utilization* (or reads) of that data isn't. Consistent hashing also makes the rebalancing shards quite difficult.
+* **Consistent hashing.** An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartition is uniform, hence the name *consistent*. The problem with consistent caching is that while it does ensure you don't have hotspots -- the data might be spread evenly but *utilization* (or reads) of that data isn't. Consistent hashing also makes the rebalancing of shards quite difficult.
 
 * **Using a keymap.** As the name suggests, this approach involves maintaining a list of keys-to-nodes mappings and it usually requires a different machine/database. Before querying data on a specific machine in the cluster, we first need to query the map, so this can add additional overhead.
 

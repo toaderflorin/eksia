@@ -8,7 +8,7 @@ Since a single database server can support a considerable load, it's worth start
 icon: "scaling-sql/shard-icon (1).jpg"
 categories:
 ---
-Since React Native doesn't support classes, one of the first things React developers coming to RN do is they try to use style cascading in a similar way they would in a web application, for example trying to set things like font sizes on the root component of the application. Since obviously, that doesn't work,  you see a lot of component level styles, which look something like this:
+Since React Native doesn't support classes, one of the first things React developers moving to mobile do is they try to use style cascading in a similar way they would in a web application, for example trying to set things like font sizes on the root component of the application. Since obviously, that doesn't work,  you see a lot of component level styles, which look something like this:
 
 The recommended way of doing things is to define your custom component that your application would use. We can define overrides for most things such as buttons, links and other controls which is the CSS equivalent of adding styles for the basic HTML inputs. 
 

@@ -31,7 +31,12 @@ Keep in mind that by default the *width* and *height* CSS properties refer to th
 
 Here's what you need to do:
 
-<script src="https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js"></script>
+<pre class="margin-bottom"><code class="language-css">.box-sized-element {
+  box-sizing: border-box;    
+}
+</code></pre>
+
+<!-- <script src="https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js"></script> -->
 
 The default value is *content-box*.
 
@@ -54,8 +59,36 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor la
 </div>
 <br/>
 
-The CSS for these elements actually looks like this:
-<script src="https://gist.github.com/toaderflorin/81854817ad5a2c3262633cc8b5e06717.js"></script>
+The CSS for these elements looks like this:
+<pre class="margin-bottom"><code class="language-css line-numbers">.cyan {
+  width: 64px; 
+  height: 64px; 
+  background-color: cyan; 
+  float: left;
+}
+
+.red {
+  width: 64px; 
+  height: 64px; 
+  background-color: red; 
+  float: left;
+}
+
+.magenta {
+  width: 64px; 
+  height: 64px; 
+  background-color: magenta; 
+  float: right;
+}
+
+.yellow {
+  width: 64px; 
+  height: 64px; 
+  background-color: yeallow; 
+  float: left;
+  clear: left;
+}
+</code></pre>
 
 Floats are a standard way of incorporating an image (or some sort of container block) into a paragraph of text. Not only can you have multiple images, but you can actually use both *float* and *clear* at the same time.
 
@@ -77,11 +110,22 @@ This might not actually be the desired outcome, but it turns out there is a work
 <br/>
 What I did was add an empty div at the end of the parent container, like so:
 
-<script src="https://gist.github.com/toaderflorin/08ba23d70fdf75540776c69b3bc40ced.js"></script>
+<pre><code class="language-html">&#x3C;div class=&#x22;container&#x22;&#x3E;
+  ...
+  &#x3C;div style=&#x22;clear: both;&#x22;&#x3E;&#x3C;/div&#x3E;
+&#x3C;/div&#x3E;
+</code></pre>
 
 That's a bit annoying so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a **clearfix**.
 
-<script src="https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js"></script>
+<pre class="margin-bottom"><code class="language-css">.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</code></pre>
+
+<!-- <script src="https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js"></script> -->
 
 Then, all you need to do is simply add that class to all the elements that you want clearfixed.
 
@@ -106,11 +150,21 @@ This by default makes just the content to be 100%.
 ## Vertical Centering
 Something as simple as centering something in the middle of a container was problematic before the addition of flexbox. It still is for older browsers that don't fully support the *display: flex* CSS specification. Before we get into the quirky cases, let's see how we solve vertical centering with flexbox:
 
-<script src="https://gist.github.com/toaderflorin/0ed3a4426693a015ce6327bd30102502.js"></script>
+<pre class="margin-bottom"><code class="language-css">.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</code></pre>
 
 If you know the height of the panel you want to center you can do something like:
 
-<script src="https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js"></script>
+<pre class="margin-bottom"><code class="language-css">.centered-fixed {
+  margin-top: calc(100% - 100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+</code></pre>
 
 If your browser doesn't support *calc*, there are other ways to do it such as using line-height (which works only for text) or using *display: table-cell*.
 

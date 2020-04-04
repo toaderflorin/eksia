@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T14:14:14+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T14:15:03+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
 </subtitle><entry><title type="html">Reactivity And Immutability</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;One aspect that confuses a lot of newcomers to Redux is that of immutability in conjunction with pure functions, especially if they don’t have a lot of experience with functional programming.&lt;/p&gt;
 
 &lt;p&gt;The aim of this article is to explain these concepts, as well as why they are important for React. But before explaining them, let’s look at how&lt;/p&gt;
@@ -172,7 +172,7 @@ case MY_ACTION: {
     &lt;p&gt;&lt;strong&gt;Range.&lt;/strong&gt; Sharding by range is probably the most simple way to implement horizontal partitioning and it means that each node in our cluster holds data associated with a certain range, for example data related to users. One drawback of that approach is that it doesn’t split data evenly.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Consistent hashing.&lt;/strong&gt; An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartition is uniform, hence the name &lt;em&gt;consistent&lt;/em&gt;. The problem with consistent caching is that while it does ensure you don’t have hotspots – the data might be spread evenly but * utilization* (or reads) of that data isn’t. Consistent hashing also makes the rebalancing shards quite difficult.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Consistent hashing.&lt;/strong&gt; An approach that was developed to solve the problems associated with sharding by range is to use some form of hash as the key and there are several approaches to ensuring this repartition is uniform, hence the name &lt;em&gt;consistent&lt;/em&gt;. The problem with consistent caching is that while it does ensure you don’t have hotspots – the data might be spread evenly but &lt;em&gt;utilization&lt;/em&gt; (or reads) of that data isn’t. Consistent hashing also makes the rebalancing of shards quite difficult.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Using a keymap.&lt;/strong&gt; As the name suggests, this approach involves maintaining a list of keys-to-nodes mappings and it usually requires a different machine/database. Before querying data on a specific machine in the cluster, we first need to query the map, so this can add additional overhead.&lt;/p&gt;
@@ -249,7 +249,12 @@ case MY_ACTION: {
 
 &lt;p&gt;Here’s what you need to do:&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js&quot;&gt;&lt;/script&gt;
+&lt;pre class=&quot;margin-bottom&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;.box-sized-element {
+  box-sizing: border-box;    
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- &lt;script src=&quot;https://gist.github.com/toaderflorin/12fcda543d0c76cd57df3890917cfdd8.js&quot;&gt;&lt;/script&gt; --&gt;
 
 &lt;p&gt;The default value is &lt;em&gt;content-box&lt;/em&gt;.&lt;/p&gt;
 
@@ -272,8 +277,36 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor la
 &lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;The CSS for these elements actually looks like this:
-&lt;script src=&quot;https://gist.github.com/toaderflorin/81854817ad5a2c3262633cc8b5e06717.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;The CSS for these elements looks like this:&lt;/p&gt;
+&lt;pre class=&quot;margin-bottom&quot;&gt;&lt;code class=&quot;language-css line-numbers&quot;&gt;.cyan {
+  width: 64px; 
+  height: 64px; 
+  background-color: cyan; 
+  float: left;
+}
+
+.red {
+  width: 64px; 
+  height: 64px; 
+  background-color: red; 
+  float: left;
+}
+
+.magenta {
+  width: 64px; 
+  height: 64px; 
+  background-color: magenta; 
+  float: right;
+}
+
+.yellow {
+  width: 64px; 
+  height: 64px; 
+  background-color: yeallow; 
+  float: left;
+  clear: left;
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Floats are a standard way of incorporating an image (or some sort of container block) into a paragraph of text. Not only can you have multiple images, but you can actually use both &lt;em&gt;float&lt;/em&gt; and &lt;em&gt;clear&lt;/em&gt; at the same time.&lt;/p&gt;
 
@@ -295,11 +328,22 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies, dolor la
 &lt;p&gt;&lt;br /&gt;
 What I did was add an empty div at the end of the parent container, like so:&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/08ba23d70fdf75540776c69b3bc40ced.js&quot;&gt;&lt;/script&gt;
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;#x3C;div class=&amp;#x22;container&amp;#x22;&amp;#x3E;
+  ...
+  &amp;#x3C;div style=&amp;#x22;clear: both;&amp;#x22;&amp;#x3E;&amp;#x3C;/div&amp;#x3E;
+&amp;#x3C;/div&amp;#x3E;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;That’s a bit annoying so what you could do is create a CSS class that always appends an html element that does the clearing (like we previously did). This trick is called a &lt;strong&gt;clearfix&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js&quot;&gt;&lt;/script&gt;
+&lt;pre class=&quot;margin-bottom&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;.clearfix:after {
+  content: &quot;&quot;;
+  display: table;
+  clear: both;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- &lt;script src=&quot;https://gist.github.com/toaderflorin/3605269010a8e7d506cf932afd496917.js&quot;&gt;&lt;/script&gt; --&gt;
 
 &lt;p&gt;Then, all you need to do is simply add that class to all the elements that you want clearfixed.&lt;/p&gt;
 
@@ -326,11 +370,21 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 &lt;h2 id=&quot;vertical-centering&quot;&gt;Vertical Centering&lt;/h2&gt;
 &lt;p&gt;Something as simple as centering something in the middle of a container was problematic before the addition of flexbox. It still is for older browsers that don’t fully support the &lt;em&gt;display: flex&lt;/em&gt; CSS specification. Before we get into the quirky cases, let’s see how we solve vertical centering with flexbox:&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/0ed3a4426693a015ce6327bd30102502.js&quot;&gt;&lt;/script&gt;
+&lt;pre class=&quot;margin-bottom&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;If you know the height of the panel you want to center you can do something like:&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/49ae5ad134c24a4801965bd9516941c0.js&quot;&gt;&lt;/script&gt;
+&lt;pre class=&quot;margin-bottom&quot;&gt;&lt;code class=&quot;language-css&quot;&gt;.centered-fixed {
+  margin-top: calc(100% - 100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;If your browser doesn’t support &lt;em&gt;calc&lt;/em&gt;, there are other ways to do it such as using line-height (which works only for text) or using &lt;em&gt;display: table-cell&lt;/em&gt;.&lt;/p&gt;
 
