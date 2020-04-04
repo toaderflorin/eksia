@@ -1,5 +1,150 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-30T21:25:08+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T14:14:14+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Reactivity And Immutability</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;One aspect that confuses a lot of newcomers to Redux is that of immutability in conjunction with pure functions, especially if they don’t have a lot of experience with functional programming.&lt;/p&gt;
+
+&lt;p&gt;The aim of this article is to explain these concepts, as well as why they are important for React. But before explaining them, let’s look at how&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+public class ObservableViewModel: ObservableObject 
+{
+  get Field1 
+  {
+    _field1 = value;
+    NotifyPropertChanged('field1');
+  }
+  set
+  {
+    return _field1;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The WPF rendering system receives these events and then uses .NET’s reflection system to read the properties that are named like that. So if you are passing a different string in the notify event, it won’t work.&lt;/p&gt;
+
+&lt;p&gt;VueJS does something similar but it’s less transparent. It looks at the model the component was initialized with and then wraps the existing fields in getters and setters that also notify it.&lt;/p&gt;
+
+&lt;p&gt;React takes its name after the term “reactivity”, meaning the application needs to react to changes in some underlying model, but the way it handles that is quite different from what you are used to, if you are coming from Angular, VueJS or something like WPF.&lt;/p&gt;
+
+&lt;p&gt;The concept of “data binding” is quite ubiquitous in all these libraries and reactivity simply means that the UI reacts to changes in the underlying data model, but where they differ is the manner in which they achieve this. WPF and Vue.JS make use of the notion of “observability” and so they rely on code specifically mutating an instance of an object.&lt;/p&gt;
+
+&lt;p&gt;VueJS does the same thing, it wraps the fields set on initialization. This lets the UI know it needs to refresh.&lt;/p&gt;
+
+&lt;p&gt;React works a little bit differently. Rendering is done when we call setState or the component receives props from a parent component. We’ll look at setState for now, as since current state is usually passed as state to child components, that means that calling it will signal to React to refresh the whole UI subtree.&lt;/p&gt;
+
+&lt;p&gt;Of course, changing the whole thing is simple because react does a diff. But by using a little functional trick called “immutability” in our code, we avoid even this diffing process.&lt;/p&gt;
+
+&lt;p&gt;Let’s have a look at the following code:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+const personA = {
+  firstName: 'John',
+  lastName: 'Doe'
+}
+
+const personB = {
+  firstName: 'John',
+  lastName: 'Doe'
+}
+
+const personC = personA
+
+console.log(personA === personB) // false
+console.log(personA === personC) // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This of course is nothing new because JavaScript doesn’t check the values of the fields, it checks the instances and in the case of person A and B we have two different instances of an object with fields of equal value.&lt;/p&gt;
+
+&lt;p&gt;Let’s say we now have a method that is called removeLastName(). In the case of mutable languages we could do something like:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function removeLastName(person) {
+  person.lastName = null
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But functional languages prohibit mutations. So we would have something like:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function removeLastName(person) {
+  return {
+    firstName: person.firstName,
+    lastName: person.lastName
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This not only encourages the use of function composition for calculating complicated things, but it also ensures that checking for equality is easy and fast. Since we are never mutating an existing object, checking for value equality reduces to instance equality checking.&lt;/p&gt;
+
+&lt;p&gt;Because of how change notification works in React, immutability is also encouraged because it allows easy diffing of object trees because the comparison algorythm doesn’t have to go drill down recursively, it can simply stop when two fields name the same differ in instance.&lt;/p&gt;
+
+&lt;p&gt;Here’s a typical issue I see.&lt;/p&gt;
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+updatePersonList = (id, firstName, lastName) =&amp;gt; {
+  const persons = this.state.persons
+  const existingPerson = persons.find(person =&amp;gt; person.id === id)
+  
+  if (existingPerson) {
+    existingPerson.firstName = firstName
+    existingPerson.lastName = lastName
+    this.setState({
+      persons
+    })
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What we can do is use lodash shallow clone instead.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+updatePersonList = (id, firstName, lastName) =&amp;gt; {
+  const existingPerson = this.state.persons.find(person =&amp;gt; person.id === id)
+
+  if (existingPerson) {
+    const existingPersonIndex = persons.indexOf(existingPerson)
+    persons[] = firstName
+    existingPerson.lastName = lastName
+    
+    this.setState({
+      persons: [...state.persons, 
+    })
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This ensures updating works. Also while this wasn’t the primary motivation for Redux, it also encourages this pattern. The three tenets of Redux are:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Single source of truth&lt;/li&gt;
+  &lt;li&gt;State is read-only&lt;/li&gt;
+  &lt;li&gt;Changes are made with pure functions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Redux is in a some ways similar to the concept of pushing state up, but instead of pushing it up to a higher component we push it to a single shared store.&lt;/p&gt;
+
+&lt;p&gt;Typically a reducer would work like this:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case MY_ACTION: {
+  return { ...state, persons }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Instead of calling setState, we dispatch an action which is received by a “reducer” which returns a new value for the application state based on the existing state and the action. Just like setState, a reducer typically leaves the existing fields untouched and just overrides what we want to change but the result is a new instance. In case we don’t want to change anything, we should return state instead of { …state }.&lt;/p&gt;
+
+&lt;p&gt;Instance comparison still works!&lt;/p&gt;</content><author><name></name></author><summary type="html">One aspect that confuses a lot of newcomers to Redux is that of immutability in conjunction with pure functions, especially if they don’t have a lot of experience with functional programming.</summary></entry><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
 
 &lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out, however, consider the fact that most databases are &lt;strong&gt;read-heavy&lt;/strong&gt; meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance – if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there’s a small performance hit related to replication).&lt;/p&gt;
 
