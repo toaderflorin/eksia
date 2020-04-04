@@ -39,9 +39,9 @@ A typical example of XSS is *persistent cross-site scripting*. If a page isn't p
 
 An alternative is the *reflected* (or non-persistent) XSS attack, whereby the user's input is not stored in the database but returned in the same way it was inputted. It works like this: Say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.
 
-<pre>
+<div class="highlight">
 GET http://www.onlineshop.com?search=something
-</pre>
+</div>
 
 If the site finds something, it returns a list of results, but if it doesn't, it's going to say
 
@@ -49,11 +49,11 @@ If the site finds something, it returns a list of results, but if it doesn't, it
 
 ...which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don't hover on links to see where they lead to), the application server won't be able to find any result and will return with a *not found* page containing the script rendered directly on the page.
 
-<pre>
+<div class="highlight">
 GET http://www.onlineshop.com?
   search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
   HTTP/1.1
-</pre>
+</div>
 
 This script can then hijack the session cookie, like in the previous example.
 
@@ -73,9 +73,9 @@ Another way to gain access to a user's session is to get that user to install ma
 
 A yet another way of accomplishing session hijacking is *session fixation*. There are plenty of sites that accept a session ID in the URL, such as:
 
-<pre>
+<div class="highlight">
 http://www.website.com?sid=asb1sadasdasdan23123
-</pre>
+</div>
 
 The reason why they do it is that a lot of users turn off their cookies, ironically, for security reasons. This, however, would open them up to scams, like somebody sending them an email which says:
 
@@ -92,13 +92,22 @@ CSRF is an attack that tricks the victim into submitting a malicious request and
 
 Let's say a site exposes some functionality in the form of a web request, like so:
 
-<pre>
+<div class="highlight">
 GET https://www.thesite.com/account?password=val HTTP/1.1
-</pre>
+</div>
 
 This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link **while logged in**, that's going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker, etc.
 
 An action that changes the password will more likely be a POST than a GET, but that doesn't make it CSRF-proof either, because a user can be tricked into submitting a form. Here's how that would work: you could have a form with a hidden input like so:
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+&#x3C;form action=&#x22;https://www.thesite.com/account&#x22; method=&#x22;POST&#x22;&#x3E;
+  &#x3C;input type=&#x22;hidden&#x22; name=&#x22;password&#x22; value=&#x22;val&#x22;/&#x3E;
+  &#x3C;input type=&#x22;submit&#x22; value=&#x22;Some tricky text&#x22;/&#x3E;
+&#x3C;/form&#x3E;
+</code></pre>
+</div>
 
 <script src="https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js"></script>
 
@@ -113,6 +122,18 @@ And last (in our article), but certainly not least, we have SQL injection. I thi
 
 For SQL injection to work, you'd have to be writing your SQL queries using string interpolation/concatenation.
 
-<script src="https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js"></script>
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+// this is the wrong way to do it
+connection.query($`SELECT * FROM users WHERE username={usr}`, (err, result) => {
+  // do something
+})
+
+// use parameters instead
+connection.query('SELECT * FROM users WHERE username=?', [usr], (err, result) => {
+  // do something
+})
+</code></pre>
+</div>
 
 As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.

@@ -103,6 +103,14 @@ blockquote {
 //   }
 // }
 
+.highlight {
+  padding: 10px;
+  font-size: 14px;
+  border-left: 2px solid #ee4477;
+  font-family: 'Courier New';
+  background-color: #f3f3f3;
+}
+
 .wrapper {
   max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
   max-width: calc(#{$content-width} - (#{$spacing-unit} * 2));
@@ -152,7 +160,6 @@ blockquote {
 .code {
   font-family: "Courier New";
   font-size: 15px;
-  background-color: "#eee";
 }
 
 // @media only screen and (max-width: 500px) {

