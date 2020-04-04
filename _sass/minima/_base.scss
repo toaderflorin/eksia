@@ -74,35 +74,6 @@ blockquote {
   }
 }
 
-// pre, code {
-//   @include relative-font-size(0.9375);
-//   border: 1px solid #f2f2f2;
-//   border-left: 2px solid #ee4477;
-//   border-radius: 0px;
-//   font-family: 'Courier New';
-//   background-color: #fcfcfc;
-// }
-
-// code {
-//   padding: 3px 15px;
-// }
-// code {
-//   padding: 10px;
-//   font-size: 14px;
-// }
-
-// pre {
-//   padding: 8px 12px;
-//   overflow-x: auto;
-//   overflow-y: hidden;
-
-//   > code {
-//     border: 0;
-//     padding-right: 0;
-//     padding-left: 0;
-//   }
-// }
-
 .highlight {
   padding: 10px;
   font-size: 14px;

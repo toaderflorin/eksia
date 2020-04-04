@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T20:14:12+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Reactivity And Immutability In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T23:24:25+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Reactivity, Immutability And Reconciliation In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity, Immutability And Reconciliation In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
 
 &lt;p&gt;Since in most programming languages mutating an existing instance doesn’t notify other objects or the runtime of the change, a typical pattern is to use events or callbacks for this. As an example, Windows Presentation Foundation uses models that implement an interface called
 &lt;span class=&quot;code&quot;&gt;INotifyPropertyChanged&lt;/span&gt; for data-binding and wraps class fields in getters and setters, and it’s the setter’s responsibility to fire change events. .NET provides a convenient base class object that implements the interface, so a typical observable view model would look like this:&lt;/p&gt;
@@ -27,7 +27,12 @@ public class ObservableViewModel: ObservableObject
 
 &lt;p&gt;&lt;img src=&quot;/images/reactivity/vue-reactivity.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Mutations play a central role when it comes to observability in these libraries, but React works a little bit differently because it is much more functional in nature. Rendering here is done by calling the setState method on a component, or the component receives new props from a parent. Of course, changing the whole thing is simple because react does a diff. But by using a little functional trick called &lt;em&gt;immutability&lt;/em&gt; in our code, we avoid even this diffing process.&lt;/p&gt;
+&lt;p&gt;Mutations play a central role when it comes to observability in these libraries, but React works a little bit differently because it is much more functional in nature.&lt;/p&gt;
+
+&lt;h2 id=&quot;react&quot;&gt;React&lt;/h2&gt;
+&lt;p&gt;Rendering in React is done by calling the &lt;code class=&quot;code&quot;&gt;setState()&lt;/code&gt; method on a component, or that component receives new props from a parent and here’s the important aspect: React always rerenders the whole subtree, unless we override the &lt;code class=&quot;code&quot;&gt;shouldComponentUpdate()&lt;/code&gt; method in the class.&lt;/p&gt;
+
+&lt;p&gt;But by using a little functional trick called &lt;em&gt;immutability&lt;/em&gt; in our code, we avoid even this diffing process.&lt;/p&gt;
 
 &lt;p&gt;Let us use the customary task manager example and look at the following code:&lt;/p&gt;
 
@@ -79,8 +84,6 @@ function completeTask(task) {
 
 &lt;p&gt;This not only encourages the use of function composition for calculating complicated things, but it also ensures that checking for equality is easy and fast. Since we are never mutating an existing object, checking for value equality reduces to instance equality checking.&lt;/p&gt;
 
-&lt;p&gt;Because of how change notification works in React, immutability is also encouraged because it allows easy diffing of object trees because the comparison algorythm doesn’t have to go drill down recursively, it can simply stop when two fields name the same differ in instance.&lt;/p&gt;
-
 &lt;p&gt;Quite often, beginner React developers write code like this:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
@@ -123,7 +126,22 @@ updateTask = (id, text, completed) =&amp;gt; {
 
 &lt;p&gt;This ensures updating works.&lt;/p&gt;
 
-&lt;p&gt;Redux is in a some ways similar to the concept of &lt;a href=&quot;https://reactjs.org/docs/lifting-state-up.html&quot;&gt;lifting state up&lt;/a&gt;, but instead of lifting it up to a parent component, we push it to a single shared store. Our fully-fledged todos reducer would look like this:&lt;/p&gt;
+&lt;h2 id=&quot;redux&quot;&gt;Redux&lt;/h2&gt;
+&lt;p&gt;Redux is in some ways similar to the concept of &lt;a href=&quot;https://reactjs.org/docs/lifting-state-up.html&quot;&gt;lifting state up&lt;/a&gt;, but instead of lifting it up to a parent component, we push it to a single shared store. Architecturally, an application that uses both React and Redux looks like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reactivity/react-redux.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us first review its three central tenets.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Redux is the single source of truth of the application.&lt;/li&gt;
+  &lt;li&gt;The Redux state is read-only.&lt;/li&gt;
+  &lt;li&gt;Changes to the state are made with pure functions.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;While there is some debate about whether we should fully and dogmatically stick to number one, the second and third principles are universally accepted. A reducer is simply a function that takes the initial value of the state, an action object (that contains some parameters) and returns a new state based on that action.&lt;/p&gt;
+
+&lt;p&gt;Based on them we would write our reducer like this:&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
@@ -162,7 +180,36 @@ const todosReducer = (state = [], action) =&amp;gt; {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Instead of calling &lt;span class=&quot;code&quot;&gt;setState()&lt;/span&gt;, we dispatch an action which is received by a reducer which returns a new value for the application state based on the existing state and the action. Just like setState, a reducer typically leaves the existing fields untouched and just overrides what we want to change but the result is a new instance. In case we don’t want to change anything, we should return state instead of &lt;code class=&quot;code&quot;&gt;{ ...state }&lt;/code&gt;. Instance comparison still works.&lt;/p&gt;</content><author><name></name></author><summary type="html">Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.</summary></entry><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
+&lt;p&gt;A pure function is a function is that:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;For a set of input parameters &lt;em&gt;always&lt;/em&gt; returns the same result, so it’s predictable. So if a function depends on a subset of the global state or the current time, it is not pure.&lt;/li&gt;
+  &lt;li&gt;Doesn’t have any &lt;em&gt;side-effects&lt;/em&gt;. A side-effect might be mutating one of the input parameters, for example.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;It’s worth noting that making calls to a backend service is definitely considered a side-effect, and it shouldn’t be part of a reducer. There is a special way to handle that in Redux, but it’s beyond the scope of this article.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Another thing worth mentioning is that Redux is a standalone datastore, so we don’t necessarily have to use it with React. When used with React, a library called redux-connect is used which passes down Redux state as props to the components that subscribe to it.&lt;/p&gt;
+
+&lt;h2 id=&quot;reconciliation-and-the-virtual-dom&quot;&gt;Reconciliation And The Virtual DOM&lt;/h2&gt;
+&lt;p&gt;Whenever &lt;code class=&quot;code&quot;&gt;setState()&lt;/code&gt; is called in a component, or it receives props from a parent component (or Redux), rerendering takes place. Of course, just replacing elements DOM elements as we’ve done for the component state not only would be slow but would also cause issues with controls losing focus and other artifacts.&lt;/p&gt;
+
+&lt;p&gt;Because React creates a virtual copy of the DOM in memory. setState and props only change the virtual DOM and then there’s a diffing process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/reactivity/react-dom.png&quot; alt=&quot;react-dom&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In a nutshell, the reconciliation process works like this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Diffing is recursive and starts at the root of the DOM / VDOM.&lt;/li&gt;
+  &lt;li&gt;If a node isn’t marked as dirty in the VDOM, nothing happens to the corresponding node in the DOM.&lt;/li&gt;
+  &lt;li&gt;If the node is marked as dirty, the diffing algorithm looks at whether the type has changed. If the node has gone from a &lt;code class=&quot;code&quot;&gt;BlogPost&lt;/code&gt; to a &lt;code class=&quot;code&quot;&gt;WarningMessage&lt;/code&gt; component, or from a button to a div, the whole subtree (including children) is recreated. React doesn’t try to reuse the existing DOM elements (by transplanting them as children them to the newly created element) because even if that were possible, it would be to slow to figure out which ones can be kept.&lt;/li&gt;
+  &lt;li&gt;If, however, the type hasn’t changed, only the properties (like text, width, etc.) and the children will be evaluated and updated if needed.&lt;/li&gt;
+  &lt;li&gt;When it comes to lists, React needs a little help in the form of keys. Because elements can move up and down in order, using the index is not reliable for comparison. It is recommended we set the key to a stable value, such as the UUID of the underlying data model.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;React can be very fast, but a knowledge about how it works under the hood is important. Not understanding the inner workings of setState can lead to issues with updating and the same thing goes with setting bad keys on list items.&lt;/p&gt;</content><author><name></name></author><summary type="html">Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.</summary></entry><entry><title type="html">Scaling Out Relational Databases</title><link href="http://localhost:4000/scaling-sql" rel="alternate" type="text/html" title="Scaling Out Relational Databases" /><published>2020-02-25T08:39:37+02:00</published><updated>2020-02-25T08:39:37+02:00</updated><id>http://localhost:4000/scaling-sql</id><content type="html" xml:base="http://localhost:4000/scaling-sql">&lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.&lt;/p&gt;
 
 &lt;p&gt;Since a single database server can support a considerable load, it’s worth starting by saying that the need to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable (before considering scaling out, however, consider the fact that most databases are &lt;strong&gt;read-heavy&lt;/strong&gt; meaning there are many more read operations than write operations and adding a caching layer can go a long way in improving performance – if this is not enough, secondary read replicas can be added to lessen the load in case of cache misses, but this also means there’s a small performance hit related to replication).&lt;/p&gt;
 

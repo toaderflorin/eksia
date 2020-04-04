@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reactivity And Immutability In React"
+title:  "Reactivity, Immutability And Reconciliation In React"
 date:   2020-04-02 09:39:37 +0300
 description: "
 Since a single database server can support a considerable load, it's worth starting off by saying that needing to scale out your database server means your business is doing several things right, so this is a good problem to have. While getting a machine with more processor cores, memory and disk space can alleviate your problems in the short term, at some point needing to distribute your database across multiple machines becomes unavoidable.
@@ -36,7 +36,12 @@ VueJS does something similar, but it's a little bit less transparent; it looks a
 
 ![diagram2](/images/reactivity/vue-reactivity.png){:class="img-responsive"}
 
-Mutations play a central role when it comes to observability in these libraries, but React works a little bit differently because it is much more functional in nature. Rendering here is done by calling the setState method on a component, or the component receives new props from a parent. Of course, changing the whole thing is simple because react does a diff. But by using a little functional trick called *immutability* in our code, we avoid even this diffing process.
+Mutations play a central role when it comes to observability in these libraries, but React works a little bit differently because it is much more functional in nature. 
+
+## React
+Rendering in React is done by calling the <code class="code">setState()</code> method on a component, or that component receives new props from a parent and here's the important aspect: React always rerenders the whole subtree, unless we override the <code class="code">shouldComponentUpdate()</code> method in the class.
+
+But by using a little functional trick called *immutability* in our code, we avoid even this diffing process.
 
 Let us use the customary task manager example and look at the following code:
 
@@ -88,8 +93,6 @@ function completeTask(task) {
 
 This not only encourages the use of function composition for calculating complicated things, but it also ensures that checking for equality is easy and fast. Since we are never mutating an existing object, checking for value equality reduces to instance equality checking.
 
-Because of how change notification works in React, immutability is also encouraged because it allows easy diffing of object trees because the comparison algorythm doesn't have to go drill down recursively, it can simply stop when two fields name the same differ in instance. 
-
 Quite often, beginner React developers write code like this:
 
 <div class="margin-bottom">
@@ -132,7 +135,20 @@ updateTask = (id, text, completed) => {
 
 This ensures updating works.
 
-Redux is in a some ways similar to the concept of [lifting state up](https://reactjs.org/docs/lifting-state-up.html), but instead of lifting it up to a parent component, we push it to a single shared store. Our fully-fledged todos reducer would look like this:
+## Redux
+Redux is in some ways similar to the concept of [lifting state up](https://reactjs.org/docs/lifting-state-up.html), but instead of lifting it up to a parent component, we push it to a single shared store. Architecturally, an application that uses both React and Redux looks like this:
+
+![diagram2](/images/reactivity/react-redux.png){:class="img-responsive"}
+
+Let us first review its three central tenets.
+
+1. Redux is the single source of truth of the application.
+2. The Redux state is read-only.
+3. Changes to the state are made with pure functions.
+
+While there is some debate about whether we should fully and dogmatically stick to number one, the second and third principles are universally accepted. A reducer is simply a function that takes the initial value of the state, an action object (that contains some parameters) and returns a new state based on that action.
+
+Based on them we would write our reducer like this:
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -171,4 +187,30 @@ const todosReducer = (state = [], action) => {
 </code></pre>
 </div>
 
-Instead of calling <span class="code">setState()</span>, we dispatch an action which is received by a reducer which returns a new value for the application state based on the existing state and the action. Just like setState, a reducer typically leaves the existing fields untouched and just overrides what we want to change but the result is a new instance. In case we don't want to change anything, we should return state instead of <code class="code">{ ...state }</code>. Instance comparison still works.
+A pure function is a function is that: 
+
+1. For a set of input parameters *always* returns the same result, so it's predictable. So if a function depends on a subset of the global state or the current time, it is not pure.
+2. Doesn't have any *side-effects*. A side-effect might be mutating one of the input parameters, for example.
+
+*It's worth noting that making calls to a backend service is definitely considered a side-effect, and it shouldn't be part of a reducer. There is a special way to handle that in Redux, but it's beyond the scope of this article.*
+
+Another thing worth mentioning is that Redux is a standalone datastore, so we don't necessarily have to use it with React. When used with React, a library called redux-connect is used which passes down Redux state as props to the components that subscribe to it. 
+
+## Reconciliation And The Virtual DOM
+Whenever <code class="code">setState()</code> is called in a component, or it receives props from a parent component (or Redux), rerendering takes place. Of course, just replacing elements DOM elements as we've done for the component state not only would be slow but would also cause issues with controls losing focus and other artifacts.
+
+Because React creates a virtual copy of the DOM in memory. setState and props only change the virtual DOM and then there's a diffing process. 
+
+![react-dom](/images/reactivity/react-dom.png){:class="img-responsive"}
+
+In a nutshell, the reconciliation process works like this:
+
+1. Diffing is recursive and starts at the root of the DOM / VDOM.
+2. If a node isn’t marked as dirty in the VDOM, nothing happens to the corresponding node in the DOM.
+3. If the node is marked as dirty, the diffing algorithm looks at whether the type has changed. If the node has gone from a <code class="code">BlogPost</code> to a <code class="code">WarningMessage</code> component, or from a button to a div, the whole subtree (including children) is recreated. React doesn’t try to reuse the existing DOM elements (by transplanting them as children them to the newly created element) because even if that were possible, it would be to slow to figure out which ones can be kept.
+4. If, however, the type hasn’t changed, only the properties (like text, width, etc.) and the children will be evaluated and updated if needed.
+5. When it comes to lists, React needs a little help in the form of keys. Because elements can move up and down in order, using the index is not reliable for comparison. It is recommended we set the key to a stable value, such as the UUID of the underlying data model.
+
+## Summary
+React can be very fast, but a knowledge about how it works under the hood is important. Not understanding the inner workings of setState can lead to issues with updating and the same thing goes with setting bad keys on list items.
+
