@@ -1,13 +1,45 @@
 ---
 layout: post
-title:  "DDD Is About Discipline"
-date:   2020-02-05 09:39:37 +0300
+title:  "Architecting Applications With DDD"
+date:   2020-04-05 09:39:37 +0300
 description: "
 If you ask five different developers what they understand by domain driven design, you are most likely going to get five different answers. To make matters slightly worse and even if they did one did thoroughly read Eric Evan's book, it's not readily apparent how one would go about extracting a canonical definition. Virtually everybody working in the field of software development agrees that properly architecting an application is extremely important -- just like a poorly constructed building, a software project lacking a solid architectural background can easily come crashing down after a while. 
 "
 icon: "domain-icon.jpg"
 categories:
 ---
+When it comes to high-level design and architecture, low-coupling is universally considered desirable, the main reason for that being that high coupling makes your application brittle and rigid. In general, if a function depends on another function or a component depends on another component, they are said to be coupled, which obviously is part of regular everyday development, so it's impossible to eliminate coupling altogether. What we should be striving for is low-coupling.
+
+The term spaghetti code gets thrown around quite a bit, and the reason for that is highly entangled codebases have very long and entangled dependency chains. A developer might want to make changes on component A, only to realize that those changes that mean changing component B, which in turn leads to changing component C, etc., and it's not uncommon for teams to rewrite the app from scratch. So what's the opposite of spaghetti code? It's lasagna code, which we'll get to in a moment.
+
+As a general rule, we want to avoid two-way dependencies between components or functions. Pure functions are a perfect example of the right way to structure your code. They don't have any side effects (like mutating arguments or the global state), nor do they have any knowledge of the context from where they're being called, which is excellent because it makes them reusable. Here's an example of this rule being broken and why that's bad:
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+function getFullName(person) {
+  if (!person.firstName) {
+    alert('Person first name missing.')
+  }
+
+  if (!person.lastName) {
+    alert('Person last name missing.')
+  }
+
+  return `${person.firstName} ${person.lastName}`
+}
+</code></pre>
+</div>
+
+You never want to do something like this because you want the calling code to choose how it handles the error.
+
+This concept naturally leads to hierarchical code where callers and parent components depend on callees and child components but not vice-versa. An example of that would be the typical web application layered architecture, where we have a presentation layer, a business logic layer, and a database layer, sitting on top of each other in that order.
+
+The database layer shouldn't have any knowledge of complicated business flows, and the business layer shouldn't know about how it's being rendered. And it most certainly shouldn't trigger redirects in the application, which is an anti-pattern that's unfortunately encountered quite often. Which essentially boils down to another architectural idea: the single responsibility principle. As an example, a piece of code that updates a record should only be concerned about updating that record and its children alone. It shouldn't trigger mutations in other parts of the global state because that would break encapsulation and increase coupling. 
+
+Another example of a layered architecture where the presentation model and the data model are decoupled is MVVM.
+
+So what's the key takeaway here? It's simple: if we want a robust and decoupled architecture, we need to start at the base of the pyramid,  which isn't the which is the domain model and the rules around it, which is where DDD comes in.
+
 While the term *domain driven design* gets thrown around quite a bit, if you ask five different developers what they understand by DDD, you are most likely going to get five different answers. To make matters worse, even Eric Evan's book which is the canonical authority on all things DDD doesn't give an exact definition, so the term DDD is used quite loosely. It goes without saying that a thorough understanding of the business should be important for all parties involved in software development (developers, product owners, designers), sometimes there's a disconnect between the imediate goals of the people involved.
 
 * The company as a whole must make a profit so it needs to solve certain business needs for existing and potential new customers.
@@ -15,13 +47,6 @@ While the term *domain driven design* gets thrown around quite a bit, if you ask
 * Designers are highly creative keen to showcase their skills, but at times tend to prefer design that allows them to do it at the expense of business value.
 
 Developers and designers of course *know* they should be focusing on business value, but it's always easier to do something else that's sexier and more interesting in the short term. At its core, DDD is a recipe (or codified prescription) for doing software development that attempts to bridge this disconnect. One way to think about DDD is that it is a top-down way of looking at the development process, in the sense that we define and codify the business requirements first and then we build on top of that. 
-
-## Enter Event Storming
-The brainchild of Alberto Brandolini, it's essentially a way for the team members to communicate ideas using sticky notes and a whiteboard. Event storming is intended to create and share a common understanding of the domain model. 
-
-![event-storming](/images/ddd/storming3.webp){:class="img-responsive"}
-
-It's not a replacement for a design document, flow chart, UML diagram, deployment plan, architecture diagram, or anything else related to implementation. The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.
 
 ## An Example
 Let us imagine the following scenario -- the team is tasked with creating creating a simple e-commerce site that sales sporting apparel. DDD mandates that before we choose what technology we build the application in, whether we choose a microservice approach and before we design the UX and UI, we define the exact business objects and processes. We can identify some domain entities from the start -- users need to log in so we'll have an *Account* object and we also need multiple types of users (for example an admin and a regular customer) so we will also have a Permission object. Of course we need to have a catalogue of products what we're going to sell so we will define a *Product* object and these products have to be kept in stock so we'll have *Warehouse* and *WarehouseProuct* entries. And of course *Order*, *OrderItem* and *CardInfo*. 
@@ -36,6 +61,16 @@ When ORMs entered the scene, they put the concept of a model or entity at the fo
 <script src="https://gist.github.com/toaderflorin/db3cfb67153fba369a2604e6c21ac0be.js"></script>
 
 Of course, a domain expert isn't interested things like databases (SQL vs NoSQL), comunication protocols like REST or gRPC and so forth. Domain experts aren't interested necesarily in UX either, all these things come afterwards. These things pertain to *how* the business goal is achieved not to *what* the business goal is.
+
+
+## Enter Event Storming
+The brainchild of Alberto Brandolini, it's essentially a way for the team members to communicate ideas using sticky notes and a whiteboard. Event storming is intended to create and share a common understanding of the domain model. 
+
+![event-storming](/images/ddd/storming3.webp){:class="img-responsive"}
+
+It's not a replacement for a design document, flow chart, UML diagram, deployment plan, architecture diagram, or anything else related to implementation. The first step is to find the domain events and write them on orange sticky notes. When all domain events are found the second step is to find for each domain event the command that caused it. Commands are written on blue notes and placed directly before the corresponding domain event. In the third step the aggregates are identified on which the commands are executed and to which happen the domain events. The aggregates are written in yellow stickies.
+
+
 
 What we described goes by the term [Model Driven Architecture](https://en.wikipedia.org/wiki/Model-driven_architecture). Domain Driven Design counts as MDA but not viceversa because  DDD is actually a bit more prescriptive and it introduces additional concepts:
 

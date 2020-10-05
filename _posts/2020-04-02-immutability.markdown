@@ -41,6 +41,8 @@ Mutations play a central role when it comes to observability in these libraries,
 ## React
 Rendering in React is done by calling the <code class="code">setState()</code> method on a component, or that component receives new props from a parent and here's the important aspect: React always rerenders the whole subtree, unless we override the <code class="code">shouldComponentUpdate()</code> method in the class.
 
+Rembember: 
+
 But by using a little functional trick called *immutability* in our code, we avoid even this diffing process.
 
 Let us use the customary task manager example and look at the following code:

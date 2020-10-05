@@ -323,6 +323,7 @@ blockquote {
     width: -webkit-calc(100% - (30px / 2));
     width: calc(100% - (30px / 2)); } }
 .page-content {
+  margin-top: 50px;
   background-color: white;
   padding: 30px 0; }
 
