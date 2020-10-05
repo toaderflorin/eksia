@@ -16,7 +16,7 @@ The functional syntax became popular with quite a few developers -- after all, l
 
 Changing the syntax doesn't mean the component state or lifecycle are going away. The question then becomes: how does one keep the functional syntax and, at the same time, allows for the use of state in a component? The answer is, of course, hooks.
 
-There's a `useState` hook, for example. There's also a `useEffect`, and we'll look at both in a moment. Let's consider a simple application that fetches some data from an API and then does something.
+There's a <span class="code">useState</span> hook, for example. There's also a <span class="code">useEffect</span>, and we'll look at both in a moment. Let's consider a simple application that fetches some data from an API and then does something.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -47,7 +47,7 @@ function App(props) {
 </code></pre>
 </div>
 
-The first thing that's very apparent with hooks is we no longer have lifecycle methods like `componentDidMount` or `componentWillReceiveProps,` so we need to rely on a different mechanism -- the `useEffect` hook fills that role now. If we want to react to the component being mounted, we can pass in an empty dependency array. If we want to emulate the `componentWillReceiveProps` we can pass in the props as dependencies.
+The first thing that's very apparent with hooks is we no longer have lifecycle methods like  <span class="code">componentDidMount</span> or  <span class="code">componentWillReceiveProps</span>, so we need to rely on a different mechanism -- the  <span class="code">useEffect</span> hook fills that role now. If we want to react to the component being mounted, we can pass in an empty dependency array. If we want to emulate the <span class="code">componentWillReceiveProps</span> we can pass in the props as dependencies.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -78,13 +78,13 @@ function App(props) {
 </code></pre>
 </div>
 
-It's worth pointing out that the way `setState` works with hooks is different that the way `setState` works with class components.
+It's worth pointing out that the way <span class="code">useState</span> works with hooks is different that the way <span class="code">useState</span> works with class components.
 
 1. With class components, it merges the new state into the old state, via the JS spread syntax.
 2. With functional components, it simply replaces the state object. 
-3. You can use `useState` multiple times in functional components and have different instances of state.
+3. You can use <span class="code">useState</span> multiple times in functional components and have different instances of state.
 
-And extremely important, with functional components there is no `this.state`. Also, functional components are *closures*, which means they have their own lexical context, and so they capture the values of variables declared in the function at the moment those functions were  called. So in our case, when the response comes back from the server, the value of `state` is the same as it was when the component was called. Typically, this wouldn't be a problem, especially because you can use the `useState` hook multiple times and you can have different disjointed pieces of state.
+And extremely important, with functional components there is no <span class="code">this.state</span>. Also, functional components are *closures*, which means they have their own lexical context, and so they capture the values of variables declared in the function at the moment those functions were  called. So in our case, when the response comes back from the server, the value of <span class="code">state</span> is the same as it was when the component was called. Typically, this wouldn't be a problem, especially because you can use the <span class="code">useState</span> hook multiple times and you can have different disjointed pieces of state.
 
 *The fundamental problem arises if you are trying to use one single view model object as state and merge new state prop values into it if you have to deal with concurrency.*
 
@@ -205,7 +205,7 @@ function App(props) {
 
 Since we are no longer merging the old state into the big state object, we no longer have the racing condition. This is a perfectly valid approach for fixing the problem, but unfortunately, it means we have lost the hierarchical nature of the state object (so we can no longer use it as a view model) -- remember that when we are lifting state to the parent component, we would like the structure of the object to reflect the child component hierarchy.
 
-A fundamental difference between the old approach and the new one is the addition of the `useEffect` hook, which is called after the functional component has rendered, making it behave like the `componentWillReceiveProps` function. This approach is interesting because using this method to make API calls (and therefore changing the state) leads to rerendering. Reacting to state changes in the application is generally considered bad practice because it can also lead to complicated dependency chains, making the code hard to follow. Infinite loops are also a common problem in code written by newcomers.
+A fundamental difference between the old approach and the new one is the addition of the <span class="code">useEffect</span> hook, which is called after the functional component has rendered, making it behave like the <span class="code">componentWillReceiveProps</span> function. This approach is interesting because using this method to make API calls (and therefore changing the state) leads to rerendering. Reacting to state changes in the application is generally considered bad practice because it can also lead to complicated dependency chains, making the code hard to follow. Infinite loops are also a common problem in code written by newcomers.
 
 
 <div class="margin-bottom">
@@ -216,4 +216,4 @@ useEffect(() => {
 </code></pre>
 </div>
 
-Calling the `fetchTask` method like this causes an infinite loop because it sets the `isLoading` field to `true,` which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (this is a consequence of strict mode), which can make things extra confusing. 
+Calling the <span class="code">fetchTask</span> method like this causes an infinite loop because it sets the <span class="code">isLoading</span> field to <span class="code">true</span>, which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (this is a consequence of strict mode), which can make things extra confusing. 
