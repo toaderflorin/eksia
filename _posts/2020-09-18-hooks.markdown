@@ -16,7 +16,7 @@ The functional syntax became popular with quite a few developers -- after all, l
 
 The question then becomes: how does one keep the functional syntax and, at the same time, allows for the use of state in a component? The answer is, of course, hooks. Also, changing the syntax doesn't mean the component state or lifecycle are going away. 
 
-There's a <span class="code">useState</span> hook, for example. There's also a <span class="code">useEffect</span>, and we'll look at both in a moment. Let's consider a simple application that fetches some data from an API and then does something.
+There's a <span class="code">useState</span> hook, for example. There's also a <span class="code">useEffect</span>, and we'll look at both in a moment. Let's consider a simple application that fetches some data from an API and then does something with it.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
