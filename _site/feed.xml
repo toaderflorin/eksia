@@ -1,5 +1,214 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-04T19:49:46+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Reactivity And Immutability In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-10-05T09:36:12+03:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">React Hooks Considerations</title><link href="http://localhost:4000/hooks" rel="alternate" type="text/html" title="React Hooks Considerations" /><published>2020-09-18T09:39:37+03:00</published><updated>2020-09-18T09:39:37+03:00</updated><id>http://localhost:4000/hooks</id><content type="html" xml:base="http://localhost:4000/hooks">&lt;p&gt;The React team quite quickly realized that if a component doesn’t need to maintain an internal state, there’s no need for it to be a class. Not long after, the container / presentational pattern appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.&lt;/p&gt;
+
+&lt;p&gt;The functional syntax became popular with quite a few developers – after all, languages like Elm are quite popular these days.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hooks/hooks.jpg&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Changing the syntax doesn’t mean the component state or lifecycle are going away. The question then becomes: how does one keep the functional syntax and, at the same time, allows for the use of state in a component? The answer is, of course, hooks.&lt;/p&gt;
+
+&lt;p&gt;There’s a &lt;code class=&quot;highlighter-rouge&quot;&gt;useState&lt;/code&gt; hook, for example. There’s also a &lt;code class=&quot;highlighter-rouge&quot;&gt;useEffect&lt;/code&gt;, and we’ll look at both in a moment. Let’s consider a simple application that fetches some data from an API and then does something.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function App(props) {
+  const [state, setState] = useState({
+    tasks: [],
+    isTasksLoading: false
+  })
+
+  async function fetchTasks() {
+    const tasks = await api.getTasks()
+    fetchTasks(tasks)
+  }
+  
+  useEffect(() =&amp;gt; {
+    fetchTasks()
+  }, 
+  // the empty dependency array indicates the effect runs on component mount 
+  // and only once
+  [])
+
+  return (
+    &amp;#x3C;div&amp;#x3E;
+      ... code to render
+    &amp;#x3C;/div&amp;#x3E;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first thing that’s very apparent with hooks is we no longer have lifecycle methods like &lt;code class=&quot;highlighter-rouge&quot;&gt;componentDidMount&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;componentWillReceiveProps,&lt;/code&gt; so we need to rely on a different mechanism – the &lt;code class=&quot;highlighter-rouge&quot;&gt;useEffect&lt;/code&gt; hook fills that role now. If we want to react to the component being mounted, we can pass in an empty dependency array. If we want to emulate the &lt;code class=&quot;highlighter-rouge&quot;&gt;componentWillReceiveProps&lt;/code&gt; we can pass in the props as dependencies.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function App(props) {
+  const { currentUser } = props
+
+  const [state, setState] = useState({
+    tasks: [],
+    isTasksLoading: false
+  })  
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)
+    fetchTasks(tasks)
+  }
+  
+  useEffect(() =&amp;gt; {
+    fetchTasks(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &amp;#x3C;div&amp;#x3E;
+      ... code to render
+    &amp;#x3C;/div&amp;#x3E;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It’s worth pointing out that the way &lt;code class=&quot;highlighter-rouge&quot;&gt;setState&lt;/code&gt; works with hooks is different that the way &lt;code class=&quot;highlighter-rouge&quot;&gt;setState&lt;/code&gt; works with class components.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;With class components, it merges the new state into the old state, via the JS spread syntax.&lt;/li&gt;
+  &lt;li&gt;With functional components, it simply replaces the state object.&lt;/li&gt;
+  &lt;li&gt;You can use &lt;code class=&quot;highlighter-rouge&quot;&gt;useState&lt;/code&gt; multiple times in functional components and have different instances of state.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And extremely important, with functional components there is no &lt;code class=&quot;highlighter-rouge&quot;&gt;this.state&lt;/code&gt;. Also, functional components are &lt;em&gt;closures&lt;/em&gt;, which means they have their own lexical context, and so they capture the values of variables declared in the function at the moment those functions were  called. So in our case, when the response comes back from the server, the value of &lt;code class=&quot;highlighter-rouge&quot;&gt;state&lt;/code&gt; is the same as it was when the component was called. Typically, this wouldn’t be a problem, especially because you can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;useState&lt;/code&gt; hook multiple times and you can have different disjointed pieces of state.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The fundamental problem arises if you are trying to use one single view model object as state and merge new state prop values into it if you have to deal with concurrency.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The typical case in which this would happen is if you aren’t using a store manager like Redux, and use a &lt;a href=&quot;https://reactjs.org/docs/lifting-state-up.html&quot;&gt;lift state up&lt;/a&gt; approach. Typically, this would mean that you are usinng the root component, or the root component route as a state manager and you are using prop drilling and callbacks.&lt;/p&gt;
+
+&lt;p&gt;So let’s illustrate the point. Let’s say that aside from tasks, we also want the user to be able to scribble down and manage notes, and we obviously need to change the data we’re displaying when the currently logged in user changes.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function App(props) {
+  const { currentUser } = props
+
+  const [state, setState] = useState({
+    tasks: [],
+    notes: [],
+    tasksLoading: false,
+    notesLoading: false
+  })
+
+  const { tasks, tasksLoading, notes, notesLoading } = state
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)    
+    setState({
+      ...state,
+      tasks,
+      tasksLoading: false
+    })
+  }
+
+  async function fetchNotes(currentUser) {
+    setState({
+      ...state,
+      notesLoading: true
+    })
+
+    const notes = await api.getNotes(currentUser)
+
+    setState({
+      ...state,
+      notes,
+      notesLoading: true
+    })  
+  }
+  
+  useEffect(() =&amp;gt; {
+    fetchTasks(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &amp;#x3C;div&amp;#x3E;
+      &amp;#x3C;Tasks tasks={tasks} tasksLoading={tasksLoading} /&amp;#x3E;
+      &amp;#x3C;Notes notes={notes} notesLoading={notesLoading} /&amp;#x3E;
+    &amp;#x3C;/div&amp;#x3E;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;While not necessarily easy to spot, we now have a racing condition.&lt;/p&gt;
+
+&lt;p&gt;We can change it like this.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+function App(props) {
+  const { currentUser } = props
+
+  const [tasks, setTasks] = useState({
+    tasks: [],
+    tasksLoading: false
+  })
+
+  const [notes, setNotes] = useState({
+    notes: [],
+    notesLoading: false
+  })
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)    
+    setTasks({      
+      tasks,
+      tasksLoading: false
+    })
+  }
+
+  async function fetchNotes(currentUser) {
+    setState({
+      notes: [],
+      notesLoading: true
+    })
+
+    const notes = await api.getNotes(currentUser)
+
+    setState({
+      ...state,
+      notes,
+      notesLoading: true
+    })  
+  }
+  
+  useEffect(() =&amp;gt; {
+    fetchTasks(currentUser)
+    fetchNotes(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &amp;#x3C;div&amp;#x3E;
+      &amp;#x3C;Tasks tasks={tasks} tasksLoading={tasksLoading} /&amp;#x3E;
+      &amp;#x3C;Notes notes={notes} notesLoading={notesLoading} /&amp;#x3E;
+    &amp;#x3C;/div&amp;#x3E;
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since we are no longer merging the old state into the big state object, we no longer have the racing condition. This is a perfectly valid approach for fixing the problem, but unfortunately, it means we have lost the hierarchical nature of the state object (so we can no longer use it as a view model) – remember that when we are lifting state to the parent component, we would like the structure of the object to reflect the child component hierarchy.&lt;/p&gt;
+
+&lt;p&gt;A fundamental difference between the old approach and the new one is the addition of the &lt;code class=&quot;highlighter-rouge&quot;&gt;useEffect&lt;/code&gt; hook, which is called after the functional component has rendered, making it behave like the &lt;code class=&quot;highlighter-rouge&quot;&gt;componentWillReceiveProps&lt;/code&gt; function. This approach is interesting because using this method to make API calls (and therefore changing the state) leads to rerendering. Reacting to state changes in the application is generally considered bad practice because it can also lead to complicated dependency chains, making the code hard to follow. Infinite loops are also a common problem in code written by newcomers.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+useEffect(() =&amp;gt; {
+  fetchTasks(currentUser)
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Calling the &lt;code class=&quot;highlighter-rouge&quot;&gt;fetchTask&lt;/code&gt; method like this causes an infinite loop because it sets the &lt;code class=&quot;highlighter-rouge&quot;&gt;isLoading&lt;/code&gt; field to &lt;code class=&quot;highlighter-rouge&quot;&gt;true,&lt;/code&gt; which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React’s strict mode triggers double rendering for debugging purposes (this is a consequence of strict mode), which can make things extra confusing.&lt;/p&gt;</content><author><name></name></author><summary type="html">The React team quite quickly realized that if a component doesn’t need to maintain an internal state, there’s no need for it to be a class. Not long after, the container / presentational pattern appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.</summary></entry><entry><title type="html">Reactivity And Immutability In React</title><link href="http://localhost:4000/immutability" rel="alternate" type="text/html" title="Reactivity And Immutability In React" /><published>2020-04-02T09:39:37+03:00</published><updated>2020-04-02T09:39:37+03:00</updated><id>http://localhost:4000/immutability</id><content type="html" xml:base="http://localhost:4000/immutability">&lt;p&gt;Before getting into library-specific details, it’s worth starting with a definition of what constitutes reactivity. A typical example would be an Excel spreadsheet: if a cell aggregates data from other cells, that cell instantly changes if we change a value in any of the aggregated cells. In reactive programming, if a variable A depends on B and C, a change in either B or C would also trigger a change in A. While there seems to be an ongoing debate whether React is truly reactive, there’s no doubt that the UI reacts to changes in the data model, even if parts of the model itself don’t react to other parts being changed, so from now on we’ll consider this definition of reactivity.&lt;/p&gt;
 
 &lt;p&gt;Since in most programming languages mutating an existing instance doesn’t notify other objects or the runtime of the change, a typical pattern is to use events or callbacks for this. As an example, Windows Presentation Foundation uses models that implement an interface called
 &lt;span class=&quot;code&quot;&gt;INotifyPropertyChanged&lt;/span&gt; for data-binding and wraps class fields in getters and setters, and it’s the setter’s responsibility to fire change events. .NET provides a convenient base class object that implements the interface, so a typical observable view model would look like this:&lt;/p&gt;

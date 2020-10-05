@@ -1,0 +1,219 @@
+---
+layout: post
+title:  "React Hooks Considerations"
+date:   2020-09-18 09:39:37 +0300
+description: "
+The React team quite quickly realized that if a component doesn’t need to maintain an internal state, there’s no need for it to be a class. Not long after, the container / presentational pattern appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part. The functional syntax became popular with quite a few developers -- after all, languages like Elm are quite popular these days.
+"
+icon: "hooks/hook-icon.png"
+categories:
+---
+The React team quite quickly realized that if a component doesn't need to maintain an internal state, there's no need for it to be a class. Not long after, the container / presentational pattern appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.
+
+The functional syntax became popular with quite a few developers -- after all, languages like Elm are quite popular these days.
+
+![diagram2](/images/hooks/hooks.jpg){:class="img-responsive"}
+
+Changing the syntax doesn't mean the component state or lifecycle are going away. The question then becomes: how does one keep the functional syntax and, at the same time, allows for the use of state in a component? The answer is, of course, hooks.
+
+There's a `useState` hook, for example. There's also a `useEffect`, and we'll look at both in a moment. Let's consider a simple application that fetches some data from an API and then does something.
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+function App(props) {
+  const [state, setState] = useState({
+    tasks: [],
+    isTasksLoading: false
+  })
+
+  async function fetchTasks() {
+    const tasks = await api.getTasks()
+    fetchTasks(tasks)
+  }
+  
+  useEffect(() => {
+    fetchTasks()
+  }, 
+  // the empty dependency array indicates the effect runs on component mount 
+  // and only once
+  [])
+
+  return (
+    &#x3C;div&#x3E;
+      ... code to render
+    &#x3C;/div&#x3E;
+  )
+}
+</code></pre>
+</div>
+
+The first thing that's very apparent with hooks is we no longer have lifecycle methods like `componentDidMount` or `componentWillReceiveProps,` so we need to rely on a different mechanism -- the `useEffect` hook fills that role now. If we want to react to the component being mounted, we can pass in an empty dependency array. If we want to emulate the `componentWillReceiveProps` we can pass in the props as dependencies.
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+function App(props) {
+  const { currentUser } = props
+
+  const [state, setState] = useState({
+    tasks: [],
+    isTasksLoading: false
+  })  
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)
+    fetchTasks(tasks)
+  }
+  
+  useEffect(() => {
+    fetchTasks(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &#x3C;div&#x3E;
+      ... code to render
+    &#x3C;/div&#x3E;
+  )
+}
+</code></pre>
+</div>
+
+It's worth pointing out that the way `setState` works with hooks is different that the way `setState` works with class components.
+
+1. With class components, it merges the new state into the old state, via the JS spread syntax.
+2. With functional components, it simply replaces the state object. 
+3. You can use `useState` multiple times in functional components and have different instances of state.
+
+And extremely important, with functional components there is no `this.state`. Also, functional components are *closures*, which means they have their own lexical context, and so they capture the values of variables declared in the function at the moment those functions were  called. So in our case, when the response comes back from the server, the value of `state` is the same as it was when the component was called. Typically, this wouldn't be a problem, especially because you can use the `useState` hook multiple times and you can have different disjointed pieces of state.
+
+*The fundamental problem arises if you are trying to use one single view model object as state and merge new state prop values into it if you have to deal with concurrency.*
+
+The typical case in which this would happen is if you aren't using a store manager like Redux, and use a [lift state up](https://reactjs.org/docs/lifting-state-up.html) approach. Typically, this would mean that you are usinng the root component, or the root component route as a state manager and you are using prop drilling and callbacks.
+
+So let's illustrate the point. Let's say that aside from tasks, we also want the user to be able to scribble down and manage notes, and we obviously need to change the data we're displaying when the currently logged in user changes.
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+function App(props) {
+  const { currentUser } = props
+
+  const [state, setState] = useState({
+    tasks: [],
+    notes: [],
+    tasksLoading: false,
+    notesLoading: false
+  })
+
+  const { tasks, tasksLoading, notes, notesLoading } = state
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)    
+    setState({
+      ...state,
+      tasks,
+      tasksLoading: false
+    })
+  }
+
+  async function fetchNotes(currentUser) {
+    setState({
+      ...state,
+      notesLoading: true
+    })
+
+    const notes = await api.getNotes(currentUser)
+
+    setState({
+      ...state,
+      notes,
+      notesLoading: true
+    })  
+  }
+  
+  useEffect(() => {
+    fetchTasks(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &#x3C;div&#x3E;
+      &#x3C;Tasks tasks={tasks} tasksLoading={tasksLoading} /&#x3E;
+      &#x3C;Notes notes={notes} notesLoading={notesLoading} /&#x3E;
+    &#x3C;/div&#x3E;
+  )
+}
+</code></pre>
+</div>
+
+While not necessarily easy to spot, we now have a racing condition.
+
+We can change it like this.
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+function App(props) {
+  const { currentUser } = props
+
+  const [tasks, setTasks] = useState({
+    tasks: [],
+    tasksLoading: false
+  })
+
+  const [notes, setNotes] = useState({
+    notes: [],
+    notesLoading: false
+  })
+
+  async function fetchTasks(currentUser) {
+    const tasks = await api.getTasks(currentUser)    
+    setTasks({      
+      tasks,
+      tasksLoading: false
+    })
+  }
+
+  async function fetchNotes(currentUser) {
+    setState({
+      notes: [],
+      notesLoading: true
+    })
+
+    const notes = await api.getNotes(currentUser)
+
+    setState({
+      ...state,
+      notes,
+      notesLoading: true
+    })  
+  }
+  
+  useEffect(() => {
+    fetchTasks(currentUser)
+    fetchNotes(currentUser)
+  }, 
+  [currentUser])
+
+  return (
+    &#x3C;div&#x3E;
+      &#x3C;Tasks tasks={tasks} tasksLoading={tasksLoading} /&#x3E;
+      &#x3C;Notes notes={notes} notesLoading={notesLoading} /&#x3E;
+    &#x3C;/div&#x3E;
+  )
+}
+</code></pre>
+</div>
+
+Since we are no longer merging the old state into the big state object, we no longer have the racing condition. This is a perfectly valid approach for fixing the problem, but unfortunately, it means we have lost the hierarchical nature of the state object (so we can no longer use it as a view model) -- remember that when we are lifting state to the parent component, we would like the structure of the object to reflect the child component hierarchy.
+
+A fundamental difference between the old approach and the new one is the addition of the `useEffect` hook, which is called after the functional component has rendered, making it behave like the `componentWillReceiveProps` function. This approach is interesting because using this method to make API calls (and therefore changing the state) leads to rerendering. Reacting to state changes in the application is generally considered bad practice because it can also lead to complicated dependency chains, making the code hard to follow. Infinite loops are also a common problem in code written by newcomers.
+
+
+<div class="margin-bottom">
+<pre><code class="language-js line-numbers">
+useEffect(() => {
+  fetchTasks(currentUser)
+})
+</code></pre>
+</div>
+
+Calling the `fetchTask` method like this causes an infinite loop because it sets the `isLoading` field to `true,` which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (this is a consequence of strict mode), which can make things extra confusing. 
