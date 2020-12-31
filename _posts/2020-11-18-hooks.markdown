@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "React Hooks Considerations"
-date:   2020-09-18 09:39:37 +0300
+date:   2020-11-18 09:39:37 +0300
 description: "
 React's development history is widely documented and was developed for internal use at Facebook, as it is the case with a lot of librarie, and for quite some time it was ES5 only - ES6 support of course followed, but the team quite quickly realized that if a component doesn't need to maintain an internal state, there's no need for it to be a class, and one of the major additions of v14.0 were stateless functional components. Not long after, the container / presentational pattern appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.
 "
@@ -84,13 +84,13 @@ It's worth pointing out that the way <span class="code">useState</span> works wi
 2. With functional components, it simply replaces the state object. 
 3. You can use <span class="code">useState</span> multiple times in functional components and have different instances of state.
 
-And extremely important, with functional components there is no <span class="code">this.state</span>. Also, functional components are *closures*, which means they have their own lexical context, and so they capture the values of variables declared in the function at the moment those functions were  called. So in our case, when the response comes back from the server, the value of <span class="code">state</span> is the same as it was when the component was called. Typically, this wouldn't be a problem, especially because you can use the <span class="code">useState</span> hook multiple times and you can have different disjointed pieces of state.
+And extremely important, with functional components there is no <span class="code">this.state</span>. Also, functional components are *closures*, which means they have their own lexical context, and so they capture the values of variables declared in the function when those functions were called. So in our case, when the response comes back from the server, the value of <span class="code">state</span> is the same as it was when the component was called. Typically, this wouldn't be a problem, especially because you can use the <span class="code">useState</span> hook multiple times, and you can have different disjointed pieces of state.
 
-*The fundamental problem arises if you are trying to use one single view model object as state and merge new state prop values into it if you have to deal with concurrency.*
+*The main problem with this approach arises if you are trying to use one single view model object as state and merge new state prop values into it if you have to deal with concurrency.*
 
 The typical case in which this would happen is if you aren't using a store manager like Redux, and use a [lift state up](https://reactjs.org/docs/lifting-state-up.html) approach. Typically, this would mean that you are usinng the root component, or the root component route as a state manager and you are using prop drilling and callbacks.
 
-So let's illustrate the point. Let's say that aside from tasks, we also want the user to be able to scribble down and manage notes, and we obviously need to change the data we're displaying when the currently logged in user changes.
+So let's illustrate the point. Let's say that aside from tasks, we also want the user to be able to scribble down and manage notes, and we need to change the data we're displaying when the currently logged in user changes.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -203,10 +203,9 @@ function App(props) {
 </code></pre>
 </div>
 
-Since we are no longer merging the old state into the big state object, we no longer have the racing condition. This is a perfectly valid approach for fixing the problem, but unfortunately, it means we have lost the hierarchical nature of the state object (so we can no longer use it as a view model) -- remember that when we are lifting state to the parent component, we would like the structure of the object to reflect the child component hierarchy.
+Since we are no longer merging the old state into the big state object, we no longer have the racing condition. This is a perfectly valid approach for fixing the problem, but unfortunately, it means we have lost the hierarchical nature of the state object (so we can no longer use it as a view model) -- remember that when we are lifting the state to the parent component, we would like the structure of the object to reflect the child component hierarchy.
 
 A fundamental difference between the old approach and the new one is the addition of the <span class="code">useEffect</span> hook, which is called after the functional component has rendered, making it behave like the <span class="code">componentWillReceiveProps</span> function. This approach is interesting because using this method to make API calls (and therefore changing the state) leads to rerendering. Reacting to state changes in the application is generally considered bad practice because it can also lead to complicated dependency chains, making the code hard to follow. Infinite loops are also a common problem in code written by newcomers.
-
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -216,6 +215,6 @@ useEffect(() => {
 </code></pre>
 </div>
 
-Calling the <span class="code">fetchTask</span> method like this causes an infinite loop because it sets the <span class="code">isLoading</span> field to <span class="code">true</span>, which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (this is a consequence of strict mode), which can make things extra confusing. 
+Calling the <span class="code">fetchTask</span> method like this causes an infinite loop because it sets the <span class="code">isLoading</span> field to <span class="code">true</span>, which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (React tries to ensure your state changes are [idempotent](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation#:~:text=at%204%3A12-,12,as%20making%20a%20single%20request., and don't lead to infinite refreshing loops)), which can make things extra confusing. 
 
 To wrap up, while hooks are a welcome addition to React, the learning curve isn't exactly shallow.
