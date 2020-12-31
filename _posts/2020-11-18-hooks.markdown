@@ -217,4 +217,4 @@ useEffect(() => {
 
 Calling the <span class="code">fetchTask</span> method like this causes an infinite loop because it sets the <span class="code">isLoading</span> field to <span class="code">true</span>, which triggers rerendering, which calls the effect again. In some cases, the dependency cycles might be more complicated: a parent component might trigger an effect in a child component, making the problem harder to diagnose. To make matters slightly worse is the fact that React's strict mode triggers double rendering for debugging purposes (React tries to ensure your state changes are [idempotent](https://stackoverflow.com/questions/1077412/what-is-an-idempotent-operation#:~:text=at%204%3A12-,12,as%20making%20a%20single%20request.), and don't lead to infinite refreshing loops), which can make things extra confusing. 
 
-To wrap up, while hooks are a welcome addition to React, the learning curve isn't exactly shallow.
+To wrap up, while hooks are a welcome addition to React, the learning curve can be quite steep.
