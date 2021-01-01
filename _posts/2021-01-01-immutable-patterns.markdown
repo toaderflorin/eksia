@@ -193,4 +193,4 @@ case REMOVE_PRODUCT: {
 </code></pre>
 </div>
 
-Developers used to an imperative way of doing things might find this way of doing things might find the functional approach unintuitive. Luckily, for the most part, these code snippets and be copy-pasted directly into your reducers with little structural change.
+Developers used to an imperative way of doing things might find this way of doing things might find the functional approach unintuitive. Luckily, for the most part, these code snippets and be copy-pasted directly into your reducers with little structural change. While laying out all the benefits of functional programming is beyond the scope of this article, check out this [primer](/immutability) on how reactivity works in React.
