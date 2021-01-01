@@ -3,12 +3,12 @@ layout: post
 title:  "Reducer State Update Recipes"
 date:   2021-01-01 09:39:37 +0300
 description: "
-One aspect that can be challenging for React newcomers is how to handle state updates since the state is immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like map, reduce, filter, and the spread operator to achieve the state changes without actually mutating the existing state object.
+One aspect that can be challenging for React newcomers is how to handle state updates since React mandates the state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like map, reduce, filter, and the spread operator to achieve the state changes without actually mutating the existing state object.
 "
 icon: "immutable-patterns/logo.png"
 categories:
 ---
-One aspect that can be challenging for React newcomers is how to handle state updates since the state is immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like <span class="code">map</span>, <span class="code">reduce</span>, <span class="code">filter</span>, and the spread operator to achieve the desired state changes without actually mutating the existing state object.
+One aspect that can be challenging for React newcomers is how to handle state updates since React mandates the state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like <span class="code">map</span>, <span class="code">reduce</span>, <span class="code">filter</span>, and the spread operator to achieve the desired state changes without actually mutating the existing state object.
 
 Let's consider a complex object tree, in the form of an object that has complex objects as properties.
 
