@@ -91,7 +91,7 @@ case ADD_PRODUCT: {
 </code></pre>
 </div>
 
-And here's a code snippet on how to update the properties of a specific product by id. The map function creates a new array that keeps the existing items intact if they don't match the desired id but creates a new product with the updated properties when the id matches.
+And here's a code snippet on how to update the properties of a specific product by id. The <span class="code">map</span> function creates a new array that keeps the existing items intact if they don't match the desired id but creates a new product with the updated properties when the id matches.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -128,7 +128,7 @@ case REMOVE_PRODUCT: {
 </code></pre>
 </div>
 
-What if, instead of using an array, we use a key-value map (in the form of a plain object) and access the products by id? 
+What if, instead of using an array, we use a key-value map (in the form of a plain object) and access the products by id? This is a common pattern because it allows easy access to an item without having to iterate through the whole collection.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -172,7 +172,7 @@ Updating will now look like this:
 </code></pre>
 </div>
 
-And finally for removing the item, we'll use the reduce function and an accumulator.
+And finally for removing the item, we'll use the <span class="code">reduce</span> function and an accumulator.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
