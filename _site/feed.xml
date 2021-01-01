@@ -1,5 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-12-31T14:18:23+02:00</updated><id>http://localhost:4000/</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">React Hooks Considerations</title><link href="http://localhost:4000/hooks" rel="alternate" type="text/html" title="React Hooks Considerations" /><published>2020-11-18T08:39:37+02:00</published><updated>2020-11-18T08:39:37+02:00</updated><id>http://localhost:4000/hooks</id><content type="html" xml:base="http://localhost:4000/hooks">&lt;p&gt;React’s development history is widely documented and was developed for internal use at Facebook, as it is the case with a lot of libraries, and for quite some time it was ES5 only – ES6 support of course followed, but the team quite quickly realized that if a component doesn’t need to maintain an internal state, there’s no need for it to be a class, and one of the major additions of v14.0 were stateless functional components. Not long after, the &lt;a href=&quot;https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0&quot;&gt;container / presentational pattern&lt;/a&gt; appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-01T20:43:42+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Reducer State Update Recipes</title><link href="http://localhost:4000/immutable-patterns" rel="alternate" type="text/html" title="Reducer State Update Recipes" /><published>2021-01-01T08:39:37+02:00</published><updated>2021-01-01T08:39:37+02:00</updated><id>http://localhost:4000/immutable-patterns</id><content type="html" xml:base="http://localhost:4000/immutable-patterns">&lt;p&gt;One aspect that can be challenging for React newcomers is how to handle state updates since the state is immutable. Functional code generally doesn’t mutate existing objects - it creates new instances of objects with properties changed. The Javascript spread operator comes in handy.&lt;/p&gt;
+
+&lt;p&gt;Let’s consider a complex object tree, in the form of an object that has complex objects as properties.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+const obj = {
+  innerObj: {
+    someProp: 12,
+    someOtherProp: 'A string.'
+  },
+  anotherInnerObj: {
+    yetAnotherProp: 'Another string.'
+  }
+}
+
+function changeSomeProp(obj, val) {
+  // obj.innerObj.someProp = val
+  // this would be a no no, in functional programing
+
+  return {
+    ...obj,
+    innerObj: {
+      ...obj.innerObj,
+      someProp: val
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can repesent object trees using diagrams like the one below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/immutable-patterns/tree.svg&quot; alt=&quot;diagram3&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So far, everything is straight forward. Where things get more interesting is when we’re starting to deal with arrays or collections of objects (because we are now deciding which part of the state to change programmatically).&lt;/p&gt;
+
+&lt;p&gt;Let us consider the case of a React application that uses Redux and wants to manage a list of products. We will need actions for adding, removing and updating a product in the collection.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+switch (action.type) {
+  case ADD_PRODUCT: {
+    ...
+  }
+
+  case UPDATE_PRODUCT: {
+    ...
+  }
+  
+  case REMOVE_PRODUCT: {
+    ...
+  }
+
+  default: {
+    return state
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let us now look at the individual cases.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case ADD_PRODUCT: {
+  const product = {
+    id: v4(),
+    description: action.description,
+    price: action.price,
+    category: action.category
+  }
+
+  return {
+    ...state,
+    products: [...state.products, products]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And here’s a code snippet on how to update the properties of a specific product by id. The map function creates a new array that keeps the existing items intact if they don’t match the desired id but creates a new product with the updated properties when the id matches.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case UPDATE_PRODUCT: {
+  return {
+    ...state,
+    product: state.product.map(product =&amp;gt; {
+      if (product.id === action.productId) {
+        return {
+          ...product,
+          description: action.description,
+          category: action.category,
+          price: action.price            
+        }
+      } else {
+        return product
+      }
+    })
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s now add an action that will remove the product from the list by id.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case REMOVE_PRODUCT: {
+  return {
+    ...state,
+    products: state.products.filter(product =&amp;gt; product.id !== action.productId)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What if, instead of using an array, we use a key-value map (in the form of a plain object) and access the products by id?&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case ADD_PRODUCT: {
+  const product = {
+    id: v4(),
+    description: action.description,
+    price: action.price,
+    category: action.category
+  }
+
+  return {
+    ...state,
+    products: {
+      ...state.products,
+      [product.id]: product
+    }
+  }    
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Updating will now look like this:&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+  case UPDATE_PRODUCT: {    
+    return {
+      ...state,
+      products: {
+        ...state.products,
+        [product.id]: {
+          ...state.products[product.id],
+          description: action.description,
+          category: action.category,
+          price: action.price
+        }
+      }
+    }    
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And finally for removing the item, we’ll use the reduce function and an accumulator.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+case REMOVE_PRODUCT: {    
+  const remainingProducts = state.products.reduce(
+    (acc, product) =&amp;gt; {
+      if (product.id !== action.productId) {
+        acc[product.id] = product
+      }
+    }, {})
+  )
+
+  return {
+    ...state,
+    products: remainingProducts      
+  }    
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name></name></author><summary type="html">One aspect that can be challenging for React newcomers is how to handle state updates since the state is immutable. Functional code generally doesn’t mutate existing objects - it creates new instances of objects with properties changed. The Javascript spread operator comes in handy.</summary></entry><entry><title type="html">React Hooks Considerations</title><link href="http://localhost:4000/hooks" rel="alternate" type="text/html" title="React Hooks Considerations" /><published>2020-11-18T08:39:37+02:00</published><updated>2020-11-18T08:39:37+02:00</updated><id>http://localhost:4000/hooks</id><content type="html" xml:base="http://localhost:4000/hooks">&lt;p&gt;React’s development history is widely documented and was developed for internal use at Facebook, as it is the case with a lot of libraries, and for quite some time it was ES5 only – ES6 support of course followed, but the team quite quickly realized that if a component doesn’t need to maintain an internal state, there’s no need for it to be a class, and one of the major additions of v14.0 were stateless functional components. Not long after, the &lt;a href=&quot;https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0&quot;&gt;container / presentational pattern&lt;/a&gt; appeared, where the state changes would be handled in a wrapping class component, and the inner child component would handle the presentation part.&lt;/p&gt;
 
 &lt;p&gt;The functional syntax became popular with quite a few developers – after all, languages like Elm are quite popular these days.&lt;/p&gt;
 

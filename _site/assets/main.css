@@ -387,7 +387,7 @@ blockquote {
 .gradient-back {
   color: white;
   height: 480px;
-  background: linear-gradient(to left bottom, transparent, black);
+  background: linear-gradient(to left bottom, rgba(0, 0, 0, 0), black);
   z-index: -1;
   padding-top: 62px;
   display: flex;
