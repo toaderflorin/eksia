@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reducer State Update Recipes"
+title:  "Redux State Update Recipes"
 date:   2021-01-01 09:39:37 +0300
 description: "
 One aspect that can be challenging for React newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like map, reduce, filter, and the spread operator to achieve the state changes without actually mutating the existing state object.
@@ -8,7 +8,11 @@ One aspect that can be challenging for React newcomers is how to handle state up
 icon: "immutable-patterns/logo.png"
 categories:
 ---
-One aspect that can be challenging for React newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like <span class="code">map</span>, <span class="code">reduce</span>, <span class="code">filter</span>, and the spread operator to achieve the desired state changes without actually mutating the existing state object.
+![diagram2](/images/immutable-patterns/redux.png){:class="img-responsive"}
+
+One aspect that can be challenging for React / Redux newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like <span class="code">map</span>, <span class="code">reduce</span>, <span class="code">filter</span>, and the spread operator to achieve the desired state changes without actually mutating the existing state object.
+
+React and Redux have been conceived from the ground up to follow the functional philosophy of development. While laying out all the benefits of functional programming is beyond this article's scope, check out this [primer](/immutability) on how reactivity and immutability work in conjunction with React.
 
 Let's consider a complex object tree, in the form of an object that has complex objects as properties.
 
@@ -193,4 +197,4 @@ case REMOVE_PRODUCT: {
 </code></pre>
 </div>
 
-Developers used to an imperative way of doing things might find this way of doing things might find the functional approach unintuitive. Luckily, for the most part, these code snippets and be copy-pasted directly into your reducers with little structural change. While laying out all the benefits of functional programming is beyond the scope of this article, check out this [primer](/immutability) on how reactivity works in React.
+Developers used to an imperative way of doing things might find this way of doing things might find the functional approach unintuitive. Luckily, for the most part, these code snippets can be copy-pasted directly into your reducers with little structural change.
