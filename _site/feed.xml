@@ -1,5 +1,249 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-03T19:49:46+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Redux State Update Recipes</title><link href="http://localhost:4000/redux-state-updates" rel="alternate" type="text/html" title="Redux State Update Recipes" /><published>2021-01-01T08:39:37+02:00</published><updated>2021-01-01T08:39:37+02:00</updated><id>http://localhost:4000/redux-state-updates</id><content type="html" xml:base="http://localhost:4000/redux-state-updates">&lt;p&gt;&lt;img src=&quot;/images/immutable-patterns/redux.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-09T12:38:09+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Replacing Redux With Hooks</title><link href="http://localhost:4000/hooks-store" rel="alternate" type="text/html" title="Replacing Redux With Hooks" /><published>2021-01-02T23:39:37+02:00</published><updated>2021-01-02T23:39:37+02:00</updated><id>http://localhost:4000/hooks-store</id><content type="html" xml:base="http://localhost:4000/hooks-store">&lt;p&gt;While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/xx.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With hooks, React provides powerful features when writing functional components, and it’s not opinionated on how you use them. The problem is, choosing the right approach can be tricky because there are so many permutations. Developers moving from .NET WebAPI or Rails (which are very opinionated in how you name your controllers and routes) to NodeJS / Express (which imposes no restrictions on how to structure your code) will find this approach very familiar.&lt;/p&gt;
+
+&lt;p&gt;Another relatively new addition to React is the Context API. If you’re not familiar with what it is, it’s a way for components to avoid having to pass down props through complex component trees - a technique known as prop drilling. React’s rendering engine knows to react to changes in the context state, just as it is able to respond to changes in component state or prop changes.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We could have different contexts per route with separate data stores for each of them.&lt;/li&gt;
+  &lt;li&gt;We could use a single context per application, and each route can keep its state in a property of the single app state object.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We’ll go with option number two because that’s what Redux does, and most developers are familiar with that approach.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/app.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Since we plan to lay the groundwork for a complex app, we’ll assume that this application has multiple “modules” (vertical slices in the application). We plan to recreate the ubiquitous “tasks” app, so we’ll have two modules: tasks and settings.&lt;/p&gt;
+
+&lt;p&gt;The reducer created with &lt;code class=&quot;highlighter-rouge&quot;&gt;useReducer&lt;/code&gt; hook works similar to a Redux reducer. It’s just a function that takes a &lt;em&gt;state&lt;/em&gt; object and an &lt;em&gt;action&lt;/em&gt; object, and based on that, it returns a new state object. One way of thinking about it is it’s a way of mutating state, but of course we’re not really mutate the existing state, but rather creating a new state object (immutability is one of the central tenets of functional programming).&lt;/p&gt;
+
+&lt;p&gt;We’ll show reducer actions for:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Creating a new note.&lt;/li&gt;
+  &lt;li&gt;Removing a note that’s has been added.&lt;/li&gt;
+  &lt;li&gt;Updating an existing note.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+import { NotesState, NotesAction, Note } from './types'
+import { ADD_NOTE, REMOVE_NOTE, UPDATE_NOTE } from './actions'
+import { v4 } from 'uuid'
+
+export const initialNotesState: NotesState = {
+  notes: []
+}
+
+export function notesReducer(state: NotesState, action: NotesAction) {
+  switch (action.type) {
+    case ADD_NOTE: {
+      const note = {
+        id: v4(),
+        title: action.title,
+        description: action.description
+      }
+
+      return {
+        ...state,
+        notes: [...state.notes, note]
+      }
+    }
+
+    case REMOVE_NOTE: {
+      return {
+        ...state,
+        notes: state.notes.filter((note: Note) =&amp;gt; note.id !== action.noteId)
+      }
+    }
+
+    case UPDATE_NOTE: {
+      return {
+        ...state,
+        notes: state.notes.map((note: Note) =&amp;gt; {
+          if (note.id === action.noteId) {
+            return {
+              ...note,
+              title: action.title,
+              description: action.description
+            }
+          } else {
+            return note
+          }
+        })
+      }
+    }
+
+    default: {
+      return state
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We know need to create the &lt;em&gt;action creators&lt;/em&gt;. These are high order function that return other functions which will in turn dispatch reducer actions. They receive a reference to the application state as well as the dispatch function (which comes from using the reducer hook).&lt;/p&gt;
+
+&lt;p&gt;We’ll need a mechanism to get these and pass them on, but we’ll cover that a bit later.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+import { Dispatch } from 'react'
+import { NotesAction } from './types'
+import { AppState } from '../../types'
+
+export const ADD_NOTE = 'ADD_NOTE'
+export const REMOVE_NOTE = 'REMOVE_NOTE'
+export const UPDATE_NOTE = 'UPDATE_NOTE'
+
+export function addNote(title: string, description: string) {
+  return async function (state: AppState, dispatch: Dispatch&amp;lt;NotesAction&amp;gt;) {
+    dispatch({
+      type: ADD_NOTE,
+      title,
+      description
+    })
+  }
+}
+
+export function removeNote(noteId: string) {
+  return async function (state: AppState, dispatch: Dispatch&amp;lt;NotesAction&amp;gt;) {
+    dispatch({
+      type: REMOVE_NOTE,
+      noteId
+    })
+  }
+}
+
+export function updateNote(noteId: string, title: string, description: string) {
+  return async function (state: AppState, dispatch: Dispatch&amp;lt;NotesAction&amp;gt;) {
+    dispatch({
+      type: UPDATE_NOTE,
+      noteId,
+      title,
+      description
+    })
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And finally, let’s have a look the &lt;em&gt;types.ts&lt;/em&gt; file.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+import { ADD_NOTE, REMOVE_NOTE, UPDATE_NOTE } from './actions'
+
+export type Note = {
+  id: string
+  title: string
+  description: string
+}
+
+export type NotesState = {
+  notes: Note[]
+}
+
+export type NotesAction =
+  | { type: typeof ADD_NOTE, title: string, description: string }
+  | { type: typeof REMOVE_NOTE, noteId: string }
+  | { type: typeof UPDATE_NOTE, noteId: string, title: string, description: string }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since the application uses a single data store, we need to combine our reducers into a single one. We’ll create an &lt;em&gt;appReducer.ts&lt;/em&gt; file for this.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+type Action =
+  | NotesAction
+  | TasksAction
+
+const initialAppState = {
+  tasks: initialTasksState,
+  notes: initialNotesState
+}
+
+function combinedReducer(state: AppState, action: Action) {
+  return {
+    notes: notesReducer(state.notes, action as NotesAction),
+    tasks: tasksReducer(state.tasks, action as TasksAction)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s try to put it all together now.&lt;/p&gt;
+
+&lt;p&gt;We need a way for the UI to be able to call our actions and to react to changes in the application state. We’ll use a global context that can be accessed from anywhere in the application via the useContext hook that will give the calling component access to the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The global state of the app.&lt;/li&gt;
+  &lt;li&gt;An execute method, which will allow it to trigger actions.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+import React, { useReducer, Dispatch } from 'react'
+import { notesReducer, initialNotesState } from './modules/notes/store/reducer'
+import { tasksReducer, initialTasksState } from './modules/tasks/store/reducer'
+import { AppState, ChildrenProps } from './modules/types'
+import { NotesAction } from './modules/notes/store/types'
+import { TasksAction } from './modules/tasks/store/types'
+
+export type ExecuteFunc = (state: AppState, dispatch: Dispatch&amp;lt;any&amp;gt;) 
+  =&amp;gt; Promise&amp;lt;void&amp;lt; | void
+
+export type AppContextType = {
+  state: AppState
+  execute: (action: ExecuteFunc) =&amp;gt; Promise&amp;lt;void&amp;gt;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const AppContext = React.createContext({} as any as AppContextType)
+
+export default function AppContextProvider(props: ChildrenProps) {
+  const [state, dispatch] = useReducer(combinedReducer, initialAppState)
+
+  async function execute(action: (state: AppState, dispatch: Dispatch&amp;lt;Action&amp;gt;) 
+    =&amp;gt; Promise&amp;lt;void&amp;gt; | void) {
+    try {
+      await action(state, dispatch)
+    } catch (error) {
+      // take appropriate action and report the error
+      alert('The application encountered an error.')
+    }
+  }
+
+  return (
+    &amp;lt;AppContext.Provider value=&amp;gt;
+      {props.children}
+    &amp;lt;/AppContext.Provider&amp;gt;
+  )
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We’ll need to add the AppContextProvider as the root component of the application. Then in a component, we can access the application state and the &lt;em&gt;execute&lt;/em&gt; method using the useContext hook.&lt;/p&gt;
+
+&lt;div class=&quot;margin-bottom&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
+const { state, execute } = useContext(AppContext)
+
+function removeNoteClick(noteId: string) {
+  execute(noteActions.removeNote(noteId))
+}
+
+const notes = state.notes.notes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For the link, use &lt;a href=&quot;https://github.com/toaderflorin/hooks-store&quot;&gt;this&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.</summary></entry><entry><title type="html">Redux State Update Recipes</title><link href="http://localhost:4000/redux-state-updates" rel="alternate" type="text/html" title="Redux State Update Recipes" /><published>2021-01-01T08:39:37+02:00</published><updated>2021-01-01T08:39:37+02:00</updated><id>http://localhost:4000/redux-state-updates</id><content type="html" xml:base="http://localhost:4000/redux-state-updates">&lt;p&gt;&lt;img src=&quot;/images/immutable-patterns/redux.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;One aspect that can be challenging for React / Redux newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn’t mutate existing objects - it creates new instances of objects with properties changed. In this article, we’ll look at ways of using some of Javascript’s functional features like &lt;span class=&quot;code&quot;&gt;map&lt;/span&gt;, &lt;span class=&quot;code&quot;&gt;reduce&lt;/span&gt;, &lt;span class=&quot;code&quot;&gt;filter&lt;/span&gt;, and the spread operator to achieve the desired state changes without actually mutating the existing state object.&lt;/p&gt;
 
