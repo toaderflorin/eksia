@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-09T12:38:09+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Replacing Redux With Hooks</title><link href="http://localhost:4000/hooks-store" rel="alternate" type="text/html" title="Replacing Redux With Hooks" /><published>2021-01-02T23:39:37+02:00</published><updated>2021-01-02T23:39:37+02:00</updated><id>http://localhost:4000/hooks-store</id><content type="html" xml:base="http://localhost:4000/hooks-store">&lt;p&gt;While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-09T19:52:42+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Replacing Redux With Hooks</title><link href="http://localhost:4000/hooks-store" rel="alternate" type="text/html" title="Replacing Redux With Hooks" /><published>2021-01-07T23:39:37+02:00</published><updated>2021-01-07T23:39:37+02:00</updated><id>http://localhost:4000/hooks-store</id><content type="html" xml:base="http://localhost:4000/hooks-store">&lt;p&gt;While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/hook-store/xx.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Let’s first take a look at the Redux data flow.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/diagram.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;With hooks, React provides powerful features when writing functional components, and it’s not opinionated on how you use them. The problem is, choosing the right approach can be tricky because there are so many permutations. Developers moving from .NET WebAPI or Rails (which are very opinionated in how you name your controllers and routes) to NodeJS / Express (which imposes no restrictions on how to structure your code) will find this approach very familiar.&lt;/p&gt;
 
@@ -14,7 +16,7 @@
 
 &lt;p&gt;We’ll go with option number two because that’s what Redux does, and most developers are familiar with that approach.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/hook-store/app.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/pic2.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Since we plan to lay the groundwork for a complex app, we’ll assume that this application has multiple “modules” (vertical slices in the application). We plan to recreate the ubiquitous “tasks” app, so we’ll have two modules: tasks and settings.&lt;/p&gt;
 
@@ -86,9 +88,7 @@ export function notesReducer(state: NotesState, action: NotesAction) {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;We know need to create the &lt;em&gt;action creators&lt;/em&gt;. These are high order function that return other functions which will in turn dispatch reducer actions. They receive a reference to the application state as well as the dispatch function (which comes from using the reducer hook).&lt;/p&gt;
-
-&lt;p&gt;We’ll need a mechanism to get these and pass them on, but we’ll cover that a bit later.&lt;/p&gt;
+&lt;p&gt;Now that we have defined a reducer, we’ll want to create the equivalent of Redux’s action creators.&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
@@ -155,7 +155,7 @@ export type NotesAction =
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Since the application uses a single data store, we need to combine our reducers into a single one. We’ll create an &lt;em&gt;appReducer.ts&lt;/em&gt; file for this.&lt;/p&gt;
+&lt;p&gt;Our application also has a &lt;em&gt;tasks&lt;/em&gt; section which has the same structure – actions, and a state reducer. Since the application uses a single data store, we need to combine both our reducers into a single one. We’ll create an &lt;em&gt;appReducer.ts&lt;/em&gt; file for this.&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
@@ -189,11 +189,8 @@ function combinedReducer(state: AppState, action: Action) {
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
 import React, { useReducer, Dispatch } from 'react'
-import { notesReducer, initialNotesState } from './modules/notes/store/reducer'
-import { tasksReducer, initialTasksState } from './modules/tasks/store/reducer'
 import { AppState, ChildrenProps } from './modules/types'
-import { NotesAction } from './modules/notes/store/types'
-import { TasksAction } from './modules/tasks/store/types'
+import appReducer, { initialAppState, Action } from './appReducer'
 
 export type ExecuteFunc = (state: AppState, dispatch: Dispatch&amp;lt;any&amp;gt;) 
   =&amp;gt; Promise&amp;lt;void&amp;lt; | void
@@ -225,11 +222,10 @@ export default function AppContextProvider(props: ChildrenProps) {
     &amp;lt;/AppContext.Provider&amp;gt;
   )
 }
-
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;We’ll need to add the AppContextProvider as the root component of the application. Then in a component, we can access the application state and the &lt;em&gt;execute&lt;/em&gt; method using the useContext hook.&lt;/p&gt;
+&lt;p&gt;We’ll need to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;AppContextProvider&lt;/code&gt; as the root component of the application. Then in a component, we can access the application state and the &lt;code class=&quot;highlighter-rouge&quot;&gt;execute&lt;/code&gt; method using the &lt;code class=&quot;highlighter-rouge&quot;&gt;useContext&lt;/code&gt; hook.&lt;/p&gt;
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
@@ -240,6 +236,8 @@ function removeNoteClick(noteId: string) {
 }
 
 const notes = state.notes.notes
+
+// rendering the notes
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 

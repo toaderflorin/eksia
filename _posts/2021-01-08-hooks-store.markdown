@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Replacing Redux With Hooks"
-date:   2021-01-03 00:39:37 +0300
+date:   2021-01-08 00:39:37 +0300
 description: "
 One aspect that can be challenging for React newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn't mutate existing objects - it creates new instances of objects with properties changed. In this article, we'll look at ways of using some of Javascript's functional features like map, reduce, filter, and the spread operator to achieve the state changes without actually mutating the existing state object.
 "
@@ -10,7 +10,9 @@ categories:
 ---
 While the rumors about Redux's demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn't provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.
 
-![diagram2](/images/hook-store/xx.png){:class="img-responsive"}
+Let's first take a look at the Redux data flow.
+
+![diagram2](/images/hook-store/diagram.png){:class="img-responsive"}
 
 With hooks, React provides powerful features when writing functional components, and it's not opinionated on how you use them. The problem is, choosing the right approach can be tricky because there are so many permutations. Developers moving from .NET WebAPI or Rails (which are very opinionated in how you name your controllers and routes) to NodeJS / Express (which imposes no restrictions on how to structure your code) will find this approach very familiar.
 
@@ -21,7 +23,7 @@ Another relatively new addition to React is the Context API. If you're not famil
 
 We'll go with option number two because that's what Redux does, and most developers are familiar with that approach.
 
-![diagram2](/images/hook-store/app.png){:class="img-responsive"}
+![diagram2](/images/hook-store/pic2.png){:class="img-responsive"}
 
 Since we plan to lay the groundwork for a complex app, we'll assume that this application has multiple "modules" (vertical slices in the application). We plan to recreate the ubiquitous "tasks" app, so we'll have two modules: tasks and settings.
 
@@ -91,9 +93,7 @@ export function notesReducer(state: NotesState, action: NotesAction) {
 </code></pre>
 </div>
 
-We know need to create the *action creators*. These are high order function that return other functions which will in turn dispatch reducer actions. They receive a reference to the application state as well as the dispatch function (which comes from using the reducer hook).
-
-We'll need a mechanism to get these and pass them on, but we'll cover that a bit later.
+Now that we have defined a reducer, we'll want to create the equivalent of Redux's action creators.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -160,7 +160,7 @@ export type NotesAction =
 </code></pre>
 </div>
 
-Since the application uses a single data store, we need to combine our reducers into a single one. We'll create an *appReducer.ts* file for this.
+Our application also has a *tasks* section which has the same structure -- actions, and a state reducer. Since the application uses a single data store, we need to combine both our reducers into a single one. We'll create an *appReducer.ts* file for this.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -192,11 +192,8 @@ We need a way for the UI to be able to call our actions and to react to changes 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
 import React, { useReducer, Dispatch } from 'react'
-import { notesReducer, initialNotesState } from './modules/notes/store/reducer'
-import { tasksReducer, initialTasksState } from './modules/tasks/store/reducer'
 import { AppState, ChildrenProps } from './modules/types'
-import { NotesAction } from './modules/notes/store/types'
-import { TasksAction } from './modules/tasks/store/types'
+import appReducer, { initialAppState, Action } from './appReducer'
 
 export type ExecuteFunc = (state: AppState, dispatch: Dispatch&lt;any&gt;) 
   => Promise&lt;void&lt; | void
@@ -228,11 +225,10 @@ export default function AppContextProvider(props: ChildrenProps) {
     &lt;/AppContext.Provider&gt;
   )
 }
-
 </code></pre>
 </div>
 
-We'll need to add the AppContextProvider as the root component of the application. Then in a component, we can access the application state and the *execute* method using the useContext hook.
+We'll need to add the `AppContextProvider` as the root component of the application. Then in a component, we can access the application state and the `execute` method using the `useContext` hook.
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
@@ -243,6 +239,8 @@ function removeNoteClick(noteId: string) {
 }
 
 const notes = state.notes.notes
+
+// rendering the notes
 </code></pre>
 </div>
 
