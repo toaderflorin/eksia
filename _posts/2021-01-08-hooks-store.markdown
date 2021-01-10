@@ -41,7 +41,7 @@ We'll need to create reducer actions for:
 
 <div class="margin-bottom">
 <pre><code class="language-js line-numbers">
-import { NotesState, NotesAction, Note } from './types'proj
+import { NotesState, NotesAction, Note } from './types'
 import { ADD_NOTE, REMOVE_NOTE, UPDATE_NOTE } from './actions'
 import { v4 } from 'uuid'
 
