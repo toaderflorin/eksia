@@ -31,7 +31,7 @@ Since we plan to lay the groundwork for a complex app, we'll assume that this ap
 
 ![diagram2](/images/hook-store/proj.png){:style="width: 230px"}
 
-The reducer created with <span class="code">useReducer</span> hook works similar to a Redux reducer. It's just a function that takes a *state* object and an *action* object, and based on that, it returns a new state object. One way of thinking about it is it's a way of mutating state, but of course we're not really mutate the existing state, but rather creating a new state object (immutability is one of the central tenets of functional programming).
+The reducer created with the <span class="code">useReducer</span> hook works similar to a Redux reducer. It's just a function that takes a *state* object and an *action* object, and based on that, it returns a new state object. One way of thinking about it is it's a way of mutating state, but of course we're not really mutate the existing state, but rather creating a new state object (immutability is one of the central tenets of functional programming).
 
 We'll need to create reducer actions for:
 
