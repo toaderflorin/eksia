@@ -36,7 +36,7 @@ The reducer created with the <span class="code">useReducer</span> hook works sim
 We'll need to create reducer actions for:
 
 1. Creating a new note.
-2. Removing a note that's has been added.
+2. Removing a note that has already been added.
 3. Updating an existing note.
 
 <div class="margin-bottom">
