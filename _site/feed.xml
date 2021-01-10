@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-10T10:01:56+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
-</subtitle><entry><title type="html">Replacing Redux With Hooks</title><link href="http://localhost:4000/hooks-store" rel="alternate" type="text/html" title="Replacing Redux With Hooks" /><published>2021-01-07T23:39:37+02:00</published><updated>2021-01-07T23:39:37+02:00</updated><id>http://localhost:4000/hooks-store</id><content type="html" xml:base="http://localhost:4000/hooks-store">&lt;p&gt;While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the &lt;span class=&quot;code&quot;&gt;useReducer&lt;/span&gt; hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-01-10T21:03:15+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">achiral</title><subtitle>achiral offers consulting and custom software development services on the node.js and .NET stacks.
+</subtitle><entry><title type="html">Architecting Your Application With Hooks Instead Of Redux</title><link href="http://localhost:4000/hooks-store" rel="alternate" type="text/html" title="Architecting Your Application With Hooks Instead Of Redux" /><published>2021-01-07T23:39:37+02:00</published><updated>2021-01-07T23:39:37+02:00</updated><id>http://localhost:4000/hooks-store</id><content type="html" xml:base="http://localhost:4000/hooks-store">&lt;p&gt;While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid using as many external libraries as possible because chances are they could become deprecated in the future. While using the &lt;span class=&quot;code&quot;&gt;useReducer&lt;/span&gt; hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.&lt;/p&gt;
 
 &lt;p&gt;Let’s first take a look at the Redux data flow.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/hook-store/diagram.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/arch.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;First of all, it’s worth pointing out that the data flow is unidirectional. The user can trigger actions from the UI, which act on the application state via a “reducer,” which in turn triggers rerendering of the UI. The is aim to replicate this flow using the built in React functionality.&lt;/p&gt;
+&lt;p&gt;First of all, it’s worth pointing out that the data flow is unidirectional. The user can trigger actions from the UI, which act on the application state via a &lt;em&gt;reducer&lt;/em&gt;, which in turn triggers rerendering of the UI. The is aim to replicate this flow using the built in React functionality.&lt;/p&gt;
 
 &lt;p&gt;With hooks, React provides powerful features when writing functional components, and it’s not opinionated on how you use them. The problem is, choosing the right approach can be tricky because there are so many permutations. Developers moving from .NET WebAPI or Rails (which are very opinionated in how you name your controllers and routes) to NodeJS / Express (which imposes no restrictions on how to structure your code) will find this approach very familiar.&lt;/p&gt;
 
@@ -16,15 +16,17 @@
   &lt;li&gt;We could use a single context per application, and each route can keep its state in a property of the single app state object.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;We’ll go with option number two because that’s what Redux does, and most developers are familiar with that approach.&lt;/p&gt;
+&lt;p&gt;We’ll go with option number two because that’s what Redux does, and most developers are familiar with that approach. The aim is to create a personal organizer application that has two sections: notes and tasks. The note page and task page structure are similar, so we’ll present the code for notes as an example.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/hook-store/pic2.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Since we plan to lay the groundwork for a complex app, we’ll assume that this application has multiple “modules” (vertical slices in the application). We plan to recreate the ubiquitous “tasks” app, so we’ll have two modules: tasks and settings.&lt;/p&gt;
+&lt;p&gt;Since we plan to lay the groundwork for a complex app, we’ll assume that this application has multiple &lt;em&gt;modules&lt;/em&gt;. Each module will have a &lt;em&gt;components&lt;/em&gt; folder, which contains the UI code, and a &lt;em&gt;store&lt;/em&gt; folder which contains the action creators and the reducer logic.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/hook-store/proj.png&quot; alt=&quot;diagram2&quot; style=&quot;width: 230px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The reducer created with &lt;span class=&quot;code&quot;&gt;useReducer&lt;/span&gt; hook works similar to a Redux reducer. It’s just a function that takes a &lt;em&gt;state&lt;/em&gt; object and an &lt;em&gt;action&lt;/em&gt; object, and based on that, it returns a new state object. One way of thinking about it is it’s a way of mutating state, but of course we’re not really mutate the existing state, but rather creating a new state object (immutability is one of the central tenets of functional programming).&lt;/p&gt;
 
-&lt;p&gt;We’ll show reducer actions for:&lt;/p&gt;
+&lt;p&gt;We’ll need to create reducer actions for:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Creating a new note.&lt;/li&gt;
@@ -34,7 +36,7 @@
 
 &lt;div class=&quot;margin-bottom&quot;&gt;
 &lt;pre&gt;&lt;code class=&quot;language-js line-numbers&quot;&gt;
-import { NotesState, NotesAction, Note } from './types'
+import { NotesState, NotesAction, Note } from './types'proj
 import { ADD_NOTE, REMOVE_NOTE, UPDATE_NOTE } from './actions'
 import { v4 } from 'uuid'
 
@@ -241,7 +243,9 @@ const notes = state.notes.notes
 
 // rendering the notes
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html">While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.</summary></entry><entry><title type="html">Redux State Update Recipes</title><link href="http://localhost:4000/redux-state-updates" rel="alternate" type="text/html" title="Redux State Update Recipes" /><published>2021-01-01T08:39:37+02:00</published><updated>2021-01-01T08:39:37+02:00</updated><id>http://localhost:4000/redux-state-updates</id><content type="html" xml:base="http://localhost:4000/redux-state-updates">&lt;p&gt;&lt;img src=&quot;/images/immutable-patterns/redux.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The source code can be found &lt;a href=&quot;https://github.com/toaderflorin/hooks-store&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">While the rumors about Redux’s demise are most likely mostly exaggerated, there is no doubt that there is no doubt we can achieve a lot of the functionality it provides with hooks. Also, as a rule of thumb, we should avoid using as many external libraries as possible because chances are they could become deprecated in the future. While using the useReducer hook is relatively straightforward, React doesn’t provide a prescription on how to structure a relatively large application. To make matters worse, virtually every blog article on the internet recommends using a different approach.</summary></entry><entry><title type="html">Redux State Update Recipes</title><link href="http://localhost:4000/redux-state-updates" rel="alternate" type="text/html" title="Redux State Update Recipes" /><published>2021-01-01T08:39:37+02:00</published><updated>2021-01-01T08:39:37+02:00</updated><id>http://localhost:4000/redux-state-updates</id><content type="html" xml:base="http://localhost:4000/redux-state-updates">&lt;p&gt;&lt;img src=&quot;/images/immutable-patterns/redux.png&quot; alt=&quot;diagram2&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;One aspect that can be challenging for React / Redux newcomers is how to handle state updates since React mandates application state be immutable. Functional code generally doesn’t mutate existing objects - it creates new instances of objects with properties changed. In this article, we’ll look at ways of using some of Javascript’s functional features like &lt;span class=&quot;code&quot;&gt;map&lt;/span&gt;, &lt;span class=&quot;code&quot;&gt;reduce&lt;/span&gt;, &lt;span class=&quot;code&quot;&gt;filter&lt;/span&gt;, and the spread operator to achieve the desired state changes without actually mutating the existing state object.&lt;/p&gt;
 
