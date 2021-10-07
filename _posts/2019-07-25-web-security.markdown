@@ -29,7 +29,7 @@ There are quite a lot of developers that when it comes to web application securi
 Both XSS and SQL Injection are cases of *code injection*.
 
 ## Cross-Site Scripting
-XSS refers to a vulnerability where an attacker can "inject" Javascript code that will be run by the application. In my previous article, I've discussed the [same-origin](http://achiral.io/cors-made-simple) policy concept at length which states that if the content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.
+XSS refers to a vulnerability where an attacker can "inject" Javascript code that will be run by the application. In my previous article, I've discussed the [same-origin](http://eksia.io/cors-made-simple) policy concept at length which states that if the content from one site is granted permission to access resources on a system, then any content from that site will share these permissions, while content from another site will have to be granted permissions separately.
 
 <i>A lot of people think that SOP prevents XSS attacks. This is <b>not the case.</b></i>
 
